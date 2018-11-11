@@ -24,7 +24,7 @@ namespace DataAsGuard
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DialogResult dialog = MessageBox.Show("Hi!");
+            DialogResult dialog = MessageBox.Show("Hi! This is me");
         }
     }
 }
