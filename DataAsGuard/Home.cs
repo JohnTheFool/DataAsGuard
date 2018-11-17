@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DataAsGuard
 {
-    public partial class Form1 : Form
+    public partial class Home : Form
     {
-        public Form1()
+        public Home()
         {
             InitializeComponent();
         }
@@ -24,7 +24,9 @@ namespace DataAsGuard
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DialogResult dialog = MessageBox.Show("Hi! This is me");
+            FileManagement.FileUpload fileUpload = new FileManagement.FileUpload();
+            fileUpload.Show();
+            Hide();
         }
     }
 }

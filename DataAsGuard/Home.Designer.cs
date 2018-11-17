@@ -1,6 +1,6 @@
 ﻿namespace DataAsGuard
 {
-    partial class Form1
+    partial class Home
     {
         /// <summary>
         /// Required designer variable.
@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.testButton = new System.Windows.Forms.Button();
+            this.uploadNav = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // testButton
+            // uploadNav
             // 
-            this.testButton.AccessibleName = "testButton";
-            this.testButton.Location = new System.Drawing.Point(362, 194);
-            this.testButton.Name = "testButton";
-            this.testButton.Size = new System.Drawing.Size(75, 23);
-            this.testButton.TabIndex = 0;
-            this.testButton.Text = "Test Button";
-            this.testButton.UseVisualStyleBackColor = true;
-            this.testButton.Click += new System.EventHandler(this.button1_Click);
+            this.uploadNav.AccessibleName = "";
+            this.uploadNav.Location = new System.Drawing.Point(12, 12);
+            this.uploadNav.Name = "uploadNav";
+            this.uploadNav.Size = new System.Drawing.Size(75, 23);
+            this.uploadNav.TabIndex = 0;
+            this.uploadNav.Text = "Upload File";
+            this.uploadNav.UseVisualStyleBackColor = true;
+            this.uploadNav.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Form1
+            // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.testButton);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Controls.Add(this.uploadNav);
+            this.Name = "Home";
+            this.Text = "Home";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
@@ -57,7 +57,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button testButton;
+        private System.Windows.Forms.Button uploadNav;
     }
 }
 
