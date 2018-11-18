@@ -28,5 +28,12 @@ namespace DataAsGuard
             fileUpload.Show();
             Hide();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Registration.Registration register = new Registration.Registration();
+            register.Show();
+            Hide();
+        }
     }
 }
