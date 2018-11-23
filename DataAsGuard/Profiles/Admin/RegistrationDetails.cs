@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
-namespace DataAsGuard.Registration
+namespace DataAsGuard.Profiles.Admin
 {
-    public partial class Registration : Form
+    public partial class RegistrationDetails : Form
     {
-        public Registration()
+        public RegistrationDetails()
         {
             InitializeComponent();
         }
