@@ -36,10 +36,17 @@ namespace DataAsGuard
             Hide();
         }
 
-        private void showEditorForm(object sender, EventArgs e)
+        private void showImg(object sender, EventArgs e)
         {
             ImgViewer.ImgViewerForm imgViewerForm = new ImgViewer.ImgViewerForm();
             imgViewerForm.Show();
+            Hide();
+        }
+
+        private void viewPdf_Click(object sender, EventArgs e)
+        {
+            PdfViewer.PdfViewer pdfViewerForm = new PdfViewer.PdfViewer();
+            pdfViewerForm.Show();
             Hide();
         }
     }

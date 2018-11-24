@@ -55,10 +55,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DB.cs" />
-    <Compile Include="ImgViewer\ImgViewerForm.cs">
+    <Compile Include="Viewer\ImgViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImgViewer\ImgViewerForm.Designer.cs">
+    <Compile Include="Viewer\ImgViewerForm.Designer.cs">
       <DependentUpon>ImgViewerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManagement\FileUpload.Designer.cs">
@@ -90,10 +90,16 @@
     <Compile Include="Profiles\Admin\RegistrationDetails.Designer.cs">
       <DependentUpon>RegistrationDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Viewer\PdfViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Viewer\PdfViewer.Designer.cs">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImgViewer\ImgViewerForm.resx">
+    <EmbeddedResource Include="Viewer\ImgViewerForm.resx">
       <DependentUpon>ImgViewerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
@@ -117,6 +123,9 @@
     <EmbeddedResource Include="Profiles\Admin\RegistrationDetails.resx">
       <DependentUpon>RegistrationDetails.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Viewer\PdfViewer.resx">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -132,6 +141,25 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Profiles\Users\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

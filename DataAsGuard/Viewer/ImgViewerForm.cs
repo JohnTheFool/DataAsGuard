@@ -45,7 +45,7 @@ namespace DataAsGuard.ImgViewer
 
         private void opnFile_Click(object sender, EventArgs e)  //Function for button to open file
         {
-            using (OpenFileDialog ofd = new OpenFileDialog() { Multiselect = false, ValidateNames = true, Filter = "JPEG|*.jpg" })
+            using (OpenFileDialog ofd = new OpenFileDialog() { Multiselect = false, ValidateNames = true, Filter = "JPEG;JPG;PNG|*.jpeg;*.jpg;*.png" })
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
@@ -81,6 +81,13 @@ namespace DataAsGuard.ImgViewer
             //this.TopMost = true;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            Home home = new Home();
+            home.Show();
+            Hide();
         }
     }
 }
