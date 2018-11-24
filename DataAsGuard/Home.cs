@@ -35,5 +35,12 @@ namespace DataAsGuard
             register.Show();
             Hide();
         }
+
+        private void showEditorForm(object sender, EventArgs e)
+        {
+            ImgViewer.ImgViewerForm imgViewerForm = new ImgViewer.ImgViewerForm();
+            imgViewerForm.Show();
+            Hide();
+        }
     }
 }

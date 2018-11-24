@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAsGuard;
 
-namespace DataAsGuard.Editor
+namespace DataAsGuard.ImgViewer
 {
-    public partial class EditorForm : Form
+    public partial class ImgViewerForm : Form
     {
-        Image imgOriginal;
-        public EditorForm()
+        Image imgOriginal;  //Delcare imgOriginal Variable
+        public ImgViewerForm()
         {
             InitializeComponent();
         }
 
-        Image Zoom(Image img, Size size)
+        Image Zoom(Image img, Size size)    //Image Zoom function
         {
             Bitmap bmp = new Bitmap(img, img.Width + (img.Width * size.Width / 100), img.Height + (img.Height * size.Height / 100));
             Graphics g = Graphics.FromImage(bmp);
@@ -43,7 +43,7 @@ namespace DataAsGuard.Editor
 
         }
 
-        private void opnFile_Click(object sender, EventArgs e)
+        private void opnFile_Click(object sender, EventArgs e)  //Function for button to open file
         {
             using (OpenFileDialog ofd = new OpenFileDialog() { Multiselect = false, ValidateNames = true, Filter = "JPEG|*.jpg" })
             {
@@ -55,7 +55,7 @@ namespace DataAsGuard.Editor
             }
         }
 
-        private void zoom_Scroll(object sender, EventArgs e)
+        private void zoom_Scroll(object sender, EventArgs e)    //For Zoom Scroller
         {
             if (zoom.Value > 0)
             {
@@ -63,7 +63,7 @@ namespace DataAsGuard.Editor
             }
         }
 
-        private void EditorForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void ImgViewerForm_FormClosing(object sender, FormClosingEventArgs e)   //Show img
         {
             if (showPic.Image != null)
             {
@@ -76,7 +76,7 @@ namespace DataAsGuard.Editor
 
         }
 
-        private void EditorForm_Load(object sender, EventArgs e)
+        private void ImgViewerForm_Load(object sender, EventArgs e)
         {
             //this.TopMost = true;
             //this.FormBorderStyle = FormBorderStyle.None;

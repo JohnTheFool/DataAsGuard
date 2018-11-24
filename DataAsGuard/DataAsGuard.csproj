@@ -54,12 +54,12 @@
     <Compile Include="FileManagement\FileUpload.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\EditorControl.cs" />
-    <Compile Include="Editor\EditorForm.cs">
+    <Compile Include="DB.cs" />
+    <Compile Include="ImgViewer\ImgViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\EditorForm.Designer.cs">
-      <DependentUpon>EditorForm.cs</DependentUpon>
+    <Compile Include="ImgViewer\ImgViewerForm.Designer.cs">
+      <DependentUpon>ImgViewerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManagement\FileUpload.Designer.cs">
       <DependentUpon>FileUpload.cs</DependentUpon>
@@ -93,8 +93,8 @@
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\EditorForm.resx">
-      <DependentUpon>EditorForm.cs</DependentUpon>
+    <EmbeddedResource Include="ImgViewer\ImgViewerForm.resx">
+      <DependentUpon>ImgViewerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>

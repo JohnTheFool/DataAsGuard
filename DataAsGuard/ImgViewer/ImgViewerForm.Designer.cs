@@ -1,6 +1,6 @@
-﻿namespace DataAsGuard.Editor
+﻿namespace DataAsGuard.ImgViewer
 {
-    partial class EditorForm
+    partial class ImgViewerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -102,10 +102,10 @@
             this.Controls.Add(this.fileNameBox);
             this.Controls.Add(this.showPic);
             this.Controls.Add(this.opnFile);
-            this.Name = "EditorForm";
-            this.Text = "EditorForm";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditorForm_FormClosing);
-            this.Load += new System.EventHandler(this.EditorForm_Load);
+            this.Name = "ImgViewerForm";
+            this.Text = "ImgViewerForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImgViewerForm_FormClosing);
+            this.Load += new System.EventHandler(this.ImgViewerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.showPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.zoom)).EndInit();
             this.ResumeLayout(false);
