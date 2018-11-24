@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
-namespace DataAsGuard.Profiles.Admin
+namespace DataAsGuard.Profiles.Users
 {
-    public partial class RegistrationDetails : Form
+    public partial class ConfirmationDetails : Form
     {
-        public RegistrationDetails()
+        public ConfirmationDetails()
         {
             InitializeComponent();
         }
@@ -54,9 +54,11 @@ namespace DataAsGuard.Profiles.Admin
 
         }
 
-        private void password_Click(object sender, EventArgs e)
+        private void Confirm_Click(object sender, EventArgs e)
         {
-
+            confirmationOTP registerOTP = new confirmationOTP();
+            registerOTP.Show();
+            Hide();
         }
     }
 }
