@@ -64,6 +64,18 @@
     <Compile Include="FileManagement\FileUpload.Designer.cs">
       <DependentUpon>FileUpload.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileManagement\FilePermissions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\FilePermissions.Designer.cs">
+      <DependentUpon>FilePermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileManagement\AddNewPermission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\AddNewPermission.Designer.cs">
+      <DependentUpon>AddNewPermission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +102,12 @@
     <Compile Include="Profiles\Admin\RegistrationDetails.Designer.cs">
       <DependentUpon>RegistrationDetails.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FileManagement\AddNewPermission.resx">
+      <DependentUpon>AddNewPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\FilePermissions.resx">
+      <DependentUpon>FilePermissions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,6 +150,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Profiles\Users\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Media\AddUserIcon.png" />
+    <Content Include="Media\BackIcon.png" />
+    <Content Include="Media\DataAsguardLogo.png" />
+    <Content Include="Media\FolderIcon.png" />
+    <Content Include="Media\HomeIcon.png" />
+    <Content Include="Media\UserIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

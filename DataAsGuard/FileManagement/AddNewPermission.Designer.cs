@@ -1,6 +1,6 @@
 ﻿namespace DataAsGuard.FileManagement
 {
-    partial class FileUpload
+    partial class AddNewPermission
     {
         /// <summary>
         /// Required designer variable.
@@ -28,34 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BrowseButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // BrowseButton
-            // 
-            this.BrowseButton.Location = new System.Drawing.Point(486, 230);
-            this.BrowseButton.Name = "BrowseButton";
-            this.BrowseButton.Size = new System.Drawing.Size(75, 23);
-            this.BrowseButton.TabIndex = 0;
-            this.BrowseButton.Text = "Browse";
-            this.BrowseButton.UseVisualStyleBackColor = true;
-            this.BrowseButton.Click += new System.EventHandler(this.BrowseButton_click1);
-            // 
-            // FileUpload
+            // AddNewPermission
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.BrowseButton);
-            this.Name = "FileUpload";
-            this.Text = "FileUpload";
-            this.Load += new System.EventHandler(this.FileUpload_Load);
+            this.Name = "AddNewPermission";
+            this.Text = "DataAsGuard";
+            this.Load += new System.EventHandler(this.AddNewPermission_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button BrowseButton;
     }
 }

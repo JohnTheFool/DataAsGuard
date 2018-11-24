@@ -32,5 +32,10 @@ namespace DataAsGuard.FileManagement
                 }
             }
         }
+
+        private void FileUpload_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
