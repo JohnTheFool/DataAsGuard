@@ -82,6 +82,12 @@
     <Compile Include="Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\Admin\AdminProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Admin\AdminProfile.Designer.cs">
+      <DependentUpon>AdminProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Admin\Registration.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,36 @@
     </Compile>
     <Compile Include="Profiles\Admin\RegistrationConfirm.Designer.cs">
       <DependentUpon>RegistrationConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Users\ChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Users\ChangePassword.Designer.cs">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Users\confirmationOTP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Users\confirmationOTP.Designer.cs">
+      <DependentUpon>confirmationOTP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Users\Profile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Users\Profile.Designer.cs">
+      <DependentUpon>Profile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Users\ConfirmationDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Users\ConfirmationDetails.Designer.cs">
+      <DependentUpon>ConfirmationDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,11 +153,29 @@
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Admin\AdminProfile.resx">
+      <DependentUpon>AdminProfile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Admin\Registration.resx">
       <DependentUpon>Registration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Admin\RegistrationConfirm.resx">
       <DependentUpon>RegistrationConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Users\ChangePassword.resx">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Users\confirmationOTP.resx">
+      <DependentUpon>confirmationOTP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Users\Profile.resx">
+      <DependentUpon>Profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Users\ConfirmationDetails.resx">
+      <DependentUpon>ConfirmationDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -159,5 +213,6 @@
     <Content Include="Media\HomeIcon.png" />
     <Content Include="Media\UserIcon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

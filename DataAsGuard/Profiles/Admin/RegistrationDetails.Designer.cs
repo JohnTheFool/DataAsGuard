@@ -32,8 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.password = new System.Windows.Forms.Label();
             this.DOB = new System.Windows.Forms.Label();
             this.name = new System.Windows.Forms.Label();
             this.phoneNo = new System.Windows.Forms.Label();
@@ -46,7 +44,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 86);
+            this.label4.Location = new System.Drawing.Point(3, 65);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(111, 13);
             this.label4.TabIndex = 7;
@@ -64,7 +62,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 64);
+            this.label3.Location = new System.Drawing.Point(3, 43);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(101, 13);
             this.label3.TabIndex = 6;
@@ -73,34 +71,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 43);
+            this.label2.Location = new System.Drawing.Point(3, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Email";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Password:";
-            // 
-            // password
-            // 
-            this.password.AutoSize = true;
-            this.password.Location = new System.Drawing.Point(217, 22);
-            this.password.Name = "password";
-            this.password.Size = new System.Drawing.Size(56, 13);
-            this.password.TabIndex = 13;
-            this.password.Text = "Password:";
-            // 
             // DOB
             // 
             this.DOB.AutoSize = true;
-            this.DOB.Location = new System.Drawing.Point(217, 86);
+            this.DOB.Location = new System.Drawing.Point(217, 65);
             this.DOB.Name = "DOB";
             this.DOB.Size = new System.Drawing.Size(111, 13);
             this.DOB.TabIndex = 12;
@@ -118,7 +98,7 @@
             // phoneNo
             // 
             this.phoneNo.AutoSize = true;
-            this.phoneNo.Location = new System.Drawing.Point(217, 64);
+            this.phoneNo.Location = new System.Drawing.Point(217, 43);
             this.phoneNo.Name = "phoneNo";
             this.phoneNo.Size = new System.Drawing.Size(101, 13);
             this.phoneNo.TabIndex = 11;
@@ -127,7 +107,7 @@
             // email
             // 
             this.email.AutoSize = true;
-            this.email.Location = new System.Drawing.Point(217, 43);
+            this.email.Location = new System.Drawing.Point(217, 22);
             this.email.Name = "email";
             this.email.Size = new System.Drawing.Size(32, 13);
             this.email.TabIndex = 10;
@@ -135,28 +115,26 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.White;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 214F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.DOB, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.password, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.phoneNo, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.email, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.DOB, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.phoneNo, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.email, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.name, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(177, 86);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 130F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(429, 115);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(429, 88);
             this.tableLayoutPanel1.TabIndex = 14;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
@@ -169,15 +147,15 @@
             this.Confirm.Text = "Confirm";
             this.Confirm.UseVisualStyleBackColor = true;
             // 
-            // Registration
+            // RegistrationDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Cornsilk;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Confirm);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "Registration";
+            this.Name = "RegistrationDetails";
             this.Text = "Registration";
             this.Load += new System.EventHandler(this.Registration_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -192,8 +170,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label password;
         private System.Windows.Forms.Label DOB;
         private System.Windows.Forms.Label name;
         private System.Windows.Forms.Label phoneNo;
