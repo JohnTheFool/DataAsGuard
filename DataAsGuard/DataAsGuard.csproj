@@ -40,6 +40,7 @@
     <Reference Include="MySql.Web, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileManagement\AddNewPermission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\AddNewPermission.Designer.cs">
+      <DependentUpon>AddNewPermission.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileManagement\FileUpload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,12 +76,6 @@
     </Compile>
     <Compile Include="FileManagement\FilePermissions.Designer.cs">
       <DependentUpon>FilePermissions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FileManagement\AddNewPermission.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FileManagement\AddNewPermission.Designer.cs">
-      <DependentUpon>AddNewPermission.cs</DependentUpon>
     </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
@@ -202,15 +203,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Profiles\Users\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Media\AddUserIcon.png" />
     <Content Include="Media\BackIcon.png" />
     <Content Include="Media\DataAsguardLogo.png" />
     <Content Include="Media\FolderIcon.png" />
     <Content Include="Media\HomeIcon.png" />
+    <Content Include="Media\SettingsIcon.png" />
     <Content Include="Media\UserIcon.png" />
   </ItemGroup>
   <ItemGroup />

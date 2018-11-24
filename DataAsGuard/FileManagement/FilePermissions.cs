@@ -46,5 +46,10 @@ namespace DataAsGuard.FileManagement
         {
 
         }
+
+        private void deletePermission_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

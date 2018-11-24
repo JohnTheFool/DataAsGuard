@@ -65,6 +65,8 @@
             // 
             // permissionGrid
             // 
+            this.permissionGrid.AllowUserToAddRows = false;
+            this.permissionGrid.AllowUserToDeleteRows = false;
             this.permissionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.permissionGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.user,
@@ -73,6 +75,7 @@
             this.permissionGrid.GridColor = System.Drawing.SystemColors.Control;
             this.permissionGrid.Location = new System.Drawing.Point(289, 12);
             this.permissionGrid.Name = "permissionGrid";
+            this.permissionGrid.ReadOnly = true;
             this.permissionGrid.Size = new System.Drawing.Size(499, 279);
             this.permissionGrid.TabIndex = 2;
             this.permissionGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.permissionGrid_CellContentClick);
@@ -122,6 +125,7 @@
             this.deletePermission.TabIndex = 5;
             this.deletePermission.Text = "Delete Permission";
             this.deletePermission.UseVisualStyleBackColor = true;
+            this.deletePermission.Click += new System.EventHandler(this.deletePermission_Click);
             // 
             // FilePermissions
             // 

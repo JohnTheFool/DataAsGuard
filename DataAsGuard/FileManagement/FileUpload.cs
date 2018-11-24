@@ -37,5 +37,10 @@ namespace DataAsGuard.FileManagement
         {
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -33,6 +33,8 @@
             this.BackButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.ProfileButton = new System.Windows.Forms.Button();
+            this.manageFilesButton = new System.Windows.Forms.Button();
+            this.settingsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,11 +75,33 @@
             this.ProfileButton.TabIndex = 5;
             this.ProfileButton.UseVisualStyleBackColor = true;
             // 
+            // manageFilesButton
+            // 
+            this.manageFilesButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.manageFilesButton.Location = new System.Drawing.Point(139, 182);
+            this.manageFilesButton.Name = "manageFilesButton";
+            this.manageFilesButton.Size = new System.Drawing.Size(526, 44);
+            this.manageFilesButton.TabIndex = 7;
+            this.manageFilesButton.Text = "Manage Files";
+            this.manageFilesButton.UseVisualStyleBackColor = true;
+            this.manageFilesButton.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // settingsButton
+            // 
+            this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
+            this.settingsButton.Location = new System.Drawing.Point(12, 115);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(37, 36);
+            this.settingsButton.TabIndex = 8;
+            this.settingsButton.UseVisualStyleBackColor = true;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.manageFilesButton);
             this.Controls.Add(this.ProfileButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.BackButton);
@@ -95,6 +119,8 @@
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button ProfileButton;
+        private System.Windows.Forms.Button manageFilesButton;
+        private System.Windows.Forms.Button settingsButton;
     }
 }
 
