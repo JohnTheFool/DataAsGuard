@@ -1,6 +1,6 @@
-﻿namespace DataAsGuard.Registration
+﻿namespace DataAsGuard.Profiles.Admin
 {
-    partial class Registration
+    partial class RegistrationDetails
     {
         /// <summary>
         /// Required designer variable.
@@ -39,6 +39,7 @@
             this.phoneNo = new System.Windows.Forms.Label();
             this.email = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.Confirm = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -159,11 +160,22 @@
             this.tableLayoutPanel1.TabIndex = 14;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
+            // Confirm
+            // 
+            this.Confirm.Location = new System.Drawing.Point(357, 302);
+            this.Confirm.Name = "Confirm";
+            this.Confirm.Size = new System.Drawing.Size(75, 23);
+            this.Confirm.TabIndex = 15;
+            this.Confirm.Text = "Confirm";
+            this.Confirm.UseVisualStyleBackColor = true;
+            // 
             // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Cornsilk;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Confirm);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Registration";
             this.Text = "Registration";
@@ -187,5 +199,6 @@
         private System.Windows.Forms.Label phoneNo;
         private System.Windows.Forms.Label email;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button Confirm;
     }
 }
