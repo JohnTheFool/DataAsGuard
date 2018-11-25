@@ -67,12 +67,12 @@
     <Compile Include="FileManagement\FileUpload.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\EditorControl.cs" />
-    <Compile Include="Editor\EditorForm.cs">
+    <Compile Include="DB.cs" />
+    <Compile Include="Viewer\ImgViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editor\EditorForm.Designer.cs">
-      <DependentUpon>EditorForm.cs</DependentUpon>
+    <Compile Include="Viewer\ImgViewerForm.Designer.cs">
+      <DependentUpon>ImgViewerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManagement\FileUpload.Designer.cs">
       <DependentUpon>FileUpload.cs</DependentUpon>
@@ -160,11 +160,17 @@
     <EmbeddedResource Include="FileManagement\FileSearch.resx">
       <DependentUpon>FileSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="Viewer\PdfViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Viewer\PdfViewer.Designer.cs">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\EditorForm.resx">
-      <DependentUpon>EditorForm.cs</DependentUpon>
+    <EmbeddedResource Include="Viewer\ImgViewerForm.resx">
+      <DependentUpon>ImgViewerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\RecycleBin.resx">
       <DependentUpon>RecycleBin.cs</DependentUpon>
@@ -208,6 +214,9 @@
     <EmbeddedResource Include="Profiles\Admin\RegistrationDetails.resx">
       <DependentUpon>RegistrationDetails.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Viewer\PdfViewer.resx">
+      <DependentUpon>PdfViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -232,6 +241,24 @@
     <Content Include="Media\SettingsIcon.png" />
     <Content Include="Media\UserIcon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

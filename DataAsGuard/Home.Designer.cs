@@ -35,6 +35,8 @@
             this.ProfileButton = new System.Windows.Forms.Button();
             this.manageFilesButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
+            this.viewImg = new System.Windows.Forms.Button();
+            this.viewPdf = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,6 +98,27 @@
             this.settingsButton.TabIndex = 8;
             this.settingsButton.UseVisualStyleBackColor = true;
             // 
+            // viewImg
+            // 
+            this.viewImg.Location = new System.Drawing.Point(12, 173);
+            this.viewImg.Name = "viewImg";
+            this.viewImg.Size = new System.Drawing.Size(75, 23);
+            this.viewImg.TabIndex = 2;
+            this.viewImg.Text = "View Image";
+            this.viewImg.UseVisualStyleBackColor = true;
+            this.viewImg.Click += new System.EventHandler(this.showImg);
+            // 
+            // viewPdf
+            // 
+            this.viewPdf.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.viewPdf.Location = new System.Drawing.Point(12, 221);
+            this.viewPdf.Name = "viewPdf";
+            this.viewPdf.Size = new System.Drawing.Size(75, 23);
+            this.viewPdf.TabIndex = 4;
+            this.viewPdf.Text = "View PDF";
+            this.viewPdf.UseVisualStyleBackColor = true;
+            this.viewPdf.Click += new System.EventHandler(this.viewPdf_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,6 +127,8 @@
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.manageFilesButton);
             this.Controls.Add(this.ProfileButton);
+            this.Controls.Add(this.viewPdf);
+            this.Controls.Add(this.viewImg);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.pictureBox1);
@@ -122,6 +147,8 @@
         private System.Windows.Forms.Button ProfileButton;
         private System.Windows.Forms.Button manageFilesButton;
         private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Button viewImg;
+        private System.Windows.Forms.Button viewPdf;
     }
 }
 
