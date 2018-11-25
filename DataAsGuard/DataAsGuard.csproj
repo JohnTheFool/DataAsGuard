@@ -58,6 +58,12 @@
     <Compile Include="FileManagement\AddNewPermission.Designer.cs">
       <DependentUpon>AddNewPermission.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileManagement\FileSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\FileSearch.Designer.cs">
+      <DependentUpon>FileSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileManagement\FileUpload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +82,12 @@
     </Compile>
     <Compile Include="FileManagement\FilePermissions.Designer.cs">
       <DependentUpon>FilePermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileManagement\RecycleBin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\RecycleBin.Designer.cs">
+      <DependentUpon>RecycleBin.cs</DependentUpon>
     </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
@@ -145,11 +157,17 @@
     <EmbeddedResource Include="FileManagement\FilePermissions.resx">
       <DependentUpon>FilePermissions.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\FileSearch.resx">
+      <DependentUpon>FileSearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editor\EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\RecycleBin.resx">
+      <DependentUpon>RecycleBin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
@@ -210,6 +228,7 @@
     <Content Include="Media\DataAsguardLogo.png" />
     <Content Include="Media\FolderIcon.png" />
     <Content Include="Media\HomeIcon.png" />
+    <Content Include="Media\SearchIcon.png" />
     <Content Include="Media\SettingsIcon.png" />
     <Content Include="Media\UserIcon.png" />
   </ItemGroup>

@@ -82,7 +82,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(301, 51);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(305, 116);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -116,7 +116,7 @@
             "Read",
             "Edit",
             "Download"});
-            this.checkedListBox1.Location = new System.Drawing.Point(367, 116);
+            this.checkedListBox1.Location = new System.Drawing.Point(367, 176);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(120, 49);
             this.checkedListBox1.TabIndex = 6;
@@ -124,7 +124,7 @@
             // 
             // applyPermButton
             // 
-            this.applyPermButton.Location = new System.Drawing.Point(367, 350);
+            this.applyPermButton.Location = new System.Drawing.Point(367, 255);
             this.applyPermButton.Name = "applyPermButton";
             this.applyPermButton.Size = new System.Drawing.Size(120, 23);
             this.applyPermButton.TabIndex = 7;
