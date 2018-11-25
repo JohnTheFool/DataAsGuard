@@ -35,9 +35,9 @@
             this.ProfileButton = new System.Windows.Forms.Button();
             this.manageFilesButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.viewImg = new System.Windows.Forms.Button();
             this.viewPdf = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -100,7 +100,7 @@
             // 
             // viewImg
             // 
-            this.viewImg.Location = new System.Drawing.Point(12, 114);
+            this.viewImg.Location = new System.Drawing.Point(12, 173);
             this.viewImg.Name = "viewImg";
             this.viewImg.Size = new System.Drawing.Size(75, 23);
             this.viewImg.TabIndex = 2;
@@ -111,7 +111,7 @@
             // viewPdf
             // 
             this.viewPdf.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.viewPdf.Location = new System.Drawing.Point(12, 162);
+            this.viewPdf.Location = new System.Drawing.Point(12, 221);
             this.viewPdf.Name = "viewPdf";
             this.viewPdf.Size = new System.Drawing.Size(75, 23);
             this.viewPdf.TabIndex = 4;
