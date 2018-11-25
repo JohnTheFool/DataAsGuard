@@ -42,18 +42,18 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.Email, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(261, 131);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(269, 167);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(288, 100);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(211, 51);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // Email
             // 
-            this.Email.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.Email.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Email.AutoSize = true;
-            this.Email.Location = new System.Drawing.Point(106, 43);
+            this.Email.Location = new System.Drawing.Point(35, 19);
             this.Email.Name = "Email";
             this.Email.Size = new System.Drawing.Size(35, 13);
             this.Email.TabIndex = 0;
@@ -62,14 +62,14 @@
             // textBox1
             // 
             this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBox1.Location = new System.Drawing.Point(147, 40);
+            this.textBox1.Location = new System.Drawing.Point(108, 15);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 2;
             // 
             // Confirm
             // 
-            this.Confirm.Location = new System.Drawing.Point(379, 292);
+            this.Confirm.Location = new System.Drawing.Point(353, 290);
             this.Confirm.Name = "Confirm";
             this.Confirm.Size = new System.Drawing.Size(75, 23);
             this.Confirm.TabIndex = 1;

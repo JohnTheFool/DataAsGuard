@@ -127,7 +127,7 @@
             this.tableLayoutPanel1.Controls.Add(this.name, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(177, 86);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(176, 141);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
@@ -140,7 +140,7 @@
             // 
             // Confirm
             // 
-            this.Confirm.Location = new System.Drawing.Point(357, 302);
+            this.Confirm.Location = new System.Drawing.Point(350, 300);
             this.Confirm.Name = "Confirm";
             this.Confirm.Size = new System.Drawing.Size(75, 23);
             this.Confirm.TabIndex = 15;
