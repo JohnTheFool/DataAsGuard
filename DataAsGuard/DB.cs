@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
-namespace DataAsGuard.Editor
+
+// Calling the Database
+
+
+//DbClass dbCon = new DbClass(); >> Declare DB Object
+
+//List<string> dataDisplay = new List<string>(); >> Declare a List to store db object
+
+//dataDisplay = dbCon.DbRetrieve(Table, Column); << Retrieve Data in this format
+
+
+
+namespace DataAsGuard.DB
 {
     public class DbClass
     {
