@@ -28,10 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileUpload));
             this.browseButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.fileUploaded = new System.Windows.Forms.TextBox();
             this.uploadButton = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.userScrollBar = new System.Windows.Forms.VScrollBar();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.BackButton = new System.Windows.Forms.Button();
+            this.settingsButton = new System.Windows.Forms.Button();
+            this.ProfileButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,7 +67,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(502, 48);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
@@ -85,11 +93,86 @@
             this.uploadButton.Text = "Upload";
             this.uploadButton.UseVisualStyleBackColor = true;
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Items.AddRange(new object[] {
+            "User1",
+            "User2",
+            "User3",
+            "Admin1"});
+            this.listBox1.Location = new System.Drawing.Point(205, 126);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(144, 199);
+            this.listBox1.TabIndex = 3;
+            // 
+            // userScrollBar
+            // 
+            this.userScrollBar.Location = new System.Drawing.Point(330, 126);
+            this.userScrollBar.Name = "userScrollBar";
+            this.userScrollBar.Size = new System.Drawing.Size(19, 199);
+            this.userScrollBar.TabIndex = 4;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "Read",
+            "Edit",
+            "Download"});
+            this.checkedListBox1.Location = new System.Drawing.Point(470, 187);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(120, 49);
+            this.checkedListBox1.TabIndex = 7;
+            // 
+            // BackButton
+            // 
+            this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
+            this.BackButton.Location = new System.Drawing.Point(751, 12);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(37, 36);
+            this.BackButton.TabIndex = 8;
+            this.BackButton.UseVisualStyleBackColor = true;
+            // 
+            // settingsButton
+            // 
+            this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
+            this.settingsButton.Location = new System.Drawing.Point(12, 115);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(37, 36);
+            this.settingsButton.TabIndex = 11;
+            this.settingsButton.UseVisualStyleBackColor = true;
+            // 
+            // ProfileButton
+            // 
+            this.ProfileButton.Image = ((System.Drawing.Image)(resources.GetObject("ProfileButton.Image")));
+            this.ProfileButton.Location = new System.Drawing.Point(12, 63);
+            this.ProfileButton.Name = "ProfileButton";
+            this.ProfileButton.Size = new System.Drawing.Size(37, 36);
+            this.ProfileButton.TabIndex = 10;
+            this.ProfileButton.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(12, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(37, 36);
+            this.button1.TabIndex = 9;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // FileUpload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.ProfileButton);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BackButton);
+            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.userScrollBar);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.uploadButton);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "FileUpload";
@@ -107,5 +190,12 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox fileUploaded;
         private System.Windows.Forms.Button uploadButton;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.VScrollBar userScrollBar;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Button ProfileButton;
+        private System.Windows.Forms.Button button1;
     }
 }
