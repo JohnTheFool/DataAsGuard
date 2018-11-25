@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Profile));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.chgpass = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.chgpic = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.DOB = new System.Windows.Forms.Label();
@@ -42,11 +41,13 @@
             this.name = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.chgpic = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.chgpass = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -73,33 +74,15 @@
             this.tabPage1.Text = "Profile";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // chgpic
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(498, 266);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // chgpass
-            // 
-            this.chgpass.Location = new System.Drawing.Point(6, 166);
-            this.chgpass.Name = "chgpass";
-            this.chgpass.Size = new System.Drawing.Size(92, 41);
-            this.chgpass.TabIndex = 0;
-            this.chgpass.Text = "Change Password";
-            this.chgpass.UseVisualStyleBackColor = true;
-            this.chgpass.Click += new System.EventHandler(this.chgpass_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(92, 107);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.chgpic.Location = new System.Drawing.Point(6, 119);
+            this.chgpic.Name = "chgpic";
+            this.chgpic.Size = new System.Drawing.Size(92, 41);
+            this.chgpic.TabIndex = 16;
+            this.chgpic.Text = "Change Picture";
+            this.chgpic.UseVisualStyleBackColor = true;
+            this.chgpic.Click += new System.EventHandler(this.chgpic_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -197,15 +180,36 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Phone Number(No.)";
             // 
-            // chgpic
+            // pictureBox1
             // 
-            this.chgpic.Location = new System.Drawing.Point(6, 119);
-            this.chgpic.Name = "chgpic";
-            this.chgpic.Size = new System.Drawing.Size(92, 41);
-            this.chgpic.TabIndex = 16;
-            this.chgpic.Text = "Change Picture";
-            this.chgpic.UseVisualStyleBackColor = true;
-            this.chgpic.Click += new System.EventHandler(this.chgpic_Click);
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.ImageLocation = "";
+            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(92, 107);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
+            // chgpass
+            // 
+            this.chgpass.Location = new System.Drawing.Point(6, 166);
+            this.chgpass.Name = "chgpass";
+            this.chgpass.Size = new System.Drawing.Size(92, 41);
+            this.chgpass.TabIndex = 0;
+            this.chgpass.Text = "Change Password";
+            this.chgpass.UseVisualStyleBackColor = true;
+            this.chgpass.Click += new System.EventHandler(this.chgpass_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(498, 266);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // Profile
             // 
@@ -217,9 +221,9 @@
             this.Text = "Profile";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -51,9 +51,11 @@ namespace DataAsGuard
 
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void ProfileButton_Click(object sender, EventArgs e)
         {
-
+            Profiles.Admin.AdminProfile profile = new Profiles.Admin.AdminProfile();
+            profile.Show();
+            Hide();
         }
     }
 }

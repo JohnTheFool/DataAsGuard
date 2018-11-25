@@ -16,5 +16,12 @@ namespace DataAsGuard.Profiles.Admin
         {
             InitializeComponent();
         }
+
+        private void Confirm_Click(object sender, EventArgs e)
+        {
+            RegistrationDetails registrationDetails = new RegistrationDetails();
+            registrationDetails.Show();
+            Hide();
+        }
     }
 }

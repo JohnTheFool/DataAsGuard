@@ -74,6 +74,7 @@
             this.ProfileButton.Size = new System.Drawing.Size(37, 36);
             this.ProfileButton.TabIndex = 5;
             this.ProfileButton.UseVisualStyleBackColor = true;
+            this.ProfileButton.Click += new System.EventHandler(this.ProfileButton_Click);
             // 
             // manageFilesButton
             // 

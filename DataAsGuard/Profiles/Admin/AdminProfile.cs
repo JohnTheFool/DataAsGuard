@@ -26,5 +26,12 @@ namespace DataAsGuard.Profiles.Admin
         {
 
         }
+
+        private void AddUsers_Click(object sender, EventArgs e)
+        {
+            Registration Registration = new Registration();
+            Registration.Show();
+            Hide();
+        }
     }
 }

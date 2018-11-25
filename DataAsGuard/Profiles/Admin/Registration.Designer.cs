@@ -51,8 +51,9 @@
             // 
             // Email
             // 
+            this.Email.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.Email.AutoSize = true;
-            this.Email.Location = new System.Drawing.Point(3, 0);
+            this.Email.Location = new System.Drawing.Point(106, 43);
             this.Email.Name = "Email";
             this.Email.Size = new System.Drawing.Size(35, 13);
             this.Email.TabIndex = 0;
@@ -60,7 +61,8 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(147, 3);
+            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.textBox1.Location = new System.Drawing.Point(147, 40);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 2;
@@ -73,6 +75,7 @@
             this.Confirm.TabIndex = 1;
             this.Confirm.Text = "Confirm";
             this.Confirm.UseVisualStyleBackColor = true;
+            this.Confirm.Click += new System.EventHandler(this.Confirm_Click);
             // 
             // Registration
             // 

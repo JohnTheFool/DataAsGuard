@@ -146,6 +146,7 @@
             this.Confirm.TabIndex = 15;
             this.Confirm.Text = "Confirm";
             this.Confirm.UseVisualStyleBackColor = true;
+            this.Confirm.Click += new System.EventHandler(this.Confirm_Click);
             // 
             // RegistrationDetails
             // 

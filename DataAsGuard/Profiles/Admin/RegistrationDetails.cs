@@ -58,5 +58,12 @@ namespace DataAsGuard.Profiles.Admin
         {
 
         }
+
+        private void Confirm_Click(object sender, EventArgs e)
+        {
+            RegistrationConfirm Confirm = new RegistrationConfirm();
+            Confirm.Show();
+            Hide();
+        }
     }
 }
