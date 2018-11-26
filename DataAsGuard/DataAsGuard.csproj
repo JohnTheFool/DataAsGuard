@@ -58,6 +58,18 @@
     <Compile Include="Chat\Chat.Designer.cs">
       <DependentUpon>Chat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chat\ChatRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chat\ChatRequest.Designer.cs">
+      <DependentUpon>ChatRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chat\CreateGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chat\CreateGroup.Designer.cs">
+      <DependentUpon>CreateGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileManagement\AddNewPermission.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +171,12 @@
     </Compile>
     <EmbeddedResource Include="Chat\Chat.resx">
       <DependentUpon>Chat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chat\ChatRequest.resx">
+      <DependentUpon>ChatRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chat\CreateGroup.resx">
+      <DependentUpon>CreateGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\AddNewPermission.resx">
       <DependentUpon>AddNewPermission.cs</DependentUpon>
