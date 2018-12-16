@@ -31,12 +31,13 @@
             this.fileList = new System.Windows.Forms.ListBox();
             this.editPermission = new System.Windows.Forms.Button();
             this.permissionGrid = new System.Windows.Forms.DataGridView();
-            this.user = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.userPermissions = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastAccessed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addPermission = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.deletePermission = new System.Windows.Forms.Button();
+            this.user = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.userPermissions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastAccessed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.permissionGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,9 +45,8 @@
             // 
             this.fileList.FormattingEnabled = true;
             this.fileList.Items.AddRange(new object[] {
-            "Starhub Lawsuit Agreement",
-            "CISCO Fault Tolerance",
-            "SingHealth Security Breach Report"});
+            "Stuff",
+            "Stuff 2"});
             this.fileList.Location = new System.Drawing.Point(12, 12);
             this.fileList.Name = "fileList";
             this.fileList.Size = new System.Drawing.Size(262, 407);
@@ -70,6 +70,7 @@
             this.permissionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.permissionGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.user,
+            this.Group,
             this.userPermissions,
             this.lastAccessed});
             this.permissionGrid.GridColor = System.Drawing.SystemColors.Control;
@@ -79,23 +80,6 @@
             this.permissionGrid.Size = new System.Drawing.Size(499, 279);
             this.permissionGrid.TabIndex = 2;
             this.permissionGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.permissionGrid_CellContentClick);
-            // 
-            // user
-            // 
-            this.user.HeaderText = "User";
-            this.user.Name = "user";
-            // 
-            // userPermissions
-            // 
-            this.userPermissions.HeaderText = "Permissions";
-            this.userPermissions.Name = "userPermissions";
-            this.userPermissions.Width = 150;
-            // 
-            // lastAccessed
-            // 
-            this.lastAccessed.HeaderText = "Last Accessed";
-            this.lastAccessed.Name = "lastAccessed";
-            this.lastAccessed.Width = 200;
             // 
             // addPermission
             // 
@@ -127,6 +111,32 @@
             this.deletePermission.UseVisualStyleBackColor = true;
             this.deletePermission.Click += new System.EventHandler(this.deletePermission_Click);
             // 
+            // user
+            // 
+            this.user.HeaderText = "User";
+            this.user.Name = "user";
+            this.user.ReadOnly = true;
+            // 
+            // Group
+            // 
+            this.Group.HeaderText = "Group";
+            this.Group.Name = "Group";
+            this.Group.ReadOnly = true;
+            // 
+            // userPermissions
+            // 
+            this.userPermissions.HeaderText = "Permissions";
+            this.userPermissions.Name = "userPermissions";
+            this.userPermissions.ReadOnly = true;
+            this.userPermissions.Width = 150;
+            // 
+            // lastAccessed
+            // 
+            this.lastAccessed.HeaderText = "Last Accessed";
+            this.lastAccessed.Name = "lastAccessed";
+            this.lastAccessed.ReadOnly = true;
+            this.lastAccessed.Width = 200;
+            // 
             // FilePermissions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,9 +162,10 @@
         private System.Windows.Forms.DataGridView permissionGrid;
         private System.Windows.Forms.Button addPermission;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Button deletePermission;
         private System.Windows.Forms.DataGridViewTextBoxColumn user;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Group;
         private System.Windows.Forms.DataGridViewTextBoxColumn userPermissions;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastAccessed;
-        private System.Windows.Forms.Button deletePermission;
     }
 }
