@@ -32,6 +32,7 @@
             this.Email = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Confirm = new System.Windows.Forms.Button();
+            this.validateEmail = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +67,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 2;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Confirm
             // 
@@ -77,18 +79,30 @@
             this.Confirm.UseVisualStyleBackColor = true;
             this.Confirm.Click += new System.EventHandler(this.Confirm_Click);
             // 
+            // validateEmail
+            // 
+            this.validateEmail.AutoSize = true;
+            this.validateEmail.Location = new System.Drawing.Point(360, 230);
+            this.validateEmail.Name = "validateEmail";
+            this.validateEmail.Size = new System.Drawing.Size(69, 13);
+            this.validateEmail.TabIndex = 2;
+            this.validateEmail.Text = "validateEmail";
+            // 
             // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.validateEmail);
             this.Controls.Add(this.Confirm);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Registration";
             this.Text = "Registration";
+            this.Load += new System.EventHandler(this.Registration_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -98,5 +112,6 @@
         private System.Windows.Forms.Label Email;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button Confirm;
+        private System.Windows.Forms.Label validateEmail;
     }
 }
