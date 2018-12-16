@@ -22,14 +22,17 @@ namespace DataAsGuard.DB
 {
     public class DbClass
     {
-        public List<string> DbRetrieve(string table, string col)
+        public List<string> DbRetrieve(string table, string username)
         {
-
+            string queryString = "";
             string connString = "server=35.240.129.112;database=da_schema;uid=asguarduser;pwd=;";
             MySqlConnection cnn;
             MySqlCommand cmd;
             MySqlDataReader reader;
-            string queryString = "SELECT " + col + " FROM da_schema." + table;
+
+            queryString = "SELECT * FROM da_schema." + table + " WHERE username= '" + username + "'";
+
+
             cnn = new MySqlConnection(connString);
             cmd = new MySqlCommand(queryString, cnn)
             {
@@ -38,13 +41,18 @@ namespace DataAsGuard.DB
             try
             {
                 cnn.Open();
-                reader = cmd.ExecuteReader();
                 List<string> storeData = new List<string>();
-                reader.Close();
                 reader = cmd.ExecuteReader();
                 while (reader.HasRows && reader.Read())
                 {
-                    storeData.Add((reader[col].ToString()));
+                    storeData.Add((reader["userid"].ToString()));
+                    storeData.Add((reader["username"].ToString()));
+                    storeData.Add((reader["password"].ToString()));
+                    storeData.Add((reader["email"].ToString()));
+                    storeData.Add((reader["firstname"].ToString()));
+                    storeData.Add((reader["lastname"].ToString()));
+                    storeData.Add((reader["dob"].ToString()));
+                    storeData.Add((reader["phoneno."].ToString()));
                 }
                 cnn.Close();
                 reader.Close();
