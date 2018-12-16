@@ -70,6 +70,12 @@
     <Compile Include="Chat\CreateGroup.Designer.cs">
       <DependentUpon>CreateGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileManagement\AddNewGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\AddNewGroup.Designer.cs">
+      <DependentUpon>AddNewGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileManagement\AddNewPermission.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Chat\CreateGroup.resx">
       <DependentUpon>CreateGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\AddNewGroup.resx">
+      <DependentUpon>AddNewGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\AddNewPermission.resx">
       <DependentUpon>AddNewPermission.cs</DependentUpon>
