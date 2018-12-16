@@ -46,13 +46,16 @@ namespace DataAsGuard.DB
                 while (reader.HasRows && reader.Read())
                 {
                     storeData.Add((reader["userid"].ToString()));
-                    storeData.Add((reader["username"].ToString()));
-                    storeData.Add((reader["password"].ToString()));
+                    storeData.Add((reader["username"].ToString()));               
                     storeData.Add((reader["email"].ToString()));
-                    storeData.Add((reader["firstname"].ToString()));
-                    storeData.Add((reader["lastname"].ToString()));
-                    storeData.Add((reader["dob"].ToString()));
-                    storeData.Add((reader["phoneno."].ToString()));
+                    if (table == "Userinfo")
+                    {
+                        storeData.Add((reader["password"].ToString()));
+                        storeData.Add((reader["firstname"].ToString()));
+                        storeData.Add((reader["lastname"].ToString()));
+                        storeData.Add((reader["dob"].ToString()));
+                        storeData.Add((reader["phoneno."].ToString()));
+                    }
                 }
                 cnn.Close();
                 reader.Close();
