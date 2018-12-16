@@ -26,7 +26,7 @@ namespace DataAsGuard.Profiles.Admin
 
         private void Registration_Shown(Object sender, EventArgs e)
         {
-            //userdataRetrieval();
+            userdataRetrieval();
             CreateImage();
         }
 
@@ -46,7 +46,7 @@ namespace DataAsGuard.Profiles.Admin
                         phoneNo.Text = reader.GetInt32(reader.GetOrdinal("phoneno.")).ToString();
                         email.Text = reader.GetString(reader.GetOrdinal("email"));
                         DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
-
+                        fName.Text = reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname"));                   
                     }
 
                     if (reader != null)
@@ -77,7 +77,11 @@ namespace DataAsGuard.Profiles.Admin
             msg.Body += "</tr>";
 
             msg.Body += "<tr>";
-            msg.Body += "<td>User Name: " + Username + "</td>";
+            msg.Body += "<td>Email: " + Email + "</td>";
+            msg.Body += "</tr>";
+
+            msg.Body += "<tr>";
+            msg.Body += "<td>Please login with your Email </td>";
             msg.Body += "</tr>";
 
             msg.Body += "<tr>";

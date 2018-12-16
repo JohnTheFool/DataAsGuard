@@ -29,11 +29,11 @@ namespace DataAsGuard.Profiles.Admin
 
         private void AddUsers_Click(object sender, EventArgs e)
         {
-            Users.ConfirmationDetails confirmationDetails = new Users.ConfirmationDetails();
-            confirmationDetails.Show();
+            //Users.ConfirmationDetails confirmationDetails = new Users.ConfirmationDetails();
+            //confirmationDetails.Show();
            
-            //Registration Registration = new Registration();
-            //Registration.Show();
+            Registration Registration = new Registration();
+            Registration.Show();
             Hide();
         }
     }
