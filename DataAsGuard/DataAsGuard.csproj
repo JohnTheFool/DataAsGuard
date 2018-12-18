@@ -70,6 +70,7 @@
     <Compile Include="Chat\CreateGroup.Designer.cs">
       <DependentUpon>CreateGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="CSClass\AesEncryption.cs" />
     <Compile Include="FileManagement\AddNewGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +93,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DB.cs" />
+    <Compile Include="Profiles\staticvariable.cs" />
     <Compile Include="Viewer\ImgViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,12 +171,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Profiles\Admin\RegistrationDetails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Profiles\Admin\RegistrationDetails.Designer.cs">
-      <DependentUpon>RegistrationDetails.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Chat\Chat.resx">
       <DependentUpon>Chat.cs</DependentUpon>
     </EmbeddedResource>
@@ -253,9 +249,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Profiles\Admin\RegistrationDetails.resx">
-      <DependentUpon>RegistrationDetails.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Viewer\PdfViewer.resx">
       <DependentUpon>PdfViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -275,7 +268,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Media\AddUserIcon.png" />
     <Content Include="Media\BackIcon.png" />
