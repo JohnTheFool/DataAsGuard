@@ -64,7 +64,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.browseButton, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.fileUploaded, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(147, 71);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(191, 51);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -85,9 +85,9 @@
             // uploadButton
             // 
             this.uploadButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.uploadButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uploadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uploadButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.uploadButton.Location = new System.Drawing.Point(306, 365);
+            this.uploadButton.Location = new System.Drawing.Point(356, 570);
             this.uploadButton.Name = "uploadButton";
             this.uploadButton.Size = new System.Drawing.Size(176, 29);
             this.uploadButton.TabIndex = 2;
@@ -96,7 +96,9 @@
             // 
             // listBox1
             // 
+            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
             this.listBox1.Items.AddRange(new object[] {
             "User1",
             "User2",
@@ -104,32 +106,33 @@
             "Admin1"});
             this.listBox1.Location = new System.Drawing.Point(205, 126);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(144, 199);
+            this.listBox1.Size = new System.Drawing.Size(144, 292);
             this.listBox1.TabIndex = 3;
             // 
             // userScrollBar
             // 
             this.userScrollBar.Location = new System.Drawing.Point(330, 126);
             this.userScrollBar.Name = "userScrollBar";
-            this.userScrollBar.Size = new System.Drawing.Size(19, 199);
+            this.userScrollBar.Size = new System.Drawing.Size(19, 292);
             this.userScrollBar.TabIndex = 4;
             // 
             // checkedListBox1
             // 
+            this.checkedListBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Items.AddRange(new object[] {
             "Read",
             "Edit",
             "Download"});
-            this.checkedListBox1.Location = new System.Drawing.Point(470, 187);
+            this.checkedListBox1.Location = new System.Drawing.Point(510, 227);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(120, 49);
+            this.checkedListBox1.Size = new System.Drawing.Size(120, 58);
             this.checkedListBox1.TabIndex = 7;
             // 
             // BackButton
             // 
             this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
-            this.BackButton.Location = new System.Drawing.Point(751, 12);
+            this.BackButton.Location = new System.Drawing.Point(835, 12);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(37, 36);
             this.BackButton.TabIndex = 8;
@@ -165,9 +168,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(507, 374);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label1.Location = new System.Drawing.Point(353, 541);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 13);
+            this.label1.Size = new System.Drawing.Size(186, 17);
             this.label1.TabIndex = 12;
             this.label1.Text = "Upload Limit: 1.6GB/10.0GB";
             // 
@@ -175,7 +179,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);

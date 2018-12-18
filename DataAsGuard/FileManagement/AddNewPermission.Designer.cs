@@ -45,7 +45,9 @@
             // 
             // listBox1
             // 
+            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 18;
             this.listBox1.Items.AddRange(new object[] {
             "User1",
             "User2",
@@ -53,7 +55,7 @@
             "Admin1"});
             this.listBox1.Location = new System.Drawing.Point(91, 51);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 381);
+            this.listBox1.Size = new System.Drawing.Size(208, 526);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -71,7 +73,7 @@
             // BackButton
             // 
             this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
-            this.BackButton.Location = new System.Drawing.Point(751, 12);
+            this.BackButton.Location = new System.Drawing.Point(835, 12);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(37, 36);
             this.BackButton.TabIndex = 4;
@@ -84,7 +86,8 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(305, 116);
+            this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(407, 51);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -95,10 +98,10 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(24, 12);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(12, 11);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 15);
+            this.label2.Size = new System.Drawing.Size(101, 18);
             this.label2.TabIndex = 0;
             this.label2.Text = "User Selected";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -106,29 +109,31 @@
             // textBox1
             // 
             this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox1.Location = new System.Drawing.Point(129, 10);
+            this.textBox1.Location = new System.Drawing.Point(129, 8);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(120, 20);
+            this.textBox1.Size = new System.Drawing.Size(120, 24);
             this.textBox1.TabIndex = 1;
             // 
             // checkedListBox1
             // 
+            this.checkedListBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Items.AddRange(new object[] {
             "Read",
             "Edit",
             "Download"});
-            this.checkedListBox1.Location = new System.Drawing.Point(367, 176);
+            this.checkedListBox1.Location = new System.Drawing.Point(472, 142);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(120, 49);
+            this.checkedListBox1.Size = new System.Drawing.Size(120, 61);
             this.checkedListBox1.TabIndex = 6;
             this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
             // applyPermButton
             // 
-            this.applyPermButton.Location = new System.Drawing.Point(367, 255);
+            this.applyPermButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.applyPermButton.Location = new System.Drawing.Point(458, 242);
             this.applyPermButton.Name = "applyPermButton";
-            this.applyPermButton.Size = new System.Drawing.Size(120, 23);
+            this.applyPermButton.Size = new System.Drawing.Size(152, 46);
             this.applyPermButton.TabIndex = 7;
             this.applyPermButton.Text = "Apply Permissions";
             this.applyPermButton.UseVisualStyleBackColor = true;
@@ -164,7 +169,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);
             this.Controls.Add(this.button1);

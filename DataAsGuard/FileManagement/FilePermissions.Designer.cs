@@ -28,40 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FilePermissions));
             this.fileList = new System.Windows.Forms.ListBox();
-            this.editPermission = new System.Windows.Forms.Button();
             this.permissionGrid = new System.Windows.Forms.DataGridView();
-            this.addPermission = new System.Windows.Forms.Button();
-            this.backButton = new System.Windows.Forms.Button();
-            this.deletePermission = new System.Windows.Forms.Button();
             this.user = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.userPermissions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastAccessed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.addPermission = new System.Windows.Forms.Button();
+            this.fileInformation = new System.Windows.Forms.ListBox();
+            this.editPermissionsButton = new System.Windows.Forms.Button();
+            this.settingsButton = new System.Windows.Forms.Button();
+            this.ProfileButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.deleteFileButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.permissionGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // fileList
             // 
+            this.fileList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.fileList.FormattingEnabled = true;
+            this.fileList.ItemHeight = 16;
             this.fileList.Items.AddRange(new object[] {
-            "Stuff",
-            "Stuff 2"});
-            this.fileList.Location = new System.Drawing.Point(12, 12);
+            "Stuff"});
+            this.fileList.Location = new System.Drawing.Point(55, 12);
             this.fileList.Name = "fileList";
-            this.fileList.Size = new System.Drawing.Size(262, 407);
+            this.fileList.Size = new System.Drawing.Size(219, 580);
             this.fileList.TabIndex = 0;
             this.fileList.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // editPermission
-            // 
-            this.editPermission.Location = new System.Drawing.Point(289, 396);
-            this.editPermission.Name = "editPermission";
-            this.editPermission.Size = new System.Drawing.Size(152, 23);
-            this.editPermission.TabIndex = 1;
-            this.editPermission.Text = "Edit Permission";
-            this.editPermission.UseVisualStyleBackColor = true;
-            this.editPermission.Click += new System.EventHandler(this.button1_Click);
             // 
             // permissionGrid
             // 
@@ -74,42 +70,12 @@
             this.userPermissions,
             this.lastAccessed});
             this.permissionGrid.GridColor = System.Drawing.SystemColors.Control;
-            this.permissionGrid.Location = new System.Drawing.Point(289, 12);
+            this.permissionGrid.Location = new System.Drawing.Point(289, 193);
             this.permissionGrid.Name = "permissionGrid";
             this.permissionGrid.ReadOnly = true;
-            this.permissionGrid.Size = new System.Drawing.Size(499, 279);
+            this.permissionGrid.Size = new System.Drawing.Size(580, 280);
             this.permissionGrid.TabIndex = 2;
             this.permissionGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.permissionGrid_CellContentClick);
-            // 
-            // addPermission
-            // 
-            this.addPermission.Location = new System.Drawing.Point(289, 313);
-            this.addPermission.Name = "addPermission";
-            this.addPermission.Size = new System.Drawing.Size(152, 23);
-            this.addPermission.TabIndex = 3;
-            this.addPermission.Text = "Add New Permission";
-            this.addPermission.UseVisualStyleBackColor = true;
-            this.addPermission.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // backButton
-            // 
-            this.backButton.Location = new System.Drawing.Point(636, 396);
-            this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(152, 23);
-            this.backButton.TabIndex = 4;
-            this.backButton.Text = "Back";
-            this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // deletePermission
-            // 
-            this.deletePermission.Location = new System.Drawing.Point(289, 354);
-            this.deletePermission.Name = "deletePermission";
-            this.deletePermission.Size = new System.Drawing.Size(152, 23);
-            this.deletePermission.TabIndex = 5;
-            this.deletePermission.Text = "Delete Permission";
-            this.deletePermission.UseVisualStyleBackColor = true;
-            this.deletePermission.Click += new System.EventHandler(this.deletePermission_Click);
             // 
             // user
             // 
@@ -137,16 +103,104 @@
             this.lastAccessed.ReadOnly = true;
             this.lastAccessed.Width = 200;
             // 
+            // addPermission
+            // 
+            this.addPermission.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.addPermission.Location = new System.Drawing.Point(289, 479);
+            this.addPermission.Name = "addPermission";
+            this.addPermission.Size = new System.Drawing.Size(152, 28);
+            this.addPermission.TabIndex = 3;
+            this.addPermission.Text = "Add New Permission";
+            this.addPermission.UseVisualStyleBackColor = true;
+            this.addPermission.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // fileInformation
+            // 
+            this.fileInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.fileInformation.FormattingEnabled = true;
+            this.fileInformation.IntegralHeight = false;
+            this.fileInformation.ItemHeight = 16;
+            this.fileInformation.Items.AddRange(new object[] {
+            "Size:",
+            "Date Created:",
+            "File Owner:",
+            "Description:"});
+            this.fileInformation.Location = new System.Drawing.Point(289, 12);
+            this.fileInformation.Name = "fileInformation";
+            this.fileInformation.Size = new System.Drawing.Size(540, 176);
+            this.fileInformation.TabIndex = 5;
+            this.fileInformation.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged_1);
+            // 
+            // editPermissionsButton
+            // 
+            this.editPermissionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.editPermissionsButton.Location = new System.Drawing.Point(289, 513);
+            this.editPermissionsButton.Name = "editPermissionsButton";
+            this.editPermissionsButton.Size = new System.Drawing.Size(152, 28);
+            this.editPermissionsButton.TabIndex = 6;
+            this.editPermissionsButton.Text = "Edit Permissions";
+            this.editPermissionsButton.UseVisualStyleBackColor = true;
+            // 
+            // settingsButton
+            // 
+            this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
+            this.settingsButton.Location = new System.Drawing.Point(12, 115);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(37, 36);
+            this.settingsButton.TabIndex = 15;
+            this.settingsButton.UseVisualStyleBackColor = true;
+            // 
+            // ProfileButton
+            // 
+            this.ProfileButton.Image = ((System.Drawing.Image)(resources.GetObject("ProfileButton.Image")));
+            this.ProfileButton.Location = new System.Drawing.Point(12, 63);
+            this.ProfileButton.Name = "ProfileButton";
+            this.ProfileButton.Size = new System.Drawing.Size(37, 36);
+            this.ProfileButton.TabIndex = 14;
+            this.ProfileButton.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(12, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(37, 36);
+            this.button1.TabIndex = 13;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
+            this.button2.Location = new System.Drawing.Point(835, 12);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(37, 36);
+            this.button2.TabIndex = 12;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // deleteFileButton
+            // 
+            this.deleteFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.deleteFileButton.Location = new System.Drawing.Point(289, 547);
+            this.deleteFileButton.Name = "deleteFileButton";
+            this.deleteFileButton.Size = new System.Drawing.Size(152, 28);
+            this.deleteFileButton.TabIndex = 16;
+            this.deleteFileButton.Text = "Delete File";
+            this.deleteFileButton.UseVisualStyleBackColor = true;
+            // 
             // FilePermissions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.deletePermission);
-            this.Controls.Add(this.backButton);
+            this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.deleteFileButton);
+            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.ProfileButton);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.editPermissionsButton);
+            this.Controls.Add(this.fileInformation);
             this.Controls.Add(this.addPermission);
             this.Controls.Add(this.permissionGrid);
-            this.Controls.Add(this.editPermission);
             this.Controls.Add(this.fileList);
             this.Name = "FilePermissions";
             this.Text = "DataAsGuard";
@@ -158,14 +212,18 @@
         #endregion
 
         private System.Windows.Forms.ListBox fileList;
-        private System.Windows.Forms.Button editPermission;
         private System.Windows.Forms.DataGridView permissionGrid;
         private System.Windows.Forms.Button addPermission;
-        private System.Windows.Forms.Button backButton;
-        private System.Windows.Forms.Button deletePermission;
         private System.Windows.Forms.DataGridViewTextBoxColumn user;
         private System.Windows.Forms.DataGridViewTextBoxColumn Group;
         private System.Windows.Forms.DataGridViewTextBoxColumn userPermissions;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastAccessed;
+        private System.Windows.Forms.ListBox fileInformation;
+        private System.Windows.Forms.Button editPermissionsButton;
+        private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Button ProfileButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button deleteFileButton;
     }
 }

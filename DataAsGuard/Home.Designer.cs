@@ -43,7 +43,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(139, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(185, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(526, 114);
             this.pictureBox1.TabIndex = 2;
@@ -52,7 +52,7 @@
             // BackButton
             // 
             this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
-            this.BackButton.Location = new System.Drawing.Point(751, 12);
+            this.BackButton.Location = new System.Drawing.Point(835, 12);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(37, 36);
             this.BackButton.TabIndex = 3;
@@ -80,12 +80,13 @@
             // 
             // manageFilesButton
             // 
-            this.manageFilesButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.manageFilesButton.Location = new System.Drawing.Point(139, 182);
+            this.manageFilesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.manageFilesButton.Location = new System.Drawing.Point(185, 173);
             this.manageFilesButton.Name = "manageFilesButton";
-            this.manageFilesButton.Size = new System.Drawing.Size(526, 44);
+            this.manageFilesButton.Size = new System.Drawing.Size(526, 57);
             this.manageFilesButton.TabIndex = 7;
             this.manageFilesButton.Text = "Manage Files";
+            this.manageFilesButton.UseMnemonic = false;
             this.manageFilesButton.UseVisualStyleBackColor = true;
             this.manageFilesButton.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -100,9 +101,10 @@
             // 
             // viewImg
             // 
+            this.viewImg.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.viewImg.Location = new System.Drawing.Point(12, 173);
             this.viewImg.Name = "viewImg";
-            this.viewImg.Size = new System.Drawing.Size(75, 23);
+            this.viewImg.Size = new System.Drawing.Size(99, 25);
             this.viewImg.TabIndex = 2;
             this.viewImg.Text = "View Image";
             this.viewImg.UseVisualStyleBackColor = true;
@@ -110,10 +112,11 @@
             // 
             // viewPdf
             // 
+            this.viewPdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.viewPdf.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.viewPdf.Location = new System.Drawing.Point(12, 221);
             this.viewPdf.Name = "viewPdf";
-            this.viewPdf.Size = new System.Drawing.Size(75, 23);
+            this.viewPdf.Size = new System.Drawing.Size(99, 27);
             this.viewPdf.TabIndex = 4;
             this.viewPdf.Text = "View PDF";
             this.viewPdf.UseVisualStyleBackColor = true;
@@ -123,7 +126,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.manageFilesButton);
             this.Controls.Add(this.ProfileButton);
