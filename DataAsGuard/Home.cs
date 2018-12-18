@@ -31,7 +31,7 @@ namespace DataAsGuard
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Profiles.Admin.RegistrationDetails register = new DataAsGuard.Profiles.Admin.RegistrationDetails();
+            Profiles.Login register = new DataAsGuard.Profiles.Login();
             register.Show();
             Hide();
         }

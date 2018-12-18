@@ -97,6 +97,7 @@
             this.settingsButton.Size = new System.Drawing.Size(37, 36);
             this.settingsButton.TabIndex = 8;
             this.settingsButton.UseVisualStyleBackColor = true;
+            this.settingsButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // viewImg
             // 
