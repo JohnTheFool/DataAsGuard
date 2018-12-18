@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,28 @@ namespace DataAsGuard.FileManagement
         public FilePermissions()
         {
             InitializeComponent();
+        }
+
+        private void permissionRetrieval()
+        {
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+
+                con.Open();
+                String query = "SELECT * FROM userpermissions";
+                MySqlCommand command = new MySqlCommand(query, con);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+
+            }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
