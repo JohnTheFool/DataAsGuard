@@ -55,6 +55,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(120, 381);
             this.listBox1.TabIndex = 0;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -65,6 +66,7 @@
             this.label1.Size = new System.Drawing.Size(64, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "User List";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // BackButton
             // 
@@ -174,6 +176,7 @@
             this.Controls.Add(this.listBox1);
             this.Name = "AddNewPermission";
             this.Text = "AddNewPermission";
+            this.Load += new System.EventHandler(this.AddNewPermission_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
