@@ -86,6 +86,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DB.cs" />
+    <Compile Include="Viewer\DocEd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Viewer\DocEd.Designer.cs">
+      <DependentUpon>DocEd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Viewer\ImgViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,6 +207,9 @@
     </Compile>
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Viewer\DocEd.resx">
+      <DependentUpon>DocEd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Viewer\ImgViewerForm.resx">
       <DependentUpon>ImgViewerForm.cs</DependentUpon>

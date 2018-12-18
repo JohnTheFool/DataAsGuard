@@ -37,6 +37,8 @@
             this.settingsButton = new System.Windows.Forms.Button();
             this.viewImg = new System.Windows.Forms.Button();
             this.viewPdf = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.viewDoc = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,11 +121,32 @@
             this.viewPdf.UseVisualStyleBackColor = true;
             this.viewPdf.Click += new System.EventHandler(this.viewPdf_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(0, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 9;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // viewDoc
+            // 
+            this.viewDoc.Location = new System.Drawing.Point(12, 267);
+            this.viewDoc.Name = "viewDoc";
+            this.viewDoc.Size = new System.Drawing.Size(75, 23);
+            this.viewDoc.TabIndex = 10;
+            this.viewDoc.Text = "View Doc";
+            this.viewDoc.UseVisualStyleBackColor = true;
+            this.viewDoc.Click += new System.EventHandler(this.viewDoc_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.viewDoc);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.manageFilesButton);
             this.Controls.Add(this.ProfileButton);
@@ -149,6 +172,8 @@
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button viewImg;
         private System.Windows.Forms.Button viewPdf;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button viewDoc;
     }
 }
 

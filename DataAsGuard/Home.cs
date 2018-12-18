@@ -52,7 +52,7 @@ namespace DataAsGuard
 
         private void HomeButton_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -69,6 +69,13 @@ namespace DataAsGuard
         {
             Profiles.Admin.AdminProfile profile = new Profiles.Admin.AdminProfile();
             profile.Show();
+            Hide();
+        }
+
+        private void viewDoc_Click(object sender, EventArgs e)
+        {
+            Viewer.DocEd docEd = new Viewer.DocEd();
+            docEd.Show();
             Hide();
         }
     }
