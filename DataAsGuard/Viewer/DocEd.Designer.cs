@@ -33,21 +33,24 @@
             this.txtValue = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.pColor = new System.Windows.Forms.Panel();
+            this.backBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rtfBox
             // 
-            this.rtfBox.Location = new System.Drawing.Point(12, 85);
+            this.rtfBox.Location = new System.Drawing.Point(21, 104);
+            this.rtfBox.Margin = new System.Windows.Forms.Padding(4);
             this.rtfBox.Name = "rtfBox";
-            this.rtfBox.Size = new System.Drawing.Size(767, 353);
+            this.rtfBox.Size = new System.Drawing.Size(816, 402);
             this.rtfBox.TabIndex = 0;
             this.rtfBox.Text = "";
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(683, 35);
+            this.btnSave.Location = new System.Drawing.Point(767, 54);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(52, 25);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -55,29 +58,44 @@
             // 
             // txtValue
             // 
-            this.txtValue.Location = new System.Drawing.Point(35, 35);
+            this.txtValue.Location = new System.Drawing.Point(102, 55);
+            this.txtValue.Margin = new System.Windows.Forms.Padding(4);
             this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(582, 20);
+            this.txtValue.Size = new System.Drawing.Size(594, 23);
             this.txtValue.TabIndex = 2;
             // 
             // pColor
             // 
             this.pColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pColor.Location = new System.Drawing.Point(632, 35);
+            this.pColor.Location = new System.Drawing.Point(715, 55);
+            this.pColor.Margin = new System.Windows.Forms.Padding(4);
             this.pColor.Name = "pColor";
-            this.pColor.Size = new System.Drawing.Size(34, 22);
+            this.pColor.Size = new System.Drawing.Size(35, 23);
             this.pColor.TabIndex = 3;
             this.pColor.Click += new System.EventHandler(this.pColor_Click);
             // 
+            // backBtn
+            // 
+            this.backBtn.Location = new System.Drawing.Point(21, 53);
+            this.backBtn.Name = "backBtn";
+            this.backBtn.Size = new System.Drawing.Size(59, 23);
+            this.backBtn.TabIndex = 4;
+            this.backBtn.Text = "Back";
+            this.backBtn.UseVisualStyleBackColor = true;
+            this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
+            // 
             // DocEd
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.backBtn);
             this.Controls.Add(this.pColor);
             this.Controls.Add(this.txtValue);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.rtfBox);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DocEd";
             this.Text = "DocEd";
             this.ResumeLayout(false);
@@ -92,5 +110,6 @@
         private System.Windows.Forms.TextBox txtValue;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Panel pColor;
+        private System.Windows.Forms.Button backBtn;
     }
 }

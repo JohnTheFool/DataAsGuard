@@ -78,5 +78,12 @@ namespace DataAsGuard
             docEd.Show();
             Hide();
         }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Steganography.Steganography steg = new Steganography.Steganography();
+            steg.Show();
+            Hide();
+        }
     }
 }
