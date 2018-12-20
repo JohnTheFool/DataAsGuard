@@ -43,6 +43,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.deleteFileButton = new System.Windows.Forms.Button();
+            this.manageGroupsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.permissionGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +58,6 @@
             this.fileList.Name = "fileList";
             this.fileList.Size = new System.Drawing.Size(219, 580);
             this.fileList.TabIndex = 0;
-            this.fileList.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // permissionGrid
             // 
@@ -75,7 +75,6 @@
             this.permissionGrid.ReadOnly = true;
             this.permissionGrid.Size = new System.Drawing.Size(580, 280);
             this.permissionGrid.TabIndex = 2;
-            this.permissionGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.permissionGrid_CellContentClick);
             // 
             // user
             // 
@@ -112,7 +111,7 @@
             this.addPermission.TabIndex = 3;
             this.addPermission.Text = "Add New Permission";
             this.addPermission.UseVisualStyleBackColor = true;
-            this.addPermission.Click += new System.EventHandler(this.button2_Click);
+            this.addPermission.Click += new System.EventHandler(this.addPermission_Click);
             // 
             // fileInformation
             // 
@@ -129,7 +128,6 @@
             this.fileInformation.Name = "fileInformation";
             this.fileInformation.Size = new System.Drawing.Size(540, 176);
             this.fileInformation.TabIndex = 5;
-            this.fileInformation.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged_1);
             // 
             // editPermissionsButton
             // 
@@ -140,6 +138,7 @@
             this.editPermissionsButton.TabIndex = 6;
             this.editPermissionsButton.Text = "Edit Permissions";
             this.editPermissionsButton.UseVisualStyleBackColor = true;
+            this.editPermissionsButton.Click += new System.EventHandler(this.editPermissionsButton_Click);
             // 
             // settingsButton
             // 
@@ -186,12 +185,25 @@
             this.deleteFileButton.TabIndex = 16;
             this.deleteFileButton.Text = "Delete File";
             this.deleteFileButton.UseVisualStyleBackColor = true;
+            this.deleteFileButton.Click += new System.EventHandler(this.deleteFileButton_Click);
+            // 
+            // manageGroupsButton
+            // 
+            this.manageGroupsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.manageGroupsButton.Location = new System.Drawing.Point(464, 479);
+            this.manageGroupsButton.Name = "manageGroupsButton";
+            this.manageGroupsButton.Size = new System.Drawing.Size(152, 28);
+            this.manageGroupsButton.TabIndex = 17;
+            this.manageGroupsButton.Text = "Manage Groups";
+            this.manageGroupsButton.UseVisualStyleBackColor = true;
+            this.manageGroupsButton.Click += new System.EventHandler(this.manageGroupsButton_Click);
             // 
             // FilePermissions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.manageGroupsButton);
             this.Controls.Add(this.deleteFileButton);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);
@@ -203,7 +215,7 @@
             this.Controls.Add(this.permissionGrid);
             this.Controls.Add(this.fileList);
             this.Name = "FilePermissions";
-            this.Text = "DataAsGuard";
+            this.Text = "DataAsguard";
             ((System.ComponentModel.ISupportInitialize)(this.permissionGrid)).EndInit();
             this.ResumeLayout(false);
 
@@ -225,5 +237,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button deleteFileButton;
+        private System.Windows.Forms.Button manageGroupsButton;
     }
 }

@@ -94,7 +94,6 @@
             this.fileResults.Name = "fileResults";
             this.fileResults.Size = new System.Drawing.Size(735, 532);
             this.fileResults.TabIndex = 18;
-            this.fileResults.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // searchButton
             // 
@@ -104,6 +103,7 @@
             this.searchButton.Size = new System.Drawing.Size(37, 36);
             this.searchButton.TabIndex = 19;
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // FileSearch
             // 
@@ -118,7 +118,7 @@
             this.Controls.Add(this.ProfileButton);
             this.Controls.Add(this.button1);
             this.Name = "FileSearch";
-            this.Text = "FileSearch";
+            this.Text = "DataAsguard";
             this.ResumeLayout(false);
             this.PerformLayout();
 

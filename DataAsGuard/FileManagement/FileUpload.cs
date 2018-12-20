@@ -33,12 +33,7 @@ namespace DataAsGuard.FileManagement
             }
         }
 
-        private void FileUpload_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
+        private void uploadButton_Click(object sender, EventArgs e)
         {
 
         }

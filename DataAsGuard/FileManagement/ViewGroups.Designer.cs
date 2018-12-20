@@ -1,6 +1,6 @@
 ﻿namespace DataAsGuard.FileManagement
 {
-    partial class AddNewGroup
+    partial class ViewGroups
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddNewGroup));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewGroups));
             this.settingsButton = new System.Windows.Forms.Button();
             this.ProfileButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -37,7 +37,7 @@
             this.groupLabel = new System.Windows.Forms.Label();
             this.membersLabel = new System.Windows.Forms.Label();
             this.membersList = new System.Windows.Forms.ListBox();
-            this.addUserToGroupButton = new System.Windows.Forms.Button();
+            this.editGroupButton = new System.Windows.Forms.Button();
             this.createGroupButton = new System.Windows.Forms.Button();
             this.fileInformation = new System.Windows.Forms.ListBox();
             this.deleteUserFromGroupButton = new System.Windows.Forms.Button();
@@ -90,7 +90,6 @@
             this.groupList.Name = "groupList";
             this.groupList.Size = new System.Drawing.Size(177, 548);
             this.groupList.TabIndex = 16;
-            this.groupList.SelectedIndexChanged += new System.EventHandler(this.groupList_SelectedIndexChanged);
             // 
             // groupLabel
             // 
@@ -124,15 +123,15 @@
             this.membersList.Size = new System.Drawing.Size(177, 548);
             this.membersList.TabIndex = 18;
             // 
-            // addUserToGroupButton
+            // editGroupButton
             // 
-            this.addUserToGroupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.addUserToGroupButton.Location = new System.Drawing.Point(573, 300);
-            this.addUserToGroupButton.Name = "addUserToGroupButton";
-            this.addUserToGroupButton.Size = new System.Drawing.Size(179, 29);
-            this.addUserToGroupButton.TabIndex = 19;
-            this.addUserToGroupButton.Text = "Add New User";
-            this.addUserToGroupButton.UseVisualStyleBackColor = true;
+            this.editGroupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.editGroupButton.Location = new System.Drawing.Point(573, 300);
+            this.editGroupButton.Name = "editGroupButton";
+            this.editGroupButton.Size = new System.Drawing.Size(179, 29);
+            this.editGroupButton.TabIndex = 19;
+            this.editGroupButton.Text = "Edit Group";
+            this.editGroupButton.UseVisualStyleBackColor = true;
             // 
             // createGroupButton
             // 
@@ -143,6 +142,7 @@
             this.createGroupButton.TabIndex = 21;
             this.createGroupButton.Text = "Create New Group";
             this.createGroupButton.UseVisualStyleBackColor = true;
+            this.createGroupButton.Click += new System.EventHandler(this.createGroupButton_Click);
             // 
             // fileInformation
             // 
@@ -151,10 +151,8 @@
             this.fileInformation.IntegralHeight = false;
             this.fileInformation.ItemHeight = 16;
             this.fileInformation.Items.AddRange(new object[] {
-            "Size:",
             "Date Created:",
-            "File Owner:",
-            "Description:"});
+            "Group Owner:"});
             this.fileInformation.Location = new System.Drawing.Point(505, 47);
             this.fileInformation.Name = "fileInformation";
             this.fileInformation.Size = new System.Drawing.Size(308, 176);
@@ -170,7 +168,7 @@
             this.deleteUserFromGroupButton.Text = "Delete User From Group";
             this.deleteUserFromGroupButton.UseVisualStyleBackColor = true;
             // 
-            // AddNewGroup
+            // ViewGroups
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -178,7 +176,7 @@
             this.Controls.Add(this.deleteUserFromGroupButton);
             this.Controls.Add(this.fileInformation);
             this.Controls.Add(this.createGroupButton);
-            this.Controls.Add(this.addUserToGroupButton);
+            this.Controls.Add(this.editGroupButton);
             this.Controls.Add(this.membersList);
             this.Controls.Add(this.membersLabel);
             this.Controls.Add(this.groupList);
@@ -187,9 +185,8 @@
             this.Controls.Add(this.ProfileButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.BackButton);
-            this.Name = "AddNewGroup";
-            this.Text = "AddNewGroup";
-            this.Load += new System.EventHandler(this.AddNewGroup_Load);
+            this.Name = "ViewGroups";
+            this.Text = "DataAsguard";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,7 +202,7 @@
         private System.Windows.Forms.Label groupLabel;
         private System.Windows.Forms.Label membersLabel;
         private System.Windows.Forms.ListBox membersList;
-        private System.Windows.Forms.Button addUserToGroupButton;
+        private System.Windows.Forms.Button editGroupButton;
         private System.Windows.Forms.Button createGroupButton;
         private System.Windows.Forms.ListBox fileInformation;
         private System.Windows.Forms.Button deleteUserFromGroupButton;

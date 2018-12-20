@@ -82,11 +82,23 @@
     <Compile Include="Chat\CreateGroup.Designer.cs">
       <DependentUpon>CreateGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManagement\AddNewGroup.cs">
+    <Compile Include="FileManagement\CreateNewGroup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FileManagement\AddNewGroup.Designer.cs">
-      <DependentUpon>AddNewGroup.cs</DependentUpon>
+    <Compile Include="FileManagement\CreateNewGroup.Designer.cs">
+      <DependentUpon>CreateNewGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileManagement\FileManagementHub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\FileManagementHub.Designer.cs">
+      <DependentUpon>FileManagementHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileManagement\ViewGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\ViewGroups.Designer.cs">
+      <DependentUpon>ViewGroups.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManagement\AddNewPermission.cs">
       <SubType>Form</SubType>
@@ -196,8 +208,14 @@
     <EmbeddedResource Include="Chat\CreateGroup.resx">
       <DependentUpon>CreateGroup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileManagement\AddNewGroup.resx">
-      <DependentUpon>AddNewGroup.cs</DependentUpon>
+    <EmbeddedResource Include="FileManagement\CreateNewGroup.resx">
+      <DependentUpon>CreateNewGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\FileManagementHub.resx">
+      <DependentUpon>FileManagementHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\ViewGroups.resx">
+      <DependentUpon>ViewGroups.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Viewer\Test.cs">
       <SubType>Form</SubType>
@@ -295,6 +313,8 @@
     <Content Include="Media\DataAsguardLogo.png" />
     <Content Include="Media\FolderIcon.png" />
     <Content Include="Media\HomeIcon.png" />
+    <Content Include="Media\LeftChevronIcon.png" />
+    <Content Include="Media\RightChevronIcon.png" />
     <Content Include="Media\SearchIcon.png" />
     <Content Include="Media\SettingsIcon.png" />
     <Content Include="Media\UserIcon.png" />

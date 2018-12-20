@@ -10,26 +10,18 @@ using System.Windows.Forms;
 
 namespace DataAsGuard.FileManagement
 {
-    public partial class AddNewGroup : Form
+    public partial class ViewGroups : Form
     {
-        public AddNewGroup()
+        public ViewGroups()
         {
             InitializeComponent();
         }
 
-        private void AddNewGroup_Load(object sender, EventArgs e)
+        private void createGroupButton_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            FileManagement.CreateNewGroup createNewGroup = new FileManagement.CreateNewGroup();
+            createNewGroup.Show();
+            Hide();
         }
     }
 }

@@ -57,7 +57,6 @@
             this.BackButton.Size = new System.Drawing.Size(37, 36);
             this.BackButton.TabIndex = 3;
             this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // button1
             // 
@@ -80,7 +79,7 @@
             // 
             // manageFilesButton
             // 
-            this.manageFilesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.manageFilesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
             this.manageFilesButton.Location = new System.Drawing.Point(185, 173);
             this.manageFilesButton.Name = "manageFilesButton";
             this.manageFilesButton.Size = new System.Drawing.Size(526, 57);
@@ -88,7 +87,7 @@
             this.manageFilesButton.Text = "Manage Files";
             this.manageFilesButton.UseMnemonic = false;
             this.manageFilesButton.UseVisualStyleBackColor = true;
-            this.manageFilesButton.Click += new System.EventHandler(this.button3_Click);
+            this.manageFilesButton.Click += new System.EventHandler(this.manageFilesButton_Click);
             // 
             // settingsButton
             // 
@@ -101,7 +100,7 @@
             // 
             // viewImg
             // 
-            this.viewImg.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.viewImg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.viewImg.Location = new System.Drawing.Point(12, 173);
             this.viewImg.Name = "viewImg";
             this.viewImg.Size = new System.Drawing.Size(99, 25);
@@ -112,7 +111,7 @@
             // 
             // viewPdf
             // 
-            this.viewPdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.viewPdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.viewPdf.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.viewPdf.Location = new System.Drawing.Point(12, 221);
             this.viewPdf.Name = "viewPdf";

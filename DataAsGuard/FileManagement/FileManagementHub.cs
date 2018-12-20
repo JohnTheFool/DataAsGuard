@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace DataAsGuard.FileManagement
 {
-    public partial class AddNewPermission : Form
+    public partial class FileManagementHub : Form
     {
-        public AddNewPermission()
+        public FileManagementHub()
         {
             InitializeComponent();
-        }
-
-        private void applyPermButton_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
