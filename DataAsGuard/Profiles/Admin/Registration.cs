@@ -157,9 +157,7 @@ namespace DataAsGuard.Profiles.Admin
                 cmd.Parameters.AddWithValue("@userName", username);
                 cmd.Parameters.AddWithValue("@hashedPassword", hashpassword);
                 cmd.ExecuteReader();
-                    
             }
-
         }
 
         //hash password

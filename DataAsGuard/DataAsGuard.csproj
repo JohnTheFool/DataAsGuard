@@ -71,6 +71,7 @@
       <DependentUpon>CreateGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="CSClass\AesEncryption.cs" />
+    <Compile Include="CSClass\Logininfo.cs" />
     <Compile Include="FileManagement\AddNewGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +95,18 @@
     </Compile>
     <Compile Include="DB.cs" />
     <Compile Include="Profiles\staticvariable.cs" />
+    <Compile Include="Profiles\Users\changePasswordConfirmation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Users\changePasswordConfirmation.Designer.cs">
+      <DependentUpon>changePasswordConfirmation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Users\changePasswordConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Users\changePasswordConfirm.Designer.cs">
+      <DependentUpon>changePasswordConfirm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Viewer\ImgViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +219,12 @@
     </Compile>
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Users\changePasswordConfirmation.resx">
+      <DependentUpon>changePasswordConfirmation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Users\changePasswordConfirm.resx">
+      <DependentUpon>changePasswordConfirm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Viewer\ImgViewerForm.resx">
       <DependentUpon>ImgViewerForm.cs</DependentUpon>

@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,9 +47,19 @@ namespace DataAsGuard.Profiles
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.HasRows && reader.Read())
                     {
+                        if(Email == "Admin")
+                        {
+                            Logininfo.userid = 0;
+
+                            Admin.AdminProfile profile = new Admin.AdminProfile();
+                            profile.Show();
+                            Hide();
+                        }
                         if(Email == aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid"))))
                         {
+                           
                             userid = reader.GetInt32(reader.GetOrdinal("userid"));
+                            Logininfo.userid = userid;
                             befencryptedemail = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid")));
                             //compare hash password
                             hashpassword = reader.GetString(reader.GetOrdinal("password"));

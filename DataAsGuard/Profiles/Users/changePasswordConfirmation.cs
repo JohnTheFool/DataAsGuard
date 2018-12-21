@@ -14,11 +14,11 @@ using System.Windows.Forms;
 
 namespace DataAsGuard.Profiles.Users
 {
-    public partial class ChangePassword : Form
+    public partial class changePasswordConfirmation : Form
     {
         Random rand = new Random();
-        string oldhashpassword;
-        public ChangePassword()
+
+        public changePasswordConfirmation()
         {
             InitializeComponent();
         }
@@ -29,100 +29,42 @@ namespace DataAsGuard.Profiles.Users
             validatecPasword.Hide();
             validatePassword.Hide();
             strengthcheck.Hide();
-            Error.Hide();
-            userdataRetrieval();
+            //userdataRetrieval();
             CreateImage();
-        }
-
-        private void userdataRetrieval()
-        {
-            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
-            {
-                con.Open();
-                String query = "SELECT * FROM Userinfo WHERE userid='@userid'";
-                MySqlCommand command = new MySqlCommand(query, con);
-                command.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        oldhashpassword = reader.GetString(reader.GetOrdinal("password"));
-
-                    }
-
-                    if (reader != null)
-                        reader.Close();
-                }
-
-            }
         }
 
         //submit button
         private void Confirm_Click(object sender, EventArgs e)
         {
-            //strength
-            int strength = CheckPasswordstrength(Password.Text);
-            
-            string passwordvalue = Password.Text;
-            string cpasswordvalue = CPassword.Text;
 
-            bool checkCPassword = CheckPassword(passwordvalue);
-            //generate new hash with new salt
+            int strength = CheckPasswordstrength(password.Text);
+            string passwordvalue = password.Text;
+            string cpasswordvalue = cPassword.Text;
+
             string hashpassword = passwordhash(passwordvalue);
-
-            //check
-            int passwordcheck = 0;
-
-            //comparing old and new passwords with old salt
-            byte[] hashBytes = Convert.FromBase64String(oldhashpassword);
-            //retrieve salt from stored hash
-            byte[] salt = new byte[16];
-            Array.Copy(hashBytes, 0, salt, 0, 16);
-            /* Compute the hash on the password the user entered */
-            var pbkdf2 = new Rfc2898DeriveBytes(passwordvalue, salt, 5000);
-            byte[] hash = pbkdf2.GetBytes(20);
-            /* Compare the results */
-            for (int i = 0; i < 20; i++)
-            {
-                //if password is not the same as old 
-                if (hashBytes[i + 16] != hash[i])
-                {
-                    passwordcheck = 1;
-                }
-            }
+            bool checkCPassword = CheckPassword(passwordvalue);
 
             if (captchabox.Text == code.ToString())
             {
-                //check if oldpassword is same as new password
-                if (passwordcheck == 1) { 
-                    //check strength of the password cannot be weak
-                    if (strength >= 3)
+                if (strength >= 3)
+                {
+                    if (checkCPassword == true)
                     {
-                        //check if all condition of password are met
-                        if (checkCPassword == true)
-                        { 
-                                //update database with the new password and hash with salt
-                                updatePassword(hashpassword);
-                        }
-                        else
-                        {
-                            validatePassword.Show();
-                            validatePassword.ForeColor = Color.Red;
-                            validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
-                        }
+                        //update database
+                        updatePassword(hashpassword);
+
+
                     }
                     else
                     {
-                        validatePassword.Show();
-                        validatePassword.ForeColor = Color.Red;
-                        validatePassword.Text = "Password should not be Weak!";
+
                     }
                 }
                 else
                 {
-                    Error.ForeColor = Color.Red;
-                    Error.Text = "Old Password cannot be the same as new Password";
-                    Error.Show();
+                    validatePassword.Show();
+                    validatePassword.ForeColor = Color.Red;
+                    validatePassword.Text = "Password should not be Weak!";
                 }
             }
             else
@@ -195,8 +137,8 @@ namespace DataAsGuard.Profiles.Users
         //check password changes
         private void password_TextChanged(object sender, EventArgs e)
         {
-            int strength = CheckPasswordstrength(Password.Text);
-            bool checkpassword = CheckPassword(Password.Text);
+            int strength = CheckPasswordstrength(password.Text);
+            bool checkpassword = CheckPassword(password.Text);
 
             if (strength == 1)
             {
@@ -236,9 +178,9 @@ namespace DataAsGuard.Profiles.Users
             }
 
             //check if password matches with confirm password
-            if (Password.Text != CPassword.Text)
+            if (password.Text != cPassword.Text)
             {
-                if (CPassword.Text == "" || CPassword.Text == null)
+                if (cPassword.Text == "" || cPassword.Text == null)
                 {
 
                 }
@@ -266,9 +208,9 @@ namespace DataAsGuard.Profiles.Users
         private void cPassword_TextChanged(object sender, EventArgs e)
         {
             //check if password matches with confirm password
-            if (Password.Text != CPassword.Text)
+            if (password.Text != cPassword.Text)
             {
-                if (CPassword.Text == "" || CPassword.Text == null)
+                if (cPassword.Text == "" || cPassword.Text == null)
                 {
 
                 }
@@ -455,4 +397,6 @@ namespace DataAsGuard.Profiles.Users
 
     }
 }
+
+    
 

@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,7 +26,8 @@ namespace DataAsGuard.Profiles.Users
 
         private void Registration_Shown(Object sender, EventArgs e)
         {
-            //userdataRetrieval();
+            validateCaptcha.Hide();
+            userdataRetrieval();
             CreateImage();
         }
 
@@ -33,10 +35,10 @@ namespace DataAsGuard.Profiles.Users
         {
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
-
                 con.Open();
-                String query = "SELECT * FROM Userinfo WHERE userid='1'";
+                String query = "SELECT * FROM Userinfo WHERE userid='@userid'";
                 MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -58,20 +60,22 @@ namespace DataAsGuard.Profiles.Users
         //submit button
         private void Confirm_Click(object sender, EventArgs e)
         {
+
             if (captchabox.Text == code.ToString())
             {
+                //route to OTP page
                 confirmationOTP registerOTP = new confirmationOTP();
                 registerOTP.Show();
                 Hide();
-
             }
             else
             {
-                MessageBox.Show("Incorrect entry");
+                validateCaptcha.Show();
+                validateCaptcha.ForeColor = Color.Red;
+                validateCaptcha.Text = "Incorrect Entry";
             }
             
         }
-
 
         //captcha
         private void CreateImage()
