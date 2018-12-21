@@ -54,5 +54,12 @@ namespace DataAsGuard
             filePermissions.Show();
             Hide();
         }
+
+        private void uploadFileButton_Click(object sender, EventArgs e)
+        {
+            FileManagement.FileUpload fileUpload = new FileManagement.FileUpload();
+            fileUpload.Show();
+            Hide();
+        }
     }
 }

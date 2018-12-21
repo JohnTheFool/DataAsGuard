@@ -35,12 +35,11 @@
             this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.userPermissions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastAccessed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.addPermission = new System.Windows.Forms.Button();
             this.fileInformation = new System.Windows.Forms.ListBox();
             this.editPermissionsButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
-            this.ProfileButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.profileButton = new System.Windows.Forms.Button();
+            this.homeButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.deleteFileButton = new System.Windows.Forms.Button();
             this.manageGroupsButton = new System.Windows.Forms.Button();
@@ -102,17 +101,6 @@
             this.lastAccessed.ReadOnly = true;
             this.lastAccessed.Width = 200;
             // 
-            // addPermission
-            // 
-            this.addPermission.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.addPermission.Location = new System.Drawing.Point(289, 479);
-            this.addPermission.Name = "addPermission";
-            this.addPermission.Size = new System.Drawing.Size(152, 28);
-            this.addPermission.TabIndex = 3;
-            this.addPermission.Text = "Add New Permission";
-            this.addPermission.UseVisualStyleBackColor = true;
-            this.addPermission.Click += new System.EventHandler(this.addPermission_Click);
-            // 
             // fileInformation
             // 
             this.fileInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -132,7 +120,7 @@
             // editPermissionsButton
             // 
             this.editPermissionsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.editPermissionsButton.Location = new System.Drawing.Point(289, 513);
+            this.editPermissionsButton.Location = new System.Drawing.Point(289, 479);
             this.editPermissionsButton.Name = "editPermissionsButton";
             this.editPermissionsButton.Size = new System.Drawing.Size(152, 28);
             this.editPermissionsButton.TabIndex = 6;
@@ -149,23 +137,23 @@
             this.settingsButton.TabIndex = 15;
             this.settingsButton.UseVisualStyleBackColor = true;
             // 
-            // ProfileButton
+            // profileButton
             // 
-            this.ProfileButton.Image = ((System.Drawing.Image)(resources.GetObject("ProfileButton.Image")));
-            this.ProfileButton.Location = new System.Drawing.Point(12, 63);
-            this.ProfileButton.Name = "ProfileButton";
-            this.ProfileButton.Size = new System.Drawing.Size(37, 36);
-            this.ProfileButton.TabIndex = 14;
-            this.ProfileButton.UseVisualStyleBackColor = true;
+            this.profileButton.Image = ((System.Drawing.Image)(resources.GetObject("profileButton.Image")));
+            this.profileButton.Location = new System.Drawing.Point(12, 63);
+            this.profileButton.Name = "profileButton";
+            this.profileButton.Size = new System.Drawing.Size(37, 36);
+            this.profileButton.TabIndex = 14;
+            this.profileButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // homeButton
             // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(37, 36);
-            this.button1.TabIndex = 13;
-            this.button1.UseVisualStyleBackColor = true;
+            this.homeButton.Image = ((System.Drawing.Image)(resources.GetObject("homeButton.Image")));
+            this.homeButton.Location = new System.Drawing.Point(12, 12);
+            this.homeButton.Name = "homeButton";
+            this.homeButton.Size = new System.Drawing.Size(37, 36);
+            this.homeButton.TabIndex = 13;
+            this.homeButton.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
@@ -190,7 +178,7 @@
             // manageGroupsButton
             // 
             this.manageGroupsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.manageGroupsButton.Location = new System.Drawing.Point(464, 479);
+            this.manageGroupsButton.Location = new System.Drawing.Point(289, 513);
             this.manageGroupsButton.Name = "manageGroupsButton";
             this.manageGroupsButton.Size = new System.Drawing.Size(152, 28);
             this.manageGroupsButton.TabIndex = 17;
@@ -206,12 +194,11 @@
             this.Controls.Add(this.manageGroupsButton);
             this.Controls.Add(this.deleteFileButton);
             this.Controls.Add(this.settingsButton);
-            this.Controls.Add(this.ProfileButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.profileButton);
+            this.Controls.Add(this.homeButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.editPermissionsButton);
             this.Controls.Add(this.fileInformation);
-            this.Controls.Add(this.addPermission);
             this.Controls.Add(this.permissionGrid);
             this.Controls.Add(this.fileList);
             this.Name = "FilePermissions";
@@ -225,7 +212,6 @@
 
         private System.Windows.Forms.ListBox fileList;
         private System.Windows.Forms.DataGridView permissionGrid;
-        private System.Windows.Forms.Button addPermission;
         private System.Windows.Forms.DataGridViewTextBoxColumn user;
         private System.Windows.Forms.DataGridViewTextBoxColumn Group;
         private System.Windows.Forms.DataGridViewTextBoxColumn userPermissions;
@@ -233,8 +219,8 @@
         private System.Windows.Forms.ListBox fileInformation;
         private System.Windows.Forms.Button editPermissionsButton;
         private System.Windows.Forms.Button settingsButton;
-        private System.Windows.Forms.Button ProfileButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button profileButton;
+        private System.Windows.Forms.Button homeButton;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button deleteFileButton;
         private System.Windows.Forms.Button manageGroupsButton;

@@ -88,6 +88,12 @@
     <Compile Include="FileManagement\CreateNewGroup.Designer.cs">
       <DependentUpon>CreateNewGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileManagement\EditPermissions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\EditPermissions.Designer.cs">
+      <DependentUpon>EditPermissions.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileManagement\FileManagementHub.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,12 +105,6 @@
     </Compile>
     <Compile Include="FileManagement\ViewGroups.Designer.cs">
       <DependentUpon>ViewGroups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FileManagement\AddNewPermission.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FileManagement\AddNewPermission.Designer.cs">
-      <DependentUpon>AddNewPermission.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManagement\FileSearch.cs">
       <SubType>Form</SubType>
@@ -211,6 +211,9 @@
     <EmbeddedResource Include="FileManagement\CreateNewGroup.resx">
       <DependentUpon>CreateNewGroup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\EditPermissions.resx">
+      <DependentUpon>EditPermissions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\FileManagementHub.resx">
       <DependentUpon>FileManagementHub.cs</DependentUpon>
     </EmbeddedResource>
@@ -223,9 +226,6 @@
     <Compile Include="Viewer\Test.Designer.cs">
       <DependentUpon>Test.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FileManagement\AddNewPermission.resx">
-      <DependentUpon>AddNewPermission.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\FilePermissions.resx">
       <DependentUpon>FilePermissions.cs</DependentUpon>
     </EmbeddedResource>

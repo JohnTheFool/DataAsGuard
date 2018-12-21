@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace DataAsGuard.FileManagement
 {
-    public partial class AddNewPermission : Form
+    public partial class EditPermissions : Form
     {
-        public AddNewPermission()
+        public EditPermissions()
         {
             InitializeComponent();
         }
 
-        private void applyPermButton_Click(object sender, EventArgs e)
+        private void EditPermissions_Load(object sender, EventArgs e)
         {
 
         }
