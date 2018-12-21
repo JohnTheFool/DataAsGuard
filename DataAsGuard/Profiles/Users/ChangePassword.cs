@@ -93,37 +93,40 @@ namespace DataAsGuard.Profiles.Users
 
             if (captchabox.Text == code.ToString())
             {
-                //check if oldpassword is same as new password
-                if (passwordcheck == 1) { 
-                    //check strength of the password cannot be weak
-                    if (strength >= 3)
+                //check strength of the password cannot be weak
+                if (strength >= 3)
+                {
+                    //check if all condition of password are met
+                    if (checkCPassword == true)
                     {
-                        //check if all condition of password are met
-                        if (checkCPassword == true)
-                        { 
-                                //update database with the new password and hash with salt
-                                updatePassword(hashpassword);
+                        //check if oldpassword is same as new password
+                        if (passwordcheck == 0)
+                        {
+                            Error.ForeColor = Color.Red;
+                            Error.Text = "Old Password cannot be the same as new Password";
+                            Error.Show();
                         }
                         else
                         {
-                            validatePassword.Show();
-                            validatePassword.ForeColor = Color.Red;
-                            validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
+                            //update database with the new password and hash with salt
+                            updatePassword(hashpassword);
                         }
                     }
                     else
                     {
                         validatePassword.Show();
                         validatePassword.ForeColor = Color.Red;
-                        validatePassword.Text = "Password should not be Weak!";
+                        validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
                     }
                 }
                 else
                 {
-                    Error.ForeColor = Color.Red;
-                    Error.Text = "Old Password cannot be the same as new Password";
-                    Error.Show();
+                    validatePassword.Show();
+                    validatePassword.ForeColor = Color.Red;
+                    validatePassword.Text = "Password should not be Weak!";
                 }
+                
+                
             }
             else
             {
