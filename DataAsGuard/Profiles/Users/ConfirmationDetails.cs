@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataAsGuard.CSClass;
 using MySql.Data.MySqlClient;
 
 namespace DataAsGuard.Profiles.Users
@@ -18,6 +19,7 @@ namespace DataAsGuard.Profiles.Users
     public partial class ConfirmationDetails : Form
     {
         private Random rand = new Random();
+        AesEncryption aes = new AesEncryption();
 
         public ConfirmationDetails()
         {
@@ -36,7 +38,7 @@ namespace DataAsGuard.Profiles.Users
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
-                String query = "SELECT * FROM Userinfo WHERE userid='@userid'";
+                String query = "SELECT * FROM Userinfo WHERE userid=@userid";
                 MySqlCommand command = new MySqlCommand(query, con);
                 command.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
                 using (MySqlDataReader reader = command.ExecuteReader())
@@ -44,8 +46,8 @@ namespace DataAsGuard.Profiles.Users
                     while (reader.Read())
                     {
                         name.Text = reader.GetString(reader.GetOrdinal("username"));
-                        phoneNo.Text = reader.GetInt32(reader.GetOrdinal("phoneno.")).ToString();
-                        email.Text = reader.GetString(reader.GetOrdinal("email"));
+                        phoneNo.Text = aes.Decryptstring(reader.GetInt32(reader.GetOrdinal("contact")).ToString(), Logininfo.userid.ToString());
+                        email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), Logininfo.userid.ToString());
                         DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
 
                     }

@@ -33,7 +33,7 @@ namespace DataAsGuard.Profiles
 
             string befencryptedemail = null;
             string hashpassword = null;
-            int userid;
+            int userid = 0;
             int passwordcheck = 1;
             string checkvflag = null;
 
@@ -55,11 +55,11 @@ namespace DataAsGuard.Profiles
                             profile.Show();
                             Hide();
                         }
-                        if(Email == aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid"))))
+                        else if(Email == aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid"))))
                         {
                            
                             userid = reader.GetInt32(reader.GetOrdinal("userid"));
-                            Logininfo.userid = userid;
+                            
                             befencryptedemail = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid")));
                             //compare hash password
                             hashpassword = reader.GetString(reader.GetOrdinal("password"));
@@ -71,31 +71,43 @@ namespace DataAsGuard.Profiles
 
                     con.Close();
                 }
-                //comparing passwords
-                byte[] hashBytes = Convert.FromBase64String(hashpassword);
-                //retrieve salt from stored hash
-                byte[] salt = new byte[16];
-                Array.Copy(hashBytes, 0, salt, 0, 16);
-                /* Compute the hash on the password the user entered */
-                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 5000);
-                byte[] hash = pbkdf2.GetBytes(20);
-                /* Compare the results */
-                for (int i = 0; i < 20; i++)
+
+                if(befencryptedemail == null || befencryptedemail == "") {
+                    validation.Show();
+                    validation.ForeColor = Color.Red;
+                    validation.Text = "Incorrect Email or Password.";
+                }
+                else
                 {
-                    if (hashBytes[i + 16] != hash[i])
+                    //comparing passwords
+                    byte[] hashBytes = Convert.FromBase64String(hashpassword);
+                    //retrieve salt from stored hash
+                    byte[] salt = new byte[16];
+                    Array.Copy(hashBytes, 0, salt, 0, 16);
+                    /* Compute the hash on the password the user entered */
+                    var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 5000);
+                    byte[] hash = pbkdf2.GetBytes(20);
+                    /* Compare the results */
+                    for (int i = 0; i < 20; i++)
                     {
-                        validation.Show();
-                        validation.ForeColor = Color.Red;
-                        validation.Text = "Incorrect Email or Password.";
-                        passwordcheck = 0;
-                        break;
+                        if (hashBytes[i + 16] != hash[i])
+                        {
+                            validation.Show();
+                            validation.ForeColor = Color.Red;
+                            validation.Text = "Incorrect Email or Password.";
+                            passwordcheck = 0;
+                            break;
+                        }
                     }
                 }
+
                 if(passwordcheck == 1 && Email == befencryptedemail)
                 {
                     //F if have not change passwords
                     if (checkvflag == "F")
                     {
+                        Logininfo.userid = userid;
+
                         Users.ConfirmationDetails register = new Users.ConfirmationDetails(); // If status is Not completed
                         register.Show();
                         Hide();

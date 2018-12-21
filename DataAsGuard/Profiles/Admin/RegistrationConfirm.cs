@@ -16,5 +16,6 @@ namespace DataAsGuard.Profiles.Admin
         {
             InitializeComponent();
         }
+
     }
 }

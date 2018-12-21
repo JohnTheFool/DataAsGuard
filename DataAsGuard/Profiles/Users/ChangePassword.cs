@@ -102,6 +102,9 @@ namespace DataAsGuard.Profiles.Users
                         //check if oldpassword is same as new password
                         if (passwordcheck == 0)
                         {
+                            validateCaptcha.Hide();
+                            validatecPasword.Hide();
+                            validatePassword.Hide();
                             Error.ForeColor = Color.Red;
                             Error.Text = "Old Password cannot be the same as new Password";
                             Error.Show();

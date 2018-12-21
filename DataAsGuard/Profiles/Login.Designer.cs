@@ -128,7 +128,7 @@
             // validation
             // 
             this.validation.AutoSize = true;
-            this.validation.Location = new System.Drawing.Point(344, 297);
+            this.validation.Location = new System.Drawing.Point(362, 287);
             this.validation.Name = "validation";
             this.validation.Size = new System.Drawing.Size(68, 17);
             this.validation.TabIndex = 4;

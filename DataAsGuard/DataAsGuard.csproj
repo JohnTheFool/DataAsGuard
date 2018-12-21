@@ -94,6 +94,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DB.cs" />
+    <Compile Include="Profiles\Admin\RegistrationConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Admin\RegistrationConfirm.Designer.cs">
+      <DependentUpon>RegistrationConfirm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\staticvariable.cs" />
     <Compile Include="Profiles\Users\changePasswordConfirmation.cs">
       <SubType>Form</SubType>
@@ -145,12 +151,6 @@
     </Compile>
     <Compile Include="Profiles\Admin\Registration.Designer.cs">
       <DependentUpon>Registration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Profiles\Admin\RegistrationConfirm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Profiles\Admin\RegistrationConfirm.Designer.cs">
-      <DependentUpon>RegistrationConfirm.cs</DependentUpon>
     </Compile>
     <Compile Include="Profiles\Login.cs">
       <SubType>Form</SubType>
@@ -220,6 +220,9 @@
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Admin\RegistrationConfirm.resx">
+      <DependentUpon>RegistrationConfirm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Users\changePasswordConfirmation.resx">
       <DependentUpon>changePasswordConfirmation.cs</DependentUpon>
     </EmbeddedResource>
@@ -240,9 +243,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Admin\Registration.resx">
       <DependentUpon>Registration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Profiles\Admin\RegistrationConfirm.resx">
-      <DependentUpon>RegistrationConfirm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

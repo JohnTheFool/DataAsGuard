@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DataAsGuard.Profiles.Admin
+namespace DataAsGuard.Profiles.Users
 {
-    public partial class RegistrationConfirm : Form
+    public partial class changePasswordConfirm : Form
     {
-        public RegistrationConfirm()
+        public changePasswordConfirm()
         {
             InitializeComponent();
         }
