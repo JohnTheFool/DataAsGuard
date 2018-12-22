@@ -94,12 +94,6 @@
     <Compile Include="FileManagement\EditPermissions.Designer.cs">
       <DependentUpon>EditPermissions.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManagement\FileManagementHub.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FileManagement\FileManagementHub.Designer.cs">
-      <DependentUpon>FileManagementHub.cs</DependentUpon>
-    </Compile>
     <Compile Include="FileManagement\ViewGroups.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,11 +119,11 @@
     <Compile Include="FileManagement\FileUpload.Designer.cs">
       <DependentUpon>FileUpload.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManagement\FilePermissions.cs">
+    <Compile Include="FileManagement\FileManagementHub.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FileManagement\FilePermissions.Designer.cs">
-      <DependentUpon>FilePermissions.cs</DependentUpon>
+    <Compile Include="FileManagement\FileManagementHub.Designer.cs">
+      <DependentUpon>FileManagementHub.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManagement\RecycleBin.cs">
       <SubType>Form</SubType>
@@ -214,9 +208,6 @@
     <EmbeddedResource Include="FileManagement\EditPermissions.resx">
       <DependentUpon>EditPermissions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileManagement\FileManagementHub.resx">
-      <DependentUpon>FileManagementHub.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\ViewGroups.resx">
       <DependentUpon>ViewGroups.cs</DependentUpon>
     </EmbeddedResource>
@@ -226,8 +217,8 @@
     <Compile Include="Viewer\Test.Designer.cs">
       <DependentUpon>Test.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FileManagement\FilePermissions.resx">
-      <DependentUpon>FilePermissions.cs</DependentUpon>
+    <EmbeddedResource Include="FileManagement\FileManagementHub.resx">
+      <DependentUpon>FileManagementHub.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\FileSearch.resx">
       <DependentUpon>FileSearch.cs</DependentUpon>
@@ -306,7 +297,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Media\AddUserIcon.png" />
     <Content Include="Media\BackIcon.png" />

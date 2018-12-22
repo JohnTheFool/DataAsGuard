@@ -43,7 +43,7 @@
             this.fileSizeLabel = new System.Windows.Forms.Label();
             this.fileSize = new System.Windows.Forms.Label();
             this.fileDescriptionLabel = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.fileDescBox = new System.Windows.Forms.RichTextBox();
             this.browseTable.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +52,7 @@
             this.browseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.browseButton.Font = new System.Drawing.Font("Segoe UI", 10.25F);
             this.browseButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.browseButton.Location = new System.Drawing.Point(288, 9);
+            this.browseButton.Location = new System.Drawing.Point(477, 9);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(176, 29);
             this.browseButton.TabIndex = 0;
@@ -64,15 +64,15 @@
             // 
             this.browseTable.ColumnCount = 2;
             this.browseTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.browseTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.browseTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.browseTable.Controls.Add(this.browseButton, 1, 0);
             this.browseTable.Controls.Add(this.fileUploaded, 0, 0);
-            this.browseTable.Location = new System.Drawing.Point(182, 28);
+            this.browseTable.Location = new System.Drawing.Point(122, 26);
             this.browseTable.Name = "browseTable";
             this.browseTable.RowCount = 1;
             this.browseTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.browseTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.browseTable.Size = new System.Drawing.Size(502, 48);
+            this.browseTable.Size = new System.Drawing.Size(656, 48);
             this.browseTable.TabIndex = 1;
             // 
             // fileUploaded
@@ -80,10 +80,10 @@
             this.fileUploaded.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.fileUploaded.Cursor = System.Windows.Forms.Cursors.Default;
             this.fileUploaded.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fileUploaded.Location = new System.Drawing.Point(16, 13);
+            this.fileUploaded.Location = new System.Drawing.Point(8, 13);
             this.fileUploaded.Name = "fileUploaded";
             this.fileUploaded.ReadOnly = true;
-            this.fileUploaded.Size = new System.Drawing.Size(218, 22);
+            this.fileUploaded.Size = new System.Drawing.Size(458, 22);
             this.fileUploaded.TabIndex = 1;
             // 
             // uploadButton
@@ -193,20 +193,20 @@
             this.fileDescriptionLabel.TabIndex = 17;
             this.fileDescriptionLabel.Text = "File Description:";
             // 
-            // richTextBox1
+            // fileDescBox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(344, 221);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(249, 253);
-            this.richTextBox1.TabIndex = 18;
-            this.richTextBox1.Text = "";
+            this.fileDescBox.Location = new System.Drawing.Point(344, 221);
+            this.fileDescBox.Name = "fileDescBox";
+            this.fileDescBox.Size = new System.Drawing.Size(249, 253);
+            this.fileDescBox.TabIndex = 18;
+            this.fileDescBox.Text = "";
             // 
             // FileUpload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.fileDescBox);
             this.Controls.Add(this.fileDescriptionLabel);
             this.Controls.Add(this.fileSize);
             this.Controls.Add(this.fileSizeLabel);
@@ -244,6 +244,6 @@
         private System.Windows.Forms.Label fileSizeLabel;
         private System.Windows.Forms.Label fileSize;
         private System.Windows.Forms.Label fileDescriptionLabel;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox fileDescBox;
     }
 }

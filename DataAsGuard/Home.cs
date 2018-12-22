@@ -50,7 +50,7 @@ namespace DataAsGuard
 
         private void manageFilesButton_Click(object sender, EventArgs e)
         {
-            FileManagement.FilePermissions filePermissions = new FileManagement.FilePermissions();
+            FileManagement.FileManagementHub filePermissions = new FileManagement.FileManagementHub();
             filePermissions.Show();
             Hide();
         }
