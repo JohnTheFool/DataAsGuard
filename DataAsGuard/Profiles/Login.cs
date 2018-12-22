@@ -49,7 +49,7 @@ namespace DataAsGuard.Profiles
                     {
                         if(Email == "Admin")
                         {
-                            Logininfo.userid = 0;
+                            Logininfo.userid = "admin";
 
                             Admin.AdminProfile profile = new Admin.AdminProfile();
                             profile.Show();
@@ -106,14 +106,17 @@ namespace DataAsGuard.Profiles
                     //F if have not change passwords
                     if (checkvflag == "F")
                     {
-                        Logininfo.userid = userid;
+                        Logininfo.userid = userid.ToString();
 
                         Users.ConfirmationDetails register = new Users.ConfirmationDetails(); // If status is Not completed
                         register.Show();
                         Hide();
                     }
-                    else
+                    //T if have verification and change password.
+                    else if (checkvflag == "T")
                     {
+                        Logininfo.userid = userid.ToString();
+
                         Users.Profile profile = new Users.Profile();
                         profile.Show();
                         Hide();

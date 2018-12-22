@@ -17,7 +17,7 @@ namespace DataAsGuard.Profiles.Users
     public partial class ChangePassword : Form
     {
         Random rand = new Random();
-        string oldhashpassword;
+        static string oldhashpassword;
         public ChangePassword()
         {
             InitializeComponent();
@@ -29,7 +29,6 @@ namespace DataAsGuard.Profiles.Users
             validatecPasword.Hide();
             validatePassword.Hide();
             strengthcheck.Hide();
-            Error.Hide();
             userdataRetrieval();
             CreateImage();
         }
@@ -39,9 +38,9 @@ namespace DataAsGuard.Profiles.Users
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
-                String query = "SELECT * FROM Userinfo WHERE userid='@userid'";
+                String query = "SELECT * FROM Userinfo WHERE userid=@userid";
                 MySqlCommand command = new MySqlCommand(query, con);
-                command.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
+                command.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -82,6 +81,7 @@ namespace DataAsGuard.Profiles.Users
             var pbkdf2 = new Rfc2898DeriveBytes(passwordvalue, salt, 2000);
             byte[] hash = pbkdf2.GetBytes(20);
             /* Compare the results */
+            //For loop check for any abnormality or differences if there is differences set passwordcheck = 1
             for (int i = 0; i < 20; i++)
             {
                 //if password is not the same as old 
@@ -96,30 +96,51 @@ namespace DataAsGuard.Profiles.Users
                 //check strength of the password cannot be weak
                 if (strength >= 3)
                 {
-                    //check if all condition of password are met
-                    if (checkCPassword == true)
+                    //ensure that password == confirmpassword
+                    if (passwordvalue == cpasswordvalue)
                     {
-                        //check if oldpassword is same as new password
-                        if (passwordcheck == 0)
+                        //check if all condition of password are met
+                        if (checkCPassword == true)
                         {
-                            validateCaptcha.Hide();
-                            validatecPasword.Hide();
-                            validatePassword.Hide();
-                            Error.ForeColor = Color.Red;
-                            Error.Text = "Old Password cannot be the same as new Password";
-                            Error.Show();
+                            //check if oldpassword is same as new password
+                            if (passwordcheck == 0)
+                            {
+                                validateCaptcha.Hide();
+                                validatecPasword.Hide();
+                                validatePassword.ForeColor = Color.Red;
+                                validatePassword.Text = "Old Password cannot be the same as new Password";
+                                validatePassword.Show();
+                            }
+                            else
+                            {
+                                //update database with the new password and hash with salt
+                                updatePassword(hashpassword);
+                                changePasswordConfirm change = new changePasswordConfirm();
+                                change.Show();
+                                Hide();
+                                //release resources uses by captcha to prevent issues
+                                if (pictureBox1.Image != null)
+                                {
+                                    pictureBox1.Image.Dispose();
+                                    pictureBox1.Image = null;
+                                }
+                            }
                         }
                         else
                         {
-                            //update database with the new password and hash with salt
-                            updatePassword(hashpassword);
+                            validatePassword.Show();
+                            validatePassword.ForeColor = Color.Red;
+                            validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
                         }
                     }
                     else
                     {
                         validatePassword.Show();
                         validatePassword.ForeColor = Color.Red;
-                        validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
+                        validatePassword.Text = "Password not match";
+                        validatecPasword.Show();
+                        validatecPasword.ForeColor = Color.Red;
+                        validatecPasword.Text = "Password not match";
                     }
                 }
                 else
@@ -128,8 +149,6 @@ namespace DataAsGuard.Profiles.Users
                     validatePassword.ForeColor = Color.Red;
                     validatePassword.Text = "Password should not be Weak!";
                 }
-                
-                
             }
             else
             {
@@ -226,7 +245,7 @@ namespace DataAsGuard.Profiles.Users
             {
                 strengthcheck.Show();
                 strengthcheck.Text = "Very Good";
-                strengthcheck.ForeColor = Color.Yellow;
+                strengthcheck.ForeColor = Color.Orange;
             }
             else if (strength == 5)
             {
@@ -239,50 +258,143 @@ namespace DataAsGuard.Profiles.Users
                 strengthcheck.Show();
                 strengthcheck.Text = "Excellent";
                 strengthcheck.ForeColor = Color.Green;
-            }
+            } 
+        }
 
-            //check if password matches with confirm password
-            if (Password.Text != CPassword.Text)
-            {
-                if (CPassword.Text == "" || CPassword.Text == null)
-                {
-
-                }
-                else
-                {
-                    validatePassword.Show();
-                    validatePassword.ForeColor = Color.Red;
-                    validatePassword.Text = "Password not match";
-                }
-            }
-            else if (checkpassword == true)
-            {
-                validatePassword.Show();
-                validatePassword.ForeColor = Color.ForestGreen;
-                validatePassword.Text = "Ok!";
-            }
-            else if (checkpassword == false)
+        private void password_onleave(object sender, EventArgs e)
+        {
+            bool checkpassword = CheckPassword(Password.Text);
+            //if password text == old password
+            if (Password.Text == oldPassword.Text)
             {
                 validatePassword.Show();
                 validatePassword.ForeColor = Color.Red;
-                validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
+                validatePassword.Text = "New password cannot be same as Old Password";
+            }
+            else
+            {
+                //check if password matches with confirm password
+                if (Password.Text != CPassword.Text)
+                {
+                    //check if cPassword is null or empty field
+                    if (CPassword.Text == "" || CPassword.Text == null)
+                    {
+                        //check if password got all the condition of 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character. and cpassword is still null
+                        if (checkpassword == false)
+                        {
+                            validatePassword.Show();
+                            validatePassword.ForeColor = Color.Red;
+                            validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
+                            validatecPasword.Hide();
+                        }
+                        //else cpassword still null and condition is correct
+                        else if (checkpassword == true)
+                        {
+                            validatePassword.Show();
+                            validatePassword.ForeColor = Color.ForestGreen;
+                            validatePassword.Text = "Ok!";
+                            validatecPasword.Hide();
+                        }
+                    }
+                    //check if cpassword and password does not matches with one another
+                    else
+                    {
+                        validatePassword.Show();
+                        validatePassword.ForeColor = Color.Red;
+                        validatePassword.Text = "Password not match";
+                    }
+                }
+                //if cpassword and password are equal
+                else
+                {
+                    //cpassword and password matches and password matches condition
+                    if (checkpassword == true)
+                    {
+                        validatePassword.Show();
+                        validatePassword.ForeColor = Color.ForestGreen;
+                        validatePassword.Text = "Ok!";
+                    }
+                    //cpassword and password matches but password does not matches the conditions
+                    else if (checkpassword == false)
+                    {
+                        validatePassword.Show();
+                        validatePassword.ForeColor = Color.Red;
+                        validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
+                    }
+                }
             }
         }
 
-        private void cPassword_TextChanged(object sender, EventArgs e)
+
+        private void cpassword_onleave(object sender, EventArgs e)
         {
+            bool checkpassword = CheckPassword(Password.Text);
             //check if password matches with confirm password
             if (Password.Text != CPassword.Text)
             {
+                //check if cPassword is null or empty field
                 if (CPassword.Text == "" || CPassword.Text == null)
                 {
-
+                    //check if password got all the condition of 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character. and cpassword is still null
+                    if (checkpassword == false)
+                    {
+                        validatePassword.Show();
+                        validatePassword.ForeColor = Color.Red;
+                        validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
+                        Hide();
+                    }
+                    //else condition is all available and cpassword is still null
+                    else if (checkpassword == true)
+                    {
+                        validatePassword.Show();
+                        validatePassword.ForeColor = Color.ForestGreen;
+                        validatePassword.Text = "Ok!";
+                        validatePassword.Hide();
+                    }
                 }
+                //check if cpassword and password does not matches with one another
                 else
                 {
                     validatecPasword.Show();
                     validatecPasword.ForeColor = Color.Red;
                     validatecPasword.Text = "Password not match";
+                }
+            }
+            else
+            {
+                //cpassword and password matches but password does not matches the conditions
+                if (checkpassword == false)
+                {
+                    validatePassword.Show();
+                    validatePassword.ForeColor = Color.Red;
+                    validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
+                }
+                if (CPassword.Text == "" || CPassword.Text == null || Password.Text == "" || Password.Text == null)
+                {
+
+                }
+                else
+                {
+                    if (checkpassword == true)
+                    {
+                        if (oldPassword.Text == Password.Text)
+                        {
+                            validatePassword.Show();
+                            validatePassword.ForeColor = Color.Red;
+                            validatePassword.Text = "New password cannot be same as old password!";
+                        }
+                        else
+                        {
+                            //clear condition
+                            validatePassword.Show();
+                            validatePassword.ForeColor = Color.ForestGreen;
+                            validatePassword.Text = "Ok!";
+                        }
+                    }
+                    //cpassword and password matches
+                    validatecPasword.Show();
+                    validatecPasword.ForeColor = Color.ForestGreen;
+                    validatecPasword.Text = "Match!";
                 }
             }
         }
@@ -442,8 +554,8 @@ namespace DataAsGuard.Profiles.Users
         {
             StringBuilder randomText = new StringBuilder();
 
-            if (String.IsNullOrEmpty(code))
-            {
+            //if (String.IsNullOrEmpty(code))
+            //{
                 string alphabets = "abcdefghijklmnopqrstuvwxyz1234567890";
 
                 Random r = new Random();
@@ -454,9 +566,20 @@ namespace DataAsGuard.Profiles.Users
                 }
 
                 code = randomText.ToString();
-            }
+            //}
 
             return code;
+        }
+
+        private void RefreshCaptcha_Click(object sender, EventArgs e)
+        {
+            //release resources uses by captcha to prevent issues
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
+            CreateImage();
         }
 
     }

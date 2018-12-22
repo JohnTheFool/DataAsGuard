@@ -8,7 +8,7 @@ namespace DataAsGuard.CSClass
 {
     public static class Logininfo
     {
-        public static int userid;
+        public static string userid;
 
     }
 }
