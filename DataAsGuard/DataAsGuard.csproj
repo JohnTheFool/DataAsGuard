@@ -100,7 +100,6 @@
     <Compile Include="Profiles\Admin\RegistrationConfirm.Designer.cs">
       <DependentUpon>RegistrationConfirm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Profiles\staticvariable.cs" />
     <Compile Include="Profiles\Users\changePasswordConfirmation.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -54,14 +54,14 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(272, 47);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(272, 54);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 6);
+            this.label1.Location = new System.Drawing.Point(19, 12);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 34);
@@ -71,7 +71,7 @@
             // OTPInput
             // 
             this.OTPInput.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.OTPInput.Location = new System.Drawing.Point(140, 12);
+            this.OTPInput.Location = new System.Drawing.Point(140, 17);
             this.OTPInput.Margin = new System.Windows.Forms.Padding(4);
             this.OTPInput.Name = "OTPInput";
             this.OTPInput.Size = new System.Drawing.Size(124, 23);
@@ -109,8 +109,10 @@
             // 
             // validationOTP
             // 
+            this.validationOTP.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.validationOTP.AutoSize = true;
-            this.validationOTP.Location = new System.Drawing.Point(387, 282);
+            this.validationOTP.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.validationOTP.Location = new System.Drawing.Point(279, 289);
             this.validationOTP.Name = "validationOTP";
             this.validationOTP.Size = new System.Drawing.Size(97, 17);
             this.validationOTP.TabIndex = 4;
@@ -131,8 +133,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.validationOTP);
             this.Controls.Add(this.refreshOTP);
+            this.Controls.Add(this.validationOTP);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.OTPConfirm);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -140,6 +142,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "confirmationOTP";
             this.Text = "confirmationOTP";
+            this.Shown += new System.EventHandler(this.OTP_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

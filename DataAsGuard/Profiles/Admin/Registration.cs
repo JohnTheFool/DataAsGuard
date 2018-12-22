@@ -169,7 +169,7 @@ namespace DataAsGuard.Profiles.Admin
 
             //PBKDF2 (Password-Based Key Derivation Function 2)
             //generate hash
-            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 5000);
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 2000);
             byte[] hash = pbkdf2.GetBytes(20);
             //PBKDF2 (Password-Based Key Derivation Function 2)
             byte[] hashBytes = new byte[36];
@@ -422,6 +422,19 @@ namespace DataAsGuard.Profiles.Admin
 
         }
 
+
+        private void RefreshCaptcha_Click(object sender, EventArgs e)
+        {
+            //release resources uses by captcha to prevent issues
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
+            CreateImage();
+        }
+        
+
         private Point[] GetRandomPoints()
         {
             Point[] points = { new Point(rand.Next(10, 150), rand.Next(10, 150)), new Point(rand.Next(10, 100), rand.Next(10, 100)) };
@@ -434,8 +447,8 @@ namespace DataAsGuard.Profiles.Admin
         {
             StringBuilder randomText = new StringBuilder();
 
-            if (String.IsNullOrEmpty(code))
-            {
+            //if (String.IsNullOrEmpty(code))
+            //{
                 string alphabets = "abcdefghijklmnopqrstuvwxyz1234567890";
 
                 Random r = new Random();
@@ -446,7 +459,7 @@ namespace DataAsGuard.Profiles.Admin
                 }
 
                 code = randomText.ToString();
-            }
+            //}
 
             return code;
         }

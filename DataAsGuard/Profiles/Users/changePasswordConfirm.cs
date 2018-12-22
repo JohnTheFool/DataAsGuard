@@ -16,5 +16,12 @@ namespace DataAsGuard.Profiles.Users
         {
             InitializeComponent();
         }
+
+        private void profile_Click(object sender, EventArgs e)
+        {
+            Profile profile = new Profile();
+            profile.Show();
+            Hide();
+        }
     }
 }

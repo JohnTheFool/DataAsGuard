@@ -46,7 +46,7 @@ namespace DataAsGuard.Profiles.Users
                     while (reader.Read())
                     {
                         name.Text = reader.GetString(reader.GetOrdinal("username"));
-                        phoneNo.Text = aes.Decryptstring(reader.GetInt32(reader.GetOrdinal("contact")).ToString(), Logininfo.userid.ToString());
+                        phoneNo.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), Logininfo.userid.ToString());
                         email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), Logininfo.userid.ToString());
                         DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
 
@@ -55,7 +55,6 @@ namespace DataAsGuard.Profiles.Users
                     if (reader != null)
                         reader.Close();
                 }
-
             }
         }
 
@@ -69,6 +68,11 @@ namespace DataAsGuard.Profiles.Users
                 confirmationOTP registerOTP = new confirmationOTP();
                 registerOTP.Show();
                 Hide();
+                if (pictureBox1.Image != null)
+                {
+                    pictureBox1.Image.Dispose();
+                    pictureBox1.Image = null;
+                }
             }
             else
             {
@@ -76,7 +80,17 @@ namespace DataAsGuard.Profiles.Users
                 validateCaptcha.ForeColor = Color.Red;
                 validateCaptcha.Text = "Incorrect Entry";
             }
-            
+        }
+
+        private void RefreshCaptcha_Click(object sender, EventArgs e)
+        {
+            //release resources uses by captcha to prevent issues
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
+            CreateImage();
         }
 
         //captcha
@@ -158,13 +172,13 @@ namespace DataAsGuard.Profiles.Users
         }
 
         string code;
-        //gernate random text in the captcha
+        //generate random text in the captcha
         private string GetRandomText()
         {
             StringBuilder randomText = new StringBuilder();
 
-            if (String.IsNullOrEmpty(code))
-            {
+            //if (String.IsNullOrEmpty(code))
+            //{
                 string alphabets = "abcdefghijklmnopqrstuvwxyz1234567890";
 
                 Random r = new Random();
@@ -175,7 +189,7 @@ namespace DataAsGuard.Profiles.Users
                 }
 
                 code = randomText.ToString();
-            }
+            //}
 
             return code;
         }
