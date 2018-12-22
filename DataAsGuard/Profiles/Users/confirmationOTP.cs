@@ -28,7 +28,7 @@ namespace DataAsGuard.Profiles.Users
             InitializeComponent();
         }
 
-        private void ChangePassword_Shown(Object sender, EventArgs e)
+        private void OTP_Shown(Object sender, EventArgs e)
         {
             validationOTP.Hide();
             refreshOTP.Hide();
@@ -44,19 +44,24 @@ namespace DataAsGuard.Profiles.Users
             {
                 if (timeElapsed > 120 || timeElapsed <= 0)
                 {
-                    validationOTP.Hide();
-                    validationOTP.Text = "Your One-Time-Password has expired or has been invalidated! You can request for another OTP to be sent to you by refreshing the page using the button below.";
+                    
+                    validationOTP.Text = "Your One-Time-Password has expired or has been invalidated!";
                     validationOTP.ForeColor = System.Drawing.Color.Red;
                     validationOTP.Visible = true;
                     refreshOTP.Visible = true;
                 }
                 else
                 {
-
-                    confirmationOTP confirmationOTP = new confirmationOTP();
-                    confirmationOTP.Show();
+                    changePasswordConfirmation changePasswordConfirmation = new changePasswordConfirmation();
+                    changePasswordConfirmation.Show();
                     Hide();
                 }
+            }
+            else
+            {
+                validationOTP.Text = "Your One-Time-Password is incorrect!";
+                validationOTP.ForeColor = System.Drawing.Color.Red;
+                validationOTP.Visible = true;
             }
         }
 
@@ -69,7 +74,7 @@ namespace DataAsGuard.Profiles.Users
             sw = new Stopwatch();
             sw.Start();
                 
-            using (MySqlCommand otpCommand = new MySqlCommand("SELECT contact FROM Userinfo WHERE user.userID = @userID", MyConnection))
+            using (MySqlCommand otpCommand = new MySqlCommand("SELECT contact FROM Userinfo WHERE userID = @userID", MyConnection))
             {
                 otpCommand.Parameters.AddWithValue("@userID", CSClass.Logininfo.userid.ToString());
                 reader = otpCommand.ExecuteReader();
@@ -83,11 +88,11 @@ namespace DataAsGuard.Profiles.Users
             }
 
             //The first 2 values("WebAPI ID", "WebAPI Password") in the string input below are Commzgate Web API account details which will differ between different accounts used
-            string response = OTPStr("101510002", "DataAsguard1", "65" + hpnumber, "Your One-Time-Password for DataAsguard is *OTP*");
+            //string response = OTPStr("101510002", "DataAsguard1", "65" + hpnumber, "Your One-Time-Password for DataAsguard is *OTP*");
             //Retrieve the back value
-            OTPReturn = response.Substring(Math.Max(0, response.Length - 5));
+            //OTPReturn = response.Substring(Math.Max(0, response.Length - 5));
 
-            //OTPReturn = "12345"; //(Testing purposes to prevent wasting of the messages)
+            OTPReturn = "12345"; //(Testing purposes to prevent wasting of the messages)
             //If OTP doesn't send after a period of time, replace the 2 API details above with new ones from the list below
             //Here is a list of unused WebAPI account details I prepared and created that still have 10 SMS credits each. 
             //WebAPI ID: 82540002     WebAPI Password: realitymusic1 (Currently in use above)
