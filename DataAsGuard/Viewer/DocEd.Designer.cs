@@ -30,10 +30,13 @@
         {
             this.rtfBox = new System.Windows.Forms.RichTextBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.txtValue = new System.Windows.Forms.TextBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.pColor = new System.Windows.Forms.Panel();
             this.backBtn = new System.Windows.Forms.Button();
+            this.boldBtn = new System.Windows.Forms.Button();
+            this.colorSelectBtn = new System.Windows.Forms.Button();
+            this.italicBtn = new System.Windows.Forms.Button();
+            this.underlineBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rtfBox
@@ -44,10 +47,11 @@
             this.rtfBox.Size = new System.Drawing.Size(816, 402);
             this.rtfBox.TabIndex = 0;
             this.rtfBox.Text = "";
+            this.rtfBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtfBox_KeyDown);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(767, 54);
+            this.btnSave.Location = new System.Drawing.Point(799, 51);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(52, 25);
@@ -56,18 +60,10 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // txtValue
-            // 
-            this.txtValue.Location = new System.Drawing.Point(102, 55);
-            this.txtValue.Margin = new System.Windows.Forms.Padding(4);
-            this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(594, 23);
-            this.txtValue.TabIndex = 2;
-            // 
             // pColor
             // 
             this.pColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pColor.Location = new System.Drawing.Point(715, 55);
+            this.pColor.Location = new System.Drawing.Point(756, 53);
             this.pColor.Margin = new System.Windows.Forms.Padding(4);
             this.pColor.Name = "pColor";
             this.pColor.Size = new System.Drawing.Size(35, 23);
@@ -84,22 +80,65 @@
             this.backBtn.UseVisualStyleBackColor = true;
             this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
+            // boldBtn
+            // 
+            this.boldBtn.Location = new System.Drawing.Point(725, 53);
+            this.boldBtn.Name = "boldBtn";
+            this.boldBtn.Size = new System.Drawing.Size(24, 25);
+            this.boldBtn.TabIndex = 5;
+            this.boldBtn.Text = "B";
+            this.boldBtn.UseVisualStyleBackColor = true;
+            this.boldBtn.Click += new System.EventHandler(this.boldBtn_Click);
+            // 
+            // colorSelectBtn
+            // 
+            this.colorSelectBtn.Location = new System.Drawing.Point(691, 54);
+            this.colorSelectBtn.Name = "colorSelectBtn";
+            this.colorSelectBtn.Size = new System.Drawing.Size(28, 24);
+            this.colorSelectBtn.TabIndex = 7;
+            this.colorSelectBtn.Text = "C";
+            this.colorSelectBtn.UseVisualStyleBackColor = true;
+            this.colorSelectBtn.Click += new System.EventHandler(this.colorSelectBtn_Click);
+            // 
+            // italicBtn
+            // 
+            this.italicBtn.Location = new System.Drawing.Point(662, 55);
+            this.italicBtn.Name = "italicBtn";
+            this.italicBtn.Size = new System.Drawing.Size(23, 23);
+            this.italicBtn.TabIndex = 8;
+            this.italicBtn.Text = "I";
+            this.italicBtn.UseVisualStyleBackColor = true;
+            this.italicBtn.Click += new System.EventHandler(this.italicBtn_Click);
+            // 
+            // underlineBtn
+            // 
+            this.underlineBtn.Location = new System.Drawing.Point(630, 55);
+            this.underlineBtn.Name = "underlineBtn";
+            this.underlineBtn.Size = new System.Drawing.Size(26, 23);
+            this.underlineBtn.TabIndex = 9;
+            this.underlineBtn.Text = "U";
+            this.underlineBtn.UseVisualStyleBackColor = true;
+            this.underlineBtn.Click += new System.EventHandler(this.underlineBtn_Click);
+            // 
             // DocEd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.underlineBtn);
+            this.Controls.Add(this.italicBtn);
+            this.Controls.Add(this.colorSelectBtn);
+            this.Controls.Add(this.boldBtn);
             this.Controls.Add(this.backBtn);
             this.Controls.Add(this.pColor);
-            this.Controls.Add(this.txtValue);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.rtfBox);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DocEd";
             this.Text = "DocEd";
+            this.Load += new System.EventHandler(this.DocEd_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -107,9 +146,12 @@
 
         private System.Windows.Forms.RichTextBox rtfBox;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.TextBox txtValue;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Panel pColor;
         private System.Windows.Forms.Button backBtn;
+        private System.Windows.Forms.Button boldBtn;
+        private System.Windows.Forms.Button colorSelectBtn;
+        private System.Windows.Forms.Button italicBtn;
+        private System.Windows.Forms.Button underlineBtn;
     }
 }
