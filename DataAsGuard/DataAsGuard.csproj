@@ -71,6 +71,7 @@
       <DependentUpon>CreateGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="CSClass\AesEncryption.cs" />
+    <Compile Include="CSClass\logClass.cs" />
     <Compile Include="CSClass\Logininfo.cs" />
     <Compile Include="FileManagement\AddNewGroup.cs">
       <SubType>Form</SubType>

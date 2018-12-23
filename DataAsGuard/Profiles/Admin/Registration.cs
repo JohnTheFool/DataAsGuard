@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,11 +19,11 @@ namespace DataAsGuard.Profiles.Admin
 {
     public partial class Registration : Form
     {
-
+       
         private Random rand = new Random();
         //smtp
         string emails, password, Firstname, Lastname;
-
+        DBLogger dblog = new DBLogger();
         public Registration()
         {
             InitializeComponent();
@@ -92,11 +93,19 @@ namespace DataAsGuard.Profiles.Admin
                     validatefname.ForeColor = Color.Red;
                     validatefname.Text = "Field cannot be empty";
                 }
+                else
+                {
+                    validatefname.Hide();
+                }
                 if (lastname == "" || lastname == null)
                 {
                     validatelName.Show();
                     validatelName.ForeColor = Color.Red;
                     validatelName.Text = "Field cannot be empty";
+                }
+                else
+                {
+                    validatelName.Hide();
                 }
                 if (email == "" || email == null)
                 {
@@ -116,11 +125,19 @@ namespace DataAsGuard.Profiles.Admin
                     validateDOB.ForeColor = Color.Red;
                     validateDOB.Text = "Field cannot be empty";
                 }
+                else
+                {
+                    validateDOB.Hide();
+                }
                 if (captchabox.Text == "" || captchabox.Text == null)
                 {
                     validatecaptcha.Show();
                     validatecaptcha.ForeColor = Color.Red;
                     validatecaptcha.Text = "Field cannot be empty";
+                }
+                else
+                {
+                    validatecaptcha.Hide();
                 }
                 validation.Show();
                 validation.ForeColor = Color.Red;
@@ -141,23 +158,26 @@ namespace DataAsGuard.Profiles.Admin
             username = firstname[0] + lastname + rand.Next(0, 100);
             AesEncryption aes = new AesEncryption();
 
+            
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
-
                 con.Open();
                 //String query = "INSERT into Userinfo(phoneno., email, firstname, lastname, dob, username, password) values(@contact, @email, @firstName, @Lastname, @DOB, @userName, @hashedPassword)";
                 String query = "INSERT into Userinfo(username, password, email, firstname, lastname, dob, contact) values(@userName, @hashedPassword, @email, @firstName, @Lastname, @DOB, @contact)";
                 MySqlCommand cmd = new MySqlCommand(query, con);
+
+                    cmd.Parameters.AddWithValue("@contact", aes.Encryptstring2(phoneNo, dob));
+                    cmd.Parameters.AddWithValue("@email", aes.Encryptstring2(email, dob));
+                    cmd.Parameters.AddWithValue("@firstName", firstname);
+                    cmd.Parameters.AddWithValue("@Lastname", lastname);
+                    cmd.Parameters.AddWithValue("@DOB", dob);
+                    cmd.Parameters.AddWithValue("@userName", username);
+                    cmd.Parameters.AddWithValue("@hashedPassword", hashpassword);
+                    cmd.ExecuteReader();
                 
-                cmd.Parameters.AddWithValue("@contact", aes.Encryptstring2(phoneNo,dob));
-                cmd.Parameters.AddWithValue("@email", aes.Encryptstring2(email,dob));
-                cmd.Parameters.AddWithValue("@firstName", firstname);
-                cmd.Parameters.AddWithValue("@Lastname", lastname);
-                cmd.Parameters.AddWithValue("@DOB", dob);
-                cmd.Parameters.AddWithValue("@userName", username);
-                cmd.Parameters.AddWithValue("@hashedPassword", hashpassword);
-                cmd.ExecuteReader();
             }
+            //log the registration done by the admin
+            dblog.Log("User account "+username+" registered", "Registeration", "admin", "Admin");
         }
 
         //hash password
@@ -342,11 +362,10 @@ namespace DataAsGuard.Profiles.Admin
             {
                 smtp.Send(msg);
             }
-            catch
+            catch(Exception e)
             {
                 throw;
             }
-
         }
 
         //captcha
@@ -408,8 +427,8 @@ namespace DataAsGuard.Profiles.Admin
             }
             bitmap.Dispose();
             pictureBox1.Image = Image.FromFile("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg");
-
         }
+
         //random lines in the captcha
         private void DrawRandomLines(Graphics g)
         {
