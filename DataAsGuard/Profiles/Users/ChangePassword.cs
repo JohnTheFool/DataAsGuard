@@ -585,6 +585,15 @@ namespace DataAsGuard.Profiles.Users
             CreateImage();
         }
 
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            Logininfo.userid = null;
+            Logininfo.email = null;
+            Logininfo.username = null;
+            Login login = new Login();
+            login.Show();
+            Hide();
+        }
     }
 }
 

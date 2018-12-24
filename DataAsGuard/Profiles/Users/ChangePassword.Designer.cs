@@ -48,6 +48,7 @@
             this.settingsButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.RefreshCaptcha = new System.Windows.Forms.Button();
+            this.Logout = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +59,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.74683F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.25317F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 256F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 257F));
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.strengthcheck, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.validateCaptcha, 2, 4);
@@ -99,7 +100,7 @@
             // 
             this.strengthcheck.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.strengthcheck.AutoSize = true;
-            this.strengthcheck.Location = new System.Drawing.Point(212, 139);
+            this.strengthcheck.Location = new System.Drawing.Point(211, 139);
             this.strengthcheck.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.strengthcheck.Name = "strengthcheck";
             this.strengthcheck.Size = new System.Drawing.Size(60, 17);
@@ -110,7 +111,7 @@
             // 
             this.validateCaptcha.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateCaptcha.AutoSize = true;
-            this.validateCaptcha.Location = new System.Drawing.Point(317, 274);
+            this.validateCaptcha.Location = new System.Drawing.Point(316, 274);
             this.validateCaptcha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validateCaptcha.Name = "validateCaptcha";
             this.validateCaptcha.Size = new System.Drawing.Size(109, 17);
@@ -131,7 +132,7 @@
             // 
             this.validatecPasword.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatecPasword.AutoSize = true;
-            this.validatecPasword.Location = new System.Drawing.Point(317, 189);
+            this.validatecPasword.Location = new System.Drawing.Point(316, 189);
             this.validatecPasword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatecPasword.Name = "validatecPasword";
             this.validatecPasword.Size = new System.Drawing.Size(127, 17);
@@ -164,7 +165,7 @@
             // 
             this.validatePassword.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatePassword.AutoSize = true;
-            this.validatePassword.Location = new System.Drawing.Point(317, 96);
+            this.validatePassword.Location = new System.Drawing.Point(316, 96);
             this.validatePassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatePassword.Name = "validatePassword";
             this.validatePassword.Size = new System.Drawing.Size(118, 17);
@@ -270,11 +271,22 @@
             this.RefreshCaptcha.UseVisualStyleBackColor = true;
             this.RefreshCaptcha.Click += new System.EventHandler(this.RefreshCaptcha_Click);
             // 
+            // Logout
+            // 
+            this.Logout.Location = new System.Drawing.Point(820, 69);
+            this.Logout.Name = "Logout";
+            this.Logout.Size = new System.Drawing.Size(51, 50);
+            this.Logout.TabIndex = 17;
+            this.Logout.Text = "Log Out";
+            this.Logout.UseVisualStyleBackColor = true;
+            this.Logout.Click += new System.EventHandler(this.Logout_Click);
+            // 
             // ChangePassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.Logout);
             this.Controls.Add(this.RefreshCaptcha);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.settingsButton);
@@ -315,5 +327,6 @@
         private System.Windows.Forms.TextBox CPassword;
         private System.Windows.Forms.TextBox captchabox;
         private System.Windows.Forms.Button RefreshCaptcha;
+        private System.Windows.Forms.Button Logout;
     }
 }

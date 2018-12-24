@@ -87,5 +87,27 @@ namespace DataAsGuard.Profiles.Users
             home.Show();
             Hide();
         }
+
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            Logininfo.userid = null;
+            Logininfo.email = null;
+            Logininfo.username = null;
+            Login login = new Login();
+            login.Show();
+            Hide();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            Profilesettings settings = new Profilesettings();
+            settings.Show();
+            Hide();
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

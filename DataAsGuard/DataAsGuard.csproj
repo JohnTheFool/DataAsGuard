@@ -113,6 +113,12 @@
     <Compile Include="Profiles\Users\changePasswordConfirm.Designer.cs">
       <DependentUpon>changePasswordConfirm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\Users\Profilesettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Users\Profilesettings.Designer.cs">
+      <DependentUpon>Profilesettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Viewer\ImgViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -228,6 +234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Users\changePasswordConfirm.resx">
       <DependentUpon>changePasswordConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Users\Profilesettings.resx">
+      <DependentUpon>Profilesettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Viewer\ImgViewerForm.resx">
       <DependentUpon>ImgViewerForm.cs</DependentUpon>
