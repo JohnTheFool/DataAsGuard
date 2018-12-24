@@ -290,5 +290,104 @@ namespace DataAsGuard.Viewer
                 e.SuppressKeyPress = true;
             }
         }
+
+        private bool IsFileLock(string filePath)
+        {
+            FileStream stream = null;
+            try
+            {
+                stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);              
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+            return false;
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            rtfBox.Clear();
+            OpenFileDialog open_dialog = new OpenFileDialog();
+            open_dialog.Filter = "Text Files;RTF;DOCX|*.txt;*.rtf;*.docx";
+            if (open_dialog.ShowDialog() == DialogResult.OK)
+            {
+                var extension = Path.GetExtension(open_dialog.FileName);
+                string rtfbox;
+                switch (extension.ToLower())
+                {
+                    case ".rtf":
+                        if(IsFileLock(open_dialog.FileName))
+                        {
+                            MessageBox.Show("File is in use!");
+                        }
+                        else
+                        {
+                            rtfbox = File.ReadAllText(open_dialog.FileName);     //Read content
+                            rtfBox.Rtf = rtfbox;                                //Display content in rtf file in rtb
+                        }
+
+                        break;
+                    case ".txt":
+                        if (IsFileLock(open_dialog.FileName))
+                        {
+                            MessageBox.Show("File is in use!");
+                        }
+                        else
+                        {
+                            rtfbox = File.ReadAllText(open_dialog.FileName);
+                            rtfBox.Text = rtfbox;
+                        }
+                        break;
+                    case ".docx":
+                        if (IsFileLock(open_dialog.FileName))
+                        {
+                            MessageBox.Show("File is in use!");
+                        }
+                        else
+                        {
+                            var applicationWord = new Microsoft.Office.Interop.Word.Application();
+                            applicationWord.Visible = true;
+                            applicationWord.Documents.Open(open_dialog.FileName);
+                        }
+
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(extension);
+                }
+            }
+        }
+
+        private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents;Word Document;RTF |*.txt;*.docx;*.rtf", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    var extension = Path.GetExtension(sfd.FileName);
+                    switch (extension.ToLower())
+                    {
+                        case ".rtf":
+                            rtfBox.SaveFile(sfd.FileName);
+                            MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            break;
+                        case ".txt":
+                            using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                            {
+                                await sw.WriteLineAsync(rtfBox.Text);
+                                MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(extension);
+                    }
+                }
+            }
+        }
     }
 }
