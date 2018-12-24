@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace DataAsGuard.Profiles.Users
     {
         Random rand = new Random();
         static string oldhashpassword;
+        DBLogger dblog = new DBLogger();
         public ChangePassword()
         {
             InitializeComponent();
@@ -115,6 +117,7 @@ namespace DataAsGuard.Profiles.Users
                             {
                                 //update database with the new password and hash with salt
                                 updatePassword(hashpassword);
+                                dblog.Log("User change Password", "Accounts", Logininfo.userid, Logininfo.email);
                                 changePasswordConfirm change = new changePasswordConfirm();
                                 change.Show();
                                 Hide();
@@ -175,6 +178,7 @@ namespace DataAsGuard.Profiles.Users
                 cmd.ExecuteReader();
                 con.Close();
             }
+            
         }
 
         //passwordchecker
@@ -324,7 +328,6 @@ namespace DataAsGuard.Profiles.Users
                 }
             }
         }
-
 
         private void cpassword_onleave(object sender, EventArgs e)
         {

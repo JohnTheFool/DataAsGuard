@@ -24,6 +24,7 @@ namespace DataAsGuard.Profiles.Admin
         //smtp
         string emails, password, Firstname, Lastname;
         DBLogger dblog = new DBLogger();
+        static string username;
         public Registration()
         {
             InitializeComponent();
@@ -69,10 +70,12 @@ namespace DataAsGuard.Profiles.Admin
                     password = RandomString(10);
                     hashpassword = passwordhash(password);
 
+                    username = firstname + lastname[0] + rand.Next(0, 1000);
+
                     //registerUser
                     registerUser(hashpassword);
 
-                    sendMsg(email, password, firstname, lastname);
+                    sendMsg(email, password, firstname, lastname, username);
 
                     RegistrationConfirm Confirm = new RegistrationConfirm();
                     Confirm.Show();
@@ -154,10 +157,8 @@ namespace DataAsGuard.Profiles.Admin
             string email = Email.Text;
             string phoneNo = PhoneNO.Text;
             string dob = dateTimePicker1.Text;
-            string username;
-            username = firstname[0] + lastname + rand.Next(0, 100);
+            
             AesEncryption aes = new AesEncryption();
-
             
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
@@ -171,13 +172,13 @@ namespace DataAsGuard.Profiles.Admin
                     cmd.Parameters.AddWithValue("@firstName", firstname);
                     cmd.Parameters.AddWithValue("@Lastname", lastname);
                     cmd.Parameters.AddWithValue("@DOB", dob);
-                    cmd.Parameters.AddWithValue("@userName", username);
+                    cmd.Parameters.AddWithValue("@userName", aes.Encryptstring2(username,dob));
                     cmd.Parameters.AddWithValue("@hashedPassword", hashpassword);
                     cmd.ExecuteReader();
                 
             }
             //log the registration done by the admin
-            dblog.Log("User account "+username+" registered", "Registeration", "admin", "Admin");
+            dblog.Log("User account "+username+" registered", "Registeration", Logininfo.userid, Logininfo.email);
         }
 
         //hash password
@@ -296,7 +297,7 @@ namespace DataAsGuard.Profiles.Admin
         }
 
         //SMTP PROTOCOL AFTER REGISTERING
-        public static void sendMsg(string Email, string Password, string Firstname, string Lastname)
+        public static void sendMsg(string Email, string Password, string Firstname, string Lastname, string username)
         {
 
             SmtpClient smtp = new SmtpClient();
@@ -316,15 +317,15 @@ namespace DataAsGuard.Profiles.Admin
             msg.Body += "</tr>";
 
             msg.Body += "<tr>";
-            msg.Body += "<td>Email: " + Email + "</td>";
+            msg.Body += "<td>Username: " + username + "</td>";
             msg.Body += "</tr>";
 
             msg.Body += "<tr>";
-            msg.Body += "<td>Please login with your Email </td>";
+            msg.Body += "<td>Please login with your username </td>";
             msg.Body += "</tr>";
 
             msg.Body += "<tr>";
-            msg.Body += "<td>User Name: " + Password + "</td>";
+            msg.Body += "<td>Password: " + Password + "</td>";
             msg.Body += "</tr>";
 
             msg.Body += "<tr>";

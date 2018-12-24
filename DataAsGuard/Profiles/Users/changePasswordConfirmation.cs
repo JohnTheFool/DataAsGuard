@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,7 @@ namespace DataAsGuard.Profiles.Users
     public partial class changePasswordConfirmation : Form
     {
         Random rand = new Random();
-
+        DBLogger dblog = new DBLogger();
         public changePasswordConfirmation()
         {
             InitializeComponent();
@@ -58,6 +59,7 @@ namespace DataAsGuard.Profiles.Users
                         {
                             //update database
                             updatePassword(hashpassword);
+                            
                             changePasswordConfirm change = new changePasswordConfirm();
                             change.Show();
                             Hide();
@@ -117,6 +119,7 @@ namespace DataAsGuard.Profiles.Users
                 cmd.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
                 cmd.ExecuteReader();
                 con.Close();
+                dblog.Log("User Complete Registration", "Registration", Logininfo.userid.ToString(), Logininfo.email);
             }
         }
 

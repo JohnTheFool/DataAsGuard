@@ -39,7 +39,7 @@ namespace DataAsGuard.Profiles.Users
                 {
                     while (reader.Read())
                     {
-                        Username.Text = reader.GetString(reader.GetOrdinal("username"));
+                        Username.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), Logininfo.userid.ToString());
                         FName.Text = reader.GetString(reader.GetOrdinal("firstname")) +" "+ reader.GetString(reader.GetOrdinal("lastname"));
                         Contact.Text = "****" + aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), Logininfo.userid.ToString()).Substring(4, 4);
                         Email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), Logininfo.userid.ToString());

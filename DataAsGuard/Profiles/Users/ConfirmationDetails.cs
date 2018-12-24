@@ -20,7 +20,7 @@ namespace DataAsGuard.Profiles.Users
     {
         private Random rand = new Random();
         AesEncryption aes = new AesEncryption();
-
+        DBLogger dblog = new DBLogger();
         public ConfirmationDetails()
         {
             InitializeComponent();
@@ -45,7 +45,8 @@ namespace DataAsGuard.Profiles.Users
                 {
                     while (reader.Read())
                     {
-                        name.Text = reader.GetString(reader.GetOrdinal("username"));
+                        username.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), Logininfo.userid.ToString());
+                        name.Text = reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname"));
                         phoneNo.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), Logininfo.userid.ToString());
                         email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), Logininfo.userid.ToString());
                         DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
@@ -64,6 +65,7 @@ namespace DataAsGuard.Profiles.Users
 
             if (captchabox.Text == code.ToString())
             {
+                updateUsername(username.Text);
                 //route to OTP page
                 confirmationOTP registerOTP = new confirmationOTP();
                 registerOTP.Show();
@@ -79,6 +81,25 @@ namespace DataAsGuard.Profiles.Users
                 validateCaptcha.Show();
                 validateCaptcha.ForeColor = Color.Red;
                 validateCaptcha.Text = "Incorrect Entry";
+            }
+        }
+
+        //Update username
+        public void updateUsername(string username)
+        {
+            //UPDATE PASSWORD TO DATABASE
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                string queryStr = "";
+                queryStr = "UPDATE Userinfo set username=@username where userid = @userid";
+
+                MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
+                cmd.Parameters.AddWithValue("@username", aes.Encryptstring(username,Logininfo.userid));
+                cmd.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
+                cmd.ExecuteReader();
+                con.Close();
+                dblog.Log("Username changed", "Accounts", Logininfo.userid.ToString(), Logininfo.email);
             }
         }
 

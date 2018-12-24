@@ -1,6 +1,8 @@
 ﻿using DataAsGuard.CSClass;
+using DataAsGuard.Profiles.Admin;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,9 +20,11 @@ namespace DataAsGuard.Profiles
     {
         DBLogger dblog = new DBLogger();
         static int FailureAttempts;
-        static string FailureEmail;
+        static string FailedUsername;
         static Stopwatch sw = new Stopwatch();
         private static double timeElapsed;
+        static int failedLockCounter;
+        ArrayList array = new ArrayList();
 
         public Login()
         {
@@ -34,83 +38,116 @@ namespace DataAsGuard.Profiles
 
         private void loginbutton_Click(object sender, EventArgs e)
         {
-            string Email = email.Text;
+            string username = this.username.Text;
             string password = Password.Text;     
             AesEncryption aes = new AesEncryption();
 
-            string befencryptedemail = null;
+            string befencryptedUsername = null;
             string hashpassword = null;
             int userid = 0;
             int passwordcheck = 1;
+            string email = null;
             string checkvflag = null;
-            string username = null;
-
+            
             if (sw.IsRunning == true)
             {
-                //only calculate when the account is log or to put a timer inbetween for fail attempts
+                //only calculate when the account is log or to put a timer inbetween fail attempts
                 timeElapsed = sw.Elapsed.TotalSeconds;
+                if(timeElapsed > 1800)
+                {
+                    sw.Stop();
+                    FailureAttempts = 0;
+                    failedLockCounter = 0;
+                    array.Clear();
+                }
             }
 
-            if (timeElapsed <= 60 && timeElapsed > 0)
+            if (failedLockCounter == 1 && (timeElapsed <= 60 && timeElapsed > 0))
             {
                 validation.Show();
                 validation.ForeColor = Color.Red;
                 validation.Text = "Due to multiple failure, Please try again after 1 minute";
             }
+            else if (failedLockCounter == 2 && (timeElapsed <= 180 && timeElapsed > 0))
+            {
+                validation.Show();
+                validation.ForeColor = Color.Red;
+                validation.Text = "Due to multiple failure, Please try again after 3 minute";
+            }
+            else if (failedLockCounter == 3 && (timeElapsed <= 300 && timeElapsed > 0))
+            {
+                validation.Show();
+                validation.ForeColor = Color.Red;
+                validation.Text = "Due to multiple failure, Please try again after 5 minute";
+            }
             else
             {
-                if (Email != "" && password != "")
+                if (username != "" && password != "")
                 {
-                    if (Email == "Admin" && password == "Admin")
+                    using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
                     {
-                        Logininfo.userid = "admin";
-                        dblog.Log("User Login Admin", "LogonSuccess", Logininfo.userid, "Admin");
-                        Admin.AdminProfile profile = new Admin.AdminProfile();
-                        profile.Show();
-                        Hide();
-                    }
-                    else
-                    {
-                        using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                        con.Open();
+                        string selectQuery = "SELECT * FROM Userinfo";
+                        MySqlCommand cmd = new MySqlCommand(selectQuery, con);
+                        MySqlDataReader reader = cmd.ExecuteReader();
+                        while (reader.HasRows && reader.Read())
                         {
-                            con.Open();
-                            string selectQuery = "SELECT * FROM Userinfo";
-                            MySqlCommand cmd = new MySqlCommand(selectQuery, con);
-                            MySqlDataReader reader = cmd.ExecuteReader();
-                            while (reader.HasRows && reader.Read())
+                            if (username == aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid"))))
                             {
-
-                                if (Email == aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid"))))
-                                {
-                                    userid = reader.GetInt32(reader.GetOrdinal("userid"));
-                                    username = reader.GetString(reader.GetOrdinal("username"));
-                                    befencryptedemail = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid")));
-                                    //compare hash password
-                                    hashpassword = reader.GetString(reader.GetOrdinal("password"));
-                                    checkvflag = reader.GetString(reader.GetOrdinal("verificationflag"));
-                                    break;
-                                }
-                                //MessageBox.Show(userbirthdate);
+                                userid = reader.GetInt32(reader.GetOrdinal("userid"));
+                                befencryptedUsername = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid")));
+                                email = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid")));
+                                //compare hash password
+                                hashpassword = reader.GetString(reader.GetOrdinal("password"));
+                                checkvflag = reader.GetString(reader.GetOrdinal("verificationflag"));
+                                break;
                             }
-
-                            con.Close();
+                            //MessageBox.Show(userbirthdate);
                         }
-                    }
 
+                        con.Close();
+                    }
+                    
                     //check if the email can be found in db
-                    if (befencryptedemail == null || befencryptedemail == "")
+                    if (befencryptedUsername == null || befencryptedUsername == "")
                     {
                         validation.Show();
                         validation.ForeColor = Color.Red;
                         validation.Text = "Incorrect Email or Password.";
-                        FailureAttempts += 1;
-                        if (FailureAttempts > 3)
+                        FailureAttempts = 0;
+                        //if fail logon due to password with username
+                        //Add username into array which act as a counter if more than 6 of the same username appear in the array that the user key in the text field
+                        array.Add(username);
+                        for(int i=0; i < array.Count; i++)
                         {
-                            sw.Start();
+                            //code feels weird cause the if condition runs only at the latest addition
+                            if (array[i].ToString() == username)
+                            {
+                                FailureAttempts += 1;
+                            }
+                        }
+                        if (FailureAttempts > 6)
+                        {
+                            for (int i = array.Count-1; i >= 0; i--)
+                            {
+                                if(array[i].ToString() == username)
+                                {
+                                    array.RemoveAt(i);
+                                }
+                            }
+                            if (sw.IsRunning)
+                            {
+                                sw.Reset();
+                            }
+                            else
+                            {
+                                sw.Start();
+                            }
+                            failedLockCounter += 1;
                             FailureAttempts = 0;
                         }
                         //log wrong password attempts on wrong email.
-                        dblog.Log("Failure Login User (Wrong Email): " + Email, "LogonFailure", "null", "null");
+                        dblog.Log("Failure Login User (Wrong username): " + username, "LogonFailure", "null", "null");
                     }
                     //if email found check if it is lock and correct password
                     else
@@ -120,12 +157,12 @@ namespace DataAsGuard.Profiles
                             validation.Show();
                             validation.ForeColor = Color.Red;
                             validation.Text = "Your Account has been Lock due to Suspicious Activity.";
-                            dblog.Log("Attempt to logon to lock account" + Email, "LogonFailure", userid.ToString(), username);
+                            dblog.Log("Attempt to logon to lock account" + username, "LogonFailure", userid.ToString(), email);
                         }
                         else
                         {
                             //retrieve in case of failure for locking the account
-                            FailureEmail = befencryptedemail;
+                            FailedUsername = befencryptedUsername;
                             //comparing passwords
                             byte[] hashBytes = Convert.FromBase64String(hashpassword);
                             //retrieve salt from stored hash
@@ -134,6 +171,7 @@ namespace DataAsGuard.Profiles
                             /* Compute the hash on the password the user entered */
                             var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 2000);
                             byte[] hash = pbkdf2.GetBytes(20);
+                            FailureAttempts = 0;
                             /* Compare the results */
                             for (int i = 0; i < 20; i++)
                             {
@@ -144,24 +182,48 @@ namespace DataAsGuard.Profiles
                                     validation.Text = "Incorrect Email or Password.";
                                     passwordcheck = 0;
                                     //log if wrong password for particular user.
-                                    dblog.Log("Failure Login User (Wrong Password): " + Email, "LogonFailure", userid.ToString(), username);
-                                    //if Failure for consecutive same email with wrong password
-                                    if (FailureEmail == Email)
-                                    {
-                                        FailureAttempts += 1;
-                                    }
-                                    else if (FailureEmail != Email)
-                                    {
-                                        FailureAttempts = 0;
-                                    }
+                                    dblog.Log("Failure Login User (Wrong Password): " + username, "LogonFailure", userid.ToString(), email);
 
-                                    //More than 3 failures at one Session 
-                                    if (FailureAttempts > 3)
+                                    //if fail logon due to password with username
+                                    //Add username into array which act as a counter if more than 6 of the same username appear in the array that the user key in the text field
+                                    array.Add(username);
+                                    for (int u = 0; u < array.Count; u++)
                                     {
-                                        sw.Start();
-                                        //lock account
-                                        LockAccount(userid);
-                                        dblog.Log("User Account Locked due to Multiple Failures: " + Email, "LogonFailure", userid.ToString(), username);
+                                        //code feels weird cause the if condition runs only at the latest addition
+                                        if (array[u].ToString() == username)
+                                        {
+                                            FailureAttempts += 1;
+                                        }
+                                    }
+                                    //More than 6 failures at one Session 
+                                    if (FailureAttempts > 6)
+                                    {
+                                        if (userid == 1)
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            for (int u = array.Count - 1; u >= 0; u--)
+                                            {
+                                                if (array[u].ToString() == username)
+                                                {
+                                                    array.RemoveAt(u);
+                                                }
+                                            }
+                                            failedLockCounter += 1;
+                                            if (sw.IsRunning)
+                                            {
+                                                sw.Reset();
+                                            }
+                                            else
+                                            {
+                                                sw.Start();
+                                            }
+                                            //lock account
+                                            LockAccount(userid);
+                                            dblog.Log("User Account Locked due to Multiple Failures: " + username, "LogonFailure", userid.ToString(), email);
+                                        }
                                     }
                                     break;
                                 }
@@ -169,32 +231,47 @@ namespace DataAsGuard.Profiles
                         }
                     }
 
-                    if (passwordcheck == 1 && Email == befencryptedemail)
+                    if (passwordcheck == 1 && username == befencryptedUsername)
                     {
-                        //F if have not change passwords
-                        if (checkvflag == "F")
+                        //if the userid == 1, which is the admin userid
+                        if (userid == 1)
                         {
-
-                            Logininfo.userid = userid.ToString();
-                            dblog.Log("First Time Login User: " + Email, "LogonSuccess", Logininfo.userid, username);
-                            Users.ConfirmationDetails register = new Users.ConfirmationDetails(); // If status is Not completed
-                            register.Show();
+                            AdminProfile admin = new AdminProfile();
+                            admin.Show();
                             Hide();
+                            dblog.Log("Login User: " + username, "LogonSuccess", userid.ToString(), email);
                         }
-                        //T if have verification and change password.
-                        else if (checkvflag == "T")
+                        else
                         {
-                            Logininfo.userid = userid.ToString();
-                            dblog.Log("Login User: " + Email, "LogonSuccess", Logininfo.userid, username);
-                            Users.Profile profile = new Users.Profile();
-                            profile.Show();
-                            Hide();
-                        }
-                        else if (checkvflag == "L")
-                        {
-                            validation.Show();
-                            validation.ForeColor = Color.Red;
-                            validation.Text = "Your Account has been Lock due to Suspicious Activity.";
+                            //F if have not change passwords
+                            if (checkvflag == "F")
+                            {
+                                Logininfo.userid = userid.ToString();
+                                Logininfo.username = username;
+                                Logininfo.email = email;
+                                dblog.Log("First Time Login User: " + username, "LogonSuccess", userid.ToString(), email);
+                                Users.ConfirmationDetails register = new Users.ConfirmationDetails(); // If status is Not completed
+                                register.Show();
+                                Hide();
+                            }
+                            //T if have verification and change password.
+                            else if (checkvflag == "T")
+                            {
+                                Logininfo.userid = userid.ToString();
+                                Logininfo.username = username;
+                                Logininfo.email = email;
+                                dblog.Log("Login User: " + username, "LogonSuccess", userid.ToString(), email);
+                                Users.Profile profile = new Users.Profile();
+                                profile.Show();
+                                Hide();
+                            }
+                            //L for Lock Account
+                            else if (checkvflag == "L")
+                            {
+                                validation.Show();
+                                validation.ForeColor = Color.Red;
+                                validation.Text = "Your Account has been Lock due to Suspicious Activity.";
+                            }
                         }
                     }
 
