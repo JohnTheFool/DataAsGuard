@@ -277,7 +277,7 @@ namespace DataAsGuard.Profiles.Users
                         validatePassword.Show();
                         validatePassword.ForeColor = Color.Red;
                         validatePassword.Text = "Please ensure that Password contains 8-16 characters, 1 Lower Case, 1 Upper Case, 1 Number and at least 1 Special Character.";
-                        Hide();
+                        validatecPasword.Hide();
                     }
                     //else condition is all available and cpassword is still null
                     else if (checkpassword == true)

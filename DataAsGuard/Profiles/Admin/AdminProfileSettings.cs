@@ -1,4 +1,5 @@
 ﻿using DataAsGuard.CSClass;
+using DataAsGuard.Profiles.Users;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -13,28 +14,28 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DataAsGuard.Profiles.Users
+namespace DataAsGuard.Profiles.Admin
 {
-    public partial class Profilesettings : Form
+    public partial class AdminProfileSettings : Form
     {
-        Random rand = new Random();
         AesEncryption aes = new AesEncryption();
-        public Profilesettings()
+        Random rand = new Random();
+        public AdminProfileSettings()
         {
             InitializeComponent();
         }
-
         private void profilesettings_Shown(object sender, EventArgs e)
         {
             Validation.Hide();
             validateCaptcha.Hide();
             validatephoneNO.Hide();
             userdataRetrieval();
+            CreateImage();
         }
 
         private void userdataRetrieval()
         {
-            
+
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -47,7 +48,7 @@ namespace DataAsGuard.Profiles.Users
                     {
                         username.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), Logininfo.userid.ToString());
                         name.Text = reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname"));
-                        phoneNo.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), Logininfo.userid.ToString());
+                        phoneNo.Text =aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), Logininfo.userid.ToString());
                         email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), Logininfo.userid.ToString());
                         DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
                     }
@@ -87,6 +88,7 @@ namespace DataAsGuard.Profiles.Users
             }
         }
 
+        //prevent letter press and only allow number press
         private void phoneno_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -103,13 +105,15 @@ namespace DataAsGuard.Profiles.Users
         }
 
         //button navigation
+        //traverse back to adminprofilepage
         private void BackButton_Click(object sender, EventArgs e)
         {
-            Profile profile = new Profile();
+            AdminProfile profile = new AdminProfile();
             profile.Show();
             Hide();
         }
 
+        //traverse to login
         private void Logout_Click(object sender, EventArgs e)
         {
             Logininfo.userid = null;
@@ -120,24 +124,27 @@ namespace DataAsGuard.Profiles.Users
             Hide();
         }
 
+        //traverse to adminprofile
         private void ProfileButton_Click(object sender, EventArgs e)
         {
-            Profile profile = new Profile();
+            AdminProfile profile = new AdminProfile();
             profile.Show();
             Hide();
         }
 
+        //traverse to this page
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            Profilesettings settings = new Profilesettings();
+            AdminProfileSettings settings = new AdminProfileSettings();
             settings.Show();
             Hide();
         }
 
+        //traverse to home
         private void Home_Click(object sender, EventArgs e)
         {
-            Home home = new Home();
-            home.Show();
+            AdminProfile Profiles = new AdminProfile();
+            Profiles.Show();
             Hide();
         }
 
@@ -146,10 +153,10 @@ namespace DataAsGuard.Profiles.Users
             //ensure captcha is correct
             if (captchabox.Text == code.ToString())
             {
-                if (username.Text == null || username.Text == "")
+                if (username.Text != null || username.Text != "")
                 {
 
-                    if(phoneNo.Text == null || phoneNo.Text == "")
+                    if (phoneNo.Text != null || phoneNo.Text != "")
                     {
                         updateInfo();
                         Validation.Show();
@@ -182,13 +189,13 @@ namespace DataAsGuard.Profiles.Users
         //Update info
         public void updateInfo()
         {
-           
+
             //UPDATE PASSWORD TO DATABASE
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
                 string queryStr = "";
-                queryStr = "UPDATE Userinfo set username=@username, contact = @contact where userid = @userid";
+                queryStr = "UPDATE Userinfo set username=@username, contact = @contact where userid = 1";
 
                 MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
                 cmd.Parameters.AddWithValue("@username", aes.Encryptstring(username.Text, Logininfo.userid.ToString()));
@@ -311,5 +318,6 @@ namespace DataAsGuard.Profiles.Users
             }
             CreateImage();
         }
+    
     }
 }

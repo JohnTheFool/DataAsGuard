@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminProfile));
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.dataFilesGrid = new System.Windows.Forms.DataGridView();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -50,16 +52,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.dataLogGrid = new System.Windows.Forms.DataGridView();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.AddUser = new System.Windows.Forms.Button();
             this.AdminHome = new System.Windows.Forms.Button();
             this.Logout = new System.Windows.Forms.Button();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.dataFilesGrid = new System.Windows.Forms.DataGridView();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.dataLogGrid = new System.Windows.Forms.DataGridView();
+            this.settingsButton = new System.Windows.Forms.Button();
+            this.changePassword = new System.Windows.Forms.Button();
             this.tabPage4.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataFilesGrid)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataAccountGrid)).BeginInit();
@@ -71,8 +75,6 @@
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataFilesGrid)).BeginInit();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLogGrid)).BeginInit();
             this.SuspendLayout();
@@ -90,6 +92,24 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Files Management";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.dataFilesGrid);
+            this.panel6.Location = new System.Drawing.Point(26, 58);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(713, 356);
+            this.panel6.TabIndex = 6;
+            // 
+            // dataFilesGrid
+            // 
+            this.dataFilesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataFilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataFilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataFilesGrid.Location = new System.Drawing.Point(0, 0);
+            this.dataFilesGrid.Name = "dataFilesGrid";
+            this.dataFilesGrid.Size = new System.Drawing.Size(713, 356);
+            this.dataFilesGrid.TabIndex = 0;
             // 
             // textBox2
             // 
@@ -302,6 +322,24 @@
             this.tabPage2.Text = "General Logs";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.dataLogGrid);
+            this.panel7.Location = new System.Drawing.Point(26, 58);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(713, 356);
+            this.panel7.TabIndex = 6;
+            // 
+            // dataLogGrid
+            // 
+            this.dataLogGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataLogGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataLogGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataLogGrid.Location = new System.Drawing.Point(0, 0);
+            this.dataLogGrid.Name = "dataLogGrid";
+            this.dataLogGrid.Size = new System.Drawing.Size(713, 356);
+            this.dataLogGrid.TabIndex = 0;
+            // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(70, 28);
@@ -337,7 +375,7 @@
             this.AdminHome.Location = new System.Drawing.Point(16, 15);
             this.AdminHome.Margin = new System.Windows.Forms.Padding(4);
             this.AdminHome.Name = "AdminHome";
-            this.AdminHome.Size = new System.Drawing.Size(49, 44);
+            this.AdminHome.Size = new System.Drawing.Size(35, 42);
             this.AdminHome.TabIndex = 13;
             this.AdminHome.UseVisualStyleBackColor = true;
             this.AdminHome.Click += new System.EventHandler(this.AdminHome_Click);
@@ -352,47 +390,34 @@
             this.Logout.UseVisualStyleBackColor = true;
             this.Logout.Click += new System.EventHandler(this.Logout_Click);
             // 
-            // panel6
+            // settingsButton
             // 
-            this.panel6.Controls.Add(this.dataFilesGrid);
-            this.panel6.Location = new System.Drawing.Point(26, 58);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(713, 356);
-            this.panel6.TabIndex = 6;
+            this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
+            this.settingsButton.Location = new System.Drawing.Point(14, 66);
+            this.settingsButton.Margin = new System.Windows.Forms.Padding(5);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(37, 38);
+            this.settingsButton.TabIndex = 18;
+            this.settingsButton.UseVisualStyleBackColor = true;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
-            // dataFilesGrid
+            // changePassword
             // 
-            this.dataFilesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataFilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataFilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataFilesGrid.Location = new System.Drawing.Point(0, 0);
-            this.dataFilesGrid.Name = "dataFilesGrid";
-            this.dataFilesGrid.Size = new System.Drawing.Size(713, 356);
-            this.dataFilesGrid.TabIndex = 0;
-            // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.dataLogGrid);
-            this.panel7.Location = new System.Drawing.Point(26, 58);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(713, 356);
-            this.panel7.TabIndex = 6;
-            // 
-            // dataLogGrid
-            // 
-            this.dataLogGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataLogGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataLogGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataLogGrid.Location = new System.Drawing.Point(0, 0);
-            this.dataLogGrid.Name = "dataLogGrid";
-            this.dataLogGrid.Size = new System.Drawing.Size(713, 356);
-            this.dataLogGrid.TabIndex = 0;
+            this.changePassword.Location = new System.Drawing.Point(74, 15);
+            this.changePassword.Name = "changePassword";
+            this.changePassword.Size = new System.Drawing.Size(82, 42);
+            this.changePassword.TabIndex = 19;
+            this.changePassword.Text = "Change Password";
+            this.changePassword.UseVisualStyleBackColor = true;
+            this.changePassword.Click += new System.EventHandler(this.changePassword_Click);
             // 
             // AdminProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.changePassword);
+            this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.Logout);
             this.Controls.Add(this.AdminHome);
             this.Controls.Add(this.AddUser);
@@ -404,6 +429,8 @@
             this.Load += new System.EventHandler(this.AdminProfile_Load);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataFilesGrid)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -421,8 +448,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataFilesGrid)).EndInit();
             this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataLogGrid)).EndInit();
             this.ResumeLayout(false);
@@ -461,5 +486,7 @@
         private System.Windows.Forms.DataGridView dataFilesGrid;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.DataGridView dataLogGrid;
+        private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Button changePassword;
     }
 }

@@ -54,5 +54,19 @@ namespace DataAsGuard.Profiles.Admin
             Profiles.Show();
             Hide();
         }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            AdminProfileSettings settings = new AdminProfileSettings();
+            settings.Show();
+            Hide();
+        }
+
+        private void changePassword_Click(object sender, EventArgs e)
+        {
+            AdminChangePassword changePassword = new AdminChangePassword();
+            changePassword.Show();
+            Hide();
+        }
     }
 }

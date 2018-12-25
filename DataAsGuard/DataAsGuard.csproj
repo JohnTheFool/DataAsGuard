@@ -95,6 +95,18 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DB.cs" />
+    <Compile Include="Profiles\Admin\AdminChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Admin\AdminChangePassword.Designer.cs">
+      <DependentUpon>AdminChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Admin\AdminProfileSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Admin\AdminProfileSettings.Designer.cs">
+      <DependentUpon>AdminProfileSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Admin\RegistrationConfirm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +237,12 @@
     </Compile>
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Admin\AdminChangePassword.resx">
+      <DependentUpon>AdminChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Admin\AdminProfileSettings.resx">
+      <DependentUpon>AdminProfileSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Admin\RegistrationConfirm.resx">
       <DependentUpon>RegistrationConfirm.cs</DependentUpon>

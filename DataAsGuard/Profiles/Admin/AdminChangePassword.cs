@@ -13,14 +13,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DataAsGuard.Profiles.Users
+namespace DataAsGuard.Profiles.Admin
 {
-    public partial class ChangePassword : Form
+    public partial class AdminChangePassword : Form
     {
         Random rand = new Random();
         static string oldhashpassword;
         DBLogger dblog = new DBLogger();
-        public ChangePassword()
+
+        public AdminChangePassword()
         {
             InitializeComponent();
         }
@@ -33,7 +34,7 @@ namespace DataAsGuard.Profiles.Users
             strengthcheck.Hide();
             userdataRetrieval();
             CreateImage();
-            
+            Validation.Hide();
         }
 
         private void userdataRetrieval()
@@ -64,7 +65,7 @@ namespace DataAsGuard.Profiles.Users
         {
             //strength
             int strength = CheckPasswordstrength(Password.Text);
-            
+
             string passwordvalue = Password.Text;
             string cpasswordvalue = CPassword.Text;
             string oldpassword = oldPassword.Text;
@@ -77,6 +78,7 @@ namespace DataAsGuard.Profiles.Users
             int passwordcheck = 0;
             int oldpasswordcheck = 1;
 
+            //this is to check the new password field
             //comparing old and new passwords with old salt
             byte[] hashBytes = Convert.FromBase64String(oldhashpassword);
             //retrieve salt from stored hash
@@ -127,6 +129,7 @@ namespace DataAsGuard.Profiles.Users
                         //check if all condition of password are met
                         if (checkCPassword == true)
                         {
+                            //check if old password field matches
                             if (oldpasswordcheck == 1)
                             {
                                 //check if oldpassword is same as new password
@@ -143,22 +146,24 @@ namespace DataAsGuard.Profiles.Users
                                     //update database with the new password and hash with salt
                                     updatePassword(hashpassword);
                                     dblog.Log("User change Password", "Accounts", Logininfo.userid, Logininfo.email);
-                                    changePasswordConfirm change = new changePasswordConfirm();
-                                    change.Show();
-                                    Hide();
+                                    Validation.Show();
+                                    Validation.ForeColor = Color.ForestGreen;
+                                    Validation.Text = "Password Updated";
+                                    userdataRetrieval();
                                     //release resources uses by captcha to prevent issues
                                     if (pictureBox1.Image != null)
                                     {
                                         pictureBox1.Image.Dispose();
                                         pictureBox1.Image = null;
                                     }
+                                    CreateImage();
                                 }
                             }
                             else
                             {
-                                validatePassword.Show();
-                                validatePassword.ForeColor = Color.Red;
-                                validatePassword.Text = "Old Password is not correct";
+                                Validation.Show();
+                                Validation.ForeColor = Color.Red;
+                                Validation.Text = "Old Password is not correct";
                             }
                         }
                         else
@@ -210,7 +215,7 @@ namespace DataAsGuard.Profiles.Users
                 cmd.ExecuteReader();
                 con.Close();
             }
-            
+
         }
 
         //passwordchecker
@@ -294,7 +299,7 @@ namespace DataAsGuard.Profiles.Users
                 strengthcheck.Show();
                 strengthcheck.Text = "Excellent";
                 strengthcheck.ForeColor = Color.Green;
-            } 
+            }
         }
 
         private void password_onleave(object sender, EventArgs e)
@@ -505,6 +510,30 @@ namespace DataAsGuard.Profiles.Users
             return savedPasswordHash;
         }
 
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            Logininfo.userid = null;
+            Logininfo.email = null;
+            Logininfo.username = null;
+            Login login = new Login();
+            login.Show();
+            Hide();
+        }
+
+        private void AdminHome_Click(object sender, EventArgs e)
+        {
+            AdminProfile Profiles = new AdminProfile();
+            Profiles.Show();
+            Hide();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            AdminProfileSettings settings = new AdminProfileSettings();
+            settings.Show();
+            Hide();
+        }
+
         //captcha
         private void CreateImage()
         {
@@ -591,16 +620,16 @@ namespace DataAsGuard.Profiles.Users
 
             //if (String.IsNullOrEmpty(code))
             //{
-                string alphabets = "abcdefghijklmnopqrstuvwxyz1234567890";
+            string alphabets = "abcdefghijklmnopqrstuvwxyz1234567890";
 
-                Random r = new Random();
-                for (int j = 0; j <= 5; j++)
-                {
+            Random r = new Random();
+            for (int j = 0; j <= 5; j++)
+            {
 
-                    randomText.Append(alphabets[r.Next(alphabets.Length)]);
-                }
+                randomText.Append(alphabets[r.Next(alphabets.Length)]);
+            }
 
-                code = randomText.ToString();
+            code = randomText.ToString();
             //}
 
             return code;
@@ -616,38 +645,7 @@ namespace DataAsGuard.Profiles.Users
             }
             CreateImage();
         }
-
-        private void Logout_Click(object sender, EventArgs e)
-        {
-            Logininfo.userid = null;
-            Logininfo.email = null;
-            Logininfo.username = null;
-            Login login = new Login();
-            login.Show();
-            Hide();
-        }
-
-        private void ProfileButton_Click(object sender, EventArgs e)
-        {
-            Profile profile = new Profile();
-            profile.Show();
-            Hide();
-
-        }
-
-
-        private void settingsButton_Click(object sender, EventArgs e)
-        {
-            Profilesettings settings = new Profilesettings();
-            settings.Show();
-            Hide();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
     }
-}
 
+
+}

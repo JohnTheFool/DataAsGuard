@@ -236,6 +236,9 @@ namespace DataAsGuard.Profiles
                         //if the userid == 1, which is the admin userid
                         if (userid == 1)
                         {
+                            Logininfo.userid = userid.ToString();
+                            Logininfo.username = username;
+                            Logininfo.email = email;
                             AdminProfile admin = new AdminProfile();
                             admin.Show();
                             Hide();
