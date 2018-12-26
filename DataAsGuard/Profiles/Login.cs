@@ -223,6 +223,7 @@ namespace DataAsGuard.Profiles
                                             //lock account
                                             LockAccount(userid);
                                             dblog.Log("User Account Locked due to Multiple Failures: " + username, "LogonFailure", userid.ToString(), email);
+                                            dblog.Log("Account status changed (T -> L)", "Accounts", userid.ToString(), email);
                                         }
                                     }
                                     break;

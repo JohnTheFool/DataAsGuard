@@ -108,6 +108,7 @@
             this.dataFilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataFilesGrid.Location = new System.Drawing.Point(0, 0);
             this.dataFilesGrid.Name = "dataFilesGrid";
+            this.dataFilesGrid.ReadOnly = true;
             this.dataFilesGrid.Size = new System.Drawing.Size(713, 356);
             this.dataFilesGrid.TabIndex = 0;
             // 
@@ -159,6 +160,7 @@
             this.dataAccountGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataAccountGrid.Location = new System.Drawing.Point(0, 0);
             this.dataAccountGrid.Name = "dataAccountGrid";
+            this.dataAccountGrid.ReadOnly = true;
             this.dataAccountGrid.Size = new System.Drawing.Size(713, 356);
             this.dataAccountGrid.TabIndex = 0;
             this.dataAccountGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataAccountGrid_CellContentClick);
@@ -339,6 +341,7 @@
             this.dataLogGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataLogGrid.Location = new System.Drawing.Point(0, 0);
             this.dataLogGrid.Name = "dataLogGrid";
+            this.dataLogGrid.ReadOnly = true;
             this.dataLogGrid.Size = new System.Drawing.Size(713, 356);
             this.dataLogGrid.TabIndex = 0;
             // 
