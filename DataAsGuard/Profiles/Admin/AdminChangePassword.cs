@@ -149,6 +149,10 @@ namespace DataAsGuard.Profiles.Admin
                                     Validation.Show();
                                     Validation.ForeColor = Color.ForestGreen;
                                     Validation.Text = "Password Updated";
+                                    validateCaptcha.Hide();
+                                    validatecPasword.Hide();
+                                    validatePassword.Hide();
+                                    strengthcheck.Hide();
                                     userdataRetrieval();
                                     //release resources uses by captcha to prevent issues
                                     if (pictureBox1.Image != null)

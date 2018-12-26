@@ -47,6 +47,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.RefreshCaptcha = new System.Windows.Forms.Button();
+            this.validateUsername = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -70,7 +71,8 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.89605F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.10395F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135F));
+            this.tableLayoutPanel1.Controls.Add(this.validateUsername, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.email, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
@@ -186,7 +188,7 @@
             // 
             this.validateCaptcha.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateCaptcha.AutoSize = true;
-            this.validateCaptcha.Location = new System.Drawing.Point(480, 229);
+            this.validateCaptcha.Location = new System.Drawing.Point(479, 229);
             this.validateCaptcha.Name = "validateCaptcha";
             this.validateCaptcha.Size = new System.Drawing.Size(109, 17);
             this.validateCaptcha.TabIndex = 23;
@@ -208,7 +210,7 @@
             this.username.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.username.Location = new System.Drawing.Point(241, 4);
             this.username.Name = "username";
-            this.username.Size = new System.Drawing.Size(100, 23);
+            this.username.Size = new System.Drawing.Size(133, 23);
             this.username.TabIndex = 24;
             // 
             // label5
@@ -260,6 +262,16 @@
             this.RefreshCaptcha.UseVisualStyleBackColor = true;
             this.RefreshCaptcha.Click += new System.EventHandler(this.RefreshCaptcha_Click);
             // 
+            // validateUsername
+            // 
+            this.validateUsername.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.validateUsername.AutoSize = true;
+            this.validateUsername.Location = new System.Drawing.Point(479, 7);
+            this.validateUsername.Name = "validateUsername";
+            this.validateUsername.Size = new System.Drawing.Size(122, 17);
+            this.validateUsername.TabIndex = 42;
+            this.validateUsername.Text = "validateUsername";
+            // 
             // ConfirmationDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -304,5 +316,6 @@
         private System.Windows.Forms.TextBox username;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label name;
+        private System.Windows.Forms.Label validateUsername;
     }
 }

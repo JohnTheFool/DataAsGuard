@@ -62,18 +62,29 @@ namespace DataAsGuard.Profiles.Users
         //submit button
         private void Confirm_Click(object sender, EventArgs e)
         {
-
             if (captchabox.Text == code.ToString())
             {
-                updateUsername(username.Text);
-                //route to OTP page
-                confirmationOTP registerOTP = new confirmationOTP();
-                registerOTP.Show();
-                Hide();
-                if (pictureBox1.Image != null)
+                bool contains = usernamechecker(username.Text);
+                //if contains == true and username is the same as the current username for the current user OR
+                //if contains == false
+                if ((contains == true && checkuserid == Logininfo.userid) || (contains == false))
                 {
-                    pictureBox1.Image.Dispose();
-                    pictureBox1.Image = null;
+                    updateUsername(username.Text);
+                    //route to OTP page
+                    confirmationOTP registerOTP = new confirmationOTP();
+                    registerOTP.Show();
+                    Hide();
+                    if (pictureBox1.Image != null)
+                    {
+                        pictureBox1.Image.Dispose();
+                        pictureBox1.Image = null;
+                    }
+                }
+                else
+                {
+                    validateUsername.Show();
+                    validateUsername.ForeColor = Color.Red;
+                    validateUsername.Text = "Username had been taken.";
                 }
             }
             else
@@ -99,7 +110,7 @@ namespace DataAsGuard.Profiles.Users
                 cmd.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
                 cmd.ExecuteReader();
                 con.Close();
-                dblog.Log("Username changed", "Accounts", Logininfo.userid.ToString(), Logininfo.email);
+                dblog.Log("User Information changed", "Accounts", Logininfo.userid.ToString(), Logininfo.email);
             }
         }
 
@@ -215,6 +226,62 @@ namespace DataAsGuard.Profiles.Users
             return code;
         }
 
+        static string checkuserid;
+        private void username_Leave(object sender, EventArgs e)
+        {
+            bool contains = usernamechecker(username.Text);
+            if (contains == true && checkuserid != Logininfo.userid)
+            {
+                validateUsername.Show();
+                validateUsername.ForeColor = Color.Red;
+                validateUsername.Text = "Username had been taken.";
+            }
+            else if (contains == true && checkuserid == Logininfo.userid)
+            {
+                validateUsername.Show();
+                validateUsername.ForeColor = Color.ForestGreen;
+                validateUsername.Text = "Username OK!";
+            }
+            else
+            {
+                validateUsername.Show();
+                validateUsername.ForeColor = Color.ForestGreen;
+                validateUsername.Text = "Username OK!";
+            }
+        }
+
+        //check for duplicates in username
+        public bool usernamechecker(string usernamevalue)
+        {
+            bool contains = false;
+            //UPDATE PASSWORD TO DATABASE
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                string queryStr = "";
+                queryStr = "SELECT * FROM Userinfo";
+
+                MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    //cannot have duplicate
+                    //if it contains a value.
+                    while (reader.Read())
+                    {
+                        if (usernamevalue == aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("dob"))))
+                        {
+                            contains = true;
+                            checkuserid = reader.GetString(reader.GetOrdinal("userid"));
+                        }
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+            return contains;
+        }
     }
 }
 
