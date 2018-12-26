@@ -154,12 +154,14 @@
             // dataAccountGrid
             // 
             this.dataAccountGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataAccountGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataAccountGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataAccountGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataAccountGrid.Location = new System.Drawing.Point(0, 0);
             this.dataAccountGrid.Name = "dataAccountGrid";
             this.dataAccountGrid.Size = new System.Drawing.Size(713, 356);
             this.dataAccountGrid.TabIndex = 0;
+            this.dataAccountGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataAccountGrid_CellContentClick);
             // 
             // textBox1
             // 
@@ -426,7 +428,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AdminProfile";
             this.Text = "AdminProfile";
-            this.Load += new System.EventHandler(this.AdminProfile_Load);
+            this.Load += new System.EventHandler(this.Adminprofile_Load);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.panel6.ResumeLayout(false);
