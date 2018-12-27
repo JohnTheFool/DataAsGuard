@@ -296,10 +296,11 @@ namespace DataAsGuard.Profiles
             {
                 con.Open();
                 string queryStr = "";
-                queryStr = "UPDATE Userinfo set verificationflag=@vflag where userid = @userid";
+                queryStr = "UPDATE Userinfo set verificationflag=@vflag,statusDate=@statusDate where userid = @userid";
 
                 MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
                 cmd.Parameters.AddWithValue("@vflag", "L");
+                cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
                 cmd.Parameters.AddWithValue("@userid", userid);
                 cmd.ExecuteReader();
                 con.Close();

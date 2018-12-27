@@ -49,6 +49,14 @@ namespace DataAsGuard.Profiles.Admin
                         Email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), Logininfo.userid.ToString());
                         DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
                         vflag.Text = reader.GetString(reader.GetOrdinal("verificationflag"));
+                        if (reader.IsDBNull(reader.GetOrdinal("statusDate")))
+                        {
+                            statusDate.Text = "NULL";
+                        }
+                        else
+                        {
+                            statusDate.Text = reader.GetString(reader.GetOrdinal("statusDate"));
+                        }
                     }
 
                     if (reader != null)
@@ -109,30 +117,51 @@ namespace DataAsGuard.Profiles.Admin
             {
                 con.Open();
                 string queryStr = "";
-                queryStr = "UPDATE Userinfo set verificationflag=@vflag where userid = @userid";
+                queryStr = "UPDATE Userinfo set verificationflag=@vflag, statusDate=@statusDate where userid = @userid";
 
                 MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
                 if (vflag.Text == "L")
                 {
                     //lock to unlock
                     cmd.Parameters.AddWithValue("@vflag", "T");
+                    cmd.Parameters.AddWithValue("@statusDate", "NULL");
+                    dblog.Log("Account status changed(L -> T) by Admin", "Accounts", Logininfo.userid, Logininfo.email);
                 }
                 else if (vflag.Text == "T")
                 {
                     //unlock to lock
                     cmd.Parameters.AddWithValue("@vflag", "L");
+                    cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                    dblog.Log("Account status changed(T -> L) by Admin", "Accounts", Logininfo.userid, Logininfo.email);
                 }
-                cmd.Parameters.AddWithValue("@userid", userid);
+                cmd.Parameters.AddWithValue("@userid", AdminSession.userid);
                 cmd.ExecuteReader();
                 con.Close();
             }
+            
             userdataRetrieval();
-            dblog.Log("Account status changed(L -> T) by Admin", "Accounts", Logininfo.userid, Logininfo.email);
+            
         }
 
         private void delete_Click(object sender, EventArgs e)
         {
-
+            DateTime prevLockDate = DateTime.ParseExact(statusDate.Text, "dd/MM/yyyy HH:mm:ss", null);
+            if (statusDate.Text == null || statusDate.Text == "" || statusDate.Text == "NULL")
+            {
+                MessageBox.Show("Account need to be lock for more than 7 days before able to be deleted");
+            }
+            else
+            {
+                //check if the previous lock date has already pass 7 days
+                if (prevLockDate >= DateTime.Now.AddDays(-7))
+                {
+                    MessageBox.Show("Account need to be lock for more than 7 days before able to be deleted");
+                }
+                else
+                {
+                    //DeleteAccount
+                }
+            }
         }
 
         private void chgpass_Click(object sender, EventArgs e)

@@ -64,6 +64,41 @@ namespace DataAsGuard.Profiles.Admin
             
         }
 
+        //account with filter
+        private void retrieveAccounts2(string listvalue, ArrayList searchvalue)
+        {
+            dataAccountGrid.AllowUserToAddRows = false;
+            dataAccountGrid.AllowUserToDeleteRows = false;
+            dataAccountGrid.ColumnCount = 7;
+            dataAccountGrid.Columns[0].Name = "Userid";
+            dataAccountGrid.Columns[1].Name = "Username";
+            dataAccountGrid.Columns[2].Name = "Email";
+            dataAccountGrid.Columns[3].Name = "FullName";
+            dataAccountGrid.Columns[4].Name = "Dob";
+            dataAccountGrid.Columns[5].Name = "Contact";
+            dataAccountGrid.Columns[6].Name = "Vflag";
+
+            //add rows from db
+            userdataRetrieval2(listvalue, searchvalue);
+
+            ////ADD BUTTON COLUMN
+            DataGridViewButtonColumn FullDetailsbtn = new DataGridViewButtonColumn();
+            FullDetailsbtn.HeaderText = "Full Details";
+            FullDetailsbtn.Name = "fDetails";
+            FullDetailsbtn.Text = "Full Details";
+            FullDetailsbtn.UseColumnTextForButtonValue = true;
+            dataAccountGrid.Columns.Add(FullDetailsbtn);
+
+            ////ADD BUTTON COLUMN
+            DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
+            btn.HeaderText = "Unlock/Lock Btn";
+            btn.Name = "UnlockLockbtn";
+            btn.Text = "Unlock/Lock btn";
+            btn.UseColumnTextForButtonValue = true;
+            dataAccountGrid.Columns.Add(btn);
+
+        }
+
         //accountgrid buttons
         private void dataAccountGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -161,18 +196,20 @@ namespace DataAsGuard.Profiles.Admin
             {
                 con.Open();
                 string queryStr = "";
-                queryStr = "UPDATE Userinfo set verificationflag=@vflag where userid = @userid";
+                queryStr = "UPDATE Userinfo set verificationflag=@vflag, statusDate=@statusDate where userid = @userid";
 
                 MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
                 if (vflag == "L")
                 {
                     //lock to unlock
                     cmd.Parameters.AddWithValue("@vflag", "T");
+                    cmd.Parameters.AddWithValue("@statusDate", "NULL");
                 }
                 else if (vflag == "T")
                 {
                     //unlock to lock
                     cmd.Parameters.AddWithValue("@vflag", "L");
+                    cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
                 }
                 cmd.Parameters.AddWithValue("@userid", userid);
                 cmd.ExecuteReader();
@@ -212,6 +249,88 @@ namespace DataAsGuard.Profiles.Admin
             }
         }
 
+        //retrieve based on  filter
+        private void userdataRetrieval2(string listvalue, ArrayList searchfield)
+        {
+            AesEncryption aes = new AesEncryption();
+
+            for (int i = 0; i < searchfield.Count; i++)
+            {
+                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                {
+                    con.Open();
+                    String query = "SELECT * FROM Userinfo where userid = @searchfield";
+                    MySqlCommand command = new MySqlCommand(query, con);
+                    command.Parameters.AddWithValue("@searchfield", searchfield[i].ToString());
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ArrayList row = new ArrayList();
+                            row.Add(reader.GetInt32(reader.GetOrdinal("userid")));
+                            row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid"))));
+                            row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid"))));
+                            row.Add(reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname")));
+                            row.Add(reader.GetString(reader.GetOrdinal("dob")));
+                            row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), reader.GetString(reader.GetOrdinal("userid"))));
+                            row.Add(reader.GetString(reader.GetOrdinal("verificationflag")));
+                            dataAccountGrid.Rows.Add(row.ToArray());
+                        }
+
+                        if (reader != null)
+                            reader.Close();
+                    }
+                }
+            }
+        }
+
+        //account fields filter
+        private void accountFilter_TextChanged(object sender, EventArgs e)
+        {
+            string accountlistvalue = accountList.Text.ToString();
+            string searchfield = accountFilter.Text;
+            ArrayList userid = new ArrayList();
+            if (dataAccountGrid.RowCount == 0)
+            {
+                retrieveAccounts();
+            }
+            for(int i = 0; i < dataAccountGrid.RowCount; i++)
+            {
+                if (accountlistvalue == "Username")
+                {
+                    if (dataAccountGrid.Rows[i].Cells[1].Value.ToString().Contains(searchfield))
+                    {
+                        userid.Add(dataAccountGrid.Rows[i].Cells[0].Value.ToString());
+                    }
+                }
+                else if (accountlistvalue == "Email")
+                {
+                    if (dataAccountGrid.Rows[i].Cells[2].Value.ToString().Contains(searchfield))
+                    {
+                        userid.Add(dataAccountGrid.Rows[i].Cells[0].Value.ToString());
+                    }
+                }
+                else if (accountlistvalue == "FullName")
+                {
+                    if (dataAccountGrid.Rows[i].Cells[3].Value.ToString().Contains(searchfield))
+                    {
+                        userid.Add(dataAccountGrid.Rows[i].Cells[0].Value.ToString());
+                    }
+                }
+                else if (accountlistvalue == "Contact")
+                {
+                    if (dataAccountGrid.Rows[i].Cells[5].Value.ToString().Contains(searchfield))
+                    {
+                        userid.Add(dataAccountGrid.Rows[i].Cells[0].Value.ToString());
+                    }
+                }
+            }
+           
+            dataAccountGrid.Rows.Clear();
+            dataAccountGrid.Refresh();
+            retrieveAccounts2(accountlistvalue, userid);
+        }
+
         //log grid retrival
         private void retrieveLogs()
         {
@@ -228,6 +347,24 @@ namespace DataAsGuard.Profiles.Admin
 
             //add rows from db
             userLogRetrieval();
+        }
+
+        //log with filter for type
+        private void retrieveLogs2(string type)
+        {
+            dataLogGrid.AllowUserToAddRows = false;
+            dataLogGrid.AllowUserToDeleteRows = false;
+
+            dataLogGrid.ColumnCount = 7;
+            dataLogGrid.Columns[0].Name = "logid";
+            dataLogGrid.Columns[1].Name = "loginfo";
+            dataLogGrid.Columns[2].Name = "logtype";
+            dataLogGrid.Columns[3].Name = "logdatetime";
+            dataLogGrid.Columns[4].Name = "userid";
+            dataLogGrid.Columns[5].Name = "email";
+
+            //add rows from db
+            userLogRetrieval2(type);
         }
 
         //log
@@ -272,6 +409,66 @@ namespace DataAsGuard.Profiles.Admin
                 }
             }
         }
+
+        //log with filter by type
+        private void userLogRetrieval2(string type)
+        {
+
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM logInfo where logType = @logtype";
+                MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@logtype", type);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ArrayList row = new ArrayList();
+                        row.Add(reader.GetInt32(reader.GetOrdinal("logid")));
+                        row.Add(reader.GetString(reader.GetOrdinal("loginfo")));
+                        row.Add(reader.GetString(reader.GetOrdinal("logtype")));
+                        row.Add(reader.GetString(reader.GetOrdinal("logdatetime")));
+                        if (reader.IsDBNull(reader.GetOrdinal("userid")))
+                        {
+                            row.Add("Null");
+                        }
+                        else
+                        {
+                            row.Add(reader.GetString(reader.GetOrdinal("userid")));
+                        }
+                        if (reader.IsDBNull(reader.GetOrdinal("email")))
+                        {
+                            row.Add("Null");
+                        }
+                        else
+                        {
+                            row.Add(reader.GetString(reader.GetOrdinal("email")));
+                        }
+                        dataLogGrid.Rows.Add(row.ToArray());
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+        }
+
+        //logsChanges
+        private void logsFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string logListvalue = logTypeList.Text.ToString();
+            if (dataAccountGrid.RowCount == 0)
+            {
+                retrieveLogs();
+            }
+            
+
+            dataLogGrid.Rows.Clear();
+            dataLogGrid.Refresh();
+            retrieveLogs2(logListvalue);
+        }
+
 
         //buttons 
         private void chgpass_Click(object sender, EventArgs e)
@@ -322,6 +519,5 @@ namespace DataAsGuard.Profiles.Admin
             Hide();
         }
 
-        
     }
 }

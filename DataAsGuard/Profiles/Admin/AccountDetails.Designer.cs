@@ -57,6 +57,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.Lockbtn = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.statusDate = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -300,7 +302,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(55, 101);
+            this.label4.Location = new System.Drawing.Point(92, 56);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 17);
             this.label4.TabIndex = 10;
@@ -310,7 +312,7 @@
             // 
             this.vflag.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.vflag.AutoSize = true;
-            this.vflag.Location = new System.Drawing.Point(103, 101);
+            this.vflag.Location = new System.Drawing.Point(140, 56);
             this.vflag.Name = "vflag";
             this.vflag.Size = new System.Drawing.Size(38, 17);
             this.vflag.TabIndex = 11;
@@ -321,23 +323,26 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.statusDate, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.userid, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.vflag, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(501, 76);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(200, 147);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(274, 128);
             this.tableLayoutPanel2.TabIndex = 27;
             // 
             // userid
             // 
             this.userid.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.userid.AutoSize = true;
-            this.userid.Location = new System.Drawing.Point(103, 28);
+            this.userid.Location = new System.Drawing.Point(140, 13);
             this.userid.Name = "userid";
             this.userid.Size = new System.Drawing.Size(47, 17);
             this.userid.TabIndex = 13;
@@ -347,7 +352,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(44, 28);
+            this.label6.Location = new System.Drawing.Point(81, 13);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 17);
             this.label6.TabIndex = 12;
@@ -355,7 +360,7 @@
             // 
             // Lockbtn
             // 
-            this.Lockbtn.Location = new System.Drawing.Point(512, 228);
+            this.Lockbtn.Location = new System.Drawing.Point(529, 230);
             this.Lockbtn.Name = "Lockbtn";
             this.Lockbtn.Size = new System.Drawing.Size(75, 43);
             this.Lockbtn.TabIndex = 14;
@@ -365,13 +370,33 @@
             // 
             // delete
             // 
-            this.delete.Location = new System.Drawing.Point(607, 228);
+            this.delete.Location = new System.Drawing.Point(658, 230);
             this.delete.Name = "delete";
             this.delete.Size = new System.Drawing.Size(75, 43);
             this.delete.TabIndex = 28;
             this.delete.Text = "Delete";
             this.delete.UseVisualStyleBackColor = true;
             this.delete.Click += new System.EventHandler(this.delete_Click);
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(7, 98);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(127, 17);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "StatusChangeDate";
+            // 
+            // statusDate
+            // 
+            this.statusDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.statusDate.AutoSize = true;
+            this.statusDate.Location = new System.Drawing.Point(140, 98);
+            this.statusDate.Name = "statusDate";
+            this.statusDate.Size = new System.Drawing.Size(76, 17);
+            this.statusDate.TabIndex = 15;
+            this.statusDate.Text = "statusDate";
             // 
             // AccountDetails
             // 
@@ -435,5 +460,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView datalogGrid;
+        private System.Windows.Forms.Label statusDate;
+        private System.Windows.Forms.Label label8;
     }
 }
