@@ -86,5 +86,12 @@ namespace DataAsGuard
             steg.Show();
             Hide();
         }
+
+        private void watchVideoBtn_Click(object sender, EventArgs e)
+        {
+            Viewer.VideoPlayer videoView = new Viewer.VideoPlayer();
+            videoView.Show();
+            Hide();
+        }
     }
 }
