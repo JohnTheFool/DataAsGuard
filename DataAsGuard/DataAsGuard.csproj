@@ -100,12 +100,6 @@
     <Compile Include="FileManagement\EditUserPermissions.Designer.cs">
       <DependentUpon>EditUserPermissions.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManagement\ViewGroups.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FileManagement\ViewGroups.Designer.cs">
-      <DependentUpon>ViewGroups.cs</DependentUpon>
-    </Compile>
     <Compile Include="FileManagement\FileSearch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +110,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DB.cs" />
+    <Compile Include="FileManagement\ManageGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\ManageGroups.Designer.cs">
+      <DependentUpon>ManageGroups.cs</DependentUpon>
+    </Compile>
     <Compile Include="Viewer\ImgViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,9 +217,6 @@
     <EmbeddedResource Include="FileManagement\EditUserPermissions.resx">
       <DependentUpon>EditUserPermissions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileManagement\ViewGroups.resx">
-      <DependentUpon>ViewGroups.cs</DependentUpon>
-    </EmbeddedResource>
     <Compile Include="Viewer\Test.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -240,6 +237,9 @@
     </Compile>
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\ManageGroups.resx">
+      <DependentUpon>ManageGroups.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Viewer\ImgViewerForm.resx">
       <DependentUpon>ImgViewerForm.cs</DependentUpon>
