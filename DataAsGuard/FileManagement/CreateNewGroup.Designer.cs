@@ -33,11 +33,11 @@
             this.ProfileButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
-            this.fileList = new System.Windows.Forms.ListBox();
+            this.userList = new System.Windows.Forms.ListBox();
             this.userLabel = new System.Windows.Forms.Label();
             this.removeFromGroupButton = new System.Windows.Forms.Button();
             this.moveToGroupButton = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.groupMembers = new System.Windows.Forms.ListBox();
             this.groupLabel = new System.Windows.Forms.Label();
             this.groupNameTable = new System.Windows.Forms.TableLayoutPanel();
             this.groupName_Text = new System.Windows.Forms.TextBox();
@@ -83,24 +83,23 @@
             this.BackButton.Size = new System.Drawing.Size(37, 36);
             this.BackButton.TabIndex = 11;
             this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
-            // fileList
+            // userList
             // 
-            this.fileList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.fileList.FormattingEnabled = true;
-            this.fileList.ItemHeight = 16;
-            this.fileList.Items.AddRange(new object[] {
-            "Stuff"});
-            this.fileList.Location = new System.Drawing.Point(68, 44);
-            this.fileList.Name = "fileList";
-            this.fileList.Size = new System.Drawing.Size(130, 548);
-            this.fileList.TabIndex = 15;
+            this.userList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.userList.FormattingEnabled = true;
+            this.userList.ItemHeight = 16;
+            this.userList.Location = new System.Drawing.Point(61, 44);
+            this.userList.Name = "userList";
+            this.userList.Size = new System.Drawing.Size(169, 548);
+            this.userList.TabIndex = 15;
             // 
             // userLabel
             // 
             this.userLabel.AutoSize = true;
             this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.userLabel.Location = new System.Drawing.Point(100, 24);
+            this.userLabel.Location = new System.Drawing.Point(115, 24);
             this.userLabel.Name = "userLabel";
             this.userLabel.Size = new System.Drawing.Size(64, 17);
             this.userLabel.TabIndex = 16;
@@ -114,6 +113,7 @@
             this.removeFromGroupButton.Size = new System.Drawing.Size(37, 36);
             this.removeFromGroupButton.TabIndex = 17;
             this.removeFromGroupButton.UseVisualStyleBackColor = true;
+            this.removeFromGroupButton.Click += new System.EventHandler(this.removeFromGroupButton_Click);
             // 
             // moveToGroupButton
             // 
@@ -123,24 +123,23 @@
             this.moveToGroupButton.Size = new System.Drawing.Size(37, 36);
             this.moveToGroupButton.TabIndex = 18;
             this.moveToGroupButton.UseVisualStyleBackColor = true;
+            this.moveToGroupButton.Click += new System.EventHandler(this.moveToGroupButton_Click);
             // 
-            // listBox1
+            // groupMembers
             // 
-            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Items.AddRange(new object[] {
-            "Stuff"});
-            this.listBox1.Location = new System.Drawing.Point(305, 44);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(130, 548);
-            this.listBox1.TabIndex = 19;
+            this.groupMembers.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupMembers.FormattingEnabled = true;
+            this.groupMembers.ItemHeight = 16;
+            this.groupMembers.Location = new System.Drawing.Point(280, 44);
+            this.groupMembers.Name = "groupMembers";
+            this.groupMembers.Size = new System.Drawing.Size(169, 548);
+            this.groupMembers.TabIndex = 19;
             // 
             // groupLabel
             // 
             this.groupLabel.AutoSize = true;
             this.groupLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.groupLabel.Location = new System.Drawing.Point(318, 24);
+            this.groupLabel.Location = new System.Drawing.Point(313, 24);
             this.groupLabel.Name = "groupLabel";
             this.groupLabel.Size = new System.Drawing.Size(110, 17);
             this.groupLabel.TabIndex = 20;
@@ -167,7 +166,7 @@
             // 
             this.groupName_Text.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupName_Text.Cursor = System.Windows.Forms.Cursors.Default;
-            this.groupName_Text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupName_Text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
             this.groupName_Text.Location = new System.Drawing.Point(141, 12);
             this.groupName_Text.Name = "groupName_Text";
             this.groupName_Text.Size = new System.Drawing.Size(236, 23);
@@ -227,17 +226,18 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupNameTable);
             this.Controls.Add(this.groupLabel);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.groupMembers);
             this.Controls.Add(this.moveToGroupButton);
             this.Controls.Add(this.removeFromGroupButton);
             this.Controls.Add(this.userLabel);
-            this.Controls.Add(this.fileList);
+            this.Controls.Add(this.userList);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.BackButton);
             this.Name = "CreateNewGroup";
             this.Text = "DataAsguard";
+            this.Load += new System.EventHandler(this.CreateNewGroup_Load);
             this.groupNameTable.ResumeLayout(false);
             this.groupNameTable.PerformLayout();
             this.ResumeLayout(false);
@@ -251,11 +251,11 @@
         private System.Windows.Forms.Button ProfileButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button BackButton;
-        private System.Windows.Forms.ListBox fileList;
+        private System.Windows.Forms.ListBox userList;
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Button removeFromGroupButton;
         private System.Windows.Forms.Button moveToGroupButton;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox groupMembers;
         private System.Windows.Forms.Label groupLabel;
         private System.Windows.Forms.TableLayoutPanel groupNameTable;
         private System.Windows.Forms.TextBox groupName_Text;

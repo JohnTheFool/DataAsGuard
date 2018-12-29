@@ -88,11 +88,17 @@
     <Compile Include="FileManagement\CreateNewGroup.Designer.cs">
       <DependentUpon>CreateNewGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManagement\EditPermissions.cs">
+    <Compile Include="FileManagement\EditGroupPermissions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FileManagement\EditPermissions.Designer.cs">
-      <DependentUpon>EditPermissions.cs</DependentUpon>
+    <Compile Include="FileManagement\EditGroupPermissions.Designer.cs">
+      <DependentUpon>EditGroupPermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileManagement\EditUserPermissions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\EditUserPermissions.Designer.cs">
+      <DependentUpon>EditUserPermissions.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManagement\ViewGroups.cs">
       <SubType>Form</SubType>
@@ -205,8 +211,11 @@
     <EmbeddedResource Include="FileManagement\CreateNewGroup.resx">
       <DependentUpon>CreateNewGroup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileManagement\EditPermissions.resx">
-      <DependentUpon>EditPermissions.cs</DependentUpon>
+    <EmbeddedResource Include="FileManagement\EditGroupPermissions.resx">
+      <DependentUpon>EditGroupPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\EditUserPermissions.resx">
+      <DependentUpon>EditUserPermissions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\ViewGroups.resx">
       <DependentUpon>ViewGroups.cs</DependentUpon>

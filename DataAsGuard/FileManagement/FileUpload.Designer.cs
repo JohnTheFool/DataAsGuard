@@ -33,10 +33,10 @@
             this.browseTable = new System.Windows.Forms.TableLayoutPanel();
             this.fileUploaded = new System.Windows.Forms.TextBox();
             this.uploadButton = new System.Windows.Forms.Button();
-            this.BackButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.ProfileButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.homeButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameLabel = new System.Windows.Forms.Label();
             this.fileName = new System.Windows.Forms.TextBox();
@@ -99,14 +99,15 @@
             this.uploadButton.UseVisualStyleBackColor = true;
             this.uploadButton.Click += new System.EventHandler(this.uploadButton_Click);
             // 
-            // BackButton
+            // backButton
             // 
-            this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
-            this.BackButton.Location = new System.Drawing.Point(835, 12);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(37, 36);
-            this.BackButton.TabIndex = 8;
-            this.BackButton.UseVisualStyleBackColor = true;
+            this.backButton.Image = ((System.Drawing.Image)(resources.GetObject("backButton.Image")));
+            this.backButton.Location = new System.Drawing.Point(835, 12);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(37, 36);
+            this.backButton.TabIndex = 8;
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // settingsButton
             // 
@@ -126,14 +127,15 @@
             this.ProfileButton.TabIndex = 10;
             this.ProfileButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // homeButton
             // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(37, 36);
-            this.button1.TabIndex = 9;
-            this.button1.UseVisualStyleBackColor = true;
+            this.homeButton.Image = ((System.Drawing.Image)(resources.GetObject("homeButton.Image")));
+            this.homeButton.Location = new System.Drawing.Point(12, 12);
+            this.homeButton.Name = "homeButton";
+            this.homeButton.Size = new System.Drawing.Size(37, 36);
+            this.homeButton.TabIndex = 9;
+            this.homeButton.UseVisualStyleBackColor = true;
+            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
             // label1
             // 
@@ -215,8 +217,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.BackButton);
+            this.Controls.Add(this.homeButton);
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.uploadButton);
             this.Controls.Add(this.browseTable);
             this.Name = "FileUpload";
@@ -234,10 +236,10 @@
         private System.Windows.Forms.TableLayoutPanel browseTable;
         private System.Windows.Forms.TextBox fileUploaded;
         private System.Windows.Forms.Button uploadButton;
-        private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button ProfileButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button homeButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label fileNameLabel;
         private System.Windows.Forms.TextBox fileName;

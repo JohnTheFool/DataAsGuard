@@ -1,6 +1,6 @@
 ﻿namespace DataAsGuard.FileManagement
 {
-    partial class ViewGroups
+    partial class ManageGroups
     {
         /// <summary>
         /// Required designer variable.
@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewGroups));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageGroups));
             this.settingsButton = new System.Windows.Forms.Button();
             this.ProfileButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.homeButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
-            this.groupList = new System.Windows.Forms.ListBox();
             this.groupLabel = new System.Windows.Forms.Label();
             this.membersLabel = new System.Windows.Forms.Label();
             this.membersList = new System.Windows.Forms.ListBox();
             this.editGroupButton = new System.Windows.Forms.Button();
             this.createGroupButton = new System.Windows.Forms.Button();
-            this.fileInformation = new System.Windows.Forms.ListBox();
             this.deleteUserFromGroupButton = new System.Windows.Forms.Button();
+            this.groupInformation = new System.Windows.Forms.RichTextBox();
+            this.groupList = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // settingsButton
@@ -61,14 +61,15 @@
             this.ProfileButton.TabIndex = 13;
             this.ProfileButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // homeButton
             // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(37, 36);
-            this.button1.TabIndex = 12;
-            this.button1.UseVisualStyleBackColor = true;
+            this.homeButton.Image = ((System.Drawing.Image)(resources.GetObject("homeButton.Image")));
+            this.homeButton.Location = new System.Drawing.Point(12, 12);
+            this.homeButton.Name = "homeButton";
+            this.homeButton.Size = new System.Drawing.Size(37, 36);
+            this.homeButton.TabIndex = 12;
+            this.homeButton.UseVisualStyleBackColor = true;
+            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
             // BackButton
             // 
@@ -78,18 +79,7 @@
             this.BackButton.Size = new System.Drawing.Size(37, 36);
             this.BackButton.TabIndex = 11;
             this.BackButton.UseVisualStyleBackColor = true;
-            // 
-            // groupList
-            // 
-            this.groupList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.groupList.FormattingEnabled = true;
-            this.groupList.ItemHeight = 16;
-            this.groupList.Items.AddRange(new object[] {
-            "Group1"});
-            this.groupList.Location = new System.Drawing.Point(94, 47);
-            this.groupList.Name = "groupList";
-            this.groupList.Size = new System.Drawing.Size(177, 548);
-            this.groupList.TabIndex = 16;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // groupLabel
             // 
@@ -116,8 +106,6 @@
             this.membersList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.membersList.FormattingEnabled = true;
             this.membersList.ItemHeight = 16;
-            this.membersList.Items.AddRange(new object[] {
-            "User1"});
             this.membersList.Location = new System.Drawing.Point(301, 47);
             this.membersList.Name = "membersList";
             this.membersList.Size = new System.Drawing.Size(177, 548);
@@ -144,20 +132,6 @@
             this.createGroupButton.UseVisualStyleBackColor = true;
             this.createGroupButton.Click += new System.EventHandler(this.createGroupButton_Click);
             // 
-            // fileInformation
-            // 
-            this.fileInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.fileInformation.FormattingEnabled = true;
-            this.fileInformation.IntegralHeight = false;
-            this.fileInformation.ItemHeight = 16;
-            this.fileInformation.Items.AddRange(new object[] {
-            "Date Created:",
-            "Group Owner:"});
-            this.fileInformation.Location = new System.Drawing.Point(505, 47);
-            this.fileInformation.Name = "fileInformation";
-            this.fileInformation.Size = new System.Drawing.Size(308, 176);
-            this.fileInformation.TabIndex = 22;
-            // 
             // deleteUserFromGroupButton
             // 
             this.deleteUserFromGroupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
@@ -168,13 +142,34 @@
             this.deleteUserFromGroupButton.Text = "Delete User From Group";
             this.deleteUserFromGroupButton.UseVisualStyleBackColor = true;
             // 
+            // groupInformation
+            // 
+            this.groupInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.groupInformation.Location = new System.Drawing.Point(505, 47);
+            this.groupInformation.Name = "groupInformation";
+            this.groupInformation.ReadOnly = true;
+            this.groupInformation.Size = new System.Drawing.Size(308, 166);
+            this.groupInformation.TabIndex = 24;
+            this.groupInformation.Text = "";
+            // 
+            // groupList
+            // 
+            this.groupList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupList.FormattingEnabled = true;
+            this.groupList.ItemHeight = 16;
+            this.groupList.Location = new System.Drawing.Point(94, 47);
+            this.groupList.Name = "groupList";
+            this.groupList.Size = new System.Drawing.Size(177, 548);
+            this.groupList.TabIndex = 16;
+            this.groupList.SelectedIndexChanged += new System.EventHandler(this.groupList_SelectedIndexChanged);
+            // 
             // ViewGroups
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.groupInformation);
             this.Controls.Add(this.deleteUserFromGroupButton);
-            this.Controls.Add(this.fileInformation);
             this.Controls.Add(this.createGroupButton);
             this.Controls.Add(this.editGroupButton);
             this.Controls.Add(this.membersList);
@@ -183,10 +178,11 @@
             this.Controls.Add(this.groupLabel);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.homeButton);
             this.Controls.Add(this.BackButton);
             this.Name = "ViewGroups";
             this.Text = "DataAsguard";
+            this.Load += new System.EventHandler(this.ViewGroups_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,15 +192,15 @@
 
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button ProfileButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button homeButton;
         private System.Windows.Forms.Button BackButton;
-        private System.Windows.Forms.ListBox groupList;
         private System.Windows.Forms.Label groupLabel;
         private System.Windows.Forms.Label membersLabel;
         private System.Windows.Forms.ListBox membersList;
         private System.Windows.Forms.Button editGroupButton;
         private System.Windows.Forms.Button createGroupButton;
-        private System.Windows.Forms.ListBox fileInformation;
         private System.Windows.Forms.Button deleteUserFromGroupButton;
+        private System.Windows.Forms.RichTextBox groupInformation;
+        private System.Windows.Forms.ListBox groupList;
     }
 }

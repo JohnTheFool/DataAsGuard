@@ -1,6 +1,6 @@
 ﻿namespace DataAsGuard.FileManagement
 {
-    partial class EditPermissions
+    partial class EditUserPermissions
     {
         /// <summary>
         /// Required designer variable.
@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditPermissions));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditUserPermissions));
             this.settingsButton = new System.Windows.Forms.Button();
             this.profileButton = new System.Windows.Forms.Button();
             this.homeButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.userList = new System.Windows.Forms.ListBox();
             this.userListLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.userSelectedTable = new System.Windows.Forms.TableLayoutPanel();
             this.userSelectedLabel = new System.Windows.Forms.Label();
             this.labelLabel = new System.Windows.Forms.Label();
             this.permissionCheckBox = new System.Windows.Forms.CheckedListBox();
             this.applyPermButton = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.userSelectedTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // settingsButton
@@ -78,6 +78,7 @@
             this.backButton.Size = new System.Drawing.Size(37, 36);
             this.backButton.TabIndex = 10;
             this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // userList
             // 
@@ -86,8 +87,9 @@
             this.userList.ItemHeight = 16;
             this.userList.Location = new System.Drawing.Point(97, 51);
             this.userList.Name = "userList";
-            this.userList.Size = new System.Drawing.Size(208, 516);
+            this.userList.Size = new System.Drawing.Size(208, 532);
             this.userList.TabIndex = 14;
+            this.userList.SelectedIndexChanged += new System.EventHandler(this.userList_SelectedIndexChanged);
             // 
             // userListLabel
             // 
@@ -99,20 +101,20 @@
             this.userListLabel.TabIndex = 15;
             this.userListLabel.Text = "User List";
             // 
-            // tableLayoutPanel1
+            // userSelectedTable
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.userSelectedLabel, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelLabel, 0, 0);
-            this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(418, 150);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(252, 40);
-            this.tableLayoutPanel1.TabIndex = 16;
+            this.userSelectedTable.ColumnCount = 2;
+            this.userSelectedTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.userSelectedTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.userSelectedTable.Controls.Add(this.userSelectedLabel, 0, 0);
+            this.userSelectedTable.Controls.Add(this.labelLabel, 0, 0);
+            this.userSelectedTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.userSelectedTable.Location = new System.Drawing.Point(418, 150);
+            this.userSelectedTable.Name = "userSelectedTable";
+            this.userSelectedTable.RowCount = 1;
+            this.userSelectedTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.userSelectedTable.Size = new System.Drawing.Size(252, 40);
+            this.userSelectedTable.TabIndex = 16;
             // 
             // userSelectedLabel
             // 
@@ -159,25 +161,25 @@
             this.applyPermButton.Text = "Apply Permissions";
             this.applyPermButton.UseVisualStyleBackColor = true;
             // 
-            // EditPermissions
+            // EditUserPermissions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.applyPermButton);
             this.Controls.Add(this.permissionCheckBox);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.userSelectedTable);
             this.Controls.Add(this.userListLabel);
             this.Controls.Add(this.userList);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.profileButton);
             this.Controls.Add(this.homeButton);
             this.Controls.Add(this.backButton);
-            this.Name = "EditPermissions";
-            this.Text = "EditPermissions";
-            this.Load += new System.EventHandler(this.EditPermissions_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.Name = "EditUserPermissions";
+            this.Text = "DataAsguard";
+            this.Load += new System.EventHandler(this.EditUserPermissions_Load);
+            this.userSelectedTable.ResumeLayout(false);
+            this.userSelectedTable.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,10 +193,10 @@
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.ListBox userList;
         private System.Windows.Forms.Label userListLabel;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label userSelectedLabel;
+        private System.Windows.Forms.TableLayoutPanel userSelectedTable;
         private System.Windows.Forms.Label labelLabel;
         private System.Windows.Forms.CheckedListBox permissionCheckBox;
         private System.Windows.Forms.Button applyPermButton;
+        private System.Windows.Forms.Label userSelectedLabel;
     }
 }

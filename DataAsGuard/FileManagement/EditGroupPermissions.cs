@@ -10,16 +10,18 @@ using System.Windows.Forms;
 
 namespace DataAsGuard.FileManagement
 {
-    public partial class EditPermissions : Form
+    public partial class EditGroupPermissions : Form
     {
-        public EditPermissions()
+        public EditGroupPermissions()
         {
             InitializeComponent();
         }
 
-        private void EditPermissions_Load(object sender, EventArgs e)
+        private void homeButton_Click(object sender, EventArgs e)
         {
-
+            Home view = new Home();
+            view.Show();
+            Hide();
         }
     }
 }

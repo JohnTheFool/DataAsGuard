@@ -14,13 +14,17 @@ namespace DataAsGuard.FileManagement
 {
     public partial class FileUpload : Form
     {
+        String fileSourcePath;
+        String fileOriginalName;
+
         public FileUpload()
         {
             InitializeComponent();
         }
 
-        private void InsertFileInfoToDB()
+        private Boolean InsertFileInfoToDB()
         {
+            Boolean success = false;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
 
@@ -35,12 +39,10 @@ namespace DataAsGuard.FileManagement
                 myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
                 myCommand.ExecuteNonQuery();
                 con.Close();
+                success = true;
             }
 
-            System.Windows.Forms.MessageBox.Show("Successfully created group.");
-            FileManagement.CreateNewGroup view = new FileManagement.CreateNewGroup();
-            view.Show();
-            Hide();
+            return success;
         }
 
         private void BrowseButton_click(object sender, EventArgs e)
@@ -53,13 +55,14 @@ namespace DataAsGuard.FileManagement
             if (dialog.ShowDialog() == DialogResult.OK) // if OK clicked
             {
                 String path = dialog.FileName; // get name of file
-                String pathfileName = dialog.SafeFileName;
+                fileName.Text = dialog.SafeFileName;
+                fileOriginalName = dialog.SafeFileName;
                 var longSize = new FileInfo(dialog.FileName).Length;
                 double size = longSize;
                 double KbDivisor = 1024;
                 double MbDivisor = 1048576;
                 double GbDivisor = 1073741824;
-                using (StreamReader reader = new StreamReader(new FileStream(path, FileMode.Open), new UTF8Encoding())) // do wtv
+                using (StreamReader reader = new StreamReader(new FileStream(path, FileMode.Open), new UTF8Encoding())) // do something to file
                 {
                     fileUploaded.Text = path;
                     if (size < 1024)
@@ -84,26 +87,48 @@ namespace DataAsGuard.FileManagement
                         size = Math.Round(size, 1);
                         fileSize.Text = size.ToString() + "GB";
                     }
-                    fileName.Text = pathfileName;
                 }
+                fileSourcePath = path;
             }
         }
 
         private void uploadButton_Click(object sender, EventArgs e)
         {
-            InsertFileInfoToDB();
-            //insert into database
+            if (fileName.Text != fileOriginalName) //If file name is changed
+            {
+                DialogResult dialogResult = MessageBox.Show("The name of the file has been changed, changing the file extension may result in the file being corrupted, do you want to proceed?", "Warning", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    if (InsertFileInfoToDB())
+                    {
+                        System.IO.File.Copy(fileSourcePath, "../../Files/" + fileName.Text);
+                        MessageBox.Show("File successfully uploaded.");
+                    }
+                }
+                
+            }
+            else
+            {
+                if (InsertFileInfoToDB())
+                {
+                    System.IO.File.Copy(fileSourcePath, "../../Files/" + fileName.Text);
+                    MessageBox.Show("File successfully uploaded.");
+                }
+            }
         }
 
-        private void groupList_SelectedIndexChanged(object sender, EventArgs e)
+        private void backButton_Click(object sender, EventArgs e)
         {
-
+            Home view = new Home();
+            view.Show();
+            Hide();
         }
 
-        private void userList_SelectedIndexChanged(object sender, EventArgs e)
+        private void homeButton_Click(object sender, EventArgs e)
         {
-
+            Home view = new Home();
+            view.Show();
+            Hide();
         }
-
     }
 }

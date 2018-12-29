@@ -18,6 +18,11 @@ namespace DataAsGuard.FileManagement
             InitializeComponent();
         }
 
+        private void FileManagementHub_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void permissionRetrieval()
         {
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
@@ -40,16 +45,6 @@ namespace DataAsGuard.FileManagement
             }
         }
 
-        private void editPermissionsButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void addPermission_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void deleteFileButton_Click(object sender, EventArgs e)
         {
 
@@ -57,7 +52,28 @@ namespace DataAsGuard.FileManagement
 
         private void manageGroupsButton_Click(object sender, EventArgs e)
         {
-            FileManagement.ViewGroups view = new FileManagement.ViewGroups();
+            FileManagement.ManageGroups view = new FileManagement.ManageGroups();
+            view.Show();
+            Hide();
+        }
+
+        private void editUserPermButton_Click(object sender, EventArgs e)
+        {
+            FileManagement.EditUserPermissions view = new FileManagement.EditUserPermissions();
+            view.Show();
+            Hide();
+        }
+
+        private void editGroupPermButton_Click(object sender, EventArgs e)
+        {
+            FileManagement.EditGroupPermissions view = new FileManagement.EditGroupPermissions();
+            view.Show();
+            Hide();
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            Home view = new Home();
             view.Show();
             Hide();
         }
