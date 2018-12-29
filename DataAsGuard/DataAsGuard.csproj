@@ -94,6 +94,12 @@
     <Compile Include="FileManagement\EditGroupPermissions.Designer.cs">
       <DependentUpon>EditGroupPermissions.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileManagement\EditGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\EditGroup.Designer.cs">
+      <DependentUpon>EditGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileManagement\EditUserPermissions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\CreateNewGroup.resx">
       <DependentUpon>CreateNewGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\EditGroup.resx">
+      <DependentUpon>EditGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\EditGroupPermissions.resx">
       <DependentUpon>EditGroupPermissions.cs</DependentUpon>

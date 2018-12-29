@@ -77,5 +77,10 @@ namespace DataAsGuard.FileManagement
             view.Show();
             Hide();
         }
+
+        private void fileList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

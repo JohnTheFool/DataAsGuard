@@ -21,13 +21,6 @@ namespace DataAsGuard.FileManagement
             InitializeComponent();
         }
 
-        private void createGroupButton_Click(object sender, EventArgs e)
-        {
-            FileManagement.CreateNewGroup createNewGroup = new FileManagement.CreateNewGroup();
-            createNewGroup.Show();
-            Hide();
-        }
-
         private void ViewGroups_Load(object sender, EventArgs e)
         {
             //Load all groups from MySql
@@ -38,7 +31,7 @@ namespace DataAsGuard.FileManagement
                 adapter.Fill(table);
                 groupList.DataSource = table;
                 groupList.DisplayMember = "groupName";
-                groupList.ValueMember = "groupID";
+                groupList.ValueMember = "groupName";
                 con.Close();
             }
         }
@@ -46,14 +39,16 @@ namespace DataAsGuard.FileManagement
         private void groupList_SelectedIndexChanged(object sender, EventArgs e)
         {
             groupInformation.Clear();
+            membersList.Items.Clear();
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
                 string curItem = groupList.SelectedValue.ToString();
-                String query = "SELECT * FROM da_schema.groupInfo WHERE groupID = @idParam";
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@idParam", curItem);
-                MySqlDataReader reader = cmd.ExecuteReader();
+                //Retrieve group info from DB
+                String groupInfoquery = "SELECT * FROM groupInfo WHERE groupName = @nameParam";
+                MySqlCommand groupInfocmd = new MySqlCommand(groupInfoquery, con);
+                groupInfocmd.Parameters.AddWithValue("@nameParam", curItem);
+                MySqlDataReader reader = groupInfocmd.ExecuteReader();
                 if (reader.Read())
                 {
                     groupInformation.AppendText("Date Created: " + reader["dateCreated"].ToString());
@@ -61,6 +56,18 @@ namespace DataAsGuard.FileManagement
                     groupInformation.AppendText(Environment.NewLine + "Group Description: " + reader["groupDescription"].ToString());
                 }
                 reader.Close();
+
+                //Retrieve group members from DB
+                String getGroupMembersquery = "SELECT * FROM groupUsers WHERE groupName = @nameParam";
+                MySqlCommand groupMemberscmd = new MySqlCommand(getGroupMembersquery, con);
+                groupMemberscmd.Parameters.AddWithValue("@nameParam", curItem);
+                MySqlDataReader reader2 = groupMemberscmd.ExecuteReader();
+                if (reader2.Read())
+                {
+                    membersList.Items.Add(reader2["userFullName"].ToString());
+                }
+                reader2.Close();
+
                 con.Close();
             }
         }
@@ -78,5 +85,29 @@ namespace DataAsGuard.FileManagement
             view.Show();
             Hide();
         }
+
+        private void createGroupButton_Click(object sender, EventArgs e)
+        {
+            FileManagement.CreateNewGroup createNewGroup = new FileManagement.CreateNewGroup();
+            createNewGroup.Show();
+            Hide();
+        }
+
+        private void editGroupButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteUserFromGroupButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteGroupButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }

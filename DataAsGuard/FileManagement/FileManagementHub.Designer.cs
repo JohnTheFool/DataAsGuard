@@ -52,12 +52,11 @@
             this.fileList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.fileList.FormattingEnabled = true;
             this.fileList.ItemHeight = 16;
-            this.fileList.Items.AddRange(new object[] {
-            "Stuff"});
             this.fileList.Location = new System.Drawing.Point(55, 12);
             this.fileList.Name = "fileList";
             this.fileList.Size = new System.Drawing.Size(219, 580);
             this.fileList.TabIndex = 0;
+            this.fileList.SelectedIndexChanged += new System.EventHandler(this.fileList_SelectedIndexChanged);
             // 
             // permissionGrid
             // 

@@ -85,7 +85,7 @@
             this.manageFilesButton.Name = "manageFilesButton";
             this.manageFilesButton.Size = new System.Drawing.Size(526, 57);
             this.manageFilesButton.TabIndex = 7;
-            this.manageFilesButton.Text = "Manage Files";
+            this.manageFilesButton.Text = "File Manager";
             this.manageFilesButton.UseMnemonic = false;
             this.manageFilesButton.UseVisualStyleBackColor = true;
             this.manageFilesButton.Click += new System.EventHandler(this.manageFilesButton_Click);

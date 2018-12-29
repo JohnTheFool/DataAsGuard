@@ -41,6 +41,7 @@
             this.deleteUserFromGroupButton = new System.Windows.Forms.Button();
             this.groupInformation = new System.Windows.Forms.RichTextBox();
             this.groupList = new System.Windows.Forms.ListBox();
+            this.deleteGroupButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // settingsButton
@@ -120,6 +121,7 @@
             this.editGroupButton.TabIndex = 19;
             this.editGroupButton.Text = "Edit Group";
             this.editGroupButton.UseVisualStyleBackColor = true;
+            this.editGroupButton.Click += new System.EventHandler(this.editGroupButton_Click);
             // 
             // createGroupButton
             // 
@@ -141,6 +143,7 @@
             this.deleteUserFromGroupButton.TabIndex = 23;
             this.deleteUserFromGroupButton.Text = "Delete User From Group";
             this.deleteUserFromGroupButton.UseVisualStyleBackColor = true;
+            this.deleteUserFromGroupButton.Click += new System.EventHandler(this.deleteUserFromGroupButton_Click);
             // 
             // groupInformation
             // 
@@ -163,11 +166,23 @@
             this.groupList.TabIndex = 16;
             this.groupList.SelectedIndexChanged += new System.EventHandler(this.groupList_SelectedIndexChanged);
             // 
-            // ViewGroups
+            // deleteGroupButton
+            // 
+            this.deleteGroupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.deleteGroupButton.Location = new System.Drawing.Point(573, 392);
+            this.deleteGroupButton.Name = "deleteGroupButton";
+            this.deleteGroupButton.Size = new System.Drawing.Size(179, 29);
+            this.deleteGroupButton.TabIndex = 25;
+            this.deleteGroupButton.Text = "Delete Group";
+            this.deleteGroupButton.UseVisualStyleBackColor = true;
+            this.deleteGroupButton.Click += new System.EventHandler(this.deleteGroupButton_Click);
+            // 
+            // ManageGroups
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.deleteGroupButton);
             this.Controls.Add(this.groupInformation);
             this.Controls.Add(this.deleteUserFromGroupButton);
             this.Controls.Add(this.createGroupButton);
@@ -180,7 +195,7 @@
             this.Controls.Add(this.ProfileButton);
             this.Controls.Add(this.homeButton);
             this.Controls.Add(this.BackButton);
-            this.Name = "ViewGroups";
+            this.Name = "ManageGroups";
             this.Text = "DataAsguard";
             this.Load += new System.EventHandler(this.ViewGroups_Load);
             this.ResumeLayout(false);
@@ -196,11 +211,12 @@
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Label groupLabel;
         private System.Windows.Forms.Label membersLabel;
-        private System.Windows.Forms.ListBox membersList;
         private System.Windows.Forms.Button editGroupButton;
         private System.Windows.Forms.Button createGroupButton;
         private System.Windows.Forms.Button deleteUserFromGroupButton;
         private System.Windows.Forms.RichTextBox groupInformation;
+        private System.Windows.Forms.Button deleteGroupButton;
         private System.Windows.Forms.ListBox groupList;
+        private System.Windows.Forms.ListBox membersList;
     }
 }

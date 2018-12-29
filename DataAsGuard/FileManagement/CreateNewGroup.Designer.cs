@@ -98,10 +98,10 @@
             // userLabel
             // 
             this.userLabel.AutoSize = true;
-            this.userLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.userLabel.Location = new System.Drawing.Point(115, 24);
+            this.userLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.userLabel.Location = new System.Drawing.Point(114, 22);
             this.userLabel.Name = "userLabel";
-            this.userLabel.Size = new System.Drawing.Size(64, 17);
+            this.userLabel.Size = new System.Drawing.Size(64, 20);
             this.userLabel.TabIndex = 16;
             this.userLabel.Text = "User List";
             // 
@@ -138,10 +138,10 @@
             // groupLabel
             // 
             this.groupLabel.AutoSize = true;
-            this.groupLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.groupLabel.Location = new System.Drawing.Point(313, 24);
+            this.groupLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.groupLabel.Location = new System.Drawing.Point(308, 22);
             this.groupLabel.Name = "groupLabel";
-            this.groupLabel.Size = new System.Drawing.Size(110, 17);
+            this.groupLabel.Size = new System.Drawing.Size(116, 20);
             this.groupLabel.TabIndex = 20;
             this.groupLabel.Text = "Group Members";
             // 
@@ -251,11 +251,9 @@
         private System.Windows.Forms.Button ProfileButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button BackButton;
-        private System.Windows.Forms.ListBox userList;
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Button removeFromGroupButton;
         private System.Windows.Forms.Button moveToGroupButton;
-        private System.Windows.Forms.ListBox groupMembers;
         private System.Windows.Forms.Label groupLabel;
         private System.Windows.Forms.TableLayoutPanel groupNameTable;
         private System.Windows.Forms.TextBox groupName_Text;
@@ -263,5 +261,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox groupDescription_Text;
         private System.Windows.Forms.Button createGroupButton;
+        public System.Windows.Forms.ListBox userList;
+        public System.Windows.Forms.ListBox groupMembers;
     }
 }
