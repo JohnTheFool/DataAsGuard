@@ -20,31 +20,49 @@ namespace DataAsGuard.FileManagement
 
         private void FileManagementHub_Load(object sender, EventArgs e)
         {
-
+            LoadFileInfoFromDB();
         }
 
-        private void permissionRetrieval()
+        private void LoadFileInfoFromDB()
         {
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
-
                 con.Open();
-                String query = "SELECT * FROM userpermissions";
-                MySqlCommand command = new MySqlCommand(query, con);
-                using (MySqlDataReader reader = command.ExecuteReader())
+                String query = "SELECT * FROM da_schema.fileInfo";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-
-                    }
-
-                    if (reader != null)
-                        reader.Close();
+                    fileList.Items.Add(reader["fileName"].ToString());
                 }
-
+                reader.Close();
+                con.Close();
             }
         }
 
+        private void fileList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fileInformation.Clear();
+            permissionGrid.Rows.Clear();
+            permissionGrid.Refresh();
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                string curItem = fileList.SelectedItem.ToString();
+                //Retrieve group info from DB
+                String groupInfoquery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+                MySqlCommand groupInfocmd = new MySqlCommand(groupInfoquery, con);
+                groupInfocmd.Parameters.AddWithValue("@nameParam", curItem);
+                MySqlDataReader reader = groupInfocmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileInformation.AppendText("Date Created: " + reader["dateCreated"].ToString());
+                    fileInformation.AppendText(Environment.NewLine + "File Owner: " + reader["fileOwner"].ToString());
+                    fileInformation.AppendText(Environment.NewLine + "File Description: " + reader["description"].ToString());
+                }
+                reader.Close();
+            }
+        }
         private void deleteFileButton_Click(object sender, EventArgs e)
         {
 
@@ -78,7 +96,7 @@ namespace DataAsGuard.FileManagement
             Hide();
         }
 
-        private void fileList_SelectedIndexChanged(object sender, EventArgs e)
+        private void permissionGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

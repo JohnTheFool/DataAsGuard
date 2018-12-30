@@ -103,6 +103,7 @@ namespace DataAsGuard.FileManagement
                     {
                         System.IO.File.Copy(fileSourcePath, "../../Files/" + fileName.Text);
                         MessageBox.Show("File successfully uploaded.");
+                        //Change this to Google Cloud code in the future.
                     }
                 }
                 

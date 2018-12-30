@@ -40,6 +40,7 @@ namespace DataAsGuard.FileManagement
         {
             groupInformation.Clear();
             membersList.Items.Clear();
+            
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();

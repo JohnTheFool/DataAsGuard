@@ -35,7 +35,6 @@
             this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.userPermissions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastAccessed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fileInformation = new System.Windows.Forms.ListBox();
             this.editUserPermButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.profileButton = new System.Windows.Forms.Button();
@@ -44,6 +43,7 @@
             this.deleteFileButton = new System.Windows.Forms.Button();
             this.manageGroupsButton = new System.Windows.Forms.Button();
             this.editGroupPermButton = new System.Windows.Forms.Button();
+            this.fileInformation = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.permissionGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,6 +51,7 @@
             // 
             this.fileList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.fileList.FormattingEnabled = true;
+            this.fileList.HorizontalScrollbar = true;
             this.fileList.ItemHeight = 16;
             this.fileList.Location = new System.Drawing.Point(55, 12);
             this.fileList.Name = "fileList";
@@ -72,8 +73,10 @@
             this.permissionGrid.Location = new System.Drawing.Point(289, 193);
             this.permissionGrid.Name = "permissionGrid";
             this.permissionGrid.ReadOnly = true;
+            this.permissionGrid.ShowEditingIcon = false;
             this.permissionGrid.Size = new System.Drawing.Size(580, 280);
             this.permissionGrid.TabIndex = 2;
+            this.permissionGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.permissionGrid_CellContentClick);
             // 
             // user
             // 
@@ -100,22 +103,6 @@
             this.lastAccessed.Name = "lastAccessed";
             this.lastAccessed.ReadOnly = true;
             this.lastAccessed.Width = 200;
-            // 
-            // fileInformation
-            // 
-            this.fileInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.fileInformation.FormattingEnabled = true;
-            this.fileInformation.IntegralHeight = false;
-            this.fileInformation.ItemHeight = 16;
-            this.fileInformation.Items.AddRange(new object[] {
-            "Size:",
-            "Date Created:",
-            "File Owner:",
-            "Description:"});
-            this.fileInformation.Location = new System.Drawing.Point(289, 12);
-            this.fileInformation.Name = "fileInformation";
-            this.fileInformation.Size = new System.Drawing.Size(540, 176);
-            this.fileInformation.TabIndex = 5;
             // 
             // editUserPermButton
             // 
@@ -198,11 +185,22 @@
             this.editGroupPermButton.UseVisualStyleBackColor = true;
             this.editGroupPermButton.Click += new System.EventHandler(this.editGroupPermButton_Click);
             // 
+            // fileInformation
+            // 
+            this.fileInformation.Font = new System.Drawing.Font("Segoe UI", 10.25F);
+            this.fileInformation.Location = new System.Drawing.Point(289, 12);
+            this.fileInformation.Name = "fileInformation";
+            this.fileInformation.ReadOnly = true;
+            this.fileInformation.Size = new System.Drawing.Size(540, 175);
+            this.fileInformation.TabIndex = 19;
+            this.fileInformation.Text = "";
+            // 
             // FileManagementHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.fileInformation);
             this.Controls.Add(this.editGroupPermButton);
             this.Controls.Add(this.manageGroupsButton);
             this.Controls.Add(this.deleteFileButton);
@@ -211,7 +209,6 @@
             this.Controls.Add(this.homeButton);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.editUserPermButton);
-            this.Controls.Add(this.fileInformation);
             this.Controls.Add(this.permissionGrid);
             this.Controls.Add(this.fileList);
             this.Name = "FileManagementHub";
@@ -230,7 +227,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Group;
         private System.Windows.Forms.DataGridViewTextBoxColumn userPermissions;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastAccessed;
-        private System.Windows.Forms.ListBox fileInformation;
         private System.Windows.Forms.Button editUserPermButton;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button profileButton;
@@ -239,5 +235,6 @@
         private System.Windows.Forms.Button deleteFileButton;
         private System.Windows.Forms.Button manageGroupsButton;
         private System.Windows.Forms.Button editGroupPermButton;
+        private System.Windows.Forms.RichTextBox fileInformation;
     }
 }

@@ -130,16 +130,6 @@ namespace DataAsGuard.FileManagement
             return success;
         }
 
-        private void groupMembers_Load(object sender, EventArgs e)
-        {
-            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
-            {
-                con.Open();
-                adapter = new MySqlDataAdapter("SELECT * FROM da_schema.groupUsers", con);
-                con.Close();
-            }
-        }
-
         private void MoveListBoxItems(ListBox source, ListBox destination)
         {
             ListBox.SelectedObjectCollection sourceItems = source.SelectedItems;
