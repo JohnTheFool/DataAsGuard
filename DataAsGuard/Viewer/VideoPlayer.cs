@@ -34,5 +34,12 @@ namespace DataAsGuard.Viewer
                 axWindowsMediaPlayer1.fullScreen = true;
             }
         }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            Home home = new Home();
+            home.Show();
+            Hide();
+        }
     }
 }

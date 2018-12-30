@@ -93,5 +93,12 @@ namespace DataAsGuard
             videoView.Show();
             Hide();
         }
+
+        private void testBtn_Click(object sender, EventArgs e)
+        {
+            Test testView = new Test();
+            testView.Show();
+            Hide();
+        }
     }
 }

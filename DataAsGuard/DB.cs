@@ -54,7 +54,7 @@ namespace DataAsGuard.DB
                         storeData.Add((reader["firstname"].ToString()));
                         storeData.Add((reader["lastname"].ToString()));
                         storeData.Add((reader["dob"].ToString()));
-                        storeData.Add((reader["phoneno."].ToString()));
+                        storeData.Add((reader["contact"].ToString()));
                     }
                 }
                 cnn.Close();
