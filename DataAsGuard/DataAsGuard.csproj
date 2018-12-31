@@ -93,12 +93,11 @@
     <Compile Include="Chat\CreateGroup.Designer.cs">
       <DependentUpon>CreateGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManagement\CreateNewGroup.cs">
     <Compile Include="CSClass\AdminSession.cs" />
     <Compile Include="CSClass\AesEncryption.cs" />
     <Compile Include="CSClass\logClass.cs" />
     <Compile Include="CSClass\Logininfo.cs" />
-    <Compile Include="FileManagement\AddNewGroup.cs">
+    <Compile Include="FileManagement\CreateNewGroup.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FileManagement\CreateNewGroup.Designer.cs">
@@ -137,6 +136,7 @@
     </Compile>
     <Compile Include="FileManagement\ManageGroups.Designer.cs">
       <DependentUpon>ManageGroups.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Admin\AccountDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,19 +285,8 @@
     <EmbeddedResource Include="FileManagement\EditUserPermissions.resx">
       <DependentUpon>EditUserPermissions.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="Viewer\Test.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Viewer\Test.Designer.cs">
-      <DependentUpon>Test.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="FileManagement\FileManagementHub.resx">
       <DependentUpon>FileManagementHub.cs</DependentUpon>
-    <EmbeddedResource Include="FileManagement\AddNewPermission.resx">
-      <DependentUpon>AddNewPermission.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FileManagement\FilePermissions.resx">
-      <DependentUpon>FilePermissions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\FileSearch.resx">
       <DependentUpon>FileSearch.cs</DependentUpon>
@@ -313,6 +302,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\ManageGroups.resx">
       <DependentUpon>ManageGroups.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Admin\AccountDetails.resx">
       <DependentUpon>AccountDetails.cs</DependentUpon>
     </EmbeddedResource>
@@ -382,9 +372,6 @@
     <EmbeddedResource Include="Viewer\PdfViewer.resx">
       <DependentUpon>PdfViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Viewer\Test.resx">
-      <DependentUpon>Test.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -400,7 +387,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Files\" />
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +428,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

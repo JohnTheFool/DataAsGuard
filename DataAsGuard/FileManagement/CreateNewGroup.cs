@@ -159,5 +159,16 @@ namespace DataAsGuard.FileManagement
             view.Show();
             Hide();
         }
+
+        private void ProfileButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateNewGroup));
             this.settingsButton = new System.Windows.Forms.Button();
             this.ProfileButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.homeButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
             this.userList = new System.Windows.Forms.ListBox();
             this.userLabel = new System.Windows.Forms.Label();
@@ -56,6 +56,7 @@
             this.settingsButton.Size = new System.Drawing.Size(37, 36);
             this.settingsButton.TabIndex = 14;
             this.settingsButton.UseVisualStyleBackColor = true;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
             // ProfileButton
             // 
@@ -65,15 +66,16 @@
             this.ProfileButton.Size = new System.Drawing.Size(37, 36);
             this.ProfileButton.TabIndex = 13;
             this.ProfileButton.UseVisualStyleBackColor = true;
+            this.ProfileButton.Click += new System.EventHandler(this.ProfileButton_Click);
             // 
-            // button1
+            // homeButton
             // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(37, 36);
-            this.button1.TabIndex = 12;
-            this.button1.UseVisualStyleBackColor = true;
+            this.homeButton.Image = ((System.Drawing.Image)(resources.GetObject("homeButton.Image")));
+            this.homeButton.Location = new System.Drawing.Point(12, 12);
+            this.homeButton.Name = "homeButton";
+            this.homeButton.Size = new System.Drawing.Size(37, 36);
+            this.homeButton.TabIndex = 12;
+            this.homeButton.UseVisualStyleBackColor = true;
             // 
             // BackButton
             // 
@@ -233,7 +235,7 @@
             this.Controls.Add(this.userList);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.homeButton);
             this.Controls.Add(this.BackButton);
             this.Name = "CreateNewGroup";
             this.Text = "DataAsguard";
@@ -249,7 +251,7 @@
 
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button ProfileButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button homeButton;
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Button removeFromGroupButton;
