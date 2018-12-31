@@ -369,6 +369,7 @@
     <Content Include="Media\DataAsguardLogo.png" />
     <Content Include="Media\FolderIcon.png" />
     <Content Include="Media\HomeIcon.png" />
+    <Content Include="Media\Download 20x20.png" />
     <Content Include="Media\SearchIcon.png" />
     <Content Include="Media\SettingsIcon.png" />
     <Content Include="Media\fullscreen-20x20.png" />
