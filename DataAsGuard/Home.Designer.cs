@@ -136,6 +136,7 @@
             this.uploadFileButton.UseMnemonic = false;
             this.uploadFileButton.UseVisualStyleBackColor = true;
             this.uploadFileButton.Click += new System.EventHandler(this.uploadFileButton_Click);
+            // 
             // viewDoc
             // 
             this.viewDoc.Location = new System.Drawing.Point(12, 267);
@@ -162,7 +163,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.uploadFileButton);
-            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.viewDoc);
             this.Controls.Add(this.settingsButton);
