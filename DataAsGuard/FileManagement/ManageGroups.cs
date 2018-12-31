@@ -89,14 +89,14 @@ namespace DataAsGuard.FileManagement
 
         private void createGroupButton_Click(object sender, EventArgs e)
         {
-            FileManagement.CreateNewGroup createNewGroup = new FileManagement.CreateNewGroup();
+            CreateNewGroup createNewGroup = new CreateNewGroup();
             createNewGroup.Show();
-            Hide();
         }
 
         private void editGroupButton_Click(object sender, EventArgs e)
         {
-
+            EditGroup view = new EditGroup("groupEdited");
+            view.Show();
         }
 
         private void deleteUserFromGroupButton_Click(object sender, EventArgs e)

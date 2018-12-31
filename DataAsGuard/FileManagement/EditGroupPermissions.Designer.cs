@@ -117,10 +117,10 @@
             // 
             this.userSelectedLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.userSelectedLabel.AutoSize = true;
-            this.userSelectedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.userSelectedLabel.Location = new System.Drawing.Point(168, 11);
+            this.userSelectedLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.userSelectedLabel.Location = new System.Drawing.Point(168, 10);
             this.userSelectedLabel.Name = "userSelectedLabel";
-            this.userSelectedLabel.Size = new System.Drawing.Size(42, 17);
+            this.userSelectedLabel.Size = new System.Drawing.Size(42, 19);
             this.userSelectedLabel.TabIndex = 1;
             this.userSelectedLabel.Text = "None";
             // 
@@ -128,10 +128,10 @@
             // 
             this.labelLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelLabel.AutoSize = true;
-            this.labelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.labelLabel.Location = new System.Drawing.Point(7, 11);
+            this.labelLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.labelLabel.Location = new System.Drawing.Point(10, 10);
             this.labelLabel.Name = "labelLabel";
-            this.labelLabel.Size = new System.Drawing.Size(111, 17);
+            this.labelLabel.Size = new System.Drawing.Size(105, 19);
             this.labelLabel.TabIndex = 0;
             this.labelLabel.Text = "Group Selected:";
             // 

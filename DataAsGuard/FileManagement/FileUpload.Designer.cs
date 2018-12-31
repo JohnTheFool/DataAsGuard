@@ -140,20 +140,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label1.Location = new System.Drawing.Point(375, 539);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(138, 17);
+            this.label1.Size = new System.Drawing.Size(135, 19);
             this.label1.TabIndex = 12;
             this.label1.Text = "Upload Limit: GB/GB";
             // 
             // fileNameLabel
             // 
             this.fileNameLabel.AutoSize = true;
-            this.fileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.fileNameLabel.Font = new System.Drawing.Font("Segoe UI", 10.25F);
             this.fileNameLabel.Location = new System.Drawing.Point(267, 102);
             this.fileNameLabel.Name = "fileNameLabel";
-            this.fileNameLabel.Size = new System.Drawing.Size(75, 17);
+            this.fileNameLabel.Size = new System.Drawing.Size(72, 19);
             this.fileNameLabel.TabIndex = 13;
             this.fileNameLabel.Text = "File Name:";
             // 
@@ -162,44 +162,45 @@
             this.fileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
             this.fileName.Location = new System.Drawing.Point(348, 99);
             this.fileName.Name = "fileName";
-            this.fileName.Size = new System.Drawing.Size(245, 23);
+            this.fileName.Size = new System.Drawing.Size(270, 23);
             this.fileName.TabIndex = 14;
             // 
             // fileSizeLabel
             // 
             this.fileSizeLabel.AutoSize = true;
-            this.fileSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.fileSizeLabel.Font = new System.Drawing.Font("Segoe UI", 10.25F);
             this.fileSizeLabel.Location = new System.Drawing.Point(273, 163);
             this.fileSizeLabel.Name = "fileSizeLabel";
-            this.fileSizeLabel.Size = new System.Drawing.Size(65, 17);
+            this.fileSizeLabel.Size = new System.Drawing.Size(59, 19);
             this.fileSizeLabel.TabIndex = 15;
             this.fileSizeLabel.Text = "File Size:";
             // 
             // fileSize
             // 
             this.fileSize.AutoSize = true;
-            this.fileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.fileSize.Font = new System.Drawing.Font("Segoe UI", 10.25F);
             this.fileSize.Location = new System.Drawing.Point(344, 163);
             this.fileSize.Name = "fileSize";
-            this.fileSize.Size = new System.Drawing.Size(29, 17);
+            this.fileSize.Size = new System.Drawing.Size(30, 19);
             this.fileSize.TabIndex = 16;
             this.fileSize.Text = "NIL";
             // 
             // fileDescriptionLabel
             // 
             this.fileDescriptionLabel.AutoSize = true;
-            this.fileDescriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.fileDescriptionLabel.Font = new System.Drawing.Font("Segoe UI", 10.25F);
             this.fileDescriptionLabel.Location = new System.Drawing.Point(229, 221);
             this.fileDescriptionLabel.Name = "fileDescriptionLabel";
-            this.fileDescriptionLabel.Size = new System.Drawing.Size(109, 17);
+            this.fileDescriptionLabel.Size = new System.Drawing.Size(105, 19);
             this.fileDescriptionLabel.TabIndex = 17;
             this.fileDescriptionLabel.Text = "File Description:";
             // 
             // fileDescBox
             // 
+            this.fileDescBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
             this.fileDescBox.Location = new System.Drawing.Point(344, 221);
             this.fileDescBox.Name = "fileDescBox";
-            this.fileDescBox.Size = new System.Drawing.Size(249, 253);
+            this.fileDescBox.Size = new System.Drawing.Size(274, 253);
             this.fileDescBox.TabIndex = 18;
             this.fileDescBox.Text = "";
             // 

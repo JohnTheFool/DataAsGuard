@@ -178,10 +178,10 @@
             // 
             this.groupNameLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.groupNameLabel.AutoSize = true;
-            this.groupNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.groupNameLabel.Location = new System.Drawing.Point(17, 15);
+            this.groupNameLabel.Font = new System.Drawing.Font("Segoe UI", 10.25F);
+            this.groupNameLabel.Location = new System.Drawing.Point(18, 14);
             this.groupNameLabel.Name = "groupNameLabel";
-            this.groupNameLabel.Size = new System.Drawing.Size(93, 17);
+            this.groupNameLabel.Size = new System.Drawing.Size(91, 19);
             this.groupNameLabel.TabIndex = 2;
             this.groupNameLabel.Text = "Group Name:";
             this.groupNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -190,10 +190,10 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10.25F);
             this.label1.Location = new System.Drawing.Point(465, 268);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 17);
+            this.label1.Size = new System.Drawing.Size(124, 19);
             this.label1.TabIndex = 22;
             this.label1.Text = "Group Description:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -209,7 +209,7 @@
             // 
             // createGroupButton
             // 
-            this.createGroupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.createGroupButton.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.createGroupButton.Location = new System.Drawing.Point(571, 455);
             this.createGroupButton.Name = "createGroupButton";
             this.createGroupButton.Size = new System.Drawing.Size(152, 28);

@@ -48,24 +48,41 @@ namespace DataAsGuard.FileManagement
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
-                string curItem = fileList.SelectedItem.ToString();
-                //Retrieve group info from DB
-                String groupInfoquery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
-                MySqlCommand groupInfocmd = new MySqlCommand(groupInfoquery, con);
-                groupInfocmd.Parameters.AddWithValue("@nameParam", curItem);
-                MySqlDataReader reader = groupInfocmd.ExecuteReader();
-                if (reader.Read())
+                try
                 {
-                    fileInformation.AppendText("Date Created: " + reader["dateCreated"].ToString());
-                    fileInformation.AppendText(Environment.NewLine + "File Owner: " + reader["fileOwner"].ToString());
-                    fileInformation.AppendText(Environment.NewLine + "File Description: " + reader["description"].ToString());
+                    string curItem = fileList.SelectedItem.ToString();
+                    //Retrieve group info from DB
+                    String groupInfoquery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+                    MySqlCommand groupInfocmd = new MySqlCommand(groupInfoquery, con);
+                    groupInfocmd.Parameters.AddWithValue("@nameParam", curItem);
+                    MySqlDataReader reader = groupInfocmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        fileInformation.AppendText("Date Created: " + reader["dateCreated"].ToString());
+                        fileInformation.AppendText(Environment.NewLine + "File Owner: " + reader["fileOwner"].ToString());
+                        fileInformation.AppendText(Environment.NewLine + "File Description: " + reader["description"].ToString());
+                    }
+                    reader.Close();
+                    editUserPermButton.Enabled = true;
+                    editGroupPermButton.Enabled = true;
                 }
-                reader.Close();
+                catch (NullReferenceException)
+                {
+                    //Do nothing
+                }
             }
         }
         private void deleteFileButton_Click(object sender, EventArgs e)
         {
-
+            DialogResult dialogResult = MessageBox.Show("Delete the selected file (name here)?", "Are you sure?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                //do something
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
         }
 
         private void manageGroupsButton_Click(object sender, EventArgs e)
@@ -77,7 +94,7 @@ namespace DataAsGuard.FileManagement
 
         private void editUserPermButton_Click(object sender, EventArgs e)
         {
-            FileManagement.EditUserPermissions view = new FileManagement.EditUserPermissions();
+            FileManagement.EditUserPermissions view = new FileManagement.EditUserPermissions(fileList.SelectedItem.ToString());
             view.Show();
             Hide();
         }

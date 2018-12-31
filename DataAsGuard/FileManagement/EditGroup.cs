@@ -12,7 +12,7 @@ namespace DataAsGuard.FileManagement
 {
     public partial class EditGroup : Form
     {
-        public EditGroup()
+        public EditGroup(String groupEdited)
         {
             InitializeComponent();
         }

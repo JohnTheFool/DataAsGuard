@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,19 @@ namespace DataAsGuard.FileManagement
     {
         String fileSourcePath;
         String fileOriginalName;
+        byte[] fileBytes = null;
+
+        //For changing back to original file
+        //Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+        //using (Stream file = File.Create(fileName))
+        //{
+        //file.Write(buffer, 0, buffer.Length);
+        //}
+
+        //Opening the file
+        //Process process = new Process();
+        //process.StartInfo.FileName = path;
+        //process.Start();
 
         public FileUpload()
         {
@@ -25,18 +39,32 @@ namespace DataAsGuard.FileManagement
         private Boolean InsertFileInfoToDB()
         {
             Boolean success = false;
+            String ownerName = "";
+
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
-
                 con.Open();
-                String executeQuery = "INSERT INTO fileInfo(fileName, fileSize, dateCreated, fileOwner, description) VALUES (@nameParam, @sizeParam, @dateParam, @ownerParam, @descParam)";
-                    
+
+                String getUserQuery = "SELECT * FROM Userinfo WHERE userid = @idParam";
+                MySqlCommand cmd = new MySqlCommand(getUserQuery, con);
+                cmd.Parameters.AddWithValue("@idParam", Logininfo.userid);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    ownerName = reader["fullName"].ToString();
+                }
+                reader.Close();
+
+                String executeQuery = "INSERT INTO fileInfo(fileName, fileSize, dateCreated, fileOwnerID, fileOwner, description, file) VALUES (@nameParam, @sizeParam, @dateParam, @ownerIDParam, @ownerParam, @descParam, @fileParam)";
+                
                 MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
                 myCommand.Parameters.AddWithValue("@nameParam", this.fileName.Text);
                 myCommand.Parameters.AddWithValue("@sizeParam", this.fileSize.Text);
                 myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
-                myCommand.Parameters.AddWithValue("@ownerParam", "Test"); //Logininfo.userid
+                myCommand.Parameters.AddWithValue("@ownerIDParam", Logininfo.userid);
+                myCommand.Parameters.AddWithValue("@ownerParam", ownerName);
                 myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
+                myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
                 myCommand.ExecuteNonQuery();
                 con.Close();
                 success = true;
@@ -89,6 +117,15 @@ namespace DataAsGuard.FileManagement
                     }
                 }
                 fileSourcePath = path;
+
+                try
+                {
+                    fileBytes = File.ReadAllBytes(path);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("Error file could not be read, please try again.");
+                }  
             }
         }
 
@@ -101,9 +138,7 @@ namespace DataAsGuard.FileManagement
                 {
                     if (InsertFileInfoToDB())
                     {
-                        System.IO.File.Copy(fileSourcePath, "../../Files/" + fileName.Text);
                         MessageBox.Show("File successfully uploaded.");
-                        //Change this to Google Cloud code in the future.
                     }
                 }
                 
@@ -112,7 +147,6 @@ namespace DataAsGuard.FileManagement
             {
                 if (InsertFileInfoToDB())
                 {
-                    System.IO.File.Copy(fileSourcePath, "../../Files/" + fileName.Text);
                     MessageBox.Show("File successfully uploaded.");
                 }
             }

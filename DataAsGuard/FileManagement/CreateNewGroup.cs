@@ -29,7 +29,6 @@ namespace DataAsGuard.FileManagement
 
         private void createGroupButton_Click(object sender, EventArgs e)
         {
-            FileManagement.CreateNewGroup view = new FileManagement.CreateNewGroup();
             if (CheckIfGroupExists())
             {
                 System.Windows.Forms.MessageBox.Show("Group name already exists, please enter another name.");
@@ -40,13 +39,11 @@ namespace DataAsGuard.FileManagement
                 if (InsertGroupInfoIntoDatabase() && InsertGroupMembersIntoDatabase())
                 {
                     System.Windows.Forms.MessageBox.Show("Successfully created group.");
-                    view.Show();
                     Hide();
                 }
                 else
                 {
                     System.Windows.Forms.MessageBox.Show("Failed to create group, please try again.");
-                    view.Show();
                     Hide();
                 }
             }
@@ -63,7 +60,7 @@ namespace DataAsGuard.FileManagement
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    userList.Items.Add(reader["userFullName"].ToString());
+                    userList.Items.Add(reader["fullName"].ToString());
                 }
                 reader.Close();
                 con.Close();
@@ -77,11 +74,13 @@ namespace DataAsGuard.FileManagement
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
-                String executeQuery = "INSERT INTO groupInfo(groupName, groupDescription, groupCreator, dateCreated) VALUES (@groupNameParam, @groupDescParam, @creatorParam, @dateParam)";
+
+                String executeQuery = "INSERT INTO groupInfo(groupName, groupDescription, groupCreator, groupCreatorID, dateCreated) VALUES (@groupNameParam, @groupDescParam, @creatorParam, @creatorIDParam, @dateParam)";
                 MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
                 myCommand.Parameters.AddWithValue("@groupNameParam", this.groupName_Text.Text);
                 myCommand.Parameters.AddWithValue("@groupDescParam", this.groupDescription_Text.Text);
-                myCommand.Parameters.AddWithValue("@creatorParam", "Test"); //Logininfo.userid
+                myCommand.Parameters.AddWithValue("@creatorParam", "Test");
+                myCommand.Parameters.AddWithValue("@creatorIDParam", 1); //Logininfo.userid
                 myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
                 myCommand.ExecuteNonQuery();
                 con.Close();
@@ -112,14 +111,28 @@ namespace DataAsGuard.FileManagement
         private Boolean InsertGroupMembersIntoDatabase()
         {
             Boolean success = false;
+            int userID = 0;
+            int groupID = 0;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
                 for (int i = 0; i < groupMembers.Items.Count; i++)
                 {
-                    String executeQuery = "INSERT INTO groupUsers(groupName, userFullName, dateJoined) VALUES (@groupNameParam, @nameParam, @dateParam)";
+                    String getUserIDQuery = "SELECT * FROM Userinfo WHERE fullName = @fullNameParam";
+                    MySqlCommand getUsercmd = new MySqlCommand(getUserIDQuery, con);
+                    getUsercmd.Parameters.AddWithValue("@fullNameParam", groupMembers.Items[i].ToString());
+                    MySqlDataReader reader = getUsercmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        String stringuserID = reader["userid"].ToString();
+                        userID = Convert.ToInt32(stringuserID);
+                    }
+                    reader.Close();
+
+                    String executeQuery = "INSERT INTO groupUsers(groupName, userID, userFullName, dateJoined) VALUES (@groupNameParam, @userIDParam, @nameParam, @dateParam)";
                     MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
                     myCommand.Parameters.AddWithValue("@groupNameParam", this.groupName_Text.Text);
+                    myCommand.Parameters.AddWithValue("@userIDParam", userID);
                     myCommand.Parameters.AddWithValue("@nameParam", groupMembers.Items[i].ToString());
                     myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
                     myCommand.ExecuteNonQuery();

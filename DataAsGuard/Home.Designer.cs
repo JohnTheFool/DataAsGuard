@@ -84,7 +84,7 @@
             // 
             // manageFilesButton
             // 
-            this.manageFilesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.manageFilesButton.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.manageFilesButton.Location = new System.Drawing.Point(185, 266);
             this.manageFilesButton.Name = "manageFilesButton";
             this.manageFilesButton.Size = new System.Drawing.Size(526, 57);
@@ -106,10 +106,10 @@
             // 
             // viewImg
             // 
-            this.viewImg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.viewImg.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.viewImg.Location = new System.Drawing.Point(12, 173);
             this.viewImg.Name = "viewImg";
-            this.viewImg.Size = new System.Drawing.Size(99, 25);
+            this.viewImg.Size = new System.Drawing.Size(99, 29);
             this.viewImg.TabIndex = 2;
             this.viewImg.Text = "View Image";
             this.viewImg.UseVisualStyleBackColor = true;
@@ -117,11 +117,11 @@
             // 
             // viewPdf
             // 
-            this.viewPdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.viewPdf.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.viewPdf.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.viewPdf.Location = new System.Drawing.Point(12, 221);
             this.viewPdf.Name = "viewPdf";
-            this.viewPdf.Size = new System.Drawing.Size(99, 27);
+            this.viewPdf.Size = new System.Drawing.Size(99, 30);
             this.viewPdf.TabIndex = 4;
             this.viewPdf.Text = "View PDF";
             this.viewPdf.UseVisualStyleBackColor = true;
@@ -129,7 +129,7 @@
             // 
             // uploadFileButton
             // 
-            this.uploadFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.uploadFileButton.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.uploadFileButton.Location = new System.Drawing.Point(185, 173);
             this.uploadFileButton.Name = "uploadFileButton";
             this.uploadFileButton.Size = new System.Drawing.Size(526, 57);

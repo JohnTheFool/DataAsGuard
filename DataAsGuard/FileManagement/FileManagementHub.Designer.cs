@@ -106,7 +106,8 @@
             // 
             // editUserPermButton
             // 
-            this.editUserPermButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.editUserPermButton.Enabled = false;
+            this.editUserPermButton.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.editUserPermButton.Location = new System.Drawing.Point(289, 479);
             this.editUserPermButton.Name = "editUserPermButton";
             this.editUserPermButton.Size = new System.Drawing.Size(163, 28);
@@ -154,7 +155,8 @@
             // 
             // deleteFileButton
             // 
-            this.deleteFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.deleteFileButton.Enabled = false;
+            this.deleteFileButton.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.deleteFileButton.Location = new System.Drawing.Point(289, 547);
             this.deleteFileButton.Name = "deleteFileButton";
             this.deleteFileButton.Size = new System.Drawing.Size(163, 28);
@@ -165,7 +167,7 @@
             // 
             // manageGroupsButton
             // 
-            this.manageGroupsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.manageGroupsButton.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.manageGroupsButton.Location = new System.Drawing.Point(289, 513);
             this.manageGroupsButton.Name = "manageGroupsButton";
             this.manageGroupsButton.Size = new System.Drawing.Size(163, 28);
@@ -176,7 +178,8 @@
             // 
             // editGroupPermButton
             // 
-            this.editGroupPermButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.editGroupPermButton.Enabled = false;
+            this.editGroupPermButton.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.editGroupPermButton.Location = new System.Drawing.Point(458, 479);
             this.editGroupPermButton.Name = "editGroupPermButton";
             this.editGroupPermButton.Size = new System.Drawing.Size(168, 28);

@@ -87,7 +87,7 @@
             "Former Starhub Lawsuit"});
             this.recycleList.Location = new System.Drawing.Point(105, 63);
             this.recycleList.Name = "recycleList";
-            this.recycleList.Size = new System.Drawing.Size(261, 292);
+            this.recycleList.Size = new System.Drawing.Size(261, 516);
             this.recycleList.TabIndex = 13;
             // 
             // recycleLabel
@@ -102,10 +102,10 @@
             // 
             // restoreFileButton
             // 
-            this.restoreFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.restoreFileButton.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.restoreFileButton.Location = new System.Drawing.Point(544, 231);
             this.restoreFileButton.Name = "restoreFileButton";
-            this.restoreFileButton.Size = new System.Drawing.Size(75, 25);
+            this.restoreFileButton.Size = new System.Drawing.Size(75, 27);
             this.restoreFileButton.TabIndex = 15;
             this.restoreFileButton.Text = "Restore File";
             this.restoreFileButton.UseVisualStyleBackColor = true;
@@ -113,9 +113,10 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.richTextBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.richTextBox1.Location = new System.Drawing.Point(441, 63);
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(290, 107);
             this.richTextBox1.TabIndex = 16;
             this.richTextBox1.Text = "Date Deleted: 25th December 2017\nFile Size: 10.2 Kb\nDeleted By: Admin1\nPermanent " +
@@ -133,10 +134,10 @@
             // 
             // deleteFileButton
             // 
-            this.deleteFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.deleteFileButton.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.deleteFileButton.Location = new System.Drawing.Point(544, 284);
             this.deleteFileButton.Name = "deleteFileButton";
-            this.deleteFileButton.Size = new System.Drawing.Size(75, 25);
+            this.deleteFileButton.Size = new System.Drawing.Size(75, 26);
             this.deleteFileButton.TabIndex = 18;
             this.deleteFileButton.Text = "Delete File";
             this.deleteFileButton.UseVisualStyleBackColor = true;

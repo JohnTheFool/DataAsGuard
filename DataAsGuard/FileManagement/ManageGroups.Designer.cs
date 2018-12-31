@@ -85,7 +85,7 @@
             // groupLabel
             // 
             this.groupLabel.AutoSize = true;
-            this.groupLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupLabel.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.groupLabel.Location = new System.Drawing.Point(140, 24);
             this.groupLabel.Name = "groupLabel";
             this.groupLabel.Size = new System.Drawing.Size(76, 20);
@@ -95,7 +95,7 @@
             // membersLabel
             // 
             this.membersLabel.AutoSize = true;
-            this.membersLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.membersLabel.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.membersLabel.Location = new System.Drawing.Point(332, 24);
             this.membersLabel.Name = "membersLabel";
             this.membersLabel.Size = new System.Drawing.Size(116, 20);
