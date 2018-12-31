@@ -7,9 +7,11 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataAsGuard.CSClass;
 using MySql.Data.MySqlClient;
 
 namespace DataAsGuard.Profiles.Users
@@ -17,7 +19,8 @@ namespace DataAsGuard.Profiles.Users
     public partial class ConfirmationDetails : Form
     {
         private Random rand = new Random();
-
+        AesEncryption aes = new AesEncryption();
+        DBLogger dblog = new DBLogger();
         public ConfirmationDetails()
         {
             InitializeComponent();
@@ -25,7 +28,8 @@ namespace DataAsGuard.Profiles.Users
 
         private void Registration_Shown(Object sender, EventArgs e)
         {
-            //userdataRetrieval();
+            validateCaptcha.Hide();
+            userdataRetrieval();
             CreateImage();
         }
 
@@ -33,17 +37,18 @@ namespace DataAsGuard.Profiles.Users
         {
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
-
                 con.Open();
-                String query = "SELECT * FROM Userinfo WHERE userid='1'";
+                String query = "SELECT * FROM Userinfo WHERE userid=@userid";
                 MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        name.Text = reader.GetString(reader.GetOrdinal("username"));
-                        phoneNo.Text = reader.GetInt32(reader.GetOrdinal("phoneno.")).ToString();
-                        email.Text = reader.GetString(reader.GetOrdinal("email"));
+                        username.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), Logininfo.userid.ToString());
+                        name.Text = reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname"));
+                        phoneNo.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), Logininfo.userid.ToString());
+                        email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), Logininfo.userid.ToString());
                         DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
 
                     }
@@ -51,7 +56,6 @@ namespace DataAsGuard.Profiles.Users
                     if (reader != null)
                         reader.Close();
                 }
-
             }
         }
 
@@ -60,18 +64,66 @@ namespace DataAsGuard.Profiles.Users
         {
             if (captchabox.Text == code.ToString())
             {
-                confirmationOTP registerOTP = new confirmationOTP();
-                registerOTP.Show();
-                Hide();
-
+                bool contains = usernamechecker(username.Text);
+                //if contains == true and username is the same as the current username for the current user OR
+                //if contains == false
+                if ((contains == true && checkuserid == Logininfo.userid) || (contains == false))
+                {
+                    updateUsername(username.Text);
+                    //route to OTP page
+                    confirmationOTP registerOTP = new confirmationOTP();
+                    registerOTP.Show();
+                    Hide();
+                    if (pictureBox1.Image != null)
+                    {
+                        pictureBox1.Image.Dispose();
+                        pictureBox1.Image = null;
+                    }
+                }
+                else
+                {
+                    validateUsername.Show();
+                    validateUsername.ForeColor = Color.Red;
+                    validateUsername.Text = "Username had been taken.";
+                }
             }
             else
             {
-                MessageBox.Show("Incorrect entry");
+                validateCaptcha.Show();
+                validateCaptcha.ForeColor = Color.Red;
+                validateCaptcha.Text = "Incorrect Entry";
             }
-            
         }
 
+        //Update username
+        public void updateUsername(string username)
+        {
+            //UPDATE PASSWORD TO DATABASE
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                string queryStr = "";
+                queryStr = "UPDATE Userinfo set username=@username where userid = @userid";
+
+                MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
+                cmd.Parameters.AddWithValue("@username", aes.Encryptstring(username,Logininfo.userid));
+                cmd.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
+                cmd.ExecuteReader();
+                con.Close();
+                dblog.Log("User Information changed", "Accounts", Logininfo.userid.ToString(), Logininfo.email);
+            }
+        }
+
+        private void RefreshCaptcha_Click(object sender, EventArgs e)
+        {
+            //release resources uses by captcha to prevent issues
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
+            CreateImage();
+        }
 
         //captcha
         private void CreateImage()
@@ -152,13 +204,13 @@ namespace DataAsGuard.Profiles.Users
         }
 
         string code;
-        //gernate random text in the captcha
+        //generate random text in the captcha
         private string GetRandomText()
         {
             StringBuilder randomText = new StringBuilder();
 
-            if (String.IsNullOrEmpty(code))
-            {
+            //if (String.IsNullOrEmpty(code))
+            //{
                 string alphabets = "abcdefghijklmnopqrstuvwxyz1234567890";
 
                 Random r = new Random();
@@ -169,11 +221,67 @@ namespace DataAsGuard.Profiles.Users
                 }
 
                 code = randomText.ToString();
-            }
+            //}
 
             return code;
         }
 
+        static string checkuserid;
+        private void username_Leave(object sender, EventArgs e)
+        {
+            bool contains = usernamechecker(username.Text);
+            if (contains == true && checkuserid != Logininfo.userid)
+            {
+                validateUsername.Show();
+                validateUsername.ForeColor = Color.Red;
+                validateUsername.Text = "Username had been taken.";
+            }
+            else if (contains == true && checkuserid == Logininfo.userid)
+            {
+                validateUsername.Show();
+                validateUsername.ForeColor = Color.ForestGreen;
+                validateUsername.Text = "Username OK!";
+            }
+            else
+            {
+                validateUsername.Show();
+                validateUsername.ForeColor = Color.ForestGreen;
+                validateUsername.Text = "Username OK!";
+            }
+        }
+
+        //check for duplicates in username
+        public bool usernamechecker(string usernamevalue)
+        {
+            bool contains = false;
+            //UPDATE PASSWORD TO DATABASE
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                string queryStr = "";
+                queryStr = "SELECT * FROM Userinfo";
+
+                MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    //cannot have duplicate
+                    //if it contains a value.
+                    while (reader.Read())
+                    {
+                        if (usernamevalue == aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("dob"))))
+                        {
+                            contains = true;
+                            checkuserid = reader.GetString(reader.GetOrdinal("userid"));
+                        }
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+            return contains;
+        }
     }
 }
 

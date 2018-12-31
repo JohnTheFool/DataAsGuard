@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataAsGuard;
 
 namespace DataAsGuard.PdfViewer
 {
@@ -31,6 +32,13 @@ namespace DataAsGuard.PdfViewer
                     axAcroPDF.src = ofd.FileName;
                 }
             }
+        }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            Home home = new Home();
+            home.Show();
+            Hide();
         }
     }
 }

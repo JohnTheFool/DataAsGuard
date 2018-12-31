@@ -22,6 +22,21 @@ namespace DataAsGuard
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FileManagement.FileUpload fileUpload = new FileManagement.FileUpload();
+            fileUpload.Show();
+            Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            Profiles.Login register = new DataAsGuard.Profiles.Login();
+            register.Show();
+            Hide();
+        }
+		
         private void showImg(object sender, EventArgs e)
         {
             ImgViewer.ImgViewerForm imgViewerForm = new ImgViewer.ImgViewerForm();
@@ -38,7 +53,7 @@ namespace DataAsGuard
 
         private void HomeButton_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void ProfileButton_Click(object sender, EventArgs e)
@@ -59,6 +74,20 @@ namespace DataAsGuard
         {
             FileManagement.FileUpload fileUpload = new FileManagement.FileUpload();
             fileUpload.Show();
+            Hide();
+        }
+
+        private void viewDoc_Click(object sender, EventArgs e)
+        {
+            Viewer.DocEd docEd = new Viewer.DocEd();
+            docEd.Show();
+            Hide();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Steganography.Steganography steg = new Steganography.Steganography();
+            steg.Show();
             Hide();
         }
     }

@@ -42,35 +42,39 @@
             // showPic
             // 
             this.showPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.showPic.Location = new System.Drawing.Point(44, 118);
+            this.showPic.Location = new System.Drawing.Point(31, 156);
+            this.showPic.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.showPic.Name = "showPic";
-            this.showPic.Size = new System.Drawing.Size(1803, 880);
+            this.showPic.Size = new System.Drawing.Size(813, 427);
             this.showPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.showPic.TabIndex = 2;
             this.showPic.TabStop = false;
             // 
             // fileNameBox
             // 
-            this.fileNameBox.Location = new System.Drawing.Point(417, 32);
+            this.fileNameBox.Location = new System.Drawing.Point(217, 40);
+            this.fileNameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.fileNameBox.Name = "fileNameBox";
-            this.fileNameBox.Size = new System.Drawing.Size(403, 20);
+            this.fileNameBox.Size = new System.Drawing.Size(536, 23);
             this.fileNameBox.TabIndex = 3;
             this.fileNameBox.TextChanged += new System.EventHandler(this.fileNameBox_TextChanged);
             // 
             // zoom
             // 
-            this.zoom.Location = new System.Drawing.Point(417, 67);
+            this.zoom.Location = new System.Drawing.Point(232, 83);
+            this.zoom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.zoom.Maximum = 100;
             this.zoom.Name = "zoom";
-            this.zoom.Size = new System.Drawing.Size(372, 45);
+            this.zoom.Size = new System.Drawing.Size(496, 45);
             this.zoom.TabIndex = 4;
             this.zoom.Scroll += new System.EventHandler(this.zoom_Scroll);
             // 
             // opnFile
             // 
-            this.opnFile.Location = new System.Drawing.Point(826, 32);
+            this.opnFile.Location = new System.Drawing.Point(773, 38);
+            this.opnFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.opnFile.Name = "opnFile";
-            this.opnFile.Size = new System.Drawing.Size(51, 20);
+            this.opnFile.Size = new System.Drawing.Size(59, 25);
             this.opnFile.TabIndex = 0;
             this.opnFile.Text = "Open";
             this.opnFile.UseVisualStyleBackColor = true;
@@ -79,24 +83,28 @@
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.Size = new System.Drawing.Size(133, 28);
             this.label1.TabIndex = 6;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(357, 38);
+            this.label2.Location = new System.Drawing.Point(132, 42);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.Size = new System.Drawing.Size(65, 17);
             this.label2.TabIndex = 5;
             this.label2.Text = "Filename";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // backBtn
             // 
-            this.backBtn.Location = new System.Drawing.Point(32, 27);
+            this.backBtn.Location = new System.Drawing.Point(13, 32);
+            this.backBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.backBtn.Name = "backBtn";
-            this.backBtn.Size = new System.Drawing.Size(75, 23);
+            this.backBtn.Size = new System.Drawing.Size(63, 28);
             this.backBtn.TabIndex = 7;
             this.backBtn.Text = "&Back";
             this.backBtn.UseVisualStyleBackColor = true;
@@ -104,9 +112,9 @@
             // 
             // ImgViewerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1487, 720);
+            this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.backBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -114,6 +122,8 @@
             this.Controls.Add(this.fileNameBox);
             this.Controls.Add(this.showPic);
             this.Controls.Add(this.opnFile);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ImgViewerForm";
             this.Text = "ImgViewerForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImgViewerForm_FormClosing);
