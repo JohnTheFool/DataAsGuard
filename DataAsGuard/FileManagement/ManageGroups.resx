@@ -118,15 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="backButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAALBJREFUWEftlsEJAjEQRXNXbxZgK1bgFuFZLMCDWJL24ZZgCYp4FX0/EvDgJZMh
-        IMyDB5mFyXyYhd0UBP/IGhefY3+2+MILTvWgJ2W41LkrMTyGd2WDZbjVB57xgHOswiPAt1ccsIrWFUxw
-        iUfUHU9cYRVe78EOdccNq9fhFeKEumOfq0o8Qmgd6h9zZaA1xAzVe8+VkdYQpbeJEsLyOXYJIKw/JG4B
-        rESACBAEP0jpDW7gaW6XxH6PAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="settingsButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -160,6 +151,15 @@
         T5E9bwXl36KtR9Tl+APbjvDl9h59W0KraPkRPQXLjngTPP0IJXDaESNBw0cMB2TkjBnl4HVWbTCNlAPL
         QF7zCF9umkWdSY+4s7CA5QjMmCIwQ7Z1hdig/mURmDFFYGbZtLymJ8yjeChKmOKhKGGKh6KEKR6KEqZ4
         KEqY4qEoYYqHooQpHgoMLXmiHa9uIrOXJ9rxOhwcKf0Ad+HIM/DpCc8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="BackButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAALBJREFUWEftlsEJAjEQRXNXbxZgK1bgFuFZLMCDWJL24ZZgCYp4FX0/EvDgJZMh
+        IMyDB5mFyXyYhd0UBP/IGhefY3+2+MILTvWgJ2W41LkrMTyGd2WDZbjVB57xgHOswiPAt1ccsIrWFUxw
+        iUfUHU9cYRVe78EOdccNq9fhFeKEumOfq0o8Qmgd6h9zZaA1xAzVe8+VkdYQpbeJEsLyOXYJIKw/JG4B
+        rESACBAEP0jpDW7gaW6XxH6PAAAAAElFTkSuQmCC
 </value>
   </data>
 </root>

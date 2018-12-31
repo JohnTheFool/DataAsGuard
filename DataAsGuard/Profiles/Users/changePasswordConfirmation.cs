@@ -120,6 +120,7 @@ namespace DataAsGuard.Profiles.Users
                 cmd.ExecuteReader();
                 con.Close();
                 dblog.Log("User Complete Registration", "Registration", Logininfo.userid.ToString(), Logininfo.email);
+                dblog.Log("Account Status Changed(F -> T)", "Accounts", Logininfo.userid.ToString(), Logininfo.email);
             }
         }
 

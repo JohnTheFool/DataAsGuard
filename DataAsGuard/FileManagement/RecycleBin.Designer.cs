@@ -71,7 +71,7 @@
             // BackButton
             // 
             this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
-            this.BackButton.Location = new System.Drawing.Point(751, 12);
+            this.BackButton.Location = new System.Drawing.Point(835, 12);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(37, 36);
             this.BackButton.TabIndex = 12;
@@ -79,31 +79,33 @@
             // 
             // recycleList
             // 
+            this.recycleList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.recycleList.FormattingEnabled = true;
+            this.recycleList.ItemHeight = 16;
             this.recycleList.Items.AddRange(new object[] {
             "Old Agreement",
             "Former Starhub Lawsuit"});
             this.recycleList.Location = new System.Drawing.Point(105, 63);
             this.recycleList.Name = "recycleList";
-            this.recycleList.Size = new System.Drawing.Size(261, 303);
+            this.recycleList.Size = new System.Drawing.Size(261, 292);
             this.recycleList.TabIndex = 13;
-            this.recycleList.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // recycleLabel
             // 
             this.recycleLabel.AutoSize = true;
-            this.recycleLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.recycleLabel.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.recycleLabel.Location = new System.Drawing.Point(190, 43);
             this.recycleLabel.Name = "recycleLabel";
-            this.recycleLabel.Size = new System.Drawing.Size(88, 17);
+            this.recycleLabel.Size = new System.Drawing.Size(91, 19);
             this.recycleLabel.TabIndex = 14;
             this.recycleLabel.Text = "Recycled Files";
             // 
             // restoreFileButton
             // 
+            this.restoreFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.restoreFileButton.Location = new System.Drawing.Point(544, 231);
             this.restoreFileButton.Name = "restoreFileButton";
-            this.restoreFileButton.Size = new System.Drawing.Size(75, 23);
+            this.restoreFileButton.Size = new System.Drawing.Size(75, 25);
             this.restoreFileButton.TabIndex = 15;
             this.restoreFileButton.Text = "Restore File";
             this.restoreFileButton.UseVisualStyleBackColor = true;
@@ -111,6 +113,7 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.richTextBox1.Location = new System.Drawing.Point(441, 63);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(290, 107);
@@ -121,18 +124,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.label1.Location = new System.Drawing.Point(522, 43);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 17);
+            this.label1.Size = new System.Drawing.Size(128, 19);
             this.label1.TabIndex = 17;
             this.label1.Text = "Selected File Details";
             // 
             // deleteFileButton
             // 
+            this.deleteFileButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.deleteFileButton.Location = new System.Drawing.Point(544, 284);
             this.deleteFileButton.Name = "deleteFileButton";
-            this.deleteFileButton.Size = new System.Drawing.Size(75, 23);
+            this.deleteFileButton.Size = new System.Drawing.Size(75, 25);
             this.deleteFileButton.TabIndex = 18;
             this.deleteFileButton.Text = "Delete File";
             this.deleteFileButton.UseVisualStyleBackColor = true;
@@ -141,7 +145,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.deleteFileButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.richTextBox1);

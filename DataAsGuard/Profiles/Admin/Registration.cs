@@ -164,13 +164,14 @@ namespace DataAsGuard.Profiles.Admin
             {
                 con.Open();
                 //String query = "INSERT into Userinfo(phoneno., email, firstname, lastname, dob, username, password) values(@contact, @email, @firstName, @Lastname, @DOB, @userName, @hashedPassword)";
-                String query = "INSERT into Userinfo(username, password, email, firstname, lastname, dob, contact) values(@userName, @hashedPassword, @email, @firstName, @Lastname, @DOB, @contact)";
+                String query = "INSERT into Userinfo(username, password, email, firstname, lastname, fullName, dob, contact) values(@userName, @hashedPassword, @email, @firstName, @Lastname, @fullName, @DOB, @contact)";
                 MySqlCommand cmd = new MySqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@contact", aes.Encryptstring2(phoneNo, dob));
                     cmd.Parameters.AddWithValue("@email", aes.Encryptstring2(email, dob));
                     cmd.Parameters.AddWithValue("@firstName", firstname);
                     cmd.Parameters.AddWithValue("@Lastname", lastname);
+                    cmd.Parameters.AddWithValue("@fullName", firstname + " " + lastname);
                     cmd.Parameters.AddWithValue("@DOB", dob);
                     cmd.Parameters.AddWithValue("@userName", aes.Encryptstring2(username,dob));
                     cmd.Parameters.AddWithValue("@hashedPassword", hashpassword);

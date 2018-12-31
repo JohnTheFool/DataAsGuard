@@ -34,7 +34,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
             this.searchBox = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.fileResults = new System.Windows.Forms.ListBox();
             this.searchButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -68,7 +68,7 @@
             // BackButton
             // 
             this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
-            this.BackButton.Location = new System.Drawing.Point(751, 12);
+            this.BackButton.Location = new System.Drawing.Point(835, 12);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(37, 36);
             this.BackButton.TabIndex = 16;
@@ -76,46 +76,49 @@
             // 
             // searchBox
             // 
+            this.searchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.searchBox.Location = new System.Drawing.Point(74, 21);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(122, 20);
+            this.searchBox.Size = new System.Drawing.Size(221, 23);
             this.searchBox.TabIndex = 17;
             // 
-            // listBox1
+            // fileResults
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Items.AddRange(new object[] {
+            this.fileResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.fileResults.FormattingEnabled = true;
+            this.fileResults.ItemHeight = 16;
+            this.fileResults.Items.AddRange(new object[] {
             "Forensics Audio",
             "Purchase Agreement"});
-            this.listBox1.Location = new System.Drawing.Point(74, 56);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(652, 342);
-            this.listBox1.TabIndex = 18;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.fileResults.Location = new System.Drawing.Point(74, 56);
+            this.fileResults.Name = "fileResults";
+            this.fileResults.Size = new System.Drawing.Size(735, 532);
+            this.fileResults.TabIndex = 18;
             // 
             // searchButton
             // 
             this.searchButton.Image = ((System.Drawing.Image)(resources.GetObject("searchButton.Image")));
-            this.searchButton.Location = new System.Drawing.Point(205, 14);
+            this.searchButton.Location = new System.Drawing.Point(301, 14);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(37, 36);
             this.searchButton.TabIndex = 19;
             this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // FileSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.searchButton);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.fileResults);
             this.Controls.Add(this.searchBox);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);
             this.Controls.Add(this.button1);
             this.Name = "FileSearch";
-            this.Text = "FileSearch";
+            this.Text = "DataAsguard";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,7 +131,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.TextBox searchBox;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox fileResults;
         private System.Windows.Forms.Button searchButton;
     }
 }

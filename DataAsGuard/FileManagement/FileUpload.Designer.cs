@@ -30,110 +30,84 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileUpload));
             this.browseButton = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.browseTable = new System.Windows.Forms.TableLayoutPanel();
             this.fileUploaded = new System.Windows.Forms.TextBox();
             this.uploadButton = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.userScrollBar = new System.Windows.Forms.VScrollBar();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.BackButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.ProfileButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.homeButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.fileNameLabel = new System.Windows.Forms.Label();
+            this.fileName = new System.Windows.Forms.TextBox();
+            this.fileSizeLabel = new System.Windows.Forms.Label();
+            this.fileSize = new System.Windows.Forms.Label();
+            this.fileDescriptionLabel = new System.Windows.Forms.Label();
+            this.fileDescBox = new System.Windows.Forms.RichTextBox();
+            this.browseTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // browseButton
             // 
             this.browseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.browseButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.browseButton.Font = new System.Drawing.Font("Segoe UI", 10.25F);
             this.browseButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.browseButton.Location = new System.Drawing.Point(288, 9);
+            this.browseButton.Location = new System.Drawing.Point(477, 9);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(176, 29);
             this.browseButton.TabIndex = 0;
             this.browseButton.Text = "Browse";
             this.browseButton.UseVisualStyleBackColor = true;
-            this.browseButton.Click += new System.EventHandler(this.BrowseButton_click1);
+            this.browseButton.Click += new System.EventHandler(this.BrowseButton_click);
             // 
-            // tableLayoutPanel1
+            // browseTable
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.browseButton, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.fileUploaded, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(147, 71);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(502, 48);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.browseTable.ColumnCount = 2;
+            this.browseTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.browseTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.browseTable.Controls.Add(this.browseButton, 1, 0);
+            this.browseTable.Controls.Add(this.fileUploaded, 0, 0);
+            this.browseTable.Location = new System.Drawing.Point(122, 26);
+            this.browseTable.Name = "browseTable";
+            this.browseTable.RowCount = 1;
+            this.browseTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.browseTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.browseTable.Size = new System.Drawing.Size(656, 48);
+            this.browseTable.TabIndex = 1;
             // 
             // fileUploaded
             // 
             this.fileUploaded.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.fileUploaded.Cursor = System.Windows.Forms.Cursors.Default;
-            this.fileUploaded.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fileUploaded.Location = new System.Drawing.Point(16, 10);
+            this.fileUploaded.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fileUploaded.Location = new System.Drawing.Point(8, 13);
             this.fileUploaded.Name = "fileUploaded";
-            this.fileUploaded.Size = new System.Drawing.Size(218, 27);
+            this.fileUploaded.ReadOnly = true;
+            this.fileUploaded.Size = new System.Drawing.Size(458, 22);
             this.fileUploaded.TabIndex = 1;
             // 
             // uploadButton
             // 
             this.uploadButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.uploadButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uploadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uploadButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.uploadButton.Location = new System.Drawing.Point(306, 365);
+            this.uploadButton.Location = new System.Drawing.Point(356, 570);
             this.uploadButton.Name = "uploadButton";
             this.uploadButton.Size = new System.Drawing.Size(176, 29);
             this.uploadButton.TabIndex = 2;
             this.uploadButton.Text = "Upload";
             this.uploadButton.UseVisualStyleBackColor = true;
+            this.uploadButton.Click += new System.EventHandler(this.uploadButton_Click);
             // 
-            // listBox1
+            // backButton
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Items.AddRange(new object[] {
-            "User1",
-            "User2",
-            "User3",
-            "Admin1"});
-            this.listBox1.Location = new System.Drawing.Point(205, 126);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(144, 199);
-            this.listBox1.TabIndex = 3;
-            // 
-            // userScrollBar
-            // 
-            this.userScrollBar.Location = new System.Drawing.Point(330, 126);
-            this.userScrollBar.Name = "userScrollBar";
-            this.userScrollBar.Size = new System.Drawing.Size(19, 199);
-            this.userScrollBar.TabIndex = 4;
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "Read",
-            "Edit",
-            "Download"});
-            this.checkedListBox1.Location = new System.Drawing.Point(470, 187);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(120, 49);
-            this.checkedListBox1.TabIndex = 7;
-            // 
-            // BackButton
-            // 
-            this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
-            this.BackButton.Location = new System.Drawing.Point(751, 12);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(37, 36);
-            this.BackButton.TabIndex = 8;
-            this.BackButton.UseVisualStyleBackColor = true;
+            this.backButton.Image = ((System.Drawing.Image)(resources.GetObject("backButton.Image")));
+            this.backButton.Location = new System.Drawing.Point(835, 12);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(37, 36);
+            this.backButton.TabIndex = 8;
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // settingsButton
             // 
@@ -153,44 +127,104 @@
             this.ProfileButton.TabIndex = 10;
             this.ProfileButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // homeButton
             // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(37, 36);
-            this.button1.TabIndex = 9;
-            this.button1.UseVisualStyleBackColor = true;
+            this.homeButton.Image = ((System.Drawing.Image)(resources.GetObject("homeButton.Image")));
+            this.homeButton.Location = new System.Drawing.Point(12, 12);
+            this.homeButton.Name = "homeButton";
+            this.homeButton.Size = new System.Drawing.Size(37, 36);
+            this.homeButton.TabIndex = 9;
+            this.homeButton.UseVisualStyleBackColor = true;
+            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(507, 374);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label1.Location = new System.Drawing.Point(375, 539);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 13);
+            this.label1.Size = new System.Drawing.Size(138, 17);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Upload Limit: 1.6GB/10.0GB";
+            this.label1.Text = "Upload Limit: GB/GB";
+            // 
+            // fileNameLabel
+            // 
+            this.fileNameLabel.AutoSize = true;
+            this.fileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.fileNameLabel.Location = new System.Drawing.Point(267, 102);
+            this.fileNameLabel.Name = "fileNameLabel";
+            this.fileNameLabel.Size = new System.Drawing.Size(75, 17);
+            this.fileNameLabel.TabIndex = 13;
+            this.fileNameLabel.Text = "File Name:";
+            // 
+            // fileName
+            // 
+            this.fileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.fileName.Location = new System.Drawing.Point(348, 99);
+            this.fileName.Name = "fileName";
+            this.fileName.Size = new System.Drawing.Size(245, 23);
+            this.fileName.TabIndex = 14;
+            // 
+            // fileSizeLabel
+            // 
+            this.fileSizeLabel.AutoSize = true;
+            this.fileSizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.fileSizeLabel.Location = new System.Drawing.Point(273, 163);
+            this.fileSizeLabel.Name = "fileSizeLabel";
+            this.fileSizeLabel.Size = new System.Drawing.Size(65, 17);
+            this.fileSizeLabel.TabIndex = 15;
+            this.fileSizeLabel.Text = "File Size:";
+            // 
+            // fileSize
+            // 
+            this.fileSize.AutoSize = true;
+            this.fileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.fileSize.Location = new System.Drawing.Point(344, 163);
+            this.fileSize.Name = "fileSize";
+            this.fileSize.Size = new System.Drawing.Size(29, 17);
+            this.fileSize.TabIndex = 16;
+            this.fileSize.Text = "NIL";
+            // 
+            // fileDescriptionLabel
+            // 
+            this.fileDescriptionLabel.AutoSize = true;
+            this.fileDescriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.fileDescriptionLabel.Location = new System.Drawing.Point(229, 221);
+            this.fileDescriptionLabel.Name = "fileDescriptionLabel";
+            this.fileDescriptionLabel.Size = new System.Drawing.Size(109, 17);
+            this.fileDescriptionLabel.TabIndex = 17;
+            this.fileDescriptionLabel.Text = "File Description:";
+            // 
+            // fileDescBox
+            // 
+            this.fileDescBox.Location = new System.Drawing.Point(344, 221);
+            this.fileDescBox.Name = "fileDescBox";
+            this.fileDescBox.Size = new System.Drawing.Size(249, 253);
+            this.fileDescBox.TabIndex = 18;
+            this.fileDescBox.Text = "";
             // 
             // FileUpload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.fileDescBox);
+            this.Controls.Add(this.fileDescriptionLabel);
+            this.Controls.Add(this.fileSize);
+            this.Controls.Add(this.fileSizeLabel);
+            this.Controls.Add(this.fileName);
+            this.Controls.Add(this.fileNameLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.BackButton);
-            this.Controls.Add(this.checkedListBox1);
-            this.Controls.Add(this.userScrollBar);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.homeButton);
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.uploadButton);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.browseTable);
             this.Name = "FileUpload";
             this.Text = "DataAsGuard";
-            this.Load += new System.EventHandler(this.FileUpload_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.browseTable.ResumeLayout(false);
+            this.browseTable.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -199,16 +233,19 @@
         #endregion
 
         private System.Windows.Forms.Button browseButton;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel browseTable;
         private System.Windows.Forms.TextBox fileUploaded;
         private System.Windows.Forms.Button uploadButton;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.VScrollBar userScrollBar;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button ProfileButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button homeButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label fileNameLabel;
+        private System.Windows.Forms.TextBox fileName;
+        private System.Windows.Forms.Label fileSizeLabel;
+        private System.Windows.Forms.Label fileSize;
+        private System.Windows.Forms.Label fileDescriptionLabel;
+        private System.Windows.Forms.RichTextBox fileDescBox;
     }
 }

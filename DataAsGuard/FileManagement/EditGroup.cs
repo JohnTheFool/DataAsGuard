@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace DataAsGuard.FileManagement
 {
-    public partial class RecycleBin : Form
+    public partial class EditGroup : Form
     {
-        public RecycleBin()
+        public EditGroup()
         {
             InitializeComponent();
         }
 
-        private void restoreFileButton_Click(object sender, EventArgs e)
+        private void EditGroup_Load(object sender, EventArgs e)
         {
 
         }

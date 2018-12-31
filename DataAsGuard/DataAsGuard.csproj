@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -52,9 +58,16 @@
     <Reference Include="MySQL.Data.EntityFrameworkCore.Design, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySql.Web, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -84,20 +97,33 @@
     <Compile Include="Chat\CreateGroup.Designer.cs">
       <DependentUpon>CreateGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="CSClass\AdminSession.cs" />
     <Compile Include="CSClass\AesEncryption.cs" />
     <Compile Include="CSClass\logClass.cs" />
     <Compile Include="CSClass\Logininfo.cs" />
-    <Compile Include="FileManagement\AddNewGroup.cs">
+    <Compile Include="FileManagement\CreateNewGroup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FileManagement\AddNewGroup.Designer.cs">
-      <DependentUpon>AddNewGroup.cs</DependentUpon>
+    <Compile Include="FileManagement\CreateNewGroup.Designer.cs">
+      <DependentUpon>CreateNewGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManagement\AddNewPermission.cs">
+    <Compile Include="FileManagement\EditGroupPermissions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FileManagement\AddNewPermission.Designer.cs">
-      <DependentUpon>AddNewPermission.cs</DependentUpon>
+    <Compile Include="FileManagement\EditGroupPermissions.Designer.cs">
+      <DependentUpon>EditGroupPermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileManagement\EditGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\EditGroup.Designer.cs">
+      <DependentUpon>EditGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileManagement\EditUserPermissions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\EditUserPermissions.Designer.cs">
+      <DependentUpon>EditUserPermissions.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManagement\FileSearch.cs">
       <SubType>Form</SubType>
@@ -109,6 +135,18 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DB.cs" />
+    <Compile Include="FileManagement\ManageGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\ManageGroups.Designer.cs">
+      <DependentUpon>ManageGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Admin\AccountDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Admin\AccountDetails.Designer.cs">
+      <DependentUpon>AccountDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Admin\AdminChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,11 +212,11 @@
     <Compile Include="FileManagement\FileUpload.Designer.cs">
       <DependentUpon>FileUpload.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManagement\FilePermissions.cs">
+    <Compile Include="FileManagement\FileManagementHub.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FileManagement\FilePermissions.Designer.cs">
-      <DependentUpon>FilePermissions.cs</DependentUpon>
+    <Compile Include="FileManagement\FileManagementHub.Designer.cs">
+      <DependentUpon>FileManagementHub.cs</DependentUpon>
     </Compile>
     <Compile Include="FileManagement\RecycleBin.cs">
       <SubType>Form</SubType>
@@ -251,14 +289,20 @@
     <EmbeddedResource Include="Chat\CreateGroup.resx">
       <DependentUpon>CreateGroup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileManagement\AddNewGroup.resx">
-      <DependentUpon>AddNewGroup.cs</DependentUpon>
+    <EmbeddedResource Include="FileManagement\CreateNewGroup.resx">
+      <DependentUpon>CreateNewGroup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileManagement\AddNewPermission.resx">
-      <DependentUpon>AddNewPermission.cs</DependentUpon>
+    <EmbeddedResource Include="FileManagement\EditGroup.resx">
+      <DependentUpon>EditGroup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileManagement\FilePermissions.resx">
-      <DependentUpon>FilePermissions.cs</DependentUpon>
+    <EmbeddedResource Include="FileManagement\EditGroupPermissions.resx">
+      <DependentUpon>EditGroupPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\EditUserPermissions.resx">
+      <DependentUpon>EditUserPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\FileManagementHub.resx">
+      <DependentUpon>FileManagementHub.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\FileSearch.resx">
       <DependentUpon>FileSearch.cs</DependentUpon>
@@ -271,6 +315,12 @@
     </Compile>
     <EmbeddedResource Include="FileManagement\FileUpload.resx">
       <DependentUpon>FileUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\ManageGroups.resx">
+      <DependentUpon>ManageGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Admin\AccountDetails.resx">
+      <DependentUpon>AccountDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Admin\AdminChangePassword.resx">
       <DependentUpon>AdminChangePassword.cs</DependentUpon>
@@ -370,6 +420,8 @@
     <Content Include="Media\FolderIcon.png" />
     <Content Include="Media\HomeIcon.png" />
     <Content Include="Media\Download 20x20.png" />
+    <Content Include="Media\LeftChevronIcon.png" />
+    <Content Include="Media\RightChevronIcon.png" />
     <Content Include="Media\SearchIcon.png" />
     <Content Include="Media\SettingsIcon.png" />
     <Content Include="Media\fullscreen-20x20.png" />
@@ -428,6 +480,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

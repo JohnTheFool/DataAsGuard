@@ -35,9 +35,11 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.accountList = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.dataAccountGrid = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.accountFilter = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -52,9 +54,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.logTypeList = new System.Windows.Forms.ComboBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.dataLogGrid = new System.Windows.Forms.DataGridView();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.AddUser = new System.Windows.Forms.Button();
             this.AdminHome = new System.Windows.Forms.Button();
@@ -108,6 +110,7 @@
             this.dataFilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataFilesGrid.Location = new System.Drawing.Point(0, 0);
             this.dataFilesGrid.Name = "dataFilesGrid";
+            this.dataFilesGrid.ReadOnly = true;
             this.dataFilesGrid.Size = new System.Drawing.Size(713, 356);
             this.dataFilesGrid.TabIndex = 0;
             // 
@@ -131,8 +134,10 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label6);
+            this.tabPage3.Controls.Add(this.accountList);
             this.tabPage3.Controls.Add(this.panel5);
-            this.tabPage3.Controls.Add(this.textBox1);
+            this.tabPage3.Controls.Add(this.accountFilter);
             this.tabPage3.Controls.Add(this.label5);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
@@ -142,6 +147,29 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "AccountManagement";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(235, 31);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 17);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Search:";
+            // 
+            // accountList
+            // 
+            this.accountList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.accountList.FormattingEnabled = true;
+            this.accountList.Items.AddRange(new object[] {
+            "Username",
+            "Email",
+            "FullName",
+            "Contact"});
+            this.accountList.Location = new System.Drawing.Point(69, 28);
+            this.accountList.Name = "accountList";
+            this.accountList.Size = new System.Drawing.Size(132, 24);
+            this.accountList.TabIndex = 6;
             // 
             // panel5
             // 
@@ -154,20 +182,24 @@
             // dataAccountGrid
             // 
             this.dataAccountGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataAccountGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataAccountGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataAccountGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataAccountGrid.Location = new System.Drawing.Point(0, 0);
             this.dataAccountGrid.Name = "dataAccountGrid";
+            this.dataAccountGrid.ReadOnly = true;
             this.dataAccountGrid.Size = new System.Drawing.Size(713, 356);
             this.dataAccountGrid.TabIndex = 0;
+            this.dataAccountGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataAccountGrid_CellContentClick);
             // 
-            // textBox1
+            // accountFilter
             // 
-            this.textBox1.Location = new System.Drawing.Point(70, 28);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 23);
-            this.textBox1.TabIndex = 2;
+            this.accountFilter.Location = new System.Drawing.Point(299, 29);
+            this.accountFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.accountFilter.Name = "accountFilter";
+            this.accountFilter.Size = new System.Drawing.Size(132, 23);
+            this.accountFilter.TabIndex = 2;
+            this.accountFilter.TextChanged += new System.EventHandler(this.accountFilter_TextChanged);
             // 
             // label5
             // 
@@ -310,8 +342,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.logTypeList);
             this.tabPage2.Controls.Add(this.panel7);
-            this.tabPage2.Controls.Add(this.textBox3);
             this.tabPage2.Controls.Add(this.label28);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
@@ -321,6 +353,23 @@
             this.tabPage2.TabIndex = 4;
             this.tabPage2.Text = "General Logs";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // logTypeList
+            // 
+            this.logTypeList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.logTypeList.FormattingEnabled = true;
+            this.logTypeList.Items.AddRange(new object[] {
+            "LogonSuccess",
+            "LogonFailure",
+            "Accounts",
+            "Error",
+            "Registration",
+            "SystemError"});
+            this.logTypeList.Location = new System.Drawing.Point(69, 28);
+            this.logTypeList.Name = "logTypeList";
+            this.logTypeList.Size = new System.Drawing.Size(121, 24);
+            this.logTypeList.TabIndex = 7;
+            this.logTypeList.SelectedIndexChanged += new System.EventHandler(this.logsFilter_SelectedIndexChanged);
             // 
             // panel7
             // 
@@ -337,16 +386,9 @@
             this.dataLogGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataLogGrid.Location = new System.Drawing.Point(0, 0);
             this.dataLogGrid.Name = "dataLogGrid";
+            this.dataLogGrid.ReadOnly = true;
             this.dataLogGrid.Size = new System.Drawing.Size(713, 356);
             this.dataLogGrid.TabIndex = 0;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(70, 28);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(132, 23);
-            this.textBox3.TabIndex = 5;
             // 
             // label28
             // 
@@ -426,7 +468,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AdminProfile";
             this.Text = "AdminProfile";
-            this.Load += new System.EventHandler(this.AdminProfile_Load);
+            this.Load += new System.EventHandler(this.Adminprofile_Load);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -462,10 +504,9 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox accountFilter;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label4;
@@ -488,5 +529,8 @@
         private System.Windows.Forms.DataGridView dataLogGrid;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button changePassword;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox accountList;
+        private System.Windows.Forms.ComboBox logTypeList;
     }
 }

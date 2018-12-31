@@ -118,15 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="backButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAALBJREFUWEftlsEJAjEQRXNXbxZgK1bgFuFZLMCDWJL24ZZgCYp4FX0/EvDgJZMh
-        IMyDB5mFyXyYhd0UBP/IGhefY3+2+MILTvWgJ2W41LkrMTyGd2WDZbjVB57xgHOswiPAt1ccsIrWFUxw
-        iUfUHU9cYRVe78EOdccNq9fhFeKEumOfq0o8Qmgd6h9zZaA1xAzVe8+VkdYQpbeJEsLyOXYJIKw/JG4B
-        rESACBAEP0jpDW7gaW6XxH6PAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="settingsButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -141,25 +132,29 @@
         TGwuJmvso9ReuUWQq0WN/jHpqkK1Wj+ZCuLogLyzVQAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="ProfileButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAYJJREFUWEftlTlKBEEUQEcFEzFzuYN6B5fcFcEjqIkaCCJGYqTiOTRzu4a4hi5g
-        rqIiouD2XjENBtMz9lgNCv3gQVf1/79mautSQcF/pB1X8BCfyvpsXxvmyjg+4meK9ziGueDgH+hA29iH
-        LWV9ts93xoxiVDow+efzdqSwgMY8YNTlcH0tvBNa1dlDY5dDKxLHaFGnuhb9aOxRaEUimX7XuxataKw5
-        0XB3Z/0Bd6EVCc+5RZ3eWiRLcBBakVhCi2bZhIuhFYlOvEULe9TScFBjbtCjGxVvuDd0gF10ql1vHcB9
-        9J0xw5gL3obv6ECV9F1uV/EQXmKlgb97gYMYjQZcx2SAE5zBLky+Bd04i6dojN+DVTT312ygRV9wChsx
-        Dd9No7HmrOGvGEELvWKvHT/EDWqOuS5dXTTjNVpk0o6MOBPmXqG1MjOBFnBdq017Gk14htbw9GRmC012
-        w9XLHFpjM7Qy4tSZ7G6vlx60xnloZeQZTfamq5fky2itgoK/SKn0BX4JeBsA0QF3AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="homeButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="AdminHome.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         wwAADsMBx2+oZAAAAMdJREFUWEftkOsJxDAMgzNFuSG7b8e5iyGCYKyQKo/7kw8EbW1JpukwyFX0Fz5Z
         T5E9bwXl36KtR9Tl+APbjvDl9h59W0KraPkRPQXLjngTPP0IJXDaESNBw0cMB2TkjBnl4HVWbTCNlAPL
         QF7zCF9umkWdSY+4s7CA5QjMmCIwQ7Z1hdig/mURmDFFYGbZtLymJ8yjeChKmOKhKGGKh6KEKR6KEqZ4
         KEqY4qEoYYqHooQpHgoMLXmiHa9uIrOXJ9rxOhwcKf0Ad+HIM/DpCc8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="AddUser.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAj9JREFUWEftlclqVUEQhq+CbsSF4PAOatBsEncOD+AY8BF0lZVBQlYhSzGOb+DG
+        ndPOZwiJmqAgKARdqmjIYEjUfF+ThpvD6TNc+27EHz44XV2nq6eq7vxXAx2CKZiF5W381nYQ+qoRWII/
+        Cb7DZeiLDP4bDPQEzsC+bfzWZp8+lyCrDkNc+Q0NCd0EfX5A1uPwfB34aWhV6znoOxlamfQKHNStrtNZ
+        0HcutDIpbr/nXaf9oK//ZJO3u+0EvoVWJpnnDur21ikewUxoZdIEOGibSzgeWpl0BL6CA5tqKRlUny9g
+        6maVFW4TDPAM3GrPW87BC7BPnwvQF1kNf4GByrDvCqjj8BDewQr4ZizAHTgKrXUePkBZ4G70eQRVE92A
+        B7AHarULbkH8+TWMgqswLQ/AIIzBe4h+a3APhiC+GX5rWwd9XsJeqNRt0PknXIfdkJJbru8nGNCQ0An4
+        DPre15DSRdDJGZ/WUCF3xJfQlReDO4Z0Sx8X5aUtvRNuzSL44zUNNYqrvxtaO1U2AeVxaJ8OrYKugp1v
+        oGrbo96C/p5zUakJnALt86FV0GOw0wvXRKaa/vG9iEFTqMqH6yPY2TRniy9mDJRCVU5gFezUqYksMvoP
+        h9ZOdQftVuURtJUVzsHaXEJTULup/tc6BqaUqdUkDU+C6W1V7Kk0lymmlUXGYpOSlTMWorId61nWDsur
+        A7s6J+Q5ezG9S363LsVt5QPjQ+PWGqQM+1x5o8eoV3muVjhvuGkmfmvLdub/mjqdLa0U2Flj3ITjAAAA
+        AElFTkSuQmCC
 </value>
   </data>
 </root>
