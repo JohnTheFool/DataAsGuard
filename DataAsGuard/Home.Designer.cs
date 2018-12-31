@@ -185,7 +185,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.uploadFileButton);
-            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.testBtn);
             this.Controls.Add(this.watchVideoBtn);
             this.Controls.Add(this.button2);
