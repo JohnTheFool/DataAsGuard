@@ -18,6 +18,8 @@ namespace DataAsGuard.CSClass
     //LogonFailure: Indicate Faillure to login
     //LogonSuccess: Indicate Successful Logon
     //Accounts: Indicate Account Changes
+    //UploadsFailed : Indicate failed Upload
+    //UploadsSuccess : Indicate Successful Uploads
 
     public class DBLogger : LogClass
     {
@@ -34,6 +36,7 @@ namespace DataAsGuard.CSClass
                 cmd.Parameters.AddWithValue("@logInfo", message);
                 cmd.Parameters.AddWithValue("@logtype", logtype);
                 cmd.Parameters.AddWithValue("@logdatetime", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                //cmd.Parameters.AddWithValue("@logdatetime", DateTime.Now);
                 cmd.Parameters.AddWithValue("@userid", userid);
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.ExecuteReader();

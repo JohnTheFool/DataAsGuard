@@ -372,7 +372,7 @@ namespace DataAsGuard.Profiles.Admin
                         row.Add(reader.GetString(reader.GetOrdinal("fileOwnerID")));
                         row.Add(reader.GetString(reader.GetOrdinal("fileOwner")));
                         row.Add(reader.GetString(reader.GetOrdinal("Description")));
-                        dataLogGrid.Rows.Add(row.ToArray());
+                        dataFilesGrid.Rows.Add(row.ToArray());
                     }
 
                     if (reader != null)
@@ -387,7 +387,7 @@ namespace DataAsGuard.Profiles.Admin
             dataLogGrid.AllowUserToAddRows = false;
             dataLogGrid.AllowUserToDeleteRows = false;
             
-            dataLogGrid.ColumnCount = 7;
+            dataLogGrid.ColumnCount = 6;
             dataLogGrid.Columns[0].Name = "logid";
             dataLogGrid.Columns[1].Name = "loginfo";
             dataLogGrid.Columns[2].Name = "logtype";
@@ -405,7 +405,7 @@ namespace DataAsGuard.Profiles.Admin
             dataLogGrid.AllowUserToAddRows = false;
             dataLogGrid.AllowUserToDeleteRows = false;
 
-            dataLogGrid.ColumnCount = 7;
+            dataLogGrid.ColumnCount = 6;
             dataLogGrid.Columns[0].Name = "logid";
             dataLogGrid.Columns[1].Name = "loginfo";
             dataLogGrid.Columns[2].Name = "logtype";

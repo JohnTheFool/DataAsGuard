@@ -28,6 +28,7 @@ namespace DataAsGuard.Profiles.Users
 
         private void Registration_Shown(Object sender, EventArgs e)
         {
+            validateUsername.Hide();
             validateCaptcha.Hide();
             userdataRetrieval();
             CreateImage();

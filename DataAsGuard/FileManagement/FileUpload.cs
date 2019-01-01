@@ -18,7 +18,7 @@ namespace DataAsGuard.FileManagement
         String fileSourcePath;
         String fileOriginalName;
         byte[] fileBytes = null;
-
+        DBLogger dblog = new DBLogger();
         //For changing back to original file
         //Directory.CreateDirectory(Path.GetDirectoryName(fileName));
         //using (Stream file = File.Create(fileName))
@@ -124,6 +124,8 @@ namespace DataAsGuard.FileManagement
                 }
                 catch (IOException)
                 {
+                    //might change this : Desmond
+                    //dblog.Log("File cannot be read (" + fileOriginalName + ")", "UploadsFailed", Logininfo.userid, Logininfo.email);
                     MessageBox.Show("Error file could not be read, please try again.");
                 }  
             }
@@ -138,6 +140,7 @@ namespace DataAsGuard.FileManagement
                 {
                     if (InsertFileInfoToDB())
                     {
+                        dblog.Log("File Successfully Uploaded", "UploadsSuccess", Logininfo.userid, Logininfo.email);
                         MessageBox.Show("File successfully uploaded.");
                     }
                 }
@@ -147,6 +150,7 @@ namespace DataAsGuard.FileManagement
             {
                 if (InsertFileInfoToDB())
                 {
+                    dblog.Log("File Successfully Uploaded", "UploadsSuccess", Logininfo.userid, Logininfo.email);
                     MessageBox.Show("File successfully uploaded.");
                 }
             }
