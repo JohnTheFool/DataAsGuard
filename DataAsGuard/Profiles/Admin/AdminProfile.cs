@@ -27,6 +27,7 @@ namespace DataAsGuard.Profiles.Admin
         {
             retrieveAccounts();
             retrieveLogs();
+            retrieveFiles();
         }
 
         //accounts tab
@@ -217,7 +218,7 @@ namespace DataAsGuard.Profiles.Admin
             }
         }
 
-        //account
+        //retrieve account
         private void userdataRetrieval()
         {
             AesEncryption aes = new AesEncryption();
@@ -249,7 +250,7 @@ namespace DataAsGuard.Profiles.Admin
             }
         }
 
-        //retrieve based on  filter
+        //retrieve account based on  filter
         private void userdataRetrieval2(string listvalue, ArrayList searchfield)
         {
             AesEncryption aes = new AesEncryption();
@@ -329,6 +330,55 @@ namespace DataAsGuard.Profiles.Admin
             dataAccountGrid.Rows.Clear();
             dataAccountGrid.Refresh();
             retrieveAccounts2(accountlistvalue, userid);
+        }
+
+        //Files grid retrival
+        private void retrieveFiles()
+        {
+            dataFilesGrid.AllowUserToAddRows = false;
+            dataFilesGrid.AllowUserToDeleteRows = false;
+
+            dataFilesGrid.ColumnCount = 7;
+            dataFilesGrid.Columns[0].Name = "fileid";
+            dataFilesGrid.Columns[1].Name = "FileName";
+            dataFilesGrid.Columns[2].Name = "Filesize";
+            dataFilesGrid.Columns[3].Name = "dateCreated";
+            dataFilesGrid.Columns[4].Name = "fileownerid";
+            dataFilesGrid.Columns[5].Name = "fileOwner";
+            dataFilesGrid.Columns[6].Name = "Description";
+
+            //add rows from db
+            userFilesRetrieval();
+        }
+
+        //log
+        private void userFilesRetrieval()
+        {
+
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM fileInfo";
+                MySqlCommand command = new MySqlCommand(query, con);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ArrayList row = new ArrayList();
+                        row.Add(reader.GetInt32(reader.GetOrdinal("fileID")));
+                        row.Add(reader.GetString(reader.GetOrdinal("fileName")));
+                        row.Add(reader.GetString(reader.GetOrdinal("fileSize")));
+                        row.Add(reader.GetString(reader.GetOrdinal("dateCreated")));
+                        row.Add(reader.GetString(reader.GetOrdinal("fileOwnerID")));
+                        row.Add(reader.GetString(reader.GetOrdinal("fileOwner")));
+                        row.Add(reader.GetString(reader.GetOrdinal("Description")));
+                        dataLogGrid.Rows.Add(row.ToArray());
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
         }
 
         //log grid retrival
