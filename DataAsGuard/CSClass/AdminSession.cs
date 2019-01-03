@@ -9,7 +9,6 @@ namespace DataAsGuard.CSClass
     class AdminSession
     {
         public static string userid;
-        public static string username;
-        public static string email;
+        public static string fileID;
     }
 }

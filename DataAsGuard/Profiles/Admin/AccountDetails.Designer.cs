@@ -53,12 +53,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.vflag = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.statusDate = new System.Windows.Forms.Label();
             this.userid = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.Lockbtn = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.statusDate = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -69,7 +69,7 @@
             // 
             // changePassword
             // 
-            this.changePassword.Location = new System.Drawing.Point(72, 12);
+            this.changePassword.Location = new System.Drawing.Point(70, 12);
             this.changePassword.Name = "changePassword";
             this.changePassword.Size = new System.Drawing.Size(82, 42);
             this.changePassword.TabIndex = 24;
@@ -80,7 +80,7 @@
             // settingsButton
             // 
             this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
-            this.settingsButton.Location = new System.Drawing.Point(12, 63);
+            this.settingsButton.Location = new System.Drawing.Point(10, 63);
             this.settingsButton.Margin = new System.Windows.Forms.Padding(5);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(37, 38);
@@ -90,7 +90,7 @@
             // 
             // Logout
             // 
-            this.Logout.Location = new System.Drawing.Point(817, 63);
+            this.Logout.Location = new System.Drawing.Point(815, 63);
             this.Logout.Name = "Logout";
             this.Logout.Size = new System.Drawing.Size(52, 50);
             this.Logout.TabIndex = 22;
@@ -101,7 +101,7 @@
             // AdminHome
             // 
             this.AdminHome.Image = ((System.Drawing.Image)(resources.GetObject("AdminHome.Image")));
-            this.AdminHome.Location = new System.Drawing.Point(14, 12);
+            this.AdminHome.Location = new System.Drawing.Point(12, 12);
             this.AdminHome.Margin = new System.Windows.Forms.Padding(4);
             this.AdminHome.Name = "AdminHome";
             this.AdminHome.Size = new System.Drawing.Size(35, 42);
@@ -112,7 +112,7 @@
             // AddUser
             // 
             this.AddUser.Image = ((System.Drawing.Image)(resources.GetObject("AddUser.Image")));
-            this.AddUser.Location = new System.Drawing.Point(817, 12);
+            this.AddUser.Location = new System.Drawing.Point(815, 12);
             this.AddUser.Margin = new System.Windows.Forms.Padding(4);
             this.AddUser.Name = "AddUser";
             this.AddUser.Size = new System.Drawing.Size(52, 44);
@@ -123,7 +123,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.tabControl1);
-            this.panel1.Location = new System.Drawing.Point(72, 293);
+            this.panel1.Location = new System.Drawing.Point(70, 293);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(731, 275);
             this.panel1.TabIndex = 25;
@@ -186,7 +186,7 @@
             this.tableLayoutPanel1.Controls.Add(this.Username, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 4);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(72, 76);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(70, 76);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -329,7 +329,7 @@
             this.tableLayoutPanel2.Controls.Add(this.vflag, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label8, 0, 2);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(501, 76);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(499, 76);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -337,6 +337,16 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(274, 128);
             this.tableLayoutPanel2.TabIndex = 27;
+            // 
+            // statusDate
+            // 
+            this.statusDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.statusDate.AutoSize = true;
+            this.statusDate.Location = new System.Drawing.Point(140, 98);
+            this.statusDate.Name = "statusDate";
+            this.statusDate.Size = new System.Drawing.Size(76, 17);
+            this.statusDate.TabIndex = 15;
+            this.statusDate.Text = "statusDate";
             // 
             // userid
             // 
@@ -358,26 +368,6 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "Userid:";
             // 
-            // Lockbtn
-            // 
-            this.Lockbtn.Location = new System.Drawing.Point(529, 230);
-            this.Lockbtn.Name = "Lockbtn";
-            this.Lockbtn.Size = new System.Drawing.Size(75, 43);
-            this.Lockbtn.TabIndex = 14;
-            this.Lockbtn.Text = "Lock";
-            this.Lockbtn.UseVisualStyleBackColor = true;
-            this.Lockbtn.Click += new System.EventHandler(this.Lockbtn_Click);
-            // 
-            // delete
-            // 
-            this.delete.Location = new System.Drawing.Point(658, 230);
-            this.delete.Name = "delete";
-            this.delete.Size = new System.Drawing.Size(75, 43);
-            this.delete.TabIndex = 28;
-            this.delete.Text = "Delete";
-            this.delete.UseVisualStyleBackColor = true;
-            this.delete.Click += new System.EventHandler(this.delete_Click);
-            // 
             // label8
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -388,15 +378,25 @@
             this.label8.TabIndex = 14;
             this.label8.Text = "StatusChangeDate";
             // 
-            // statusDate
+            // Lockbtn
             // 
-            this.statusDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.statusDate.AutoSize = true;
-            this.statusDate.Location = new System.Drawing.Point(140, 98);
-            this.statusDate.Name = "statusDate";
-            this.statusDate.Size = new System.Drawing.Size(76, 17);
-            this.statusDate.TabIndex = 15;
-            this.statusDate.Text = "statusDate";
+            this.Lockbtn.Location = new System.Drawing.Point(527, 230);
+            this.Lockbtn.Name = "Lockbtn";
+            this.Lockbtn.Size = new System.Drawing.Size(75, 43);
+            this.Lockbtn.TabIndex = 14;
+            this.Lockbtn.Text = "Lock";
+            this.Lockbtn.UseVisualStyleBackColor = true;
+            this.Lockbtn.Click += new System.EventHandler(this.Lockbtn_Click);
+            // 
+            // delete
+            // 
+            this.delete.Location = new System.Drawing.Point(656, 230);
+            this.delete.Name = "delete";
+            this.delete.Size = new System.Drawing.Size(75, 43);
+            this.delete.TabIndex = 28;
+            this.delete.Text = "Delete";
+            this.delete.UseVisualStyleBackColor = true;
+            this.delete.Click += new System.EventHandler(this.delete_Click);
             // 
             // AccountDetails
             // 

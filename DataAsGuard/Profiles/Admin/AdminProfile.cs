@@ -332,6 +332,8 @@ namespace DataAsGuard.Profiles.Admin
             retrieveAccounts2(accountlistvalue, userid);
         }
 
+
+        //FILES!!!
         //Files grid retrival
         private void retrieveFiles()
         {
@@ -349,9 +351,17 @@ namespace DataAsGuard.Profiles.Admin
 
             //add rows from db
             userFilesRetrieval();
+
+            ////ADD BUTTON COLUMN
+            DataGridViewButtonColumn FullDetailsbtn = new DataGridViewButtonColumn();
+            FullDetailsbtn.HeaderText = "Full Details";
+            FullDetailsbtn.Name = "fDetails";
+            FullDetailsbtn.Text = "Full Details";
+            FullDetailsbtn.UseColumnTextForButtonValue = true;
+            dataFilesGrid.Columns.Add(FullDetailsbtn);
         }
 
-        //log
+        //Files
         private void userFilesRetrieval()
         {
 
@@ -381,6 +391,34 @@ namespace DataAsGuard.Profiles.Admin
             }
         }
 
+        //accountgrid buttons
+        private void dataFilesGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+            //check if the column is a button column and check if the column is where the button is when click 
+            //column 7 is Details button link to a more comprehensive information about the user
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0 && e.ColumnIndex == 7)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row = dataAccountGrid.Rows[e.RowIndex];
+                //TODO - Button Clicked - Execute Code Here
+                //MessageBox.Show(row.Cells[0].Value.ToString());
+
+                string Fileid = row.Cells[0].Value.ToString();
+
+                //mainly for admin to know which account to properly check on to get a clearer information
+                AdminSession.fileID = Fileid;
+                FileDetails FileDetails = new FileDetails();
+                FileDetails.Show();
+                Hide();
+            }
+
+        }
+
+
+
+        //LOGS!!!
         //log grid retrival
         private void retrieveLogs()
         {

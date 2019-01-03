@@ -154,6 +154,12 @@
     <Compile Include="Profiles\Admin\AdminProfileSettings.Designer.cs">
       <DependentUpon>AdminProfileSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\Admin\FileDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Admin\FileDetails.Designer.cs">
+      <DependentUpon>FileDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Admin\RegistrationConfirm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -322,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Admin\AdminProfileSettings.resx">
       <DependentUpon>AdminProfileSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Admin\FileDetails.resx">
+      <DependentUpon>FileDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Admin\RegistrationConfirm.resx">
       <DependentUpon>RegistrationConfirm.cs</DependentUpon>

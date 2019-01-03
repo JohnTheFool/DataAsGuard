@@ -113,6 +113,7 @@
             this.dataFilesGrid.ReadOnly = true;
             this.dataFilesGrid.Size = new System.Drawing.Size(713, 356);
             this.dataFilesGrid.TabIndex = 0;
+            this.dataFilesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataFilesGrid_CellContentClick);
             // 
             // textBox2
             // 
