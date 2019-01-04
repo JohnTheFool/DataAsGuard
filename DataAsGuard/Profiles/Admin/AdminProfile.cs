@@ -341,12 +341,12 @@ namespace DataAsGuard.Profiles.Admin
             dataFilesGrid.AllowUserToDeleteRows = false;
 
             dataFilesGrid.ColumnCount = 7;
-            dataFilesGrid.Columns[0].Name = "fileid";
+            dataFilesGrid.Columns[0].Name = "Fileid";
             dataFilesGrid.Columns[1].Name = "FileName";
             dataFilesGrid.Columns[2].Name = "Filesize";
-            dataFilesGrid.Columns[3].Name = "dateCreated";
-            dataFilesGrid.Columns[4].Name = "fileownerid";
-            dataFilesGrid.Columns[5].Name = "fileOwner";
+            dataFilesGrid.Columns[3].Name = "DateCreated";
+            dataFilesGrid.Columns[4].Name = "Fileownerid";
+            dataFilesGrid.Columns[5].Name = "FileOwner";
             dataFilesGrid.Columns[6].Name = "Description";
 
             //add rows from db
@@ -425,13 +425,14 @@ namespace DataAsGuard.Profiles.Admin
             dataLogGrid.AllowUserToAddRows = false;
             dataLogGrid.AllowUserToDeleteRows = false;
             
-            dataLogGrid.ColumnCount = 6;
-            dataLogGrid.Columns[0].Name = "logid";
-            dataLogGrid.Columns[1].Name = "loginfo";
-            dataLogGrid.Columns[2].Name = "logtype";
-            dataLogGrid.Columns[3].Name = "logdatetime";
-            dataLogGrid.Columns[4].Name = "userid";
-            dataLogGrid.Columns[5].Name = "email";
+            dataLogGrid.ColumnCount = 7;
+            dataLogGrid.Columns[0].Name = "Logid";
+            dataLogGrid.Columns[1].Name = "Loginfo";
+            dataLogGrid.Columns[2].Name = "Logtype";
+            dataLogGrid.Columns[3].Name = "Logdatetime";
+            dataLogGrid.Columns[4].Name = "Userid";
+            dataLogGrid.Columns[5].Name = "Email";
+            dataLogGrid.Columns[6].Name = "FileID";
 
             //add rows from db
             userLogRetrieval();
@@ -444,12 +445,13 @@ namespace DataAsGuard.Profiles.Admin
             dataLogGrid.AllowUserToDeleteRows = false;
 
             dataLogGrid.ColumnCount = 6;
-            dataLogGrid.Columns[0].Name = "logid";
-            dataLogGrid.Columns[1].Name = "loginfo";
-            dataLogGrid.Columns[2].Name = "logtype";
-            dataLogGrid.Columns[3].Name = "logdatetime";
-            dataLogGrid.Columns[4].Name = "userid";
-            dataLogGrid.Columns[5].Name = "email";
+            dataLogGrid.Columns[0].Name = "Logid";
+            dataLogGrid.Columns[1].Name = "Loginfo";
+            dataLogGrid.Columns[2].Name = "Logtype";
+            dataLogGrid.Columns[3].Name = "Logdatetime";
+            dataLogGrid.Columns[4].Name = "Userid";
+            dataLogGrid.Columns[5].Name = "Email";
+            dataLogGrid.Columns[6].Name = "FileID";
 
             //add rows from db
             userLogRetrieval2(type);
@@ -473,6 +475,7 @@ namespace DataAsGuard.Profiles.Admin
                         row.Add(reader.GetString(reader.GetOrdinal("loginfo")));
                         row.Add(reader.GetString(reader.GetOrdinal("logtype")));
                         row.Add(reader.GetString(reader.GetOrdinal("logdatetime")));
+                        //userid field
                         if (reader.IsDBNull(reader.GetOrdinal("userid")))
                         {
                             row.Add("Null");
@@ -481,6 +484,7 @@ namespace DataAsGuard.Profiles.Admin
                         {
                             row.Add(reader.GetString(reader.GetOrdinal("userid")));
                         }
+                        //email field
                         if (reader.IsDBNull(reader.GetOrdinal("email")))
                         {
                             row.Add("Null");
@@ -488,6 +492,15 @@ namespace DataAsGuard.Profiles.Admin
                         else
                         {
                             row.Add(reader.GetString(reader.GetOrdinal("email")));
+                        }
+                        //fileID
+                        if (reader.IsDBNull(reader.GetOrdinal("fileID")))
+                        {
+                            row.Add("Null");
+                        }
+                        else
+                        {
+                            row.Add(reader.GetString(reader.GetOrdinal("fileID")));
                         }
                         dataLogGrid.Rows.Add(row.ToArray());
                     }
@@ -517,6 +530,7 @@ namespace DataAsGuard.Profiles.Admin
                         row.Add(reader.GetString(reader.GetOrdinal("loginfo")));
                         row.Add(reader.GetString(reader.GetOrdinal("logtype")));
                         row.Add(reader.GetString(reader.GetOrdinal("logdatetime")));
+                        //userid
                         if (reader.IsDBNull(reader.GetOrdinal("userid")))
                         {
                             row.Add("Null");
@@ -525,6 +539,7 @@ namespace DataAsGuard.Profiles.Admin
                         {
                             row.Add(reader.GetString(reader.GetOrdinal("userid")));
                         }
+                        //email
                         if (reader.IsDBNull(reader.GetOrdinal("email")))
                         {
                             row.Add("Null");
@@ -533,6 +548,16 @@ namespace DataAsGuard.Profiles.Admin
                         {
                             row.Add(reader.GetString(reader.GetOrdinal("email")));
                         }
+                        //fileID
+                        if (reader.IsDBNull(reader.GetOrdinal("fileID")))
+                        {
+                            row.Add("Null");
+                        }
+                        else
+                        {
+                            row.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                        }
+
                         dataLogGrid.Rows.Add(row.ToArray());
                     }
 

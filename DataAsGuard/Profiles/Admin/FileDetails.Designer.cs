@@ -31,9 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileDetails));
             this.delete = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.fileSize = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.fileID = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.vflag = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.description = new System.Windows.Forms.Label();
             this.dateCreated = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.fileOwner = new System.Windows.Forms.Label();
@@ -42,6 +47,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.filename = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -53,12 +59,6 @@
             this.Logout = new System.Windows.Forms.Button();
             this.AdminHome = new System.Windows.Forms.Button();
             this.AddUser = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.description = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.fileSize = new System.Windows.Forms.Label();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -97,6 +97,26 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(274, 116);
             this.tableLayoutPanel2.TabIndex = 37;
             // 
+            // fileSize
+            // 
+            this.fileSize.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.fileSize.AutoSize = true;
+            this.fileSize.Location = new System.Drawing.Point(140, 50);
+            this.fileSize.Name = "fileSize";
+            this.fileSize.Size = new System.Drawing.Size(57, 17);
+            this.fileSize.TabIndex = 15;
+            this.fileSize.Text = "FileSize";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(92, 88);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(42, 17);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "vFlag";
+            // 
             // fileID
             // 
             this.fileID.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -107,6 +127,16 @@
             this.fileID.TabIndex = 13;
             this.fileID.Text = "fileid";
             // 
+            // label6
+            // 
+            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(83, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 17);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "File ID:";
+            // 
             // vflag
             // 
             this.vflag.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -116,6 +146,16 @@
             this.vflag.Size = new System.Drawing.Size(38, 17);
             this.vflag.TabIndex = 11;
             this.vflag.Text = "vflag";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(77, 50);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(57, 17);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "FileSize";
             // 
             // tableLayoutPanel1
             // 
@@ -144,6 +184,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(386, 195);
             this.tableLayoutPanel1.TabIndex = 36;
+            // 
+            // description
+            // 
+            this.description.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.description.AutoSize = true;
+            this.description.Location = new System.Drawing.Point(145, 152);
+            this.description.Name = "description";
+            this.description.Size = new System.Drawing.Size(83, 17);
+            this.description.TabIndex = 9;
+            this.description.Text = "Description:";
             // 
             // dateCreated
             // 
@@ -224,6 +274,16 @@
             this.label1.Size = new System.Drawing.Size(75, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "File Name:";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(56, 152);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(83, 17);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Description:";
             // 
             // panel1
             // 
@@ -336,66 +396,6 @@
             this.AddUser.TabIndex = 30;
             this.AddUser.UseVisualStyleBackColor = true;
             this.AddUser.Click += new System.EventHandler(this.AddUsers_Click);
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(56, 152);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 17);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Description:";
-            // 
-            // description
-            // 
-            this.description.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.description.AutoSize = true;
-            this.description.Location = new System.Drawing.Point(145, 152);
-            this.description.Name = "description";
-            this.description.Size = new System.Drawing.Size(83, 17);
-            this.description.TabIndex = 9;
-            this.description.Text = "Description:";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(83, 11);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 17);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "File ID:";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(77, 50);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 17);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "FileSize";
-            // 
-            // label8
-            // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(92, 88);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(42, 17);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "vFlag";
-            // 
-            // fileSize
-            // 
-            this.fileSize.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.fileSize.AutoSize = true;
-            this.fileSize.Location = new System.Drawing.Point(140, 50);
-            this.fileSize.Name = "fileSize";
-            this.fileSize.Size = new System.Drawing.Size(57, 17);
-            this.fileSize.TabIndex = 15;
-            this.fileSize.Text = "FileSize";
             // 
             // FileDetails
             // 

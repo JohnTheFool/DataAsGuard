@@ -73,12 +73,13 @@ namespace DataAsGuard.Profiles.Admin
             datalogGrid.AllowUserToAddRows = false;
             datalogGrid.AllowUserToDeleteRows = false;
             datalogGrid.ColumnCount = 7;
-            datalogGrid.Columns[0].Name = "logid";
-            datalogGrid.Columns[1].Name = "loginfo";
-            datalogGrid.Columns[2].Name = "logtype";
-            datalogGrid.Columns[3].Name = "logdatetime";
-            datalogGrid.Columns[4].Name = "userid";
-            datalogGrid.Columns[5].Name = "email";
+            datalogGrid.Columns[0].Name = "Logid";
+            datalogGrid.Columns[1].Name = "Loginfo";
+            datalogGrid.Columns[2].Name = "Logtype";
+            datalogGrid.Columns[3].Name = "Logdatetime";
+            datalogGrid.Columns[4].Name = "Userid";
+            datalogGrid.Columns[5].Name = "Email";
+            datalogGrid.Columns[6].Name = "FileID";
 
             //add rows from db
             userLogRetrieval();
@@ -95,9 +96,9 @@ namespace DataAsGuard.Profiles.Admin
 
                 //need to modify for file changes
                 //might consider putting another field for log or put inside loginfo and look through
-                String query = "SELECT * FROM logInfo where userid = @userid";
+                String query = "SELECT * FROM logInfo where fileID = @fileID";
                 MySqlCommand command = new MySqlCommand(query, con);
-                command.Parameters.AddWithValue("@userid", AdminSession.userid);
+                command.Parameters.AddWithValue("@fileID", AdminSession.fileID);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -109,6 +110,15 @@ namespace DataAsGuard.Profiles.Admin
                         row.Add(reader.GetString(reader.GetOrdinal("logdatetime")));
                         row.Add(reader.GetString(reader.GetOrdinal("userid")));
                         row.Add(reader.GetString(reader.GetOrdinal("email")));
+
+                        if (reader.IsDBNull(reader.GetOrdinal("fileID"))){
+                            row.Add("NULL");
+                        }
+                        else
+                        {
+                            row.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                        }
+                        
                         datalogGrid.Rows.Add(row.ToArray());
                     }
 
@@ -165,5 +175,6 @@ namespace DataAsGuard.Profiles.Admin
             changePassword.Show();
             Hide();
         }
+
     }
 }

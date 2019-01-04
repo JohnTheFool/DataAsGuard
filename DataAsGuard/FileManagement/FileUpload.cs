@@ -19,6 +19,8 @@ namespace DataAsGuard.FileManagement
         String fileOriginalName;
         byte[] fileBytes = null;
         DBLogger dblog = new DBLogger();
+        string fileID;
+
         //For changing back to original file
         //Directory.CreateDirectory(Path.GetDirectoryName(fileName));
         //using (Stream file = File.Create(fileName))
@@ -66,6 +68,24 @@ namespace DataAsGuard.FileManagement
                 myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
                 myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
                 myCommand.ExecuteNonQuery();
+                
+                String query = "SELECT * FROM fileInfo where fileName = @fileName AND dateCreated = @dateCreated AND fileOwnerID=@fileowner;";
+                MySqlCommand command = new MySqlCommand(query, con);
+                myCommand.Parameters.AddWithValue("@fileName", this.fileName.Text);
+                myCommand.Parameters.AddWithValue("@dateCreated",DateTime.Now);
+                myCommand.Parameters.AddWithValue("@fileowner", Logininfo.userid);
+                using (reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        fileID = reader.GetString(reader.GetOrdinal("fileID"));
+
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+
                 con.Close();
                 success = true;
             }
@@ -133,6 +153,8 @@ namespace DataAsGuard.FileManagement
 
         private void uploadButton_Click(object sender, EventArgs e)
         {
+           
+
             if (fileName.Text != fileOriginalName) //If file name is changed
             {
                 DialogResult dialogResult = MessageBox.Show("The name of the file has been changed, changing the file extension may result in the file being corrupted, do you want to proceed?", "Warning", MessageBoxButtons.YesNo);
@@ -140,7 +162,8 @@ namespace DataAsGuard.FileManagement
                 {
                     if (InsertFileInfoToDB())
                     {
-                        dblog.Log("File Successfully Uploaded", "UploadsSuccess", Logininfo.userid, Logininfo.email);
+
+                        dblog.fileLog("File Successfully Uploaded", "UploadsSuccess", Logininfo.userid, Logininfo.email, fileID);
                         MessageBox.Show("File successfully uploaded.");
                     }
                 }
@@ -150,7 +173,7 @@ namespace DataAsGuard.FileManagement
             {
                 if (InsertFileInfoToDB())
                 {
-                    dblog.Log("File Successfully Uploaded", "UploadsSuccess", Logininfo.userid, Logininfo.email);
+                    dblog.fileLog("File Successfully Uploaded", "UploadsSuccess", Logininfo.userid, Logininfo.email, fileID);
                     MessageBox.Show("File successfully uploaded.");
                 }
             }
