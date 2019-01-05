@@ -14,7 +14,7 @@ namespace DataAsGuard.FileManagement
 {
     public partial class CreateNewGroup : Form
     {
-        MySqlDataAdapter adapter;
+        //MySqlDataAdapter adapter;
         DataTable table = new DataTable();
 
         public CreateNewGroup()
@@ -112,7 +112,6 @@ namespace DataAsGuard.FileManagement
         {
             Boolean success = false;
             int userID = 0;
-            int groupID = 0;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();

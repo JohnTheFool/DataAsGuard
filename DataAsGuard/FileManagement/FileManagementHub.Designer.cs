@@ -44,6 +44,7 @@
             this.manageGroupsButton = new System.Windows.Forms.Button();
             this.editGroupPermButton = new System.Windows.Forms.Button();
             this.fileInformation = new System.Windows.Forms.RichTextBox();
+            this.openFileButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.permissionGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,9 +109,9 @@
             // 
             this.editUserPermButton.Enabled = false;
             this.editUserPermButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.editUserPermButton.Location = new System.Drawing.Point(289, 479);
+            this.editUserPermButton.Location = new System.Drawing.Point(458, 479);
             this.editUserPermButton.Name = "editUserPermButton";
-            this.editUserPermButton.Size = new System.Drawing.Size(163, 28);
+            this.editUserPermButton.Size = new System.Drawing.Size(168, 28);
             this.editUserPermButton.TabIndex = 6;
             this.editUserPermButton.Text = "Edit User Permissions";
             this.editUserPermButton.UseVisualStyleBackColor = true;
@@ -157,7 +158,7 @@
             // 
             this.deleteFileButton.Enabled = false;
             this.deleteFileButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.deleteFileButton.Location = new System.Drawing.Point(289, 547);
+            this.deleteFileButton.Location = new System.Drawing.Point(289, 513);
             this.deleteFileButton.Name = "deleteFileButton";
             this.deleteFileButton.Size = new System.Drawing.Size(163, 28);
             this.deleteFileButton.TabIndex = 16;
@@ -168,7 +169,7 @@
             // manageGroupsButton
             // 
             this.manageGroupsButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.manageGroupsButton.Location = new System.Drawing.Point(289, 513);
+            this.manageGroupsButton.Location = new System.Drawing.Point(289, 547);
             this.manageGroupsButton.Name = "manageGroupsButton";
             this.manageGroupsButton.Size = new System.Drawing.Size(163, 28);
             this.manageGroupsButton.TabIndex = 17;
@@ -180,7 +181,7 @@
             // 
             this.editGroupPermButton.Enabled = false;
             this.editGroupPermButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.editGroupPermButton.Location = new System.Drawing.Point(458, 479);
+            this.editGroupPermButton.Location = new System.Drawing.Point(458, 513);
             this.editGroupPermButton.Name = "editGroupPermButton";
             this.editGroupPermButton.Size = new System.Drawing.Size(168, 28);
             this.editGroupPermButton.TabIndex = 18;
@@ -198,11 +199,24 @@
             this.fileInformation.TabIndex = 19;
             this.fileInformation.Text = "";
             // 
+            // openFileButton
+            // 
+            this.openFileButton.Enabled = false;
+            this.openFileButton.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.openFileButton.Location = new System.Drawing.Point(289, 479);
+            this.openFileButton.Name = "openFileButton";
+            this.openFileButton.Size = new System.Drawing.Size(163, 28);
+            this.openFileButton.TabIndex = 20;
+            this.openFileButton.Text = "Open File";
+            this.openFileButton.UseVisualStyleBackColor = true;
+            this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
+            // 
             // FileManagementHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.openFileButton);
             this.Controls.Add(this.fileInformation);
             this.Controls.Add(this.editGroupPermButton);
             this.Controls.Add(this.manageGroupsButton);
@@ -239,5 +253,6 @@
         private System.Windows.Forms.Button manageGroupsButton;
         private System.Windows.Forms.Button editGroupPermButton;
         private System.Windows.Forms.RichTextBox fileInformation;
+        private System.Windows.Forms.Button openFileButton;
     }
 }

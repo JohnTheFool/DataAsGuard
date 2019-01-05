@@ -1,4 +1,5 @@
-﻿using DataAsGuard.Viewer;
+﻿using DataAsGuard.Profiles;
+using DataAsGuard.Viewer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace DataAsGuard
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Home());
+            Application.Run(new Login());
+            //Application.Run(new Home());
             //Application.Run(new Test());
         }
     }

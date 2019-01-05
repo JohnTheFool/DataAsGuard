@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,11 +53,11 @@ namespace DataAsGuard.FileManagement
                 try
                 {
                     string curItem = fileList.SelectedItem.ToString();
-                    //Retrieve group info from DB
-                    String groupInfoquery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
-                    MySqlCommand groupInfocmd = new MySqlCommand(groupInfoquery, con);
-                    groupInfocmd.Parameters.AddWithValue("@nameParam", curItem);
-                    MySqlDataReader reader = groupInfocmd.ExecuteReader();
+                    //Retrieve file info from DB
+                    String fileInfoquery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+                    MySqlCommand fileInfocmd = new MySqlCommand(fileInfoquery, con);
+                    fileInfocmd.Parameters.AddWithValue("@nameParam", curItem);
+                    MySqlDataReader reader = fileInfocmd.ExecuteReader();
                     if (reader.Read())
                     {
                         fileInformation.AppendText("Date Created: " + reader["dateCreated"].ToString());
@@ -63,8 +65,11 @@ namespace DataAsGuard.FileManagement
                         fileInformation.AppendText(Environment.NewLine + "File Description: " + reader["description"].ToString());
                     }
                     reader.Close();
+                    //Add in check if permissions below in the future
                     editUserPermButton.Enabled = true;
                     editGroupPermButton.Enabled = true;
+                    openFileButton.Enabled = true;
+                    deleteFileButton.Enabled = true;
                 }
                 catch (NullReferenceException)
                 {
@@ -72,16 +77,40 @@ namespace DataAsGuard.FileManagement
                 }
             }
         }
+
+        private void openFileButton_Click(object sender, EventArgs e)
+        {
+            string nameOfFile = fileList.SelectedItem.ToString();
+            string fileExtension = Path.GetExtension(nameOfFile);
+            string tempFileName = System.IO.Path.GetTempFileName() + "." + fileExtension;
+            byte[] fileBytes = new byte[] { 0x0 };
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String fileQuery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+                MySqlCommand getFilecmd = new MySqlCommand(fileQuery, con);
+                getFilecmd.Parameters.AddWithValue("@nameParam", fileList.SelectedItem.ToString());
+                MySqlDataReader reader = getFilecmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileBytes = (byte[])reader["file"];
+                }
+                reader.Close();
+            }
+            File.WriteAllBytes(tempFileName, fileBytes);
+            var process = Process.Start(tempFileName);
+            process.Exited += (s , ev) => File.Delete(tempFileName);
+        }
         private void deleteFileButton_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Delete the selected file (name here)?", "Are you sure?", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Delete the selected file " + fileList.SelectedItem.ToString() + "?", "Are you sure?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                //do something
+                //delete from DB
             }
             else if (dialogResult == DialogResult.No)
             {
-                //do something else
+                //nothing
             }
         }
 
@@ -101,7 +130,7 @@ namespace DataAsGuard.FileManagement
 
         private void editGroupPermButton_Click(object sender, EventArgs e)
         {
-            FileManagement.EditGroupPermissions view = new FileManagement.EditGroupPermissions();
+            FileManagement.EditGroupPermissions view = new FileManagement.EditGroupPermissions(fileList.SelectedItem.ToString());
             view.Show();
             Hide();
         }

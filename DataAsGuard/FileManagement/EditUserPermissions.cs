@@ -16,11 +16,14 @@ namespace DataAsGuard.FileManagement
 
         MySqlDataAdapter adapter;
         DataTable table = new DataTable();
+        int fileID = 0;
+        string fileNameRefer;
 
         public EditUserPermissions(String fileName)
         {
             InitializeComponent();
             fileEditedLabel.Text = fileName;
+            fileNameRefer = fileName;
         }
 
         private void EditUserPermissions_Load(object sender, EventArgs e)
@@ -34,9 +37,22 @@ namespace DataAsGuard.FileManagement
                 userList.DataSource = table;
                 userList.DisplayMember = "fullName";
                 userList.ValueMember = "userid";
+
+                String getFileIDQuery = "SELECT * FROM fileInfo WHERE fileName = @fileNameParam";
+                MySqlCommand getfileidcmd = new MySqlCommand(getFileIDQuery, con);
+                getfileidcmd.Parameters.AddWithValue("@fileNameParam", fileNameRefer);
+                MySqlDataReader reader = getfileidcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileID = Convert.ToInt32(reader["fileID"]);
+                }
+                reader.Close();
+
                 con.Close();
             }
+
         }
+
         private Boolean AddPermissionToDB()
         {
             Boolean success = false;
@@ -47,8 +63,8 @@ namespace DataAsGuard.FileManagement
                 int readPermission = 0;
                 int editPermission = 0;
                 int downloadPermission = 0;
-                int fileID = 0;
                 int userID = 0;
+
                 if (permissionCheckBox.GetItemCheckState(0) == CheckState.Checked) //Read permission
                 {
                     readPermission = 1;
@@ -64,16 +80,6 @@ namespace DataAsGuard.FileManagement
                     downloadPermission = 1;
                 }
 
-                String getFileIDQuery = "SELECT * FROM fileInfo WHERE fileName = @fileNameParam";
-                MySqlCommand getfileidcmd = new MySqlCommand(getFileIDQuery, con);
-                getfileidcmd.Parameters.AddWithValue("@fileNameParam", fileEditedLabel.Text);
-                MySqlDataReader reader = getfileidcmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    fileID = Convert.ToInt32(reader["fileID"]);
-                }
-                reader.Close();
-
                 String getUserIDQuery = "SELECT * FROM Userinfo WHERE fullName = @fullNameParam";
                 MySqlCommand getuseridcmd = new MySqlCommand(getUserIDQuery, con);
                 getuseridcmd.Parameters.AddWithValue("@fullNameParam", userSelectedLabel.Text);
@@ -83,7 +89,29 @@ namespace DataAsGuard.FileManagement
                     userID = Convert.ToInt32(reader2["userid"]);
                 }
                 reader2.Close();
-                //First time setting permissions
+
+                //If user's permission for this file already exists, delete old permission and insert new permission
+                Boolean permissionExists = false;
+                string getPermissionQuery = "SELECT * FROM userFilePermissions WHERE fileID = @fileIDParam AND userID = @userIDParam";
+                MySqlCommand getPermissionCmd = new MySqlCommand(getPermissionQuery, con);
+                getPermissionCmd.Parameters.AddWithValue("@fileIDParam", fileID);
+                getPermissionCmd.Parameters.AddWithValue("@userIDParam", userID);
+                MySqlDataReader reader3 = getPermissionCmd.ExecuteReader();
+                if (reader3.Read())
+                {
+                    permissionExists = true;
+                }
+                reader3.Close();
+
+                if (permissionExists)
+                {
+                    string deletePermQuery = "DELETE FROM userFilePermissions WHERE fileID = @fileIDParam AND userID = @userIDParam";
+                    MySqlCommand deletePermCmd = new MySqlCommand(deletePermQuery, con);
+                    deletePermCmd.Parameters.AddWithValue("@fileIDParam", fileID);
+                    deletePermCmd.Parameters.AddWithValue("@userIDParam", userID);
+                    deletePermCmd.ExecuteNonQuery();
+                }
+
                 String executeQuery = "INSERT INTO userFilePermissions(fileID, userID, readPermission, editPermission, downloadPermission) VALUES (@fileIDParam, @userIDParam, @readParam, @editParam, @downloadParam)";
                 MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
                 myCommand.Parameters.AddWithValue("@fileIDParam", fileID);
@@ -97,9 +125,15 @@ namespace DataAsGuard.FileManagement
             }
             return success;
         }
+
         private void userList_SelectedIndexChanged(object sender, EventArgs e)
         {
             userSelectedLabel.Text = null;
+            int userID = 0;
+            permissionCheckBox.SetItemChecked(0, false);
+            permissionCheckBox.SetItemChecked(1, false);
+            permissionCheckBox.SetItemChecked(2, false);
+
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -113,6 +147,40 @@ namespace DataAsGuard.FileManagement
                     userSelectedLabel.Text = reader["fullName"].ToString();
                 }
                 reader.Close();
+
+                String getUserIDQuery = "SELECT * FROM Userinfo WHERE fullName = @fullNameParam";
+                MySqlCommand getuseridcmd = new MySqlCommand(getUserIDQuery, con);
+                getuseridcmd.Parameters.AddWithValue("@fullNameParam", userSelectedLabel.Text);
+                MySqlDataReader reader3 = getuseridcmd.ExecuteReader();
+                if (reader3.Read())
+                {
+                    userID = Convert.ToInt32(reader3["userid"]);
+                }
+                reader3.Close();
+
+                //If user's permission for this file already exists, delete old permission and insert new permission
+                string getPermissionQuery = "SELECT * FROM userFilePermissions WHERE fileID = @fileIDParam AND userID = @userIDParam";
+                MySqlCommand getPermissionCmd = new MySqlCommand(getPermissionQuery, con);
+                getPermissionCmd.Parameters.AddWithValue("@fileIDParam", fileID);
+                getPermissionCmd.Parameters.AddWithValue("@userIDParam", userID);
+                MySqlDataReader reader4 = getPermissionCmd.ExecuteReader();
+                if (reader4.Read())
+                {
+                    if(Convert.ToInt32(reader4["readPermission"]) == 1)
+                    {
+                        permissionCheckBox.SetItemChecked(0, true);
+                    }
+                    if (Convert.ToInt32(reader4["editPermission"]) == 1)
+                    {
+                        permissionCheckBox.SetItemChecked(1, true);
+                    }
+                    if (Convert.ToInt32(reader4["downloadPermission"]) == 1)
+                    {
+                        permissionCheckBox.SetItemChecked(2, true);
+                    }
+                }
+                reader4.Close();
+
                 con.Close();
             }
         }
@@ -126,7 +194,10 @@ namespace DataAsGuard.FileManagement
 
         private void applyPermButton_Click(object sender, EventArgs e)
         {
-            AddPermissionToDB();
+            if (AddPermissionToDB())
+            {
+                MessageBox.Show("Permissions applied.");
+            }
         }
     }
 }

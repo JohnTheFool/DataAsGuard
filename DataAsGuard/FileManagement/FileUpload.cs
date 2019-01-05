@@ -19,18 +19,6 @@ namespace DataAsGuard.FileManagement
         String fileOriginalName;
         byte[] fileBytes = null;
 
-        //For changing back to original file
-        //Directory.CreateDirectory(Path.GetDirectoryName(fileName));
-        //using (Stream file = File.Create(fileName))
-        //{
-        //file.Write(buffer, 0, buffer.Length);
-        //}
-
-        //Opening the file
-        //Process process = new Process();
-        //process.StartInfo.FileName = path;
-        //process.Start();
-
         public FileUpload()
         {
             InitializeComponent();
@@ -55,24 +43,50 @@ namespace DataAsGuard.FileManagement
                 }
                 reader.Close();
 
-                String executeQuery = "INSERT INTO fileInfo(fileName, fileSize, dateCreated, fileOwnerID, fileOwner, description, file) VALUES (@nameParam, @sizeParam, @dateParam, @ownerIDParam, @ownerParam, @descParam, @fileParam)";
-                
-                MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
-                myCommand.Parameters.AddWithValue("@nameParam", this.fileName.Text);
-                myCommand.Parameters.AddWithValue("@sizeParam", this.fileSize.Text);
-                myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
-                myCommand.Parameters.AddWithValue("@ownerIDParam", Logininfo.userid);
-                myCommand.Parameters.AddWithValue("@ownerParam", ownerName);
-                myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
-                myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
-                myCommand.ExecuteNonQuery();
-                con.Close();
-                success = true;
+                if (!CheckIfFileExists(this.fileName.Text))
+                { 
+                    String executeQuery = "INSERT INTO fileInfo(fileName, fileSize, dateCreated, fileOwnerID, fileOwner, description, file, fileLock) VALUES (@nameParam, @sizeParam, @dateParam, @ownerIDParam, @ownerParam, @descParam, @fileParam, @lockParam)";
+                    MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
+                    myCommand.Parameters.AddWithValue("@nameParam", this.fileName.Text);
+                    myCommand.Parameters.AddWithValue("@sizeParam", this.fileSize.Text);
+                    myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
+                    myCommand.Parameters.AddWithValue("@ownerIDParam", Logininfo.userid);
+                    myCommand.Parameters.AddWithValue("@ownerParam", ownerName);
+                    myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
+                    myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
+                    myCommand.Parameters.AddWithValue("@lockParam", 0);
+                    myCommand.ExecuteNonQuery();
+                    con.Close();
+                    success = true;
+                }
+                else
+                {
+                    MessageBox.Show("File name already exists, please change the name of the file uploaded.");
+                }
             }
 
             return success;
         }
+        
+        private Boolean CheckIfFileExists(string nameChecked)
+        {
+            Boolean fileExists = false;
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
 
+                String getFileQuery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+                MySqlCommand cmd = new MySqlCommand(getFileQuery, con);
+                cmd.Parameters.AddWithValue("@nameParam", nameChecked);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileExists = true;
+                }
+                reader.Close();
+            }
+            return fileExists;
+        }
         private void BrowseButton_click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog
@@ -150,6 +164,10 @@ namespace DataAsGuard.FileManagement
                     MessageBox.Show("File successfully uploaded.");
                 }
             }
+
+            FileUpload refresh = new FileUpload();
+            refresh.Show();
+            this.Close();
         }
 
         private void backButton_Click(object sender, EventArgs e)
