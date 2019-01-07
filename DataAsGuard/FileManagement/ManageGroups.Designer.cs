@@ -38,7 +38,6 @@
             this.membersList = new System.Windows.Forms.ListBox();
             this.editGroupButton = new System.Windows.Forms.Button();
             this.createGroupButton = new System.Windows.Forms.Button();
-            this.deleteUserFromGroupButton = new System.Windows.Forms.Button();
             this.groupInformation = new System.Windows.Forms.RichTextBox();
             this.groupList = new System.Windows.Forms.ListBox();
             this.deleteGroupButton = new System.Windows.Forms.Button();
@@ -114,6 +113,7 @@
             // 
             // editGroupButton
             // 
+            this.editGroupButton.Enabled = false;
             this.editGroupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.editGroupButton.Location = new System.Drawing.Point(573, 300);
             this.editGroupButton.Name = "editGroupButton";
@@ -133,17 +133,6 @@
             this.createGroupButton.Text = "Create New Group";
             this.createGroupButton.UseVisualStyleBackColor = true;
             this.createGroupButton.Click += new System.EventHandler(this.createGroupButton_Click);
-            // 
-            // deleteUserFromGroupButton
-            // 
-            this.deleteUserFromGroupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.deleteUserFromGroupButton.Location = new System.Drawing.Point(573, 345);
-            this.deleteUserFromGroupButton.Name = "deleteUserFromGroupButton";
-            this.deleteUserFromGroupButton.Size = new System.Drawing.Size(179, 29);
-            this.deleteUserFromGroupButton.TabIndex = 23;
-            this.deleteUserFromGroupButton.Text = "Delete User From Group";
-            this.deleteUserFromGroupButton.UseVisualStyleBackColor = true;
-            this.deleteUserFromGroupButton.Click += new System.EventHandler(this.deleteUserFromGroupButton_Click);
             // 
             // groupInformation
             // 
@@ -168,8 +157,9 @@
             // 
             // deleteGroupButton
             // 
+            this.deleteGroupButton.Enabled = false;
             this.deleteGroupButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.deleteGroupButton.Location = new System.Drawing.Point(573, 392);
+            this.deleteGroupButton.Location = new System.Drawing.Point(573, 347);
             this.deleteGroupButton.Name = "deleteGroupButton";
             this.deleteGroupButton.Size = new System.Drawing.Size(179, 29);
             this.deleteGroupButton.TabIndex = 25;
@@ -184,7 +174,6 @@
             this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.deleteGroupButton);
             this.Controls.Add(this.groupInformation);
-            this.Controls.Add(this.deleteUserFromGroupButton);
             this.Controls.Add(this.createGroupButton);
             this.Controls.Add(this.editGroupButton);
             this.Controls.Add(this.membersList);
@@ -213,7 +202,6 @@
         private System.Windows.Forms.Label membersLabel;
         private System.Windows.Forms.Button editGroupButton;
         private System.Windows.Forms.Button createGroupButton;
-        private System.Windows.Forms.Button deleteUserFromGroupButton;
         private System.Windows.Forms.RichTextBox groupInformation;
         private System.Windows.Forms.Button deleteGroupButton;
         private System.Windows.Forms.ListBox groupList;

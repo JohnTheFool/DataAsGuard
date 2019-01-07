@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataAsGuard.CSClass;
 using MySql.Data.MySqlClient;
 
 namespace DataAsGuard.FileManagement
@@ -69,18 +70,26 @@ namespace DataAsGuard.FileManagement
 
         private Boolean InsertGroupInfoIntoDatabase()
         {
-
+            string fullName = "";
             Boolean success = false;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
-
+                String nameQuery = "SELECT * FROM Userinfo WHERE userid = @idParam";
+                MySqlCommand nameCmd = new MySqlCommand(nameQuery, con);
+                nameCmd.Parameters.AddWithValue("@idParam", Logininfo.userid);
+                MySqlDataReader reader = nameCmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fullName = reader["fullName"].ToString();
+                }
+                reader.Close();
                 String executeQuery = "INSERT INTO groupInfo(groupName, groupDescription, groupCreator, groupCreatorID, dateCreated) VALUES (@groupNameParam, @groupDescParam, @creatorParam, @creatorIDParam, @dateParam)";
                 MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
                 myCommand.Parameters.AddWithValue("@groupNameParam", this.groupName_Text.Text);
                 myCommand.Parameters.AddWithValue("@groupDescParam", this.groupDescription_Text.Text);
-                myCommand.Parameters.AddWithValue("@creatorParam", "Test");
-                myCommand.Parameters.AddWithValue("@creatorIDParam", 1); //Logininfo.userid
+                myCommand.Parameters.AddWithValue("@creatorParam", fullName);
+                myCommand.Parameters.AddWithValue("@creatorIDParam", Logininfo.userid); 
                 myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
                 myCommand.ExecuteNonQuery();
                 con.Close();

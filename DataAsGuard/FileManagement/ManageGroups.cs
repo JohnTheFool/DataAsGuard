@@ -40,7 +40,8 @@ namespace DataAsGuard.FileManagement
         {
             groupInformation.Clear();
             membersList.Items.Clear();
-            
+            editGroupButton.Enabled = true;
+            deleteGroupButton.Enabled = true;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -95,18 +96,13 @@ namespace DataAsGuard.FileManagement
 
         private void editGroupButton_Click(object sender, EventArgs e)
         {
-            EditGroup view = new EditGroup("groupEdited");
+            EditGroup view = new EditGroup(groupList.SelectedValue.ToString());
             view.Show();
-        }
-
-        private void deleteUserFromGroupButton_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void deleteGroupButton_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("All file permissions related to this group will be removed and those users will not be able to access those files anymore. Continue?");
         }
 
         
