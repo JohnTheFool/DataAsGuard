@@ -34,8 +34,10 @@
             this.chooseFileBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.backBtn = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // axWindowsMediaPlayer1
@@ -56,7 +58,7 @@
             // 
             // chooseFileBtn
             // 
-            this.chooseFileBtn.Location = new System.Drawing.Point(744, 48);
+            this.chooseFileBtn.Location = new System.Drawing.Point(758, 45);
             this.chooseFileBtn.Name = "chooseFileBtn";
             this.chooseFileBtn.Size = new System.Drawing.Size(75, 23);
             this.chooseFileBtn.TabIndex = 2;
@@ -84,11 +86,21 @@
             this.backBtn.UseVisualStyleBackColor = true;
             this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(731, 48);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(21, 20);
+            this.pictureBox2.TabIndex = 6;
+            this.pictureBox2.TabStop = false;
+            // 
             // VideoPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 606);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.backBtn);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.chooseFileBtn);
@@ -98,6 +110,7 @@
             this.Text = "VideoPlayer";
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,5 +123,6 @@
         private System.Windows.Forms.Button chooseFileBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button backBtn;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

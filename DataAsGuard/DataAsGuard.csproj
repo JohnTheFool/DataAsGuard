@@ -432,6 +432,7 @@
     <Content Include="Media\DataAsguardLogo.png" />
     <Content Include="Media\FolderIcon.png" />
     <Content Include="Media\HomeIcon.png" />
+    <Content Include="Media\Download 20x20.png" />
     <Content Include="Media\LeftChevronIcon.png" />
     <Content Include="Media\RightChevronIcon.png" />
     <Content Include="Media\SearchIcon.png" />

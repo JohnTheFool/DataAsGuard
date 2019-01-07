@@ -12,6 +12,7 @@ using DataAsGuard;
 using Microsoft.Office.Interop.Word;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
+using MySql.Data.MySqlClient;
 
 namespace DataAsGuard.Viewer
 {
@@ -287,165 +288,188 @@ namespace DataAsGuard.Viewer
 
         private void rtfBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Control && e.KeyCode == Keys.C)
-            {
-                e.SuppressKeyPress = true;
-            }
+            //using (MySqlConnection conn = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            //{
+            //    conn.Open();
+            //    //Retrieve group info from DB
+            //    String query = "SELECT * FROM groupFilePermissions WHERE readPermission == '0'";
+            //    MySqlCommand cmd = new MySqlCommand(query, conn);
+            //    MySqlDataReader reader = cmd.ExecuteReader();
+            //    if (reader.Read())
+            //    {
+
+            //    }
+            //    reader.Close();
+            //    if (e.Control && e.KeyCode == Keys.C)
+            //    {
+            //        e.SuppressKeyPress = true;
+            //    }
+            //}
         }
 
-        private bool IsFileLock(string filePath)
-        {
-            FileStream stream = null;
-            try
+            private bool IsFileLock(string filePath)
             {
-                stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);              
-            }
-            catch (IOException)
-            {
-                return true;
-            }
-            finally
-            {
-                if (stream != null)
-                    stream.Close();
-            }
-            return false;
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            rtfBox.Clear();
-            OpenFileDialog open_dialog = new OpenFileDialog();
-            open_dialog.Filter = "Text Files;RTF;DOCX|*.txt;*.rtf;*.docx";
-            if (open_dialog.ShowDialog() == DialogResult.OK)
-            {
-                var extension = Path.GetExtension(open_dialog.FileName);
-                string rtfbox;
-                switch (extension.ToLower())
+                FileStream stream = null;
+                try
                 {
-                    case ".rtf":
-                        if(IsFileLock(open_dialog.FileName))
-                        {
-                            MessageBox.Show("File is in use!");
-                        }
-                        else
-                        {
-                            rtfbox = File.ReadAllText(open_dialog.FileName);     //Read content
-                            rtfBox.Rtf = rtfbox;                                //Display content in rtf file in rtb
-                        }
-
-                        break;
-                    case ".txt":
-                        if (IsFileLock(open_dialog.FileName))
-                        {
-                            MessageBox.Show("File is in use!");
-                        }
-                        else
-                        {
-                            rtfbox = File.ReadAllText(open_dialog.FileName);
-                            rtfBox.Text = rtfbox;
-                        }
-                        break;
-                    case ".docx":
-                        if (IsFileLock(open_dialog.FileName))
-                        {
-                            MessageBox.Show("File is in use!");
-                        }
-                        else
-                        {
-                            var applicationWord = new Microsoft.Office.Interop.Word.Application();
-                            applicationWord.Visible = true;
-                            applicationWord.Documents.Open(open_dialog.FileName);
-                        }
-
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(extension);
+                    stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
                 }
-            }
-        }
-
-        private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents;Word Document;RTF |*.txt;*.docx;*.rtf", ValidateNames = true })
-            {
-                if (sfd.ShowDialog() == DialogResult.OK)
+                catch (IOException)
                 {
-                    var extension = Path.GetExtension(sfd.FileName);
+                    return true;
+                }
+                finally
+                {
+                    if (stream != null)
+                        stream.Close();
+                }
+                return false;
+            }
+
+            private void openToolStripMenuItem_Click(object sender, EventArgs e)
+            {
+                rtfBox.Clear();
+                OpenFileDialog open_dialog = new OpenFileDialog();
+                open_dialog.Filter = "Text Files;RTF;DOCX|*.txt;*.rtf;*.docx";
+                if (open_dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var extension = Path.GetExtension(open_dialog.FileName);
+                    string rtfbox;
                     switch (extension.ToLower())
                     {
                         case ".rtf":
-                            rtfBox.SaveFile(sfd.FileName);
-                            MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (IsFileLock(open_dialog.FileName))
+                            {
+                                MessageBox.Show("File is in use!");
+                            }
+                            else
+                            {
+                                rtfbox = File.ReadAllText(open_dialog.FileName);     //Read content
+                                rtfBox.Rtf = rtfbox;                                //Display content in rtf file in rtb
+                            }
+
                             break;
                         case ".txt":
-                            using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                            if (IsFileLock(open_dialog.FileName))
                             {
-                                await sw.WriteLineAsync(rtfBox.Text);
-                                MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("File is in use!");
                             }
+                            else
+                            {
+                                rtfbox = File.ReadAllText(open_dialog.FileName);
+                                rtfBox.Text = rtfbox;
+                            }
+                            break;
+                        case ".docx":
+                            if (IsFileLock(open_dialog.FileName))
+                            {
+                                MessageBox.Show("File is in use!");
+                            }
+                            else
+                            {
+                                var applicationWord = new Microsoft.Office.Interop.Word.Application();
+                                applicationWord.Visible = true;
+                                applicationWord.Documents.Open(open_dialog.FileName);
+                            }
+
                             break;
                         default:
                             throw new ArgumentOutOfRangeException(extension);
                     }
                 }
             }
-        }
 
-        private void testBtn_Click(object sender, EventArgs e)
-        {
-            // Write properties to file
-            string filePath = @"C:\\Users\Solomon\\Pictures\\Test1.docx";
-            var file = ShellFile.FromFilePath(filePath);
-
-            // Read and Write:
-
-            string[] oldAuthors = file.Properties.System.Author.Value;
-            string oldTitle = file.Properties.System.Title.Value;
-
-            file.Properties.System.Comment.Value = "©COPYRIGHT DATAASGUARD";
-            file.Properties.System.Title.Value = "Seolhyun";
-
-            // Alternate way to Write:
-
-            ShellPropertyWriter propertyWriter = file.Properties.GetPropertyWriter();
-            //propertyWriter.WriteProperty(SystemProperties.System.Comment, new string[] { "Comment" });
-            propertyWriter.Close();
-
-            // Read File extended properties
-            List<string> arrHeaders = new List<string>();
-            List<Tuple<int, string, string>> attributes = new List<Tuple<int, string, string>>();
-
-            Shell32.Shell shell = new Shell32.Shell();
-            var strFileName = @"C:\Users\Solomon\Pictures\Test1.docx";
-            Shell32.Folder objFolder = shell.NameSpace(System.IO.Path.GetDirectoryName(strFileName));
-            Shell32.FolderItem folderItem = objFolder.ParseName(System.IO.Path.GetFileName(strFileName));
-
-
-            for (int i = 0; i < short.MaxValue; i++)
+            private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                string header = objFolder.GetDetailsOf(null, i);
-                if (String.IsNullOrEmpty(header))
-                    break;
-                arrHeaders.Add(header);
+                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents;Word Document;RTF |*.txt;*.docx;*.rtf", ValidateNames = true })
+                {
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        var extension = Path.GetExtension(sfd.FileName);
+                        switch (extension.ToLower())
+                        {
+                            case ".rtf":
+                                rtfBox.SaveFile(sfd.FileName);
+                                MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
+                            case ".txt":
+                                using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                                {
+                                    await sw.WriteLineAsync(rtfBox.Text);
+                                    MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                                startInfo.FileName = "cmd.exe";
+                                //startInfo.Arguments = "/C echo 'SECRET MSG' > C:\\Users\\Solomon\\Documents\\something.txt:SOMETHING";
+                                //Write Hidden text to file
+                                startInfo.Arguments = "/C echo " + "CURRENTLY LOGGED IN USERNAME" + " > " + sfd.FileName + ":DS1";
+                                process.StartInfo = startInfo;
+                                process.Start();
+                            break;
+                            default:
+                                throw new ArgumentOutOfRangeException(extension);
+                        }
+                    }
+                }
             }
 
-            // The attributes list below will contain a tuple with attribute index, name and value
-            // Once you know the index of the attribute you want to get, 
-            // you can get it directly without looping, like this:
-            var Authors = objFolder.GetDetailsOf(folderItem, 20);
-
-            for (int i = 0; i < arrHeaders.Count; i++)
+            private void testBtn_Click(object sender, EventArgs e)
             {
-                var attrName = arrHeaders[i];
-                var attrValue = objFolder.GetDetailsOf(folderItem, i);
-                var attrIdx = i;
+                // Write properties to file
+                string filePath = @"C:\\Users\Solomon\\Pictures\\Test1.docx";
+                var file = ShellFile.FromFilePath(filePath);
 
-                attributes.Add(new Tuple<int, string, string>(attrIdx, attrName, attrValue));
+                // Read and Write:
 
-                Console.WriteLine("{0}\t{1}: {2}", i, attrName, attrValue);
+                string[] oldAuthors = file.Properties.System.Author.Value;
+                string oldTitle = file.Properties.System.Title.Value;
+
+                file.Properties.System.Comment.Value = "©COPYRIGHT DATAASGUARD";
+                file.Properties.System.Title.Value = "Seolhyun";
+
+                // Alternate way to Write:
+
+                ShellPropertyWriter propertyWriter = file.Properties.GetPropertyWriter();
+                //propertyWriter.WriteProperty(SystemProperties.System.Comment, new string[] { "Comment" });
+                propertyWriter.Close();
+
+                // Read File extended properties
+                List<string> arrHeaders = new List<string>();
+                List<Tuple<int, string, string>> attributes = new List<Tuple<int, string, string>>();
+
+                Shell32.Shell shell = new Shell32.Shell();
+                var strFileName = @"C:\Users\Solomon\Pictures\Test1.docx";
+                Shell32.Folder objFolder = shell.NameSpace(System.IO.Path.GetDirectoryName(strFileName));
+                Shell32.FolderItem folderItem = objFolder.ParseName(System.IO.Path.GetFileName(strFileName));
+
+
+                for (int i = 0; i < short.MaxValue; i++)
+                {
+                    string header = objFolder.GetDetailsOf(null, i);
+                    if (String.IsNullOrEmpty(header))
+                        break;
+                    arrHeaders.Add(header);
+                }
+
+                // The attributes list below will contain a tuple with attribute index, name and value
+                // Once you know the index of the attribute you want to get, 
+                // you can get it directly without looping, like this:
+                var Authors = objFolder.GetDetailsOf(folderItem, 20);
+
+                for (int i = 0; i < arrHeaders.Count; i++)
+                {
+                    var attrName = arrHeaders[i];
+                    var attrValue = objFolder.GetDetailsOf(folderItem, i);
+                    var attrIdx = i;
+
+                    attributes.Add(new Tuple<int, string, string>(attrIdx, attrName, attrValue));
+
+                    Console.WriteLine("{0}\t{1}: {2}", i, attrName, attrValue);
+                }
+                Console.ReadLine();
             }
-            Console.ReadLine();
         }
     }
-}
+

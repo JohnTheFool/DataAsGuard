@@ -26,6 +26,7 @@ namespace DataAsGuard.DB
         {
             string queryString = "";
             string connString = "server=35.240.129.112;database=da_schema;uid=asguarduser;pwd=;";
+            //string connString = System.Configuration.ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
             MySqlConnection cnn;
             MySqlCommand cmd;
             MySqlDataReader reader;
