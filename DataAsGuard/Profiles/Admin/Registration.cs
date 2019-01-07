@@ -80,6 +80,11 @@ namespace DataAsGuard.Profiles.Admin
                     RegistrationConfirm Confirm = new RegistrationConfirm();
                     Confirm.Show();
                     Hide();
+                    if (pictureBox1.Image != null)
+                    {
+                        pictureBox1.Image.Dispose();
+                        pictureBox1.Image = null;
+                    }
                 }
                 else
                 {
