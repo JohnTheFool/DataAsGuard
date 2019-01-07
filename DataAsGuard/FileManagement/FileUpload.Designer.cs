@@ -89,6 +89,7 @@
             // uploadButton
             // 
             this.uploadButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.uploadButton.Enabled = false;
             this.uploadButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uploadButton.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.uploadButton.Location = new System.Drawing.Point(356, 570);

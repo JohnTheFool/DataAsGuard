@@ -112,6 +112,7 @@ namespace DataAsGuard.FileManagement
 
         private void BrowseButton_click(object sender, EventArgs e)
         {
+            uploadButton.Enabled = false;
             OpenFileDialog dialog = new OpenFileDialog
             {
                 Filter = "Word Documents|*.docx|Excel Worksheets|*.xlsx|PowerPoint Presentations|*.pptx|Office Files|*.docx;*.xlsx;*.pptx|All Files|*.*", // allowed file types
@@ -228,6 +229,7 @@ namespace DataAsGuard.FileManagement
                     Console.WriteLine("The file is clean!");
                     MessageBox.Show("The file is clean");
                     flag = "C";
+                    uploadButton.Enabled = true;
                     break;
                 case ClamScanResults.VirusDetected:
                     Console.WriteLine("Virus Found!");
