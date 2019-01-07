@@ -38,20 +38,24 @@ namespace DataAsGuard
 
         private async void scantest()
         {
-            var clam = new ClamClient("35.247.184.223", 3310);
-            var scanResult = await clam.ScanFileOnServerAsync("C:\\Users\\Desmond\\Downloads\\PokeMMO.zip");  //any file you would like!
+            var clam = new ClamClient("13.76.89.213", 3310);
+            //var scanResult = await clam.ScanFileOnServerAsync("C:\\Users\\Desmond\\Downloads\\TeamViewer_Setup.exe");  //any file you would like!
+            var scanResult = await clam.SendAndScanFileAsync("C:\\Users\\Desmond\\Downloads\\TeamViewer_Setup.exe");
 
             switch (scanResult.Result)
             {
                 case ClamScanResults.Clean:
                     Console.WriteLine("The file is clean!");
+                    MessageBox.Show("The file is clean");
                     break;
                 case ClamScanResults.VirusDetected:
                     Console.WriteLine("Virus Found!");
                     Console.WriteLine("Virus name: {0}", scanResult.InfectedFiles.First().VirusName);
+                    MessageBox.Show("Virus name: {0}", scanResult.InfectedFiles.First().VirusName);
                     break;
                 case ClamScanResults.Error:
                     Console.WriteLine("Woah an error occured! Error: {0}", scanResult.RawResult);
+                    MessageBox.Show("Woah an error occured! Error: {0}", scanResult.RawResult);
                     break;
             }
         }

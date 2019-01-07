@@ -1,5 +1,6 @@
 ﻿using DataAsGuard.CSClass;
 using MySql.Data.MySqlClient;
+using nClam;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,7 @@ namespace DataAsGuard.FileManagement
         byte[] fileBytes = null;
         DBLogger dblog = new DBLogger();
         string fileID;
+        string flag;
 
         //For changing back to original file
         //Directory.CreateDirectory(Path.GetDirectoryName(fileName));
@@ -137,24 +139,36 @@ namespace DataAsGuard.FileManagement
                     }
                 }
                 fileSourcePath = path;
+                scantest(path);
 
-                try
+                if (flag == "C")
                 {
-                    fileBytes = File.ReadAllBytes(path);
+                    try
+                    {
+                        fileBytes = File.ReadAllBytes(path);
+                    }
+                    catch (IOException)
+                    {
+                        //might change this : Desmond
+                        //dblog.Log("File cannot be read (" + fileOriginalName + ")", "UploadsFailed", Logininfo.userid, Logininfo.email);
+                        MessageBox.Show("Error file could not be read, please try again.");
+                    }
                 }
-                catch (IOException)
+                else if (flag == "V")
                 {
-                    //might change this : Desmond
-                    //dblog.Log("File cannot be read (" + fileOriginalName + ")", "UploadsFailed", Logininfo.userid, Logininfo.email);
-                    MessageBox.Show("Error file could not be read, please try again.");
-                }  
+                    //would like to hide or disable upload but now just show 
+                    MessageBox.Show("Virus File Detected!");
+                }
+                else if(flag == "E")
+                {
+                    MessageBox.Show("Error has Occurred");
+                }
             }
         }
 
         private void uploadButton_Click(object sender, EventArgs e)
         {
            
-
             if (fileName.Text != fileOriginalName) //If file name is changed
             {
                 DialogResult dialogResult = MessageBox.Show("The name of the file has been changed, changing the file extension may result in the file being corrupted, do you want to proceed?", "Warning", MessageBoxButtons.YesNo);
@@ -176,6 +190,34 @@ namespace DataAsGuard.FileManagement
                     dblog.fileLog("File Successfully Uploaded", "UploadsSuccess", Logininfo.userid, Logininfo.email, fileID);
                     MessageBox.Show("File successfully uploaded.");
                 }
+            }
+        }
+
+        //antivirus
+        private async void scantest(string filepath)
+        {
+            var clam = new ClamClient("13.76.89.213", 3310);
+            //var scanResult = await clam.ScanFileOnServerAsync("C:\\Users\\Desmond\\Downloads\\TeamViewer_Setup.exe");  //any file you would like!
+            var scanResult = await clam.SendAndScanFileAsync(filepath);
+
+            switch (scanResult.Result)
+            {
+                case ClamScanResults.Clean:
+                    Console.WriteLine("The file is clean!");
+                    //MessageBox.Show("The file is clean");
+                    flag = "C";
+                    break;
+                case ClamScanResults.VirusDetected:
+                    Console.WriteLine("Virus Found!");
+                    Console.WriteLine("Virus name: {0}", scanResult.InfectedFiles.First().VirusName);
+                    MessageBox.Show("Virus Found! Virus name: {0}", scanResult.InfectedFiles.First().VirusName);
+                    flag = "V";
+                    break;
+                case ClamScanResults.Error:
+                    Console.WriteLine("Woah an error occured! Error: {0}", scanResult.RawResult);
+                    MessageBox.Show("Woah an error occured! Error: {0}", scanResult.RawResult);
+                    flag = "E";
+                    break;
             }
         }
 
