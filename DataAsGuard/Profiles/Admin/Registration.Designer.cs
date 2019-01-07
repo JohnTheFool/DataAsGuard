@@ -62,7 +62,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.12903F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.87097F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 159F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tableLayoutPanel1.Controls.Add(this.validation, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.fName, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.validateEmail, 2, 2);
@@ -100,7 +100,7 @@
             // 
             this.validation.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.validation.AutoSize = true;
-            this.validation.Location = new System.Drawing.Point(298, 333);
+            this.validation.Location = new System.Drawing.Point(297, 333);
             this.validation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validation.Name = "validation";
             this.validation.Size = new System.Drawing.Size(68, 17);
@@ -110,7 +110,7 @@
             // fName
             // 
             this.fName.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.fName.Location = new System.Drawing.Point(214, 9);
+            this.fName.Location = new System.Drawing.Point(213, 9);
             this.fName.Margin = new System.Windows.Forms.Padding(4);
             this.fName.Name = "fName";
             this.fName.Size = new System.Drawing.Size(237, 23);
@@ -120,7 +120,7 @@
             // 
             this.validateEmail.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateEmail.AutoSize = true;
-            this.validateEmail.Location = new System.Drawing.Point(459, 97);
+            this.validateEmail.Location = new System.Drawing.Point(458, 97);
             this.validateEmail.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validateEmail.Name = "validateEmail";
             this.validateEmail.Size = new System.Drawing.Size(91, 17);
@@ -131,7 +131,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(68, 188);
+            this.label4.Location = new System.Drawing.Point(67, 188);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(138, 17);
@@ -141,7 +141,7 @@
             // Email
             // 
             this.Email.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Email.Location = new System.Drawing.Point(214, 94);
+            this.Email.Location = new System.Drawing.Point(213, 94);
             this.Email.Margin = new System.Windows.Forms.Padding(4);
             this.Email.Name = "Email";
             this.Email.Size = new System.Drawing.Size(237, 23);
@@ -152,7 +152,7 @@
             // 
             this.Emaillabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.Emaillabel.AutoSize = true;
-            this.Emaillabel.Location = new System.Drawing.Point(155, 97);
+            this.Emaillabel.Location = new System.Drawing.Point(154, 97);
             this.Emaillabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Emaillabel.Name = "Emaillabel";
             this.Emaillabel.Size = new System.Drawing.Size(51, 17);
@@ -163,7 +163,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(121, 12);
+            this.label1.Location = new System.Drawing.Point(120, 12);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 17);
@@ -174,7 +174,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(121, 53);
+            this.label2.Location = new System.Drawing.Point(120, 53);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 17);
@@ -185,7 +185,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(62, 145);
+            this.label3.Location = new System.Drawing.Point(61, 145);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(144, 17);
@@ -195,7 +195,7 @@
             // PhoneNO
             // 
             this.PhoneNO.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.PhoneNO.Location = new System.Drawing.Point(214, 142);
+            this.PhoneNO.Location = new System.Drawing.Point(213, 142);
             this.PhoneNO.Margin = new System.Windows.Forms.Padding(4);
             this.PhoneNO.Name = "PhoneNO";
             this.PhoneNO.Size = new System.Drawing.Size(237, 23);
@@ -207,19 +207,19 @@
             // 
             this.dateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.dateTimePicker1.CustomFormat = "dd/MM/yy";
-            this.dateTimePicker1.Location = new System.Drawing.Point(214, 185);
+            this.dateTimePicker1.Location = new System.Drawing.Point(213, 185);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
-            this.dateTimePicker1.MaxDate = new System.DateTime(2010, 12, 31, 0, 0, 0, 0);
+            this.dateTimePicker1.MaxDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(237, 23);
             this.dateTimePicker1.TabIndex = 16;
-            this.dateTimePicker1.Value = new System.DateTime(2000, 12, 31, 0, 0, 0, 0);
+            this.dateTimePicker1.Value = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
             // 
             // validatephoneNO
             // 
             this.validatephoneNO.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatephoneNO.AutoSize = true;
-            this.validatephoneNO.Location = new System.Drawing.Point(459, 145);
+            this.validatephoneNO.Location = new System.Drawing.Point(458, 145);
             this.validatephoneNO.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatephoneNO.Name = "validatephoneNO";
             this.validatephoneNO.Size = new System.Drawing.Size(113, 17);
@@ -230,7 +230,7 @@
             // 
             this.validateDOB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateDOB.AutoSize = true;
-            this.validateDOB.Location = new System.Drawing.Point(459, 188);
+            this.validateDOB.Location = new System.Drawing.Point(458, 188);
             this.validateDOB.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validateDOB.Name = "validateDOB";
             this.validateDOB.Size = new System.Drawing.Size(81, 17);
@@ -241,7 +241,7 @@
             // 
             this.validatefname.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatefname.AutoSize = true;
-            this.validatefname.Location = new System.Drawing.Point(459, 12);
+            this.validatefname.Location = new System.Drawing.Point(458, 12);
             this.validatefname.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatefname.Name = "validatefname";
             this.validatefname.Size = new System.Drawing.Size(96, 17);
@@ -252,7 +252,7 @@
             // 
             this.validatelName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatelName.AutoSize = true;
-            this.validatelName.Location = new System.Drawing.Point(459, 53);
+            this.validatelName.Location = new System.Drawing.Point(458, 53);
             this.validatelName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatelName.Name = "validatelName";
             this.validatelName.Size = new System.Drawing.Size(95, 17);
@@ -263,7 +263,7 @@
             // 
             this.validatecaptcha.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatecaptcha.AutoSize = true;
-            this.validatecaptcha.Location = new System.Drawing.Point(459, 263);
+            this.validatecaptcha.Location = new System.Drawing.Point(458, 263);
             this.validatecaptcha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatecaptcha.Name = "validatecaptcha";
             this.validatecaptcha.Size = new System.Drawing.Size(107, 17);
@@ -276,7 +276,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(4, 232);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(202, 80);
+            this.pictureBox1.Size = new System.Drawing.Size(201, 80);
             this.pictureBox1.TabIndex = 21;
             this.pictureBox1.TabStop = false;
             // 
@@ -284,7 +284,7 @@
             // 
             this.captchabox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.captchabox.BackColor = System.Drawing.SystemColors.Window;
-            this.captchabox.Location = new System.Drawing.Point(214, 260);
+            this.captchabox.Location = new System.Drawing.Point(213, 260);
             this.captchabox.Margin = new System.Windows.Forms.Padding(4);
             this.captchabox.Name = "captchabox";
             this.captchabox.Size = new System.Drawing.Size(237, 23);
@@ -293,7 +293,7 @@
             // lName
             // 
             this.lName.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lName.Location = new System.Drawing.Point(214, 50);
+            this.lName.Location = new System.Drawing.Point(213, 50);
             this.lName.Margin = new System.Windows.Forms.Padding(4);
             this.lName.Name = "lName";
             this.lName.Size = new System.Drawing.Size(237, 23);

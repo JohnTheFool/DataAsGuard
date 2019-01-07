@@ -105,7 +105,7 @@
             // 
             // dataFilesGrid
             // 
-            this.dataFilesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataFilesGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataFilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataFilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataFilesGrid.Location = new System.Drawing.Point(0, 0);
@@ -113,6 +113,7 @@
             this.dataFilesGrid.ReadOnly = true;
             this.dataFilesGrid.Size = new System.Drawing.Size(713, 356);
             this.dataFilesGrid.TabIndex = 0;
+            this.dataFilesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataFilesGrid_CellContentClick);
             // 
             // textBox2
             // 
@@ -181,7 +182,6 @@
             // 
             // dataAccountGrid
             // 
-            this.dataAccountGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataAccountGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataAccountGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataAccountGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -381,7 +381,7 @@
             // 
             // dataLogGrid
             // 
-            this.dataLogGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataLogGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataLogGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataLogGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataLogGrid.Location = new System.Drawing.Point(0, 0);

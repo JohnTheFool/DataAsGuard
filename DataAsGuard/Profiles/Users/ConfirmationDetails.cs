@@ -28,6 +28,7 @@ namespace DataAsGuard.Profiles.Users
 
         private void Registration_Shown(Object sender, EventArgs e)
         {
+            validateUsername.Hide();
             validateCaptcha.Hide();
             userdataRetrieval();
             CreateImage();
@@ -269,7 +270,7 @@ namespace DataAsGuard.Profiles.Users
                     //if it contains a value.
                     while (reader.Read())
                     {
-                        if (usernamevalue == aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("dob"))))
+                        if (usernamevalue == aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid"))))
                         {
                             contains = true;
                             checkuserid = reader.GetString(reader.GetOrdinal("userid"));
