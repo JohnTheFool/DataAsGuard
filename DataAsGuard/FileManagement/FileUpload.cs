@@ -196,7 +196,10 @@ namespace DataAsGuard.FileManagement
         //antivirus
         private async void scantest(string filepath)
         {
-            var clam = new ClamClient("13.76.89.213", 3310);
+            var clam = new ClamClient("13.76.89.213", 3310) {
+                MaxStreamSize = 1073741824
+            };
+
             //var scanResult = await clam.ScanFileOnServerAsync("C:\\Users\\Desmond\\Downloads\\TeamViewer_Setup.exe");  //any file you would like!
             var scanResult = await clam.SendAndScanFileAsync(filepath);
 
