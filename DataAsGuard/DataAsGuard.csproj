@@ -407,6 +407,7 @@
     <EmbeddedResource Include="Viewer\VideoPlayer.resx">
       <DependentUpon>VideoPlayer.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="nclamtest.rdp" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
