@@ -58,6 +58,7 @@
             this.fileList.Size = new System.Drawing.Size(219, 580);
             this.fileList.TabIndex = 0;
             this.fileList.SelectedIndexChanged += new System.EventHandler(this.fileList_SelectedIndexChanged);
+            this.fileList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.fileDoubleClick);
             // 
             // permissionGrid
             // 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -99,6 +100,59 @@ namespace DataAsGuard.FileManagement
         private void permissionGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void fileDoubleClick(object sender, MouseEventArgs e)
+        {
+            //int index = this.fileList.IndexFromPoint(e.Location);
+            //if (index != System.Windows.Forms.ListBox.NoMatches)
+            //{
+                //For changing back to original file
+                //Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+                //using (Stream file = File.Create(fileName))
+                //{
+                //file.Write(buffer, 0, buffer.Length);
+                //}
+
+                //Opening the file
+                //Process process = new Process();
+                //process.StartInfo.FileName = path;
+                //process.Start();
+                //using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                //{
+                //    byte[] buffer;
+                //    con.Open();
+                //    string curItem = fileList.SelectedItem.ToString();
+                //    //Retrieve group info from DB
+                //    String groupInfoquery = "SELECT * FROM fileInfo WHERE fileLock = @nameParam";
+                //    MySqlCommand groupInfocmd = new MySqlCommand(groupInfoquery, con);
+                //    groupInfocmd.Parameters.AddWithValue("@nameParam", curItem);
+                //    MySqlDataReader reader = groupInfocmd.ExecuteReader();
+                //    if (reader.Read())
+                //    {
+                //        buffer = (byte[])reader["file"];
+                //        if (reader["fileLock"].ToString() == "1")
+                //        {
+                //            MessageBox.Show("File is in use!");
+                //        }
+                //        else
+                //        {
+                            
+                //            Directory.CreateDirectory(Path.GetDirectoryName(reader["fileName"].ToString()));
+                //            using (Stream file = File.Create(reader["fileName"].ToString()))
+
+                //            {
+                //                file.Write(buffer, 0, buffer.Length);
+                //            }
+                //            var applicationWord = new Microsoft.Office.Interop.Word.Application();
+                //            applicationWord.Visible = true;
+                //            applicationWord.Documents.Open(file);
+                //        }
+                //    }
+                //    reader.Close();
+                //}
+
+            //}
         }
     }
 }

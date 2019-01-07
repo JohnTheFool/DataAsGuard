@@ -25,8 +25,8 @@ namespace DataAsGuard.DB
         public List<string> DbRetrieve(string table, string username)
         {
             string queryString = "";
-            //string connString = "server=35.240.129.112;database=da_schema;uid=asguarduser;pwd=;";
-            string connString = System.Configuration.ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
+            string connString = "server=35.240.129.112;database=da_schema;uid=asguarduser;pwd=;";
+            //string connString = System.Configuration.ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
             MySqlConnection cnn;
             MySqlCommand cmd;
             MySqlDataReader reader;
