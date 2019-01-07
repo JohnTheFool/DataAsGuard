@@ -15,6 +15,7 @@ namespace DataAsGuard.FileManagement
 {
     public partial class FileManagementHub : Form
     {
+        string temporaryFileName = null;
         public FileManagementHub()
         {
             InitializeComponent();
@@ -82,7 +83,7 @@ namespace DataAsGuard.FileManagement
         {
             string nameOfFile = fileList.SelectedItem.ToString();
             string fileExtension = Path.GetExtension(nameOfFile);
-            string tempFileName = System.IO.Path.GetTempFileName() + "." + fileExtension;
+            temporaryFileName = Path.GetTempFileName() + "." + fileExtension;
             byte[] fileBytes = new byte[] { 0x0 };
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
@@ -97,16 +98,23 @@ namespace DataAsGuard.FileManagement
                 }
                 reader.Close();
             }
-            File.WriteAllBytes(tempFileName, fileBytes);
-            var process = Process.Start(tempFileName);
-            process.Exited += (s , ev) => File.Delete(tempFileName);
+            File.WriteAllBytes(temporaryFileName, fileBytes);
+            var process = Process.Start(temporaryFileName);
+            process.Exited += new EventHandler(process_Exited);
+            
         }
+
+        private void process_Exited(object s, EventArgs e)
+        {
+            File.Delete(temporaryFileName);
+        }
+
         private void deleteFileButton_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Delete the selected file " + fileList.SelectedItem.ToString() + "?", "Are you sure?", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Delete the selected file " + fileList.SelectedItem.ToString() + "? All content will be lost.", "Are you sure?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                //delete from DB
+                //
             }
             else if (dialogResult == DialogResult.No)
             {

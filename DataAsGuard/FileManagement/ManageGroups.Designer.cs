@@ -186,7 +186,7 @@
             this.Controls.Add(this.BackButton);
             this.Name = "ManageGroups";
             this.Text = "DataAsguard";
-            this.Load += new System.EventHandler(this.ViewGroups_Load);
+            this.Load += new System.EventHandler(this.ManageGroups_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

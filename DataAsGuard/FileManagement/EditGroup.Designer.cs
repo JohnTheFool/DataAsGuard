@@ -40,8 +40,8 @@
             this.removeFromGroupButton = new System.Windows.Forms.Button();
             this.groupMembers = new System.Windows.Forms.ListBox();
             this.groupNameTable = new System.Windows.Forms.TableLayoutPanel();
-            this.groupName_Text = new System.Windows.Forms.TextBox();
             this.groupNameLabel = new System.Windows.Forms.Label();
+            this.groupName_Text = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupDescription_Text = new System.Windows.Forms.RichTextBox();
             this.updateGroupButton = new System.Windows.Forms.Button();
@@ -74,6 +74,7 @@
             this.homeButton.Size = new System.Drawing.Size(37, 36);
             this.homeButton.TabIndex = 16;
             this.homeButton.UseVisualStyleBackColor = true;
+            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
             // BackButton
             // 
@@ -83,6 +84,7 @@
             this.BackButton.Size = new System.Drawing.Size(37, 36);
             this.BackButton.TabIndex = 15;
             this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // userLabel
             // 
@@ -122,6 +124,7 @@
             this.moveToGroupButton.Size = new System.Drawing.Size(37, 36);
             this.moveToGroupButton.TabIndex = 22;
             this.moveToGroupButton.UseVisualStyleBackColor = true;
+            this.moveToGroupButton.Click += new System.EventHandler(this.moveToGroupButton_Click);
             // 
             // removeFromGroupButton
             // 
@@ -131,6 +134,7 @@
             this.removeFromGroupButton.Size = new System.Drawing.Size(37, 36);
             this.removeFromGroupButton.TabIndex = 23;
             this.removeFromGroupButton.UseVisualStyleBackColor = true;
+            this.removeFromGroupButton.Click += new System.EventHandler(this.removeFromGroupButton_Click);
             // 
             // groupMembers
             // 
@@ -159,16 +163,6 @@
             this.groupNameTable.Size = new System.Drawing.Size(391, 48);
             this.groupNameTable.TabIndex = 25;
             // 
-            // groupName_Text
-            // 
-            this.groupName_Text.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupName_Text.Cursor = System.Windows.Forms.Cursors.Default;
-            this.groupName_Text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.groupName_Text.Location = new System.Drawing.Point(141, 12);
-            this.groupName_Text.Name = "groupName_Text";
-            this.groupName_Text.Size = new System.Drawing.Size(236, 23);
-            this.groupName_Text.TabIndex = 1;
-            // 
             // groupNameLabel
             // 
             this.groupNameLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -180,6 +174,16 @@
             this.groupNameLabel.TabIndex = 2;
             this.groupNameLabel.Text = "Group Name:";
             this.groupNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // groupName_Text
+            // 
+            this.groupName_Text.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupName_Text.Cursor = System.Windows.Forms.Cursors.Default;
+            this.groupName_Text.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.groupName_Text.Location = new System.Drawing.Point(141, 12);
+            this.groupName_Text.Name = "groupName_Text";
+            this.groupName_Text.Size = new System.Drawing.Size(236, 23);
+            this.groupName_Text.TabIndex = 1;
             // 
             // label1
             // 
@@ -211,6 +215,7 @@
             this.updateGroupButton.TabIndex = 28;
             this.updateGroupButton.Text = "Update Group";
             this.updateGroupButton.UseVisualStyleBackColor = true;
+            this.updateGroupButton.Click += new System.EventHandler(this.updateGroupButton_Click);
             // 
             // EditGroup
             // 

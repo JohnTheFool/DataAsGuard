@@ -21,8 +21,10 @@ namespace DataAsGuard.FileManagement
             InitializeComponent();
         }
 
-        private void ViewGroups_Load(object sender, EventArgs e)
+        private void ManageGroups_Load(object sender, EventArgs e)
         {
+            editGroupButton.Enabled = false;
+            deleteGroupButton.Enabled = false;
             //Load all groups from MySql
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
@@ -42,6 +44,7 @@ namespace DataAsGuard.FileManagement
             membersList.Items.Clear();
             editGroupButton.Enabled = true;
             deleteGroupButton.Enabled = true;
+
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
