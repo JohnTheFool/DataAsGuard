@@ -58,14 +58,14 @@ namespace DataAsGuard.FileManagement
                     myCommand.Parameters.AddWithValue("@ownerParam", ownerName);
                     myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
                     myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
-                    myCommand.Parameters.AddWithValue("@lockParam", 0);
+                    myCommand.Parameters.AddWithValue("@lockParam", 0); //Check with Solomon
                     myCommand.ExecuteNonQuery();
 
 					String query = "SELECT * FROM fileInfo where fileName = @fileName AND dateCreated = @dateCreated AND fileOwnerID=@fileowner;";
 					MySqlCommand command = new MySqlCommand(query, con);
-					myCommand.Parameters.AddWithValue("@fileName", this.fileName.Text);
-					myCommand.Parameters.AddWithValue("@dateCreated",DateTime.Now);
-					myCommand.Parameters.AddWithValue("@fileowner", Logininfo.userid);
+					command.Parameters.AddWithValue("@fileName", this.fileName.Text);
+					command.Parameters.AddWithValue("@dateCreated",DateTime.Now);
+					command.Parameters.AddWithValue("@fileowner", Logininfo.userid);
 					using (reader = command.ExecuteReader())
 					{
 						while (reader.Read())
@@ -109,6 +109,7 @@ namespace DataAsGuard.FileManagement
             }
             return fileExists;
         }
+
         private void BrowseButton_click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog
@@ -197,7 +198,7 @@ namespace DataAsGuard.FileManagement
                 }
                 
             }
-            else
+            else //If file name is not changed
             {
                 if (InsertFileInfoToDB())
                 {
@@ -225,7 +226,7 @@ namespace DataAsGuard.FileManagement
             {
                 case ClamScanResults.Clean:
                     Console.WriteLine("The file is clean!");
-                    //MessageBox.Show("The file is clean");
+                    MessageBox.Show("The file is clean");
                     flag = "C";
                     break;
                 case ClamScanResults.VirusDetected:

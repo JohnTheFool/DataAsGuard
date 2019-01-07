@@ -20,7 +20,7 @@ namespace DataAsGuard
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Home());
             //Application.Run(new Test());
-            Application.Run(new FileManagement.FileUpload());
+            Application.Run(new Login());
         }
     }
 }
