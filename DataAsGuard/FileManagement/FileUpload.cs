@@ -49,37 +49,44 @@ namespace DataAsGuard.FileManagement
 
                 if (!CheckIfFileExists(this.fileName.Text))
                 { 
-                    String executeQuery = "INSERT INTO fileInfo(fileName, fileSize, dateCreated, fileOwnerID, fileOwner, description, file, fileLock) VALUES (@nameParam, @sizeParam, @dateParam, @ownerIDParam, @ownerParam, @descParam, @fileParam, @lockParam)";
-                    MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
-                    myCommand.Parameters.AddWithValue("@nameParam", this.fileName.Text);
-                    myCommand.Parameters.AddWithValue("@sizeParam", this.fileSize.Text);
-                    myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
-                    myCommand.Parameters.AddWithValue("@ownerIDParam", Logininfo.userid);
-                    myCommand.Parameters.AddWithValue("@ownerParam", ownerName);
-                    myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
-                    myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
-                    myCommand.Parameters.AddWithValue("@lockParam", 0); //Check with Solomon
-                    myCommand.ExecuteNonQuery();
+                    if (fileName.Text.Length < 100)
+                    { 
+                        String executeQuery = "INSERT INTO fileInfo(fileName, fileSize, dateCreated, fileOwnerID, fileOwner, description, file, fileLock) VALUES (@nameParam, @sizeParam, @dateParam, @ownerIDParam, @ownerParam, @descParam, @fileParam, @lockParam)";
+                        MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
+                        myCommand.Parameters.AddWithValue("@nameParam", this.fileName.Text);
+                        myCommand.Parameters.AddWithValue("@sizeParam", this.fileSize.Text);
+                        myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
+                        myCommand.Parameters.AddWithValue("@ownerIDParam", Logininfo.userid);
+                        myCommand.Parameters.AddWithValue("@ownerParam", ownerName);
+                        myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
+                        myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
+                        myCommand.Parameters.AddWithValue("@lockParam", 0); //Check with Solomon
+                        myCommand.ExecuteNonQuery();
 
-					String query = "SELECT * FROM fileInfo where fileName = @fileName AND dateCreated = @dateCreated AND fileOwnerID=@fileowner;";
-					MySqlCommand command = new MySqlCommand(query, con);
-					command.Parameters.AddWithValue("@fileName", this.fileName.Text);
-					command.Parameters.AddWithValue("@dateCreated",DateTime.Now);
-					command.Parameters.AddWithValue("@fileowner", Logininfo.userid);
-					using (reader = command.ExecuteReader())
-					{
-						while (reader.Read())
-						{
-							fileID = reader.GetString(reader.GetOrdinal("fileID"));
-						}
+					    String query = "SELECT * FROM fileInfo where fileName = @fileName AND dateCreated = @dateCreated AND fileOwnerID=@fileowner;";
+					    MySqlCommand command = new MySqlCommand(query, con);
+					    command.Parameters.AddWithValue("@fileName", this.fileName.Text);
+					    command.Parameters.AddWithValue("@dateCreated",DateTime.Now);
+					    command.Parameters.AddWithValue("@fileowner", Logininfo.userid);
+					    using (reader = command.ExecuteReader())
+					    {
+						    while (reader.Read())
+						    {
+							    fileID = reader.GetString(reader.GetOrdinal("fileID"));
+						    }
 
-                    if (reader != null)
-                        reader.Close();
-					}
-					success = true;
+                        if (reader != null)
+                            reader.Close();
+					    }
+					    success = true;
+                    }
+                    else //File Name longer than 100
+                    {
+                        MessageBox.Show("File name cannot be longer than 100 characters.");
+                    }
                 }
 				
-                else
+                else //File name already exists in database
                 {
                     MessageBox.Show("File name already exists, please change the name of the file uploaded.");
                 }

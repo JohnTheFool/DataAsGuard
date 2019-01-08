@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace DataAsGuard.FileManagement
     public partial class FileManagementHub : Form
     {
         string temporaryFileName = null;
+        int fileID = 0;
         public FileManagementHub()
         {
             InitializeComponent();
@@ -48,6 +50,7 @@ namespace DataAsGuard.FileManagement
             fileInformation.Clear();
             permissionGrid.Rows.Clear();
             permissionGrid.Refresh();
+            string fileOwnerID = null;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -64,13 +67,19 @@ namespace DataAsGuard.FileManagement
                         fileInformation.AppendText("Date Created: " + reader["dateCreated"].ToString());
                         fileInformation.AppendText(Environment.NewLine + "File Owner: " + reader["fileOwner"].ToString());
                         fileInformation.AppendText(Environment.NewLine + "File Description: " + reader["description"].ToString());
+                        fileOwnerID = reader["fileOwnerID"].ToString();
+                        fileID = Convert.ToInt32(reader["fileID"]);
                     }
                     reader.Close();
-                    //Add in check if permissions below in the future
-                    editUserPermButton.Enabled = true;
-                    editGroupPermButton.Enabled = true;
-                    openFileButton.Enabled = true;
-                    deleteFileButton.Enabled = true;
+
+                    //Check if owner of file, allow to edit permissions and delete file
+                    if (Logininfo.userid == fileOwnerID)
+                    {
+                        editUserPermButton.Enabled = true;
+                        editGroupPermButton.Enabled = true;
+                        deleteFileButton.Enabled = true;
+                    }
+
                 }
                 catch (NullReferenceException)
                 {
@@ -111,10 +120,27 @@ namespace DataAsGuard.FileManagement
 
         private void deleteFileButton_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Delete the selected file " + fileList.SelectedItem.ToString() + "? All content will be lost.", "Are you sure?", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Delete the selected file " + fileList.SelectedItem.ToString() + "? All content and permissions related to this file will be lost.", "Are you sure?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                //
+                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                {
+                    con.Open();
+                    string deletefileQuery = "DELETE FROM fileInfo WHERE fileName = @nameParam";
+                    MySqlCommand deleteFilecmd = new MySqlCommand(deletefileQuery, con);
+                    deleteFilecmd.Parameters.AddWithValue("@nameParam", fileList.SelectedItem.ToString());
+                    deleteFilecmd.ExecuteNonQuery();
+
+                    string deleteuserPermsQuery = "DELETE FROM userFilePermissions WHERE fileID = @idParam";
+                    MySqlCommand deleteUserPermCmd = new MySqlCommand(deleteuserPermsQuery, con);
+                    deleteUserPermCmd.Parameters.AddWithValue("idParam", fileID);
+                    deleteUserPermCmd.ExecuteNonQuery();
+
+                    string deletegroupPermsQuery = "DELETE FROM groupFilePermissions WHERE fileID = @idParam";
+                    MySqlCommand deletegroupPermsCmd = new MySqlCommand(deletegroupPermsQuery, con);
+                    deletegroupPermsCmd.Parameters.AddWithValue("idParam", fileID);
+                    deletegroupPermsCmd.ExecuteNonQuery();
+                }
             }
             else if (dialogResult == DialogResult.No)
             {
