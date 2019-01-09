@@ -47,6 +47,18 @@ namespace DataAsGuard
             process.Start();
         }
 
+        //Write metadata into MP4 file
+        //TagLib.File videoFile = TagLib.File.Create("test.mp4");
+        //TagLib.Mpeg4.AppleTag customTag = (TagLib.Mpeg4.AppleTag)f.GetTag(TagLib.TagTypes.Apple);
+        //customTag.SetDashBox("Producer","Producer1", "value");
+        //f.Save();
+        //f.Dispose();
+
+        //Write metadata into pddf file
+        //PdfDocument document = PdfReader.Open("Test.pdf");
+        //document.Info.Author = "ME";
+        //document.Save("Result");
+
         private void button2_Click(object sender, EventArgs e)
         {
             scantest();

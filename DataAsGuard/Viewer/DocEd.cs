@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,15 +10,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAsGuard;
-using Microsoft.Office.Interop.Word;
+using DataAsGuard.FileManagement;
+using DataAsGuard.Profiles;
+using Word = Microsoft.Office.Interop.Word;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using MySql.Data.MySqlClient;
+using Microsoft.Office.Interop.Word;
 
 namespace DataAsGuard.Viewer
 {
     public partial class DocEd : Form
     {
+        public string GetText { get; set; }
+
+        public string GetUsername { get; set; }
+
         public DocEd()
         {
             InitializeComponent();
@@ -130,7 +138,42 @@ namespace DataAsGuard.Viewer
 
         private void DocEd_Load(object sender, EventArgs e)
         {
-            this.ActiveControl = rtfBox;
+            rtfBox.Text = this.GetText;
+            //FileManagement.FileManagementHub n = new FileManagement.FileManagementHub();
+            //string something = n.store;
+            //Console.WriteLine(something);
+            //MessageBox.Show(this.MyProperty);
+            //Console.WriteLine(this.MyProperty);
+            //Console.WriteLine(n.dope());
+            //string rtfbox;
+            //byte[] fileBytes = new byte[] { 0x0 };
+            //using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            //{
+            //    con.Open();
+            //    String fileQuery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+            //    MySqlCommand getFilecmd = new MySqlCommand(fileQuery, con);
+            //    getFilecmd.Parameters.AddWithValue("@nameParam", n.nameOfFile);
+            //    MySqlDataReader reader = getFilecmd.ExecuteReader();
+            //    if (reader.Read())
+            //    {
+            //        fileBytes = (byte[])reader["file"];
+            //        Console.WriteLine(fileBytes);
+            //    }
+            //    reader.Close();
+            //    string somethin = n.tempFileName + n.fileExtension;
+            //    File.WriteAllBytes(n.tempFileName, fileBytes);
+            //    Console.WriteLine(somethin);
+            //    var process = Process.Start(n.tempFileName);
+            //    process.Exited += (s, ev) => File.Delete(n.tempFileName);
+            //    var stream = new StreamReader(new MemoryStream(fileBytes));
+            //    rtfbox = stream.ReadLine();
+            //    rtfBox.Text = rtfbox;
+
+            //}
+            //rtfbox = File.ReadAllText(n.nameOfFile);
+            //Console.WriteLine(n.tempFileName);
+            //rtfBox.Text = n.bobo;
+
         }
 
         private void italicBtn_Click(object sender, EventArgs e)
@@ -307,7 +350,7 @@ namespace DataAsGuard.Viewer
             //}
         }
 
-            private bool IsFileLock(string filePath)
+        public bool IsFileLock(string filePath)
             {
                 FileStream stream = null;
                 try
@@ -328,91 +371,75 @@ namespace DataAsGuard.Viewer
 
             private void openToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                rtfBox.Clear();
-                OpenFileDialog open_dialog = new OpenFileDialog();
-                open_dialog.Filter = "Text Files;RTF;DOCX|*.txt;*.rtf;*.docx";
-                if (open_dialog.ShowDialog() == DialogResult.OK)
+            //FileManagementHub open = new FileManagementHub();
+            //open.Show();
+            //this.Hide();
+            //string fileExtension = Path.GetExtension(nameOfFile);
+            //string tempFileName = System.IO.Path.GetTempFileName() + "." + fileExtension;
+            rtfBox.Clear();
+            OpenFileDialog open_dialog = new OpenFileDialog();
+            open_dialog.Filter = "Text Files;RTF;DOCX|*.txt;*.rtf;*.docx";
+            if (open_dialog.ShowDialog() == DialogResult.OK)
+            {
+                var extension = Path.GetExtension(open_dialog.FileName);
+                string rtfbox;
+                switch (extension.ToLower())
                 {
-                    var extension = Path.GetExtension(open_dialog.FileName);
-                    string rtfbox;
-                    switch (extension.ToLower())
-                    {
-                        case ".rtf":
-                            if (IsFileLock(open_dialog.FileName))
-                            {
-                                MessageBox.Show("File is in use!");
-                            }
-                            else
-                            {
-                                rtfbox = File.ReadAllText(open_dialog.FileName);     //Read content
-                                rtfBox.Rtf = rtfbox;                                //Display content in rtf file in rtb
-                            }
+                    case ".rtf":
+                        if (IsFileLock(open_dialog.FileName))
+                        {
+                            MessageBox.Show("File is in use!");
+                        }
+                        else
+                        {
+                            rtfbox = File.ReadAllText(open_dialog.FileName);     //Read content
+                            rtfBox.Rtf = rtfbox;                                //Display content in rtf file in rtb
+                        }
 
-                            break;
-                        case ".txt":
-                            if (IsFileLock(open_dialog.FileName))
-                            {
-                                MessageBox.Show("File is in use!");
-                            }
-                            else
-                            {
-                                rtfbox = File.ReadAllText(open_dialog.FileName);
-                                rtfBox.Text = rtfbox;
-                            }
-                            break;
-                        case ".docx":
-                            if (IsFileLock(open_dialog.FileName))
-                            {
-                                MessageBox.Show("File is in use!");
-                            }
-                            else
-                            {
-                                var applicationWord = new Microsoft.Office.Interop.Word.Application();
-                                applicationWord.Visible = true;
-                                applicationWord.Documents.Open(open_dialog.FileName);
-                            }
+                        break;
+                    case ".txt":
+                        if (IsFileLock(open_dialog.FileName))
+                        {
+                            MessageBox.Show("File is in use!");
+                        }
+                        else
+                        {
+                            rtfbox = File.ReadAllText(open_dialog.FileName);
+                            rtfBox.Text = rtfbox;
+                        }
+                        break;
+                    case ".docx":
+                        if (IsFileLock(open_dialog.FileName))
+                        {
+                            MessageBox.Show("File is in use!");
+                        }
+                        else
+                        {
+                            object readOnly = true;
+                            object fileName = open_dialog.FileName;
+                            object missing = System.Reflection.Missing.Value;
+                            var applicationWord = new Microsoft.Office.Interop.Word.Application();
+                            applicationWord.Visible = true;
+                            //object gg = applicationWord.DocumentBeforeSave();
+                            applicationWord.Options.SavePropertiesPrompt = false;
+                            applicationWord.Options.SaveNormalPrompt = false;
+                            applicationWord.DisplayAlerts = WdAlertLevel.wdAlertsNone;
+                            applicationWord.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
+                            //object doNotSaveChanges = Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges;
+                            //applicationWord.ActiveDocument.Close(ref doNotSaveChanges, ref missing, ref missing);
+                        }
 
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException(extension);
-                    }
+
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(extension);
                 }
             }
+        }
 
-            private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
+            private void saveToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents;Word Document;RTF |*.txt;*.docx;*.rtf", ValidateNames = true })
-                {
-                    if (sfd.ShowDialog() == DialogResult.OK)
-                    {
-                        var extension = Path.GetExtension(sfd.FileName);
-                        switch (extension.ToLower())
-                        {
-                            case ".rtf":
-                                rtfBox.SaveFile(sfd.FileName);
-                                MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                break;
-                            case ".txt":
-                                using (StreamWriter sw = new StreamWriter(sfd.FileName))
-                                {
-                                    await sw.WriteLineAsync(rtfBox.Text);
-                                    MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                System.Diagnostics.Process process = new System.Diagnostics.Process();
-                                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                                startInfo.FileName = "cmd.exe";
-                                //startInfo.Arguments = "/C echo 'SECRET MSG' > C:\\Users\\Solomon\\Documents\\something.txt:SOMETHING";
-                                //Write Hidden text to file
-                                startInfo.Arguments = "/C echo " + "CURRENTLY LOGGED IN USERNAME" + " > " + sfd.FileName + ":DS1";
-                                process.StartInfo = startInfo;
-                                process.Start();
-                            break;
-                            default:
-                                throw new ArgumentOutOfRangeException(extension);
-                        }
-                    }
-                }
+
             }
 
             private void testBtn_Click(object sender, EventArgs e)
@@ -470,6 +497,43 @@ namespace DataAsGuard.Viewer
                 }
                 Console.ReadLine();
             }
+
+        private async void downloadBtn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(DataAsGuard.CSClass.Logininfo.username);
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents; |*.txt;", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    var extension = Path.GetExtension(sfd.FileName);
+                    switch (extension.ToLower())
+                    {
+                        case ".rtf":
+                            rtfBox.SaveFile(sfd.FileName);
+                            MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            break;
+                        case ".txt":
+                            using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                            {
+                                await sw.WriteLineAsync(rtfBox.Text);
+                                MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            System.Diagnostics.Process process = new System.Diagnostics.Process();
+                            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                            startInfo.FileName = "cmd.exe";
+                            //startInfo.Arguments = "/C echo 'SECRET MSG' > C:\\Users\\Solomon\\Documents\\something.txt:SOMETHING";
+                            //Write Hidden text to file
+                            startInfo.Arguments = "/C echo " + DataAsGuard.CSClass.Logininfo.username + " > " + sfd.FileName + ":DS1";
+                            process.StartInfo = startInfo;
+                            process.Start();
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(extension);
+                    }
+                }
+            }
         }
+    }
     }
 

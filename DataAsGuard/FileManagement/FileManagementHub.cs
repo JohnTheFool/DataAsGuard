@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataAsGuard.Viewer;
 
 namespace DataAsGuard.FileManagement
 {
@@ -78,11 +79,23 @@ namespace DataAsGuard.FileManagement
             }
         }
 
+
+
+
+        //public string nameOfFile { get; set; }
+        //public string fileExtension { get;  set; }
+
+        //public string tempFileName { get; set; }
+
+        //public string bobo { get; set; }
+
+
         private void openFileButton_Click(object sender, EventArgs e)
         {
             string nameOfFile = fileList.SelectedItem.ToString();
             string fileExtension = Path.GetExtension(nameOfFile);
             string tempFileName = System.IO.Path.GetTempFileName() + "." + fileExtension;
+
             byte[] fileBytes = new byte[] { 0x0 };
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
@@ -96,11 +109,118 @@ namespace DataAsGuard.FileManagement
                     fileBytes = (byte[])reader["file"];
                 }
                 reader.Close();
+                File.WriteAllBytes(tempFileName, fileBytes);
+                if (fileExtension == ".txt")
+                {
+                    string hu = File.ReadAllText(tempFileName); ;
+                    DocEd dd = new DocEd();
+                    dd.GetText = hu;
+                    dd.Show();
+                    this.Hide();
+                }
+                else if (fileExtension == ".jpeg" || fileExtension == ".jpg" || fileExtension == ".png")
+                {
+                    ImgViewer.ImgViewerForm imgView = new ImgViewer.ImgViewerForm();
+                    imgView.path = tempFileName;
+                    imgView.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    var process = Process.Start(tempFileName);
+                    process.Exited += (s, ev) => File.Delete(tempFileName);
+                }
             }
-            File.WriteAllBytes(tempFileName, fileBytes);
-            var process = Process.Start(tempFileName);
-            process.Exited += (s , ev) => File.Delete(tempFileName);
         }
+            //using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            //{
+            //    string lockNo;
+            //    con.Open();
+            //    // Get File Lock
+            //    String getFileLockQuery = "SELECT fileLock FROM fileInfo WHERE fileName = @getLock";
+            //    MySqlCommand getLockcmd = new MySqlCommand(getFileLockQuery, con);
+            //    getLockcmd.Parameters.AddWithValue("@getLock", fileList.SelectedItem.ToString());
+            //    MySqlDataReader fileLockReader = getLockcmd.ExecuteReader();
+            //    if (fileLockReader.Read())
+            //    {
+            //        lockNo = fileLockReader["fileLock"].ToString();
+            //        if(lockNo == "1")
+            //        {
+            //            MessageBox.Show("File is in use! Please Wait to use the file!");
+            //            fileLockReader.Close();
+            //        }
+
+            //        else if (lockNo == "0")
+            //        {
+            //            fileLockReader.Close();
+            //            //String fileLockQuery = "UPDATE da_schema.fileInfo SET fileLock = '1' WHERE fileName = @lockNo";
+            //            //MySqlCommand fileLockCmd = new MySqlCommand(fileLockQuery, con);
+            //            //fileLockCmd.Parameters.AddWithValue("@lockNo", nameOfFile);
+            //            //fileLockCmd.ExecuteNonQuery();
+
+
+            //            byte[] fileBytes = new byte[] { 0x0 };
+            //            //con.Open();
+            //            String fileQuery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+            //            MySqlCommand getFilecmd = new MySqlCommand(fileQuery, con);
+            //            getFilecmd.Parameters.AddWithValue("@nameParam", fileList.SelectedItem.ToString());
+            //            MySqlDataReader reader = getFilecmd.ExecuteReader();
+            //            if (reader.Read())
+            //            {
+            //                fileBytes = (byte[])reader["file"];
+            //            }
+            //            reader.Close();
+            //            File.WriteAllBytes(this.tempFileName, fileBytes);
+            //            if (this.fileExtension == ".txt")
+            //            {
+            //                doc.Show();
+            //            }
+            //System.Diagnostics.Process process = new System.Diagnostics.Process();
+            //process.StartInfo.FileName = tempFileName;
+            //process.Start();
+            //var process = Process.Start(tempFileName);
+            //process.Exited += (s, ev) => { process.Kill();
+            //process.Close();
+            //process.Exited += (s, ev) =>
+            //{
+            //    process.Kill();
+            //    File.Delete(tempFileName);
+            //    //String releaseLockQuery = "UPDATE da_schema.fileInfo SET fileLock = '0' WHERE fileName = @lockNo";
+            //    //MySqlCommand releaseLockCmd = new MySqlCommand(releaseLockQuery, con);
+            //    //releaseLockCmd.Parameters.AddWithValue("@lockNo", nameOfFile);
+            //    //releaseLockCmd.ExecuteNonQuery();
+            //    fileLockQuery = "UPDATE da_schema.fileInfo SET fileLock = '0' WHERE fileName = @lockNo";
+            //    fileLockCmd = new MySqlCommand(fileLockQuery, con);
+            //    fileLockCmd.Parameters.AddWithValue("@lockNo", nameOfFile);
+            //    fileLockCmd.ExecuteNonQuery();
+            //};
+            //process.Exited += (s, ev) => process.Kill();
+            //String releaseLockQuery = "UPDATE da_schema.fileInfo SET fileLock = '0' WHERE fileName = @lockNo";
+            //MySqlCommand releaseLockCmd = new MySqlCommand(releaseLockQuery, con);
+            //releaseLockCmd.Parameters.AddWithValue("@lockNo", nameOfFile);
+            //releaseLockCmd.ExecuteNonQuery();
+    //    }
+    //}
+    //        }
+
+            //byte[] fileBytes = new byte[] { 0x0 };
+            //using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            //{
+            //    con.Open();
+            //    String fileQuery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+            //    MySqlCommand getFilecmd = new MySqlCommand(fileQuery, con);
+            //    getFilecmd.Parameters.AddWithValue("@nameParam", fileList.SelectedItem.ToString());
+            //    MySqlDataReader reader = getFilecmd.ExecuteReader();
+            //    if (reader.Read())
+            //    {
+            //        fileBytes = (byte[])reader["file"];
+            //    }
+            //    reader.Close();
+            //    File.WriteAllBytes(tempFileName, fileBytes);
+            //    var process = Process.Start(tempFileName);
+            //    process.Exited += (s, ev) => File.Delete(tempFileName);
+            //}
+        //}
         private void deleteFileButton_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("Delete the selected file " + fileList.SelectedItem.ToString() + "?", "Are you sure?", MessageBoxButtons.YesNo);
