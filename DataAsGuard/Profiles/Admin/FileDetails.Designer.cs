@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileDetails));
-            this.delete = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.fileSize = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -66,15 +65,6 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datalogGrid)).BeginInit();
             this.SuspendLayout();
-            // 
-            // delete
-            // 
-            this.delete.Location = new System.Drawing.Point(650, 228);
-            this.delete.Name = "delete";
-            this.delete.Size = new System.Drawing.Size(75, 43);
-            this.delete.TabIndex = 38;
-            this.delete.Text = "Delete";
-            this.delete.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
             // 
@@ -347,7 +337,7 @@
             // 
             // Lockbtn
             // 
-            this.Lockbtn.Location = new System.Drawing.Point(530, 228);
+            this.Lockbtn.Location = new System.Drawing.Point(600, 202);
             this.Lockbtn.Name = "Lockbtn";
             this.Lockbtn.Size = new System.Drawing.Size(75, 43);
             this.Lockbtn.TabIndex = 29;
@@ -402,7 +392,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
-            this.Controls.Add(this.delete);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
@@ -430,8 +419,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button delete;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label fileID;
         private System.Windows.Forms.Label vflag;

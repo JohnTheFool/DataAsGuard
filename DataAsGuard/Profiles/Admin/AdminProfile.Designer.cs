@@ -30,9 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminProfile));
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.filesList = new System.Windows.Forms.ComboBox();
             this.panel6 = new System.Windows.Forms.Panel();
             this.dataFilesGrid = new System.Windows.Forms.DataGridView();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.filesFilter = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
@@ -83,8 +85,10 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label7);
+            this.tabPage4.Controls.Add(this.filesList);
             this.tabPage4.Controls.Add(this.panel6);
-            this.tabPage4.Controls.Add(this.textBox2);
+            this.tabPage4.Controls.Add(this.filesFilter);
             this.tabPage4.Controls.Add(this.label20);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
@@ -94,6 +98,28 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Files Management";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(236, 31);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 17);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Search:";
+            // 
+            // filesList
+            // 
+            this.filesList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.filesList.FormattingEnabled = true;
+            this.filesList.Items.AddRange(new object[] {
+            "Filename",
+            "FileOwner",
+            "Fileownerid"});
+            this.filesList.Location = new System.Drawing.Point(69, 28);
+            this.filesList.Name = "filesList";
+            this.filesList.Size = new System.Drawing.Size(132, 24);
+            this.filesList.TabIndex = 7;
             // 
             // panel6
             // 
@@ -115,13 +141,14 @@
             this.dataFilesGrid.TabIndex = 0;
             this.dataFilesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataFilesGrid_CellContentClick);
             // 
-            // textBox2
+            // filesFilter
             // 
-            this.textBox2.Location = new System.Drawing.Point(70, 28);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(132, 23);
-            this.textBox2.TabIndex = 5;
+            this.filesFilter.Location = new System.Drawing.Point(300, 28);
+            this.filesFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.filesFilter.Name = "filesFilter";
+            this.filesFilter.Size = new System.Drawing.Size(132, 23);
+            this.filesFilter.TabIndex = 5;
+            this.filesFilter.TextChanged += new System.EventHandler(this.filesFilter_TextChanged);
             // 
             // label20
             // 
@@ -505,7 +532,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox accountFilter;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox filesFilter;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Panel panel4;
@@ -532,5 +559,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox accountList;
         private System.Windows.Forms.ComboBox logTypeList;
+        private System.Windows.Forms.ComboBox filesList;
+        private System.Windows.Forms.Label label7;
     }
 }

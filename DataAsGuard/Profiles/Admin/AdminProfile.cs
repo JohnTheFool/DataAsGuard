@@ -23,7 +23,7 @@ namespace DataAsGuard.Profiles.Admin
             InitializeComponent();
         }
 
-        private void Adminprofile_Load(object sender,EventArgs e)
+        private void Adminprofile_Load(object sender, EventArgs e)
         {
             retrieveAccounts();
             retrieveLogs();
@@ -62,7 +62,7 @@ namespace DataAsGuard.Profiles.Admin
             btn.Text = "Unlock/Lock btn";
             btn.UseColumnTextForButtonValue = true;
             dataAccountGrid.Columns.Add(btn);
-            
+
         }
 
         //account with filter
@@ -115,12 +115,12 @@ namespace DataAsGuard.Profiles.Admin
                 //MessageBox.Show(row.Cells[0].Value.ToString());
 
                 string userid = row.Cells[0].Value.ToString();
-                
-                    //mainly for admin to know which account to properly check on to get a clearer information
-                    AdminSession.userid = userid;
-                    AccountDetails accountdetails = new AccountDetails();
-                    accountdetails.Show();
-                    Hide();
+
+                //mainly for admin to know which account to properly check on to get a clearer information
+                AdminSession.userid = userid;
+                AccountDetails accountdetails = new AccountDetails();
+                accountdetails.Show();
+                Hide();
             }
 
             //check if the column is a button column and check if the column is where the button is when click 
@@ -295,7 +295,7 @@ namespace DataAsGuard.Profiles.Admin
             {
                 retrieveAccounts();
             }
-            for(int i = 0; i < dataAccountGrid.RowCount; i++)
+            for (int i = 0; i < dataAccountGrid.RowCount; i++)
             {
                 if (accountlistvalue == "Username")
                 {
@@ -326,7 +326,7 @@ namespace DataAsGuard.Profiles.Admin
                     }
                 }
             }
-           
+
             dataAccountGrid.Rows.Clear();
             dataAccountGrid.Refresh();
             retrieveAccounts2(accountlistvalue, userid);
@@ -351,6 +351,32 @@ namespace DataAsGuard.Profiles.Admin
 
             //add rows from db
             userFilesRetrieval();
+
+            ////ADD BUTTON COLUMN
+            DataGridViewButtonColumn FullDetailsbtn = new DataGridViewButtonColumn();
+            FullDetailsbtn.HeaderText = "Full Details";
+            FullDetailsbtn.Name = "fDetails";
+            FullDetailsbtn.Text = "Full Details";
+            FullDetailsbtn.UseColumnTextForButtonValue = true;
+            dataFilesGrid.Columns.Add(FullDetailsbtn);
+        }
+
+        private void retrieveFiles2(string listvalue, ArrayList searchfield)
+        {
+            dataFilesGrid.AllowUserToAddRows = false;
+            dataFilesGrid.AllowUserToDeleteRows = false;
+
+            dataFilesGrid.ColumnCount = 7;
+            dataFilesGrid.Columns[0].Name = "Fileid";
+            dataFilesGrid.Columns[1].Name = "FileName";
+            dataFilesGrid.Columns[2].Name = "Filesize";
+            dataFilesGrid.Columns[3].Name = "DateCreated";
+            dataFilesGrid.Columns[4].Name = "Fileownerid";
+            dataFilesGrid.Columns[5].Name = "FileOwner";
+            dataFilesGrid.Columns[6].Name = "Description";
+
+            //add rows from db
+            userFilesRetrieval2(listvalue, searchfield);
 
             ////ADD BUTTON COLUMN
             DataGridViewButtonColumn FullDetailsbtn = new DataGridViewButtonColumn();
@@ -391,6 +417,38 @@ namespace DataAsGuard.Profiles.Admin
             }
         }
 
+        private void userFilesRetrieval2(string listvalue, ArrayList searchfield)
+        {
+            for (int i = 0; i < searchfield.Count; i++)
+            {
+                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                {
+                    con.Open();
+                    String query = "SELECT * FROM fileInfo where fileID = @searchfield";
+                    MySqlCommand command = new MySqlCommand(query, con);
+                    command.Parameters.AddWithValue("@searchfield", searchfield[i].ToString());
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ArrayList row = new ArrayList();
+                            row.Add(reader.GetInt32(reader.GetOrdinal("fileID")));
+                            row.Add(reader.GetString(reader.GetOrdinal("fileName")));
+                            row.Add(reader.GetString(reader.GetOrdinal("fileSize")));
+                            row.Add(reader.GetString(reader.GetOrdinal("dateCreated")));
+                            row.Add(reader.GetString(reader.GetOrdinal("fileOwnerID")));
+                            row.Add(reader.GetString(reader.GetOrdinal("fileOwner")));
+                            row.Add(reader.GetString(reader.GetOrdinal("Description")));
+                            dataFilesGrid.Rows.Add(row.ToArray());
+                        }
+
+                        if (reader != null)
+                            reader.Close();
+                    }
+                }
+            }
+        }
+
         //accountgrid buttons
         private void dataFilesGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -416,6 +474,51 @@ namespace DataAsGuard.Profiles.Admin
 
         }
 
+        //account fields filter
+        private void filesFilter_TextChanged(object sender, EventArgs e)
+        {
+            string filesvalue = filesList.Text.ToString();
+            string searchfield = filesFilter.Text;
+            ArrayList fileid = new ArrayList();
+            if (dataFilesGrid.RowCount == 0)
+            {
+                retrieveFiles();
+            }
+            for (int i = 0; i < dataFilesGrid.RowCount; i++)
+            {
+                 if (filesvalue == "Filename")
+                 {
+                    if (dataFilesGrid.Rows[i].Cells[1].Value.ToString().Contains(searchfield))
+                    {
+                        fileid.Add(dataFilesGrid.Rows[i].Cells[0].Value.ToString());
+                    }
+                 }
+                else if (filesvalue == "FileOwner")
+                {
+                    if (dataFilesGrid.Rows[i].Cells[5].Value.ToString().Contains(searchfield))
+                    {
+                        fileid.Add(dataFilesGrid.Rows[i].Cells[0].Value.ToString());
+                    }
+                }
+                else if (filesvalue == "Fileownerid")
+                {
+                    if (dataFilesGrid.Rows[i].Cells[4].Value.ToString().Contains(searchfield))
+                    {
+                        fileid.Add(dataFilesGrid.Rows[i].Cells[0].Value.ToString());
+                    }
+                }
+            }
+            if(filesvalue == "" || filesvalue == null)
+            {
+                
+            }
+            else
+            {
+                dataFilesGrid.Rows.Clear();
+                dataFilesGrid.Refresh();
+                retrieveFiles2(filesvalue, fileid);
+            }
+        }
 
 
         //LOGS!!!
