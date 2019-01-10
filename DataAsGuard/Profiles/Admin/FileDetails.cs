@@ -51,6 +51,7 @@ namespace DataAsGuard.Profiles.Admin
                         dateCreated.Text = reader.GetString(reader.GetOrdinal("dateCreated"));
                         //description.Text = reader.GetString(reader.GetOrdinal("description"));
                         fileSize.Text = reader.GetString(reader.GetOrdinal("fileSize"));
+                        fileLock.Text = reader.GetString(reader.GetOrdinal("fileLock"));
                         if (reader.IsDBNull(reader.GetOrdinal("description")))
                         {
                             description.Text = "NULL";
@@ -128,6 +129,35 @@ namespace DataAsGuard.Profiles.Admin
             }
         }
 
+        private void Lockbtn_Click(object sender, EventArgs e)
+        {
+            //UPDATE Lock TO DATABASE
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                string queryStr = "";
+                queryStr = "UPDATE fileInfo set fileLock=@fileLock where fileID = @fileID";
+
+                MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
+                if (fileLock.Text == "2")
+                {
+                    //lock to unlock
+                    cmd.Parameters.AddWithValue("@fileLock", "0");
+                    dblog.fileLog("File status changed(Lock -> Unlock) by Admin", "Files", Logininfo.userid, Logininfo.email, AdminSession.fileID);
+                }
+                else if (fileLock.Text == "0")
+                {
+                    //unlock to lock
+                    cmd.Parameters.AddWithValue("@fileLock", "2");
+                    dblog.fileLog("file status changed(Unlock -> Lock) by Admin", "Files", Logininfo.userid, Logininfo.email, AdminSession.fileID);
+                }
+                cmd.Parameters.AddWithValue("@fileID", AdminSession.fileID);
+                cmd.ExecuteReader();
+                con.Close();
+            }
+            userfilesRetrieval();
+        }
+
         private void chgpass_Click(object sender, EventArgs e)
         {
             AdminChangePassword chgpassword = new AdminChangePassword();
@@ -176,5 +206,6 @@ namespace DataAsGuard.Profiles.Admin
             Hide();
         }
 
+       
     }
 }

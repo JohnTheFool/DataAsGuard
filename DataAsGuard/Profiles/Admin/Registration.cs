@@ -184,7 +184,7 @@ namespace DataAsGuard.Profiles.Admin
                 
             }
             //log the registration done by the admin
-            dblog.Log("User account "+username+" registered", "Registeration", Logininfo.userid, Logininfo.email);
+            dblog.Log("User account "+username+" registered", "Registration", Logininfo.userid, Logininfo.email);
         }
 
         //hash password

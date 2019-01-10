@@ -52,7 +52,7 @@ namespace DataAsGuard.Profiles.Users
                 }
                 else
                 {
-                    changePasswordConfirmation changePasswordConfirmation = new changePasswordConfirmation();
+                    changePasswordRegistration changePasswordConfirmation = new changePasswordRegistration();
                     changePasswordConfirmation.Show();
                     Hide();
                 }

@@ -386,12 +386,12 @@
             this.logTypeList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.logTypeList.FormattingEnabled = true;
             this.logTypeList.Items.AddRange(new object[] {
-            "LogonSuccess",
+            "All",
             "LogonFailure",
-            "Accounts",
-            "Error",
+            "LogonSuccess",
             "Registration",
-            "SystemError"});
+            "Accounts",
+            "Error"});
             this.logTypeList.Location = new System.Drawing.Point(69, 28);
             this.logTypeList.Name = "logTypeList";
             this.logTypeList.Size = new System.Drawing.Size(121, 24);

@@ -459,7 +459,7 @@ namespace DataAsGuard.Profiles.Admin
                 e.RowIndex >= 0 && e.ColumnIndex == 7)
             {
                 DataGridViewRow row = new DataGridViewRow();
-                row = dataAccountGrid.Rows[e.RowIndex];
+                row = dataFilesGrid.Rows[e.RowIndex];
                 //TODO - Button Clicked - Execute Code Here
                 //MessageBox.Show(row.Cells[0].Value.ToString());
 
@@ -547,7 +547,7 @@ namespace DataAsGuard.Profiles.Admin
             dataLogGrid.AllowUserToAddRows = false;
             dataLogGrid.AllowUserToDeleteRows = false;
 
-            dataLogGrid.ColumnCount = 6;
+            dataLogGrid.ColumnCount = 7;
             dataLogGrid.Columns[0].Name = "Logid";
             dataLogGrid.Columns[1].Name = "Loginfo";
             dataLogGrid.Columns[2].Name = "Logtype";
@@ -617,55 +617,61 @@ namespace DataAsGuard.Profiles.Admin
         //log with filter by type
         private void userLogRetrieval2(string type)
         {
-
-            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            if (type == "All")
             {
-                con.Open();
-                String query = "SELECT * FROM logInfo where logType = @logtype";
-                MySqlCommand command = new MySqlCommand(query, con);
-                command.Parameters.AddWithValue("@logtype", type);
-                using (MySqlDataReader reader = command.ExecuteReader())
+                userLogRetrieval();
+            }
+            else
+            {
+                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
                 {
-                    while (reader.Read())
+                    con.Open();
+                    String query = "SELECT * FROM logInfo where logType = @logtype";
+                    MySqlCommand command = new MySqlCommand(query, con);
+                    command.Parameters.AddWithValue("@logtype", type);
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        ArrayList row = new ArrayList();
-                        row.Add(reader.GetInt32(reader.GetOrdinal("logid")));
-                        row.Add(reader.GetString(reader.GetOrdinal("loginfo")));
-                        row.Add(reader.GetString(reader.GetOrdinal("logtype")));
-                        row.Add(reader.GetString(reader.GetOrdinal("logdatetime")));
-                        //userid
-                        if (reader.IsDBNull(reader.GetOrdinal("userid")))
+                        while (reader.Read())
                         {
-                            row.Add("Null");
-                        }
-                        else
-                        {
-                            row.Add(reader.GetString(reader.GetOrdinal("userid")));
-                        }
-                        //email
-                        if (reader.IsDBNull(reader.GetOrdinal("email")))
-                        {
-                            row.Add("Null");
-                        }
-                        else
-                        {
-                            row.Add(reader.GetString(reader.GetOrdinal("email")));
-                        }
-                        //fileID
-                        if (reader.IsDBNull(reader.GetOrdinal("fileID")))
-                        {
-                            row.Add("Null");
-                        }
-                        else
-                        {
-                            row.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                            ArrayList row = new ArrayList();
+                            row.Add(reader.GetInt32(reader.GetOrdinal("logid")));
+                            row.Add(reader.GetString(reader.GetOrdinal("loginfo")));
+                            row.Add(reader.GetString(reader.GetOrdinal("logtype")));
+                            row.Add(reader.GetString(reader.GetOrdinal("logdatetime")));
+                            //userid
+                            if (reader.IsDBNull(reader.GetOrdinal("userid")))
+                            {
+                                row.Add("Null");
+                            }
+                            else
+                            {
+                                row.Add(reader.GetString(reader.GetOrdinal("userid")));
+                            }
+                            //email
+                            if (reader.IsDBNull(reader.GetOrdinal("email")))
+                            {
+                                row.Add("Null");
+                            }
+                            else
+                            {
+                                row.Add(reader.GetString(reader.GetOrdinal("email")));
+                            }
+                            //fileID
+                            if (reader.IsDBNull(reader.GetOrdinal("fileID")))
+                            {
+                                row.Add("Null");
+                            }
+                            else
+                            {
+                                row.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                            }
+
+                            dataLogGrid.Rows.Add(row.ToArray());
                         }
 
-                        dataLogGrid.Rows.Add(row.ToArray());
+                        if (reader != null)
+                            reader.Close();
                     }
-
-                    if (reader != null)
-                        reader.Close();
                 }
             }
         }
@@ -674,7 +680,7 @@ namespace DataAsGuard.Profiles.Admin
         private void logsFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             string logListvalue = logTypeList.Text.ToString();
-            if (dataAccountGrid.RowCount == 0)
+            if (dataLogGrid.RowCount == 0)
             {
                 retrieveLogs();
             }
