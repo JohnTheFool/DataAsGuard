@@ -25,6 +25,7 @@ namespace DataAsGuard.Profiles.Admin
         string emails, password, Firstname, Lastname;
         DBLogger dblog = new DBLogger();
         static string username;
+
         public Registration()
         {
             InitializeComponent();
@@ -164,13 +165,23 @@ namespace DataAsGuard.Profiles.Admin
             string dob = dateTimePicker1.Text;
             
             AesEncryption aes = new AesEncryption();
-            
-            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            if (checkEmail())
             {
-                con.Open();
-                //String query = "INSERT into Userinfo(phoneno., email, firstname, lastname, dob, username, password) values(@contact, @email, @firstName, @Lastname, @DOB, @userName, @hashedPassword)";
-                String query = "INSERT into Userinfo(username, password, email, firstname, lastname, fullName, dob, contact) values(@userName, @hashedPassword, @email, @firstName, @Lastname, @fullName, @DOB, @contact)";
-                MySqlCommand cmd = new MySqlCommand(query, con);
+                if (checkEmail())
+                {
+                    validation.Show();
+                    validation.ForeColor = Color.ForestGreen;
+                    validation.Text = "Email has been used";
+                }
+            }
+            else
+            {
+                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                {
+                    con.Open();
+                    //String query = "INSERT into Userinfo(phoneno., email, firstname, lastname, dob, username, password) values(@contact, @email, @firstName, @Lastname, @DOB, @userName, @hashedPassword)";
+                    String query = "INSERT into Userinfo(username, password, email, firstname, lastname, fullName, dob, contact) values(@userName, @hashedPassword, @email, @firstName, @Lastname, @fullName, @DOB, @contact)";
+                    MySqlCommand cmd = new MySqlCommand(query, con);
 
                     cmd.Parameters.AddWithValue("@contact", aes.Encryptstring2(phoneNo, dob));
                     cmd.Parameters.AddWithValue("@email", aes.Encryptstring2(email, dob));
@@ -178,10 +189,11 @@ namespace DataAsGuard.Profiles.Admin
                     cmd.Parameters.AddWithValue("@Lastname", lastname);
                     cmd.Parameters.AddWithValue("@fullName", firstname + " " + lastname);
                     cmd.Parameters.AddWithValue("@DOB", dob);
-                    cmd.Parameters.AddWithValue("@userName", aes.Encryptstring2(username,dob));
+                    cmd.Parameters.AddWithValue("@userName", aes.Encryptstring2(username, dob));
                     cmd.Parameters.AddWithValue("@hashedPassword", hashpassword);
                     cmd.ExecuteReader();
-                
+
+                }
             }
             //log the registration done by the admin
             dblog.Log("User account "+username+" registered", "Registration", Logininfo.userid, Logininfo.email);
@@ -232,11 +244,48 @@ namespace DataAsGuard.Profiles.Admin
             }
             else if (Email.Text != string.Empty && match.Success)
             {
-                //"Please insert a proper email",
+                if (checkEmail())
+                {
+                    validateEmail.Show();
+                    validateEmail.ForeColor = Color.ForestGreen;
+                    validateEmail.Text = "Email has been used";
+                }
+                else
+                { 
+                //"Email Validated and ok",
                 validateEmail.Show();
                 validateEmail.ForeColor = Color.ForestGreen;
                 validateEmail.Text = "Email Validated";
+                }
             }
+        }
+
+        //retrieval of email
+        private bool checkEmail()
+        {
+            AesEncryption aes = new AesEncryption();
+            bool exist = false;
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM Userinfo";
+                MySqlCommand command = new MySqlCommand(query, con);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if(Email.Text == aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid"))))
+                        {
+                            exist = true;
+                        }
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+            return exist;
         }
 
         //validatenumber

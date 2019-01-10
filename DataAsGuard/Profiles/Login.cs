@@ -9,6 +9,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,7 +49,9 @@ namespace DataAsGuard.Profiles
             int passwordcheck = 1;
             string email = null;
             string checkvflag = null;
-            
+            string fname = null;
+            string lname = null;
+
             if (sw.IsRunning == true)
             {
                 //only calculate when the account is log or to put a timer inbetween fail attempts
@@ -222,6 +225,7 @@ namespace DataAsGuard.Profiles
                                             }
                                             //lock account
                                             LockAccount(userid);
+                                            sendMsg(email, password, fname, lname, username);
                                             dblog.Log("User Account Locked due to Multiple Failures: " + username, "LogonFailure", userid.ToString(), email);
                                             dblog.Log("Account status changed (T -> L)", "Accounts", userid.ToString(), email);
                                         }
@@ -306,5 +310,58 @@ namespace DataAsGuard.Profiles
                 con.Close();
             }
        }
+
+        //SMTP PROTOCOL AFTER REGISTERING
+        public static void sendMsg(string Email, string Password, string Firstname, string Lastname, string username)
+        {
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 25;
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.EnableSsl = true;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new System.Net.NetworkCredential("dataasguard@gmail.com", "DataAsguard123");
+
+            MailMessage msg = new MailMessage();
+            msg.Subject = "Hello " + username + "";
+            msg.Body = "Hello " + Firstname + " " + Lastname + ", Your Account has been LOCKED due to multiple failed attempts!";
+
+            msg.Body += "<tr>";
+            msg.Body += "<td>Please contact the IT support to assist in this situation!</td>";
+            msg.Body += "</tr>";
+
+            msg.Body += "<tr>";
+            msg.Body += "<td>If you are not the owner of the account pls ignore this message.</td>";
+            msg.Body += "</tr>";
+
+            msg.Body += "<tr>";
+            msg.Body += "<td></br></td>";
+            msg.Body += "</tr>";
+
+            msg.Body += "<tr>";
+            msg.Body += "<td>Thank you, </td>";
+            msg.Body += "</tr>";
+
+            msg.Body += "<tr>";
+            msg.Body += "<td>Team DataAsguardians.</td>";
+            msg.Body += "</tr>";
+
+            string toAddress = Email; //RECIPIENT EMAIL
+            msg.To.Add(toAddress);
+
+            string fromAddress = "\"DataAsguard \" dataasguard@gmail.com";
+            msg.From = new MailAddress(fromAddress);
+            msg.IsBodyHtml = true;
+
+            try
+            {
+                smtp.Send(msg);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
     }
 }
