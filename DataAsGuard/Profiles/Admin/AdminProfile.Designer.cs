@@ -60,11 +60,22 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.dataLogGrid = new System.Windows.Forms.DataGridView();
             this.label28 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.removeIP = new System.Windows.Forms.Button();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.removeIPbox = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.authoriseIP = new System.Windows.Forms.Button();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.ipBox = new System.Windows.Forms.TextBox();
             this.AddUser = new System.Windows.Forms.Button();
             this.AdminHome = new System.Windows.Forms.Button();
             this.Logout = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.changePassword = new System.Windows.Forms.Button();
+            this.dataAuthoriseIPGrid = new System.Windows.Forms.DataGridView();
             this.tabPage4.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataFilesGrid)).BeginInit();
@@ -81,6 +92,11 @@
             this.tabPage2.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLogGrid)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataAuthoriseIPGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage4
@@ -360,6 +376,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(60, 98);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
@@ -427,6 +444,115 @@
             this.label28.TabIndex = 3;
             this.label28.Text = "Filter";
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.panel8);
+            this.tabPage5.Controls.Add(this.removeIP);
+            this.tabPage5.Controls.Add(this.tableLayoutPanel4);
+            this.tabPage5.Controls.Add(this.authoriseIP);
+            this.tabPage5.Controls.Add(this.tableLayoutPanel2);
+            this.tabPage5.Location = new System.Drawing.Point(4, 25);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(764, 447);
+            this.tabPage5.TabIndex = 5;
+            this.tabPage5.Text = "Authorised IP Address";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.dataAuthoriseIPGrid);
+            this.panel8.Location = new System.Drawing.Point(6, 124);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(752, 317);
+            this.panel8.TabIndex = 7;
+            // 
+            // removeIP
+            // 
+            this.removeIP.Location = new System.Drawing.Point(663, 73);
+            this.removeIP.Name = "removeIP";
+            this.removeIP.Size = new System.Drawing.Size(95, 30);
+            this.removeIP.TabIndex = 6;
+            this.removeIP.Text = "Remove";
+            this.removeIP.UseVisualStyleBackColor = true;
+            this.removeIP.Click += new System.EventHandler(this.removeIP_Click);
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.69697F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.30303F));
+            this.tableLayoutPanel4.Controls.Add(this.removeIPbox, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label10, 0, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(22, 65);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(635, 53);
+            this.tableLayoutPanel4.TabIndex = 5;
+            // 
+            // removeIPbox
+            // 
+            this.removeIPbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.removeIPbox.Location = new System.Drawing.Point(191, 15);
+            this.removeIPbox.Name = "removeIPbox";
+            this.removeIPbox.Size = new System.Drawing.Size(441, 23);
+            this.removeIPbox.TabIndex = 1;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(105, 18);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(80, 17);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Remove IP:";
+            // 
+            // authoriseIP
+            // 
+            this.authoriseIP.Location = new System.Drawing.Point(663, 17);
+            this.authoriseIP.Name = "authoriseIP";
+            this.authoriseIP.Size = new System.Drawing.Size(95, 30);
+            this.authoriseIP.TabIndex = 4;
+            this.authoriseIP.Text = "Authorise";
+            this.authoriseIP.UseVisualStyleBackColor = true;
+            this.authoriseIP.Click += new System.EventHandler(this.authoriseIP_Click);
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.69697F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.30303F));
+            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.ipBox, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(22, 6);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(635, 53);
+            this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(97, 18);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(88, 17);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Authorise IP:";
+            // 
+            // ipBox
+            // 
+            this.ipBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ipBox.Location = new System.Drawing.Point(191, 15);
+            this.ipBox.Name = "ipBox";
+            this.ipBox.Size = new System.Drawing.Size(441, 23);
+            this.ipBox.TabIndex = 1;
+            // 
             // AddUser
             // 
             this.AddUser.Image = ((System.Drawing.Image)(resources.GetObject("AddUser.Image")));
@@ -480,6 +606,19 @@
             this.changePassword.UseVisualStyleBackColor = true;
             this.changePassword.Click += new System.EventHandler(this.changePassword_Click);
             // 
+            // dataAuthoriseIPGrid
+            // 
+            this.dataAuthoriseIPGrid.AllowUserToAddRows = false;
+            this.dataAuthoriseIPGrid.AllowUserToDeleteRows = false;
+            this.dataAuthoriseIPGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataAuthoriseIPGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataAuthoriseIPGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataAuthoriseIPGrid.Location = new System.Drawing.Point(0, 0);
+            this.dataAuthoriseIPGrid.Name = "dataAuthoriseIPGrid";
+            this.dataAuthoriseIPGrid.ReadOnly = true;
+            this.dataAuthoriseIPGrid.Size = new System.Drawing.Size(752, 317);
+            this.dataAuthoriseIPGrid.TabIndex = 0;
+            // 
             // AdminProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -519,6 +658,13 @@
             this.tabPage2.PerformLayout();
             this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataLogGrid)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataAuthoriseIPGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -561,5 +707,16 @@
         private System.Windows.Forms.ComboBox logTypeList;
         private System.Windows.Forms.ComboBox filesList;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox ipBox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TextBox removeIPbox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button authoriseIP;
+        private System.Windows.Forms.Button removeIP;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.DataGridView dataAuthoriseIPGrid;
     }
 }

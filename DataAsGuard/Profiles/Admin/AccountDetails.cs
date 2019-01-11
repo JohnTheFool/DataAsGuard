@@ -159,7 +159,20 @@ namespace DataAsGuard.Profiles.Admin
                 }
                 else
                 {
-                    //DeleteAccount
+                    DialogResult dialogResult = MessageBox.Show("Delete the account?", "Are you sure?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                        {
+                            con.Open();
+                            //delete userInfo
+                            string deleteaccountQuery = "DELETE FROM Userinfo WHERE userid = @userid";
+                            MySqlCommand deleteaccount = new MySqlCommand(deleteaccountQuery, con);
+                            deleteaccount.Parameters.AddWithValue("@userid", AdminSession.userid);
+                            deleteaccount.ExecuteNonQuery();
+                            //may add deletion for other info relating to the user
+                        }
+                    }
                 }
             }
         }

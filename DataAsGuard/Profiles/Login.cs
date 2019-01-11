@@ -9,6 +9,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
@@ -51,6 +52,9 @@ namespace DataAsGuard.Profiles
             string checkvflag = null;
             string fname = null;
             string lname = null;
+            string ipaddress = null;
+
+            ArrayList iplist = GetAuthoriseIPAddressList();
 
             if (sw.IsRunning == true)
             {
@@ -87,28 +91,37 @@ namespace DataAsGuard.Profiles
             {
                 if (username != "" && password != "")
                 {
-                    using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                    try
                     {
-                        con.Open();
-                        string selectQuery = "SELECT * FROM Userinfo";
-                        MySqlCommand cmd = new MySqlCommand(selectQuery, con);
-                        MySqlDataReader reader = cmd.ExecuteReader();
-                        while (reader.HasRows && reader.Read())
+                        using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
                         {
-                            if (username == aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid"))))
+                            con.Open();
+                            string selectQuery = "SELECT * FROM Userinfo";
+                            MySqlCommand cmd = new MySqlCommand(selectQuery, con);
+                            MySqlDataReader reader = cmd.ExecuteReader();
+                            while (reader.HasRows && reader.Read())
                             {
-                                userid = reader.GetInt32(reader.GetOrdinal("userid"));
-                                befencryptedUsername = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid")));
-                                email = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid")));
-                                //compare hash password
-                                hashpassword = reader.GetString(reader.GetOrdinal("password"));
-                                checkvflag = reader.GetString(reader.GetOrdinal("verificationflag"));
-                                break;
+                                if (username == aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid"))))
+                                {
+                                    userid = reader.GetInt32(reader.GetOrdinal("userid"));
+                                    befencryptedUsername = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid")));
+                                    email = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid")));
+                                    //compare hash password
+                                    hashpassword = reader.GetString(reader.GetOrdinal("password"));
+                                    checkvflag = reader.GetString(reader.GetOrdinal("verificationflag"));
+                                   
+                                    break;
+                                }
+                                //MessageBox.Show(userbirthdate);
                             }
-                            //MessageBox.Show(userbirthdate);
-                        }
 
-                        con.Close();
+                            con.Close();
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                        dblog.Log(ex.ToString(), "Error", "Null", "Null");
                     }
                     
                     //check if the email can be found in db
@@ -149,10 +162,10 @@ namespace DataAsGuard.Profiles
                             failedLockCounter += 1;
                             FailureAttempts = 0;
                         }
-                        //log wrong password attempts on wrong email.
-                        dblog.Log("Failure Login User (Wrong username): " + username, "LogonFailure", "null", "null");
+                        //log wrong password attempts on wrong username.
+                        dblog.Log("Failure to Login User (Wrong username): " + username, "LogonFailure", "null", "null");
                     }
-                    //if email found check if it is lock and correct password
+                    //if email found, check if it is lock account and whether it has the correct password
                     else
                     {
                         if (checkvflag == "L")
@@ -185,7 +198,7 @@ namespace DataAsGuard.Profiles
                                     validation.Text = "Incorrect Email or Password.";
                                     passwordcheck = 0;
                                     //log if wrong password for particular user.
-                                    dblog.Log("Failure Login User (Wrong Password): " + username, "LogonFailure", userid.ToString(), email);
+                                    dblog.Log("Failure to Login User (Wrong Password): " + username, "LogonFailure", userid.ToString(), email);
 
                                     //if fail logon due to password with username
                                     //Add username into array which act as a counter if more than 6 of the same username appear in the array that the user key in the text field
@@ -236,6 +249,7 @@ namespace DataAsGuard.Profiles
                         }
                     }
 
+                    //if Everything is correct
                     if (passwordcheck == 1 && username == befencryptedUsername)
                     {
                         //if the userid == 1, which is the admin userid
@@ -251,38 +265,49 @@ namespace DataAsGuard.Profiles
                         }
                         else
                         {
-                            //F if have not change passwords
-                            if (checkvflag == "F")
-                            {
-                                Logininfo.userid = userid.ToString();
-                                Logininfo.username = username;
-                                Logininfo.email = email;
-                                dblog.Log("First Time Login User: " + username, "LogonSuccess", userid.ToString(), email);
-                                Users.ConfirmationDetails register = new Users.ConfirmationDetails(); // If status is Not completed
-                                register.Show();
-                                Hide();
-                            }
-                            //T if have verification and change password.
-                            else if (checkvflag == "T")
-                            {
-                                Logininfo.userid = userid.ToString();
-                                Logininfo.username = username;
-                                Logininfo.email = email;
-                                dblog.Log("Login User: " + username, "LogonSuccess", userid.ToString(), email);
-                                Users.Profile profile = new Users.Profile();
-                                profile.Show();
-                                Hide();
-                            }
-                            //L for Lock Account
-                            else if (checkvflag == "L")
-                            {
-                                validation.Show();
-                                validation.ForeColor = Color.Red;
-                                validation.Text = "Your Account has been Lock due to Suspicious Activity.";
-                            }
+                            //the for loop is to loop for authoriseIP address
+                            //for(int i = 0; i< iplist.Count; i++)
+                            //{
+                                //ipaddress = GetIPAddress();
+                                //if (ipaddress == iplist[i].ToString())
+                                //{
+                                    //F if have not change passwords
+                                    if (checkvflag == "F")
+                                    {
+                                        Logininfo.userid = userid.ToString();
+                                        Logininfo.username = username;
+                                        Logininfo.email = email;
+                                        dblog.Log("First Time Login User: " + username, "LogonSuccess", userid.ToString(), email);
+                                        Users.ConfirmationDetails register = new Users.ConfirmationDetails(); // If status is Not completed
+                                        register.Show();
+                                        Hide();
+                                    }
+                                    //T if have verification and change password.
+                                    else if (checkvflag == "T")
+                                    {
+                                        Logininfo.userid = userid.ToString();
+                                        Logininfo.username = username;
+                                        Logininfo.email = email;
+                                        dblog.Log("Login User: " + username, "LogonSuccess", userid.ToString(), email);
+                                        Users.Profile profile = new Users.Profile();
+                                        profile.Show();
+                                        Hide();
+                                    }
+                                    //L for Lock Account
+                                    else if (checkvflag == "L")
+                                    {
+                                        validation.Show();
+                                        validation.ForeColor = Color.Red;
+                                        validation.Text = "Your Account has been Lock due to Suspicious Activity.";
+                                    }
+                                //}
+                                //else
+                                //{
+                                //    MessageBox.Show("Your IP address is not authorised");
+                                //}
+                            //}
                         }
                     }
-
                 }
                 else
                 {
@@ -293,7 +318,7 @@ namespace DataAsGuard.Profiles
             }
         }
 
-       public void LockAccount(int userid)
+        public void LockAccount(int userid)
        {
             //UPDATE PASSWORD TO DATABASE
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
@@ -363,5 +388,38 @@ namespace DataAsGuard.Profiles
                 throw;
             }
         }
+
+        //IPAddress of the computer
+        protected string GetIPAddress()
+        {
+            string myHost = Dns.GetHostName();
+            string myIP = Dns.GetHostByName(myHost).AddressList[0].ToString();
+
+            return myIP;
+        }
+
+        //IPAddress of the authorisedIP
+        protected ArrayList GetAuthoriseIPAddressList()
+        {
+            ArrayList IPList = new ArrayList();
+
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                string selectQuery = "SELECT * FROM authoriseIP";
+                MySqlCommand cmd = new MySqlCommand(selectQuery, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.HasRows && reader.Read())
+                {
+                    IPList.Add(reader.GetString(reader.GetOrdinal("authoriseIP")));
+                    //MessageBox.Show(userbirthdate);
+                }
+
+                con.Close();
+            }
+
+            return IPList;
+        }
+
     }
 }

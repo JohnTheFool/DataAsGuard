@@ -12,6 +12,7 @@ using System.Configuration;
 using MySql.Data.MySqlClient;
 using nClam;
 using System.Diagnostics;
+using System.Net;
 
 namespace DataAsGuard
 {
@@ -74,6 +75,19 @@ namespace DataAsGuard
                     MessageBox.Show("Woah an error occured! Error: {0}", scanResult.RawResult);
                     break;
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(GetIPAddress());
+        }
+
+        protected string GetIPAddress()
+        {
+            string myHost = Dns.GetHostName();
+            string myIP = Dns.GetHostByName(myHost).AddressList[0].ToString();
+
+            return myIP;
         }
     }
 }
