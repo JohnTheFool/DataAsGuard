@@ -160,12 +160,12 @@ namespace DataAsGuard.FileManagement
                 }
                 else
                 {
-                    
+                    File.WriteAllBytes(tempFileName, fileBytes);
+                    var process = Process.Start(tempFileName);
+                    process.Exited += new EventHandler(process_Exited);
                 }
             }
-            File.WriteAllBytes(tempFileName, fileBytes);
-            var process = Process.Start(tempFileName);
-            process.Exited += new EventHandler(process_Exited);
+
             
         }
             //using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
@@ -491,6 +491,10 @@ namespace DataAsGuard.FileManagement
                                 MessageBox.Show("File Downloaded!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 break;
                             case ".png":
+                                imgDownload(tempFileName, sfd.FileName);
+                                MessageBox.Show("File Downloaded!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
+                            case ".jpg":
                                 imgDownload(tempFileName, sfd.FileName);
                                 MessageBox.Show("File Downloaded!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 break;
