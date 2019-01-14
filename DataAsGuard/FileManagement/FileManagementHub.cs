@@ -25,6 +25,7 @@ namespace DataAsGuard.FileManagement
     {
         private Bitmap bmp = null;
         public Image GetImg { get; set; }
+        string tempFileName;
         int fileID = 0;
         public FileManagementHub()
         {
@@ -96,14 +97,9 @@ namespace DataAsGuard.FileManagement
             }
         }
 
-
-
-
         //public string nameOfFile { get; set; }
         //public string fileExtension { get;  set; }
-
         //public string tempFileName { get; set; }
-
         //public string bobo { get; set; }
 
 
@@ -111,7 +107,7 @@ namespace DataAsGuard.FileManagement
         {
             string nameOfFile = fileList.SelectedItem.ToString();
             string fileExtension = Path.GetExtension(nameOfFile);
-            string tempFileName = System.IO.Path.GetTempFileName() + "." + fileExtension;
+            tempFileName = Path.GetTempFileName() + "." + fileExtension;
 
             byte[] fileBytes = new byte[] { 0x0 };
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
@@ -164,12 +160,13 @@ namespace DataAsGuard.FileManagement
                 }
                 else
                 {
+                    //CHECK THIS!!
                     var process = Process.Start(tempFileName);
                     process.Exited += (s, ev) => File.Delete(tempFileName);
                 }
             }
-            File.WriteAllBytes(temporaryFileName, fileBytes);
-            var process = Process.Start(temporaryFileName);
+            File.WriteAllBytes(tempFileName, fileBytes);
+            var process = Process.Start(tempFileName);
             process.Exited += new EventHandler(process_Exited);
             
         }
@@ -265,7 +262,7 @@ namespace DataAsGuard.FileManagement
 
         private void process_Exited(object s, EventArgs e)
         {
-            File.Delete(temporaryFileName);
+            File.Delete(tempFileName);
         }
 
         private void deleteFileButton_Click(object sender, EventArgs e)
