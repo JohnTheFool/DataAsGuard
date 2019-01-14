@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAsGuard;
+using Steganography;
 
 namespace DataAsGuard.ImgViewer
 {
     public partial class ImgViewerForm : Form
     {
-        Image imgOriginal;  //Delcare imgOriginal Variable
+        private Bitmap bmp = null;
+        private string extractedText = string.Empty;
+        public string path { get; set; }
+        public Image imgOriginal { get; set; }  //Delcare imgOriginal Variable
         public ImgViewerForm()
         {
             InitializeComponent();
@@ -78,6 +83,8 @@ namespace DataAsGuard.ImgViewer
 
         private void ImgViewerForm_Load(object sender, EventArgs e)
         {
+            showPic.Image = Image.FromFile(this.path);
+            imgOriginal = showPic.Image;
             //this.TopMost = true;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.WindowState = FormWindowState.Maximized;
@@ -93,6 +100,38 @@ namespace DataAsGuard.ImgViewer
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void downloadBtn_Click(object sender, EventArgs e)
+        {
+            //Hide Text
+            string text = DataAsGuard.CSClass.Logininfo.username;
+            string password = "Ilovethispic123";
+            bmp = (Bitmap)showPic.Image;
+            text = Crypto.EncryptStringAES(text, password);
+            bmp = SteganographyHelper.embedText(text, bmp);
+
+            //Save image
+            SaveFileDialog save_dialog = new SaveFileDialog();
+            save_dialog.Filter = "Png Image|*.png|Bitmap Image|*.bmp";
+
+            if (save_dialog.ShowDialog() == DialogResult.OK)
+            {
+                switch (save_dialog.FilterIndex)
+                {
+                    case 0:
+                        {
+                            bmp.Save(save_dialog.FileName, ImageFormat.Png);
+                        }
+                        break;
+                    case 1:
+                        {
+                            bmp.Save(save_dialog.FileName, ImageFormat.Bmp);
+                        }
+                        break;
+                }
+
+            }
         }
     }
 }

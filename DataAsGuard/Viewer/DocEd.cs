@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,15 +10,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAsGuard;
-using Microsoft.Office.Interop.Word;
+using DataAsGuard.FileManagement;
+using DataAsGuard.Profiles;
+using Word = Microsoft.Office.Interop.Word;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using MySql.Data.MySqlClient;
+using Microsoft.Office.Interop.Word;
 
 namespace DataAsGuard.Viewer
 {
     public partial class DocEd : Form
     {
+        public string GetText { get; set; }
+
+        public string GetUsername { get; set; }
+
         public DocEd()
         {
             InitializeComponent();
@@ -130,7 +138,42 @@ namespace DataAsGuard.Viewer
 
         private void DocEd_Load(object sender, EventArgs e)
         {
-            this.ActiveControl = rtfBox;
+            rtfBox.Text = this.GetText;
+            //FileManagement.FileManagementHub n = new FileManagement.FileManagementHub();
+            //string something = n.store;
+            //Console.WriteLine(something);
+            //MessageBox.Show(this.MyProperty);
+            //Console.WriteLine(this.MyProperty);
+            //Console.WriteLine(n.dope());
+            //string rtfbox;
+            //byte[] fileBytes = new byte[] { 0x0 };
+            //using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            //{
+            //    con.Open();
+            //    String fileQuery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+            //    MySqlCommand getFilecmd = new MySqlCommand(fileQuery, con);
+            //    getFilecmd.Parameters.AddWithValue("@nameParam", n.nameOfFile);
+            //    MySqlDataReader reader = getFilecmd.ExecuteReader();
+            //    if (reader.Read())
+            //    {
+            //        fileBytes = (byte[])reader["file"];
+            //        Console.WriteLine(fileBytes);
+            //    }
+            //    reader.Close();
+            //    string somethin = n.tempFileName + n.fileExtension;
+            //    File.WriteAllBytes(n.tempFileName, fileBytes);
+            //    Console.WriteLine(somethin);
+            //    var process = Process.Start(n.tempFileName);
+            //    process.Exited += (s, ev) => File.Delete(n.tempFileName);
+            //    var stream = new StreamReader(new MemoryStream(fileBytes));
+            //    rtfbox = stream.ReadLine();
+            //    rtfBox.Text = rtfbox;
+
+            //}
+            //rtfbox = File.ReadAllText(n.nameOfFile);
+            //Console.WriteLine(n.tempFileName);
+            //rtfBox.Text = n.bobo;
+
         }
 
         private void italicBtn_Click(object sender, EventArgs e)
@@ -180,7 +223,23 @@ namespace DataAsGuard.Viewer
             rtfBox.Select(selstart, sellength);
         }
 
-        private void CreateDocument(string header, string footer, string content)
+        public string ReadDocument(object path)
+        {
+            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+            object miss = System.Reflection.Missing.Value;
+            object readOnly = true;
+            Microsoft.Office.Interop.Word.Document docs = word.Documents.Open(ref path, ref miss, ref readOnly, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss);
+            string totaltext = "";
+            for (int i = 0; i < docs.Paragraphs.Count; i++)
+            {
+                totaltext += " \r\n " + docs.Paragraphs[i + 1].Range.Text.ToString();
+            }
+            docs.Close();
+            word.Quit();
+            return totaltext;
+        }
+
+        public void CreateDocument(string content, object filename)
         {
             try
             {
@@ -200,79 +259,78 @@ namespace DataAsGuard.Viewer
                 Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
 
                 //Add header into the document
-                foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
-                {
-                    //Get the header range and add the header details.
-                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-                    headerRange.Font.Size = 10;
-                    headerRange.Text = header;
-                }
+                //foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+                //{
+                //    //Get the header range and add the header details.
+                //    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                //    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                //    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                //    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+                //    headerRange.Font.Size = 10;
+                //    headerRange.Text = header;
+                //}
 
                 //Add the footers into the document
-                foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
-                {
-                    //Get the footer range and add the footer details.
-                    Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
-                    footerRange.Font.Size = 10;
-                    footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = footer;
-                }
+                //foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
+                //{
+                //    //Get the footer range and add the footer details.
+                //    Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                //    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
+                //    footerRange.Font.Size = 10;
+                //    footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                //    footerRange.Text = footer;
+                //}
 
                 //adding text to document
                 document.Content.SetRange(0, 0);
-                document.Content.Text = "Content" + Environment.NewLine;
+                document.Content.Text = content;
 
                 //Add paragraph with Heading 1 style
-                Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading1 = "Heading 1";
-                para1.Range.set_Style(ref styleHeading1);
-                para1.Range.Text = "Para 1 text";
-                para1.Range.InsertParagraphAfter();
+                //Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+                //object styleHeading1 = "Heading 1";
+                //para1.Range.set_Style(ref styleHeading1);
+                //para1.Range.Text = "Para 1 text";
+                //para1.Range.InsertParagraphAfter();
 
-                //Add paragraph with Heading 2 style
-                Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading2 = "Heading 2";
-                para2.Range.set_Style(ref styleHeading2);
-                para2.Range.Text = "Para 2 text";
-                para2.Range.InsertParagraphAfter();
+                ////Add paragraph with Heading 2 style
+                //Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+                //object styleHeading2 = "Heading 2";
+                //para2.Range.set_Style(ref styleHeading2);
+                //para2.Range.Text = "Para 2 text";
+                //para2.Range.InsertParagraphAfter();
 
                 //Create a 5X5 table and insert some dummy record
-                Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
+                //Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
 
-                firstTable.Borders.Enable = 1;
-                foreach (Row row in firstTable.Rows)
-                {
-                    foreach (Cell cell in row.Cells)
-                    {
-                        //Header row
-                        if (cell.RowIndex == 1)
-                        {
-                            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
-                            cell.Range.Font.Bold = 1;
-                            //other format properties goes here
-                            cell.Range.Font.Name = "verdana";
-                            cell.Range.Font.Size = 10;
-                            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                            
-                            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            //Center alignment for the Header cells
-                            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                //firstTable.Borders.Enable = 1;
+                //foreach (Row row in firstTable.Rows)
+                //{
+                //    foreach (Cell cell in row.Cells)
+                //    {
+                //        //Header row
+                //        if (cell.RowIndex == 1)
+                //        {
+                //            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
+                //            cell.Range.Font.Bold = 1;
+                //            //other format properties goes here
+                //            cell.Range.Font.Name = "verdana";
+                //            cell.Range.Font.Size = 10;
+                //            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                            
+                //            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                //            //Center alignment for the Header cells
+                //            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                //            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
-                        }
-                        //Data row
-                        else
-                        {
-                            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
-                        }
-                    }
-                }
+                //        }
+                //        //Data row
+                //        else
+                //        {
+                //            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
+                //        }
+                //    }
+                //}
 
                 //Save the document
-                object filename = @"C:\\Users\\Solomon\\Documents\\test.docx";
                 document.SaveAs2(ref filename);
                 document.Close(ref missing, ref missing, ref missing);
                 document = null;
@@ -307,7 +365,7 @@ namespace DataAsGuard.Viewer
             //}
         }
 
-            private bool IsFileLock(string filePath)
+        public bool IsFileLock(string filePath)
             {
                 FileStream stream = null;
                 try
@@ -328,91 +386,75 @@ namespace DataAsGuard.Viewer
 
             private void openToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                rtfBox.Clear();
-                OpenFileDialog open_dialog = new OpenFileDialog();
-                open_dialog.Filter = "Text Files;RTF;DOCX|*.txt;*.rtf;*.docx";
-                if (open_dialog.ShowDialog() == DialogResult.OK)
+            //FileManagementHub open = new FileManagementHub();
+            //open.Show();
+            //this.Hide();
+            //string fileExtension = Path.GetExtension(nameOfFile);
+            //string tempFileName = System.IO.Path.GetTempFileName() + "." + fileExtension;
+            rtfBox.Clear();
+            OpenFileDialog open_dialog = new OpenFileDialog();
+            open_dialog.Filter = "Text Files;RTF;DOCX|*.txt;*.rtf;*.docx";
+            if (open_dialog.ShowDialog() == DialogResult.OK)
+            {
+                var extension = Path.GetExtension(open_dialog.FileName);
+                string rtfbox;
+                switch (extension.ToLower())
                 {
-                    var extension = Path.GetExtension(open_dialog.FileName);
-                    string rtfbox;
-                    switch (extension.ToLower())
-                    {
-                        case ".rtf":
-                            if (IsFileLock(open_dialog.FileName))
-                            {
-                                MessageBox.Show("File is in use!");
-                            }
-                            else
-                            {
-                                rtfbox = File.ReadAllText(open_dialog.FileName);     //Read content
-                                rtfBox.Rtf = rtfbox;                                //Display content in rtf file in rtb
-                            }
+                    case ".rtf":
+                        if (IsFileLock(open_dialog.FileName))
+                        {
+                            MessageBox.Show("File is in use!");
+                        }
+                        else
+                        {
+                            rtfbox = File.ReadAllText(open_dialog.FileName);     //Read content
+                            rtfBox.Rtf = rtfbox;                                //Display content in rtf file in rtb
+                        }
 
-                            break;
-                        case ".txt":
-                            if (IsFileLock(open_dialog.FileName))
-                            {
-                                MessageBox.Show("File is in use!");
-                            }
-                            else
-                            {
-                                rtfbox = File.ReadAllText(open_dialog.FileName);
-                                rtfBox.Text = rtfbox;
-                            }
-                            break;
-                        case ".docx":
-                            if (IsFileLock(open_dialog.FileName))
-                            {
-                                MessageBox.Show("File is in use!");
-                            }
-                            else
-                            {
-                                var applicationWord = new Microsoft.Office.Interop.Word.Application();
-                                applicationWord.Visible = true;
-                                applicationWord.Documents.Open(open_dialog.FileName);
-                            }
+                        break;
+                    case ".txt":
+                        if (IsFileLock(open_dialog.FileName))
+                        {
+                            MessageBox.Show("File is in use!");
+                        }
+                        else
+                        {
+                            rtfbox = File.ReadAllText(open_dialog.FileName);
+                            rtfBox.Text = rtfbox;
+                        }
+                        break;
+                    case ".docx":
+                        if (IsFileLock(open_dialog.FileName))
+                        {
+                            MessageBox.Show("File is in use!");
+                        }
+                        else
+                        {
+                            object readOnly = true;
+                            object fileName = open_dialog.FileName;
+                            object missing = System.Reflection.Missing.Value;
+                            var applicationWord = new Microsoft.Office.Interop.Word.Application();
+                            applicationWord.Visible = true;
+                            //object gg = applicationWord.DocumentBeforeSave();
+                            applicationWord.Options.SavePropertiesPrompt = false;
+                            applicationWord.Options.SaveNormalPrompt = false;
+                            applicationWord.DisplayAlerts = WdAlertLevel.wdAlertsNone;
+                            applicationWord.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
+                            //object doNotSaveChanges = Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges;
+                            //applicationWord.ActiveDocument.Close(ref doNotSaveChanges, ref missing, ref missing);
+                        }
 
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException(extension);
-                    }
+
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(extension);
                 }
             }
+        }
 
-            private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
+            private void saveToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents;Word Document;RTF |*.txt;*.docx;*.rtf", ValidateNames = true })
-                {
-                    if (sfd.ShowDialog() == DialogResult.OK)
-                    {
-                        var extension = Path.GetExtension(sfd.FileName);
-                        switch (extension.ToLower())
-                        {
-                            case ".rtf":
-                                rtfBox.SaveFile(sfd.FileName);
-                                MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                break;
-                            case ".txt":
-                                using (StreamWriter sw = new StreamWriter(sfd.FileName))
-                                {
-                                    await sw.WriteLineAsync(rtfBox.Text);
-                                    MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                System.Diagnostics.Process process = new System.Diagnostics.Process();
-                                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                                startInfo.FileName = "cmd.exe";
-                                //startInfo.Arguments = "/C echo 'SECRET MSG' > C:\\Users\\Solomon\\Documents\\something.txt:SOMETHING";
-                                //Write Hidden text to file
-                                startInfo.Arguments = "/C echo " + "CURRENTLY LOGGED IN USERNAME" + " > " + sfd.FileName + ":DS1";
-                                process.StartInfo = startInfo;
-                                process.Start();
-                            break;
-                            default:
-                                throw new ArgumentOutOfRangeException(extension);
-                        }
-                    }
-                }
+
             }
 
             private void testBtn_Click(object sender, EventArgs e)
@@ -465,11 +507,51 @@ namespace DataAsGuard.Viewer
                     var attrIdx = i;
 
                     attributes.Add(new Tuple<int, string, string>(attrIdx, attrName, attrValue));
-
-                    Console.WriteLine("{0}\t{1}: {2}", i, attrName, attrValue);
+                if (i <= 5 || i == 10 || i == 21 || i == 24)
+                {
+                    //Console.WriteLine("{0}\t{1}: {2}", i, attrName, attrValue);
+                    Console.WriteLine("{0}\t{1}: {2}", i+1, attrName, attrValue);
                 }
-                Console.ReadLine();
+            }
+            Console.ReadLine();
+        }
+
+        private async void downloadBtn_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine(DataAsGuard.CSClass.Logininfo.username);
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents; |*.txt;", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    var extension = Path.GetExtension(sfd.FileName);
+                    switch (extension.ToLower())
+                    {
+                        case ".rtf":
+                            rtfBox.SaveFile(sfd.FileName);
+                            MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            break;
+                        case ".txt":
+                            using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                            {
+                                await sw.WriteLineAsync(rtfBox.Text);
+                                MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            System.Diagnostics.Process process = new System.Diagnostics.Process();
+                            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                            startInfo.FileName = "cmd.exe";
+                            //startInfo.Arguments = "/C echo 'SECRET MSG' > C:\\Users\\Solomon\\Documents\\something.txt:SOMETHING";
+                            //Write Hidden text to file
+                            startInfo.Arguments = "/C echo " + DataAsGuard.CSClass.Logininfo.username + " > " + sfd.FileName + ":DS1";
+                            process.StartInfo = startInfo;
+                            process.Start();
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(extension);
+                    }
+                }
             }
         }
+    }
     }
 

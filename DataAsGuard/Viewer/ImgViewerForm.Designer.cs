@@ -35,6 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.backBtn = new System.Windows.Forms.Button();
+            this.downloadBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.showPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.zoom)).BeginInit();
             this.SuspendLayout();
@@ -43,7 +44,7 @@
             // 
             this.showPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.showPic.Location = new System.Drawing.Point(31, 156);
-            this.showPic.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.showPic.Margin = new System.Windows.Forms.Padding(4);
             this.showPic.Name = "showPic";
             this.showPic.Size = new System.Drawing.Size(813, 427);
             this.showPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -53,7 +54,7 @@
             // fileNameBox
             // 
             this.fileNameBox.Location = new System.Drawing.Point(217, 40);
-            this.fileNameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fileNameBox.Margin = new System.Windows.Forms.Padding(4);
             this.fileNameBox.Name = "fileNameBox";
             this.fileNameBox.Size = new System.Drawing.Size(536, 23);
             this.fileNameBox.TabIndex = 3;
@@ -62,7 +63,7 @@
             // zoom
             // 
             this.zoom.Location = new System.Drawing.Point(232, 83);
-            this.zoom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.zoom.Margin = new System.Windows.Forms.Padding(4);
             this.zoom.Maximum = 100;
             this.zoom.Name = "zoom";
             this.zoom.Size = new System.Drawing.Size(496, 45);
@@ -72,7 +73,7 @@
             // opnFile
             // 
             this.opnFile.Location = new System.Drawing.Point(773, 38);
-            this.opnFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.opnFile.Margin = new System.Windows.Forms.Padding(4);
             this.opnFile.Name = "opnFile";
             this.opnFile.Size = new System.Drawing.Size(59, 25);
             this.opnFile.TabIndex = 0;
@@ -102,7 +103,7 @@
             // backBtn
             // 
             this.backBtn.Location = new System.Drawing.Point(13, 32);
-            this.backBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.backBtn.Margin = new System.Windows.Forms.Padding(4);
             this.backBtn.Name = "backBtn";
             this.backBtn.Size = new System.Drawing.Size(63, 28);
             this.backBtn.TabIndex = 7;
@@ -110,11 +111,22 @@
             this.backBtn.UseVisualStyleBackColor = true;
             this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
+            // downloadBtn
+            // 
+            this.downloadBtn.Location = new System.Drawing.Point(769, 105);
+            this.downloadBtn.Name = "downloadBtn";
+            this.downloadBtn.Size = new System.Drawing.Size(88, 23);
+            this.downloadBtn.TabIndex = 8;
+            this.downloadBtn.Text = "Download";
+            this.downloadBtn.UseVisualStyleBackColor = true;
+            this.downloadBtn.Click += new System.EventHandler(this.downloadBtn_Click);
+            // 
             // ImgViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.downloadBtn);
             this.Controls.Add(this.backBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -123,7 +135,7 @@
             this.Controls.Add(this.showPic);
             this.Controls.Add(this.opnFile);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ImgViewerForm";
             this.Text = "ImgViewerForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImgViewerForm_FormClosing);
@@ -143,5 +155,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button backBtn;
+        private System.Windows.Forms.Button downloadBtn;
     }
 }

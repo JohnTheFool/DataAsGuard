@@ -45,6 +45,7 @@
             this.editGroupPermButton = new System.Windows.Forms.Button();
             this.fileInformation = new System.Windows.Forms.RichTextBox();
             this.openFileButton = new System.Windows.Forms.Button();
+            this.downloadFileButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.permissionGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -212,11 +213,24 @@
             this.openFileButton.UseVisualStyleBackColor = true;
             this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
             // 
+            // downloadFileButton
+            // 
+            this.downloadFileButton.Enabled = false;
+            this.downloadFileButton.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.downloadFileButton.Location = new System.Drawing.Point(458, 547);
+            this.downloadFileButton.Name = "downloadFileButton";
+            this.downloadFileButton.Size = new System.Drawing.Size(168, 28);
+            this.downloadFileButton.TabIndex = 21;
+            this.downloadFileButton.Text = "Download File";
+            this.downloadFileButton.UseVisualStyleBackColor = true;
+            this.downloadFileButton.Click += new System.EventHandler(this.downloadFileButton_Click);
+            // 
             // FileManagementHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.downloadFileButton);
             this.Controls.Add(this.openFileButton);
             this.Controls.Add(this.fileInformation);
             this.Controls.Add(this.editGroupPermButton);
@@ -255,5 +269,6 @@
         private System.Windows.Forms.Button editGroupPermButton;
         private System.Windows.Forms.RichTextBox fileInformation;
         private System.Windows.Forms.Button openFileButton;
+        private System.Windows.Forms.Button downloadFileButton;
     }
 }

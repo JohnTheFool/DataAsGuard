@@ -78,7 +78,7 @@ namespace Steganography
         private void imageToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             OpenFileDialog open_dialog = new OpenFileDialog();
-            open_dialog.Filter = "Image Files (*.jpeg; *.png; *.bmp)|*.jpg; *.png; *.bmp";
+            open_dialog.Filter = "Image Files (*.jpeg; *.png; *.bmp)|*.jpeg; *.png; *.bmp";
 
             if (open_dialog.ShowDialog() == DialogResult.OK)
             {
