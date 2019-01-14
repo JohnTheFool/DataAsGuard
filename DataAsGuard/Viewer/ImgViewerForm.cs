@@ -18,7 +18,7 @@ namespace DataAsGuard.ImgViewer
         private Bitmap bmp = null;
         private string extractedText = string.Empty;
         public string path { get; set; }
-        Image imgOriginal;  //Delcare imgOriginal Variable
+        public Image imgOriginal { get; set; }  //Delcare imgOriginal Variable
         public ImgViewerForm()
         {
             InitializeComponent();

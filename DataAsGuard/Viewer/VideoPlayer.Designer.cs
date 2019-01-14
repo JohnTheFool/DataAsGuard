@@ -108,6 +108,7 @@
             this.Controls.Add(this.axWindowsMediaPlayer1);
             this.Name = "VideoPlayer";
             this.Text = "VideoPlayer";
+            this.Load += new System.EventHandler(this.videoLoad);
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

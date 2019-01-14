@@ -12,6 +12,7 @@ namespace DataAsGuard.Viewer
 {
     public partial class VideoPlayer : Form
     {
+        public string videoPath { get; set; }
         public VideoPlayer()
         {
             InitializeComponent();
@@ -40,6 +41,12 @@ namespace DataAsGuard.Viewer
             Home home = new Home();
             home.Show();
             Hide();
+        }
+
+        private void videoLoad(object sender, EventArgs e)
+        {
+            this.filePathBox.Text = this.videoPath;
+            axWindowsMediaPlayer1.URL = this.filePathBox.Text;
         }
     }
 }

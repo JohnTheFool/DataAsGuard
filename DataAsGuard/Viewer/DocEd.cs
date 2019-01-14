@@ -223,7 +223,23 @@ namespace DataAsGuard.Viewer
             rtfBox.Select(selstart, sellength);
         }
 
-        private void CreateDocument(string header, string footer, string content)
+        public string ReadDocument(object path)
+        {
+            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+            object miss = System.Reflection.Missing.Value;
+            object readOnly = true;
+            Microsoft.Office.Interop.Word.Document docs = word.Documents.Open(ref path, ref miss, ref readOnly, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss, ref miss);
+            string totaltext = "";
+            for (int i = 0; i < docs.Paragraphs.Count; i++)
+            {
+                totaltext += " \r\n " + docs.Paragraphs[i + 1].Range.Text.ToString();
+            }
+            docs.Close();
+            word.Quit();
+            return totaltext;
+        }
+
+        public void CreateDocument(string content, object filename)
         {
             try
             {
@@ -243,79 +259,78 @@ namespace DataAsGuard.Viewer
                 Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
 
                 //Add header into the document
-                foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
-                {
-                    //Get the header range and add the header details.
-                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-                    headerRange.Font.Size = 10;
-                    headerRange.Text = header;
-                }
+                //foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+                //{
+                //    //Get the header range and add the header details.
+                //    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                //    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                //    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                //    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+                //    headerRange.Font.Size = 10;
+                //    headerRange.Text = header;
+                //}
 
                 //Add the footers into the document
-                foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
-                {
-                    //Get the footer range and add the footer details.
-                    Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
-                    footerRange.Font.Size = 10;
-                    footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = footer;
-                }
+                //foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
+                //{
+                //    //Get the footer range and add the footer details.
+                //    Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                //    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
+                //    footerRange.Font.Size = 10;
+                //    footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                //    footerRange.Text = footer;
+                //}
 
                 //adding text to document
                 document.Content.SetRange(0, 0);
-                document.Content.Text = "Content" + Environment.NewLine;
+                document.Content.Text = content;
 
                 //Add paragraph with Heading 1 style
-                Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading1 = "Heading 1";
-                para1.Range.set_Style(ref styleHeading1);
-                para1.Range.Text = "Para 1 text";
-                para1.Range.InsertParagraphAfter();
+                //Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+                //object styleHeading1 = "Heading 1";
+                //para1.Range.set_Style(ref styleHeading1);
+                //para1.Range.Text = "Para 1 text";
+                //para1.Range.InsertParagraphAfter();
 
-                //Add paragraph with Heading 2 style
-                Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading2 = "Heading 2";
-                para2.Range.set_Style(ref styleHeading2);
-                para2.Range.Text = "Para 2 text";
-                para2.Range.InsertParagraphAfter();
+                ////Add paragraph with Heading 2 style
+                //Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+                //object styleHeading2 = "Heading 2";
+                //para2.Range.set_Style(ref styleHeading2);
+                //para2.Range.Text = "Para 2 text";
+                //para2.Range.InsertParagraphAfter();
 
                 //Create a 5X5 table and insert some dummy record
-                Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
+                //Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
 
-                firstTable.Borders.Enable = 1;
-                foreach (Row row in firstTable.Rows)
-                {
-                    foreach (Cell cell in row.Cells)
-                    {
-                        //Header row
-                        if (cell.RowIndex == 1)
-                        {
-                            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
-                            cell.Range.Font.Bold = 1;
-                            //other format properties goes here
-                            cell.Range.Font.Name = "verdana";
-                            cell.Range.Font.Size = 10;
-                            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                            
-                            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                            //Center alignment for the Header cells
-                            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                //firstTable.Borders.Enable = 1;
+                //foreach (Row row in firstTable.Rows)
+                //{
+                //    foreach (Cell cell in row.Cells)
+                //    {
+                //        //Header row
+                //        if (cell.RowIndex == 1)
+                //        {
+                //            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
+                //            cell.Range.Font.Bold = 1;
+                //            //other format properties goes here
+                //            cell.Range.Font.Name = "verdana";
+                //            cell.Range.Font.Size = 10;
+                //            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                            
+                //            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+                //            //Center alignment for the Header cells
+                //            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                //            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
-                        }
-                        //Data row
-                        else
-                        {
-                            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
-                        }
-                    }
-                }
+                //        }
+                //        //Data row
+                //        else
+                //        {
+                //            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
+                //        }
+                //    }
+                //}
 
                 //Save the document
-                object filename = @"C:\\Users\\Solomon\\Documents\\test.docx";
                 document.SaveAs2(ref filename);
                 document.Close(ref missing, ref missing, ref missing);
                 document = null;
@@ -492,11 +507,14 @@ namespace DataAsGuard.Viewer
                     var attrIdx = i;
 
                     attributes.Add(new Tuple<int, string, string>(attrIdx, attrName, attrValue));
-
-                    Console.WriteLine("{0}\t{1}: {2}", i, attrName, attrValue);
+                if (i <= 5 || i == 10 || i == 21 || i == 24)
+                {
+                    //Console.WriteLine("{0}\t{1}: {2}", i, attrName, attrValue);
+                    Console.WriteLine("{0}\t{1}: {2}", i+1, attrName, attrValue);
                 }
-                Console.ReadLine();
             }
+            Console.ReadLine();
+        }
 
         private async void downloadBtn_Click(object sender, EventArgs e)
         {
