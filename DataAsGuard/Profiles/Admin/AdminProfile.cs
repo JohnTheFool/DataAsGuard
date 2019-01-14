@@ -223,7 +223,7 @@ namespace DataAsGuard.Profiles.Admin
         private void userdataRetrieval()
         {
             AesEncryption aes = new AesEncryption();
-
+            int count = 0;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -243,8 +243,9 @@ namespace DataAsGuard.Profiles.Admin
                         row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), reader.GetString(reader.GetOrdinal("userid"))));
                         row.Add(reader.GetString(reader.GetOrdinal("verificationflag")));
                         dataAccountGrid.Rows.Add(row.ToArray());
+                        count++;
                     }
-
+                    noOfAccounts.Text = count.ToString();
                     if (reader != null)
                         reader.Close();
                 }
@@ -391,7 +392,7 @@ namespace DataAsGuard.Profiles.Admin
         //Files
         private void userFilesRetrieval()
         {
-
+            int count = 0;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -410,8 +411,9 @@ namespace DataAsGuard.Profiles.Admin
                         row.Add(reader.GetString(reader.GetOrdinal("fileOwner")));
                         row.Add(reader.GetString(reader.GetOrdinal("Description")));
                         dataFilesGrid.Rows.Add(row.ToArray());
+                        count++;
                     }
-
+                    noOfFilesCreated.Text = count.ToString();
                     if (reader != null)
                         reader.Close();
                 }
@@ -564,7 +566,7 @@ namespace DataAsGuard.Profiles.Admin
         //log
         private void userLogRetrieval()
         {
-
+            int count = 0;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -607,8 +609,9 @@ namespace DataAsGuard.Profiles.Admin
                             row.Add(reader.GetString(reader.GetOrdinal("fileID")));
                         }
                         dataLogGrid.Rows.Add(row.ToArray());
+                        count++;
                     }
-
+                    noOfGeneralLogs.Text = count.ToString();
                     if (reader != null)
                         reader.Close();
                 }

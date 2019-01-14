@@ -53,6 +53,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.noOfAccounts = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.noOfFilesCreated = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -62,6 +64,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.dataAuthoriseIPGrid = new System.Windows.Forms.DataGridView();
             this.removeIP = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.removeIPbox = new System.Windows.Forms.TextBox();
@@ -75,7 +78,8 @@
             this.Logout = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.changePassword = new System.Windows.Forms.Button();
-            this.dataAuthoriseIPGrid = new System.Windows.Forms.DataGridView();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.noOfGeneralLogs = new System.Windows.Forms.Label();
             this.tabPage4.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataFilesGrid)).BeginInit();
@@ -88,15 +92,17 @@
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLogGrid)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataAuthoriseIPGrid)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataAuthoriseIPGrid)).BeginInit();
+            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage4
@@ -271,7 +277,7 @@
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.label4);
+            this.panel4.Controls.Add(this.tableLayoutPanel5);
             this.panel4.Location = new System.Drawing.Point(435, 239);
             this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
@@ -280,11 +286,12 @@
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(56, 53);
+            this.label4.Location = new System.Drawing.Point(11, 54);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(164, 17);
+            this.label4.Size = new System.Drawing.Size(94, 34);
             this.label4.TabIndex = 3;
             this.label4.Text = "Number of General Logs";
             // 
@@ -318,6 +325,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -345,28 +353,57 @@
             // 
             this.noOfAccounts.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.noOfAccounts.AutoSize = true;
-            this.noOfAccounts.Location = new System.Drawing.Point(147, 66);
+            this.noOfAccounts.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noOfAccounts.Location = new System.Drawing.Point(124, 46);
             this.noOfAccounts.Name = "noOfAccounts";
-            this.noOfAccounts.Size = new System.Drawing.Size(54, 17);
+            this.noOfAccounts.Size = new System.Drawing.Size(98, 58);
             this.noOfAccounts.TabIndex = 2;
-            this.noOfAccounts.Text = "label27";
+            this.noOfAccounts.Text = "noOfAccounts";
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.tableLayoutPanel3);
             this.panel1.Location = new System.Drawing.Point(23, 28);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(267, 178);
             this.panel1.TabIndex = 0;
             // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.noOfFilesCreated, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(18, 13);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(240, 150);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // noOfFilesCreated
+            // 
+            this.noOfFilesCreated.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.noOfFilesCreated.AutoSize = true;
+            this.noOfFilesCreated.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noOfFilesCreated.Location = new System.Drawing.Point(130, 46);
+            this.noOfFilesCreated.Name = "noOfFilesCreated";
+            this.noOfFilesCreated.Size = new System.Drawing.Size(99, 58);
+            this.noOfFilesCreated.TabIndex = 3;
+            this.noOfFilesCreated.Text = "noOfFiles";
+            // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(64, 49);
+            this.label1.Location = new System.Drawing.Point(6, 58);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 17);
+            this.label1.Size = new System.Drawing.Size(107, 34);
             this.label1.TabIndex = 0;
             this.label1.Text = "Number Of File Created";
             // 
@@ -466,6 +503,19 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(752, 317);
             this.panel8.TabIndex = 7;
+            // 
+            // dataAuthoriseIPGrid
+            // 
+            this.dataAuthoriseIPGrid.AllowUserToAddRows = false;
+            this.dataAuthoriseIPGrid.AllowUserToDeleteRows = false;
+            this.dataAuthoriseIPGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataAuthoriseIPGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataAuthoriseIPGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataAuthoriseIPGrid.Location = new System.Drawing.Point(0, 0);
+            this.dataAuthoriseIPGrid.Name = "dataAuthoriseIPGrid";
+            this.dataAuthoriseIPGrid.ReadOnly = true;
+            this.dataAuthoriseIPGrid.Size = new System.Drawing.Size(752, 317);
+            this.dataAuthoriseIPGrid.TabIndex = 0;
             // 
             // removeIP
             // 
@@ -606,18 +656,31 @@
             this.changePassword.UseVisualStyleBackColor = true;
             this.changePassword.Click += new System.EventHandler(this.changePassword_Click);
             // 
-            // dataAuthoriseIPGrid
+            // tableLayoutPanel5
             // 
-            this.dataAuthoriseIPGrid.AllowUserToAddRows = false;
-            this.dataAuthoriseIPGrid.AllowUserToDeleteRows = false;
-            this.dataAuthoriseIPGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataAuthoriseIPGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataAuthoriseIPGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataAuthoriseIPGrid.Location = new System.Drawing.Point(0, 0);
-            this.dataAuthoriseIPGrid.Name = "dataAuthoriseIPGrid";
-            this.dataAuthoriseIPGrid.ReadOnly = true;
-            this.dataAuthoriseIPGrid.Size = new System.Drawing.Size(752, 317);
-            this.dataAuthoriseIPGrid.TabIndex = 0;
+            this.tableLayoutPanel5.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Controls.Add(this.noOfGeneralLogs, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(17, 13);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(232, 142);
+            this.tableLayoutPanel5.TabIndex = 4;
+            // 
+            // noOfGeneralLogs
+            // 
+            this.noOfGeneralLogs.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.noOfGeneralLogs.AutoSize = true;
+            this.noOfGeneralLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noOfGeneralLogs.Location = new System.Drawing.Point(122, 27);
+            this.noOfGeneralLogs.Name = "noOfGeneralLogs";
+            this.noOfGeneralLogs.Size = new System.Drawing.Size(103, 87);
+            this.noOfGeneralLogs.TabIndex = 4;
+            this.noOfGeneralLogs.Text = "noOfGeneralLogs";
             // 
             // AdminProfile
             // 
@@ -645,14 +708,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataAccountGrid)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -660,11 +723,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataLogGrid)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataAuthoriseIPGrid)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataAuthoriseIPGrid)).EndInit();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -718,5 +783,9 @@
         private System.Windows.Forms.Button removeIP;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.DataGridView dataAuthoriseIPGrid;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Label noOfFilesCreated;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.Label noOfGeneralLogs;
     }
 }

@@ -27,6 +27,7 @@ namespace DataAsGuard.Profiles.Admin
         {
             userdataRetrieval();
             retrieveLogs();
+            chartInitialized();
         }
 
         private void userdataRetrieval()
@@ -175,6 +176,75 @@ namespace DataAsGuard.Profiles.Admin
                     }
                 }
             }
+        }
+
+        private void chartInitialized()
+        {
+            ArrayList data = new ArrayList();
+            
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM logInfo where logtype = @logtype AND userid=@userid";
+                MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@logtype", "LogonSuccess");
+                command.Parameters.AddWithValue("@userid", AdminSession.userid);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        data.Add(DateTime.ParseExact(reader.GetString(reader.GetOrdinal("logDateTime")),"dd/MM/yyyy HH:mm:ss",null));
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+            int count = 0;
+            ArrayList xvalue = new ArrayList();
+            ArrayList yvalue = new ArrayList();
+            DateTime olddate = new DateTime();
+            string checkoldDate = null;
+            for (int i = 0; i < data.Count; i++)
+            {
+                
+                DateTime date = DateTime.Parse(data[i].ToString());
+                string checkdate = date.ToString("dd/MM/yyyy");
+               
+                if (checkoldDate == null)
+                {
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                }
+
+                if(checkdate == checkoldDate)
+                {
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                    count++;
+                    if(i == data.Count-1) {
+                        xvalue.Add(checkoldDate);
+                        yvalue.Add(count);
+                    }
+                }
+                else
+                {
+                    xvalue.Add(checkoldDate);
+                    yvalue.Add(count);
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                    count = 1;
+                }
+            }
+            
+
+            //chart1.ChartAreas.AxisX.Interval = 1;
+            for (int u = 0; u < xvalue.Count; u++)
+            {
+                chart1.Series["Series1"].Points.AddXY(xvalue[u], yvalue[u]);
+            }
+            chart1.ChartAreas[0].AxisX.LabelStyle.Angle = 90;
+            chart1.ChartAreas[0].AxisX.Interval = 1;
         }
 
         private void chgpass_Click(object sender, EventArgs e)
