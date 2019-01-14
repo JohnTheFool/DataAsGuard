@@ -37,7 +37,7 @@ namespace DataAsGuard.CSClass
                 MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
                 cmd.Parameters.AddWithValue("@logInfo", message);
                 cmd.Parameters.AddWithValue("@logtype", logtype);
-                cmd.Parameters.AddWithValue("@logdatetime", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                cmd.Parameters.AddWithValue("@logdatetime", DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss"));
                 //cmd.Parameters.AddWithValue("@logdatetime", DateTime.Now);
                 cmd.Parameters.AddWithValue("@userid", userid);
                 cmd.Parameters.AddWithValue("@email", email);
@@ -58,7 +58,7 @@ namespace DataAsGuard.CSClass
                 MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
                 cmd.Parameters.AddWithValue("@logInfo", message);
                 cmd.Parameters.AddWithValue("@logtype", logtype);
-                cmd.Parameters.AddWithValue("@logdatetime", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                cmd.Parameters.AddWithValue("@logdatetime", DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss"));
                 //cmd.Parameters.AddWithValue("@logdatetime", DateTime.Now);
                 cmd.Parameters.AddWithValue("@userid", userid);
                 cmd.Parameters.AddWithValue("@email", email);

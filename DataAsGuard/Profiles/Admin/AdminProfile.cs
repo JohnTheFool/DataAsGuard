@@ -23,11 +23,12 @@ namespace DataAsGuard.Profiles.Admin
             InitializeComponent();
         }
 
-        private void Adminprofile_Load(object sender,EventArgs e)
+        private void Adminprofile_Load(object sender, EventArgs e)
         {
             retrieveAccounts();
             retrieveLogs();
             retrieveFiles();
+            retrieveauthoriseIP();
         }
 
         //accounts tab
@@ -62,7 +63,7 @@ namespace DataAsGuard.Profiles.Admin
             btn.Text = "Unlock/Lock btn";
             btn.UseColumnTextForButtonValue = true;
             dataAccountGrid.Columns.Add(btn);
-            
+
         }
 
         //account with filter
@@ -115,12 +116,12 @@ namespace DataAsGuard.Profiles.Admin
                 //MessageBox.Show(row.Cells[0].Value.ToString());
 
                 string userid = row.Cells[0].Value.ToString();
-                
-                    //mainly for admin to know which account to properly check on to get a clearer information
-                    AdminSession.userid = userid;
-                    AccountDetails accountdetails = new AccountDetails();
-                    accountdetails.Show();
-                    Hide();
+
+                //mainly for admin to know which account to properly check on to get a clearer information
+                AdminSession.userid = userid;
+                AccountDetails accountdetails = new AccountDetails();
+                accountdetails.Show();
+                Hide();
             }
 
             //check if the column is a button column and check if the column is where the button is when click 
@@ -222,7 +223,7 @@ namespace DataAsGuard.Profiles.Admin
         private void userdataRetrieval()
         {
             AesEncryption aes = new AesEncryption();
-
+            int count = 0;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -242,8 +243,9 @@ namespace DataAsGuard.Profiles.Admin
                         row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), reader.GetString(reader.GetOrdinal("userid"))));
                         row.Add(reader.GetString(reader.GetOrdinal("verificationflag")));
                         dataAccountGrid.Rows.Add(row.ToArray());
+                        count++;
                     }
-
+                    noOfAccounts.Text = count.ToString();
                     if (reader != null)
                         reader.Close();
                 }
@@ -295,7 +297,7 @@ namespace DataAsGuard.Profiles.Admin
             {
                 retrieveAccounts();
             }
-            for(int i = 0; i < dataAccountGrid.RowCount; i++)
+            for (int i = 0; i < dataAccountGrid.RowCount; i++)
             {
                 if (accountlistvalue == "Username")
                 {
@@ -326,7 +328,7 @@ namespace DataAsGuard.Profiles.Admin
                     }
                 }
             }
-           
+
             dataAccountGrid.Rows.Clear();
             dataAccountGrid.Refresh();
             retrieveAccounts2(accountlistvalue, userid);
@@ -361,10 +363,36 @@ namespace DataAsGuard.Profiles.Admin
             dataFilesGrid.Columns.Add(FullDetailsbtn);
         }
 
+        private void retrieveFiles2(string listvalue, ArrayList searchfield)
+        {
+            dataFilesGrid.AllowUserToAddRows = false;
+            dataFilesGrid.AllowUserToDeleteRows = false;
+
+            dataFilesGrid.ColumnCount = 7;
+            dataFilesGrid.Columns[0].Name = "Fileid";
+            dataFilesGrid.Columns[1].Name = "FileName";
+            dataFilesGrid.Columns[2].Name = "Filesize";
+            dataFilesGrid.Columns[3].Name = "DateCreated";
+            dataFilesGrid.Columns[4].Name = "Fileownerid";
+            dataFilesGrid.Columns[5].Name = "FileOwner";
+            dataFilesGrid.Columns[6].Name = "Description";
+
+            //add rows from db
+            userFilesRetrieval2(listvalue, searchfield);
+
+            ////ADD BUTTON COLUMN
+            DataGridViewButtonColumn FullDetailsbtn = new DataGridViewButtonColumn();
+            FullDetailsbtn.HeaderText = "Full Details";
+            FullDetailsbtn.Name = "fDetails";
+            FullDetailsbtn.Text = "Full Details";
+            FullDetailsbtn.UseColumnTextForButtonValue = true;
+            dataFilesGrid.Columns.Add(FullDetailsbtn);
+        }
+
         //Files
         private void userFilesRetrieval()
         {
-
+            int count = 0;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -383,10 +411,43 @@ namespace DataAsGuard.Profiles.Admin
                         row.Add(reader.GetString(reader.GetOrdinal("fileOwner")));
                         row.Add(reader.GetString(reader.GetOrdinal("Description")));
                         dataFilesGrid.Rows.Add(row.ToArray());
+                        count++;
                     }
-
+                    noOfFilesCreated.Text = count.ToString();
                     if (reader != null)
                         reader.Close();
+                }
+            }
+        }
+
+        private void userFilesRetrieval2(string listvalue, ArrayList searchfield)
+        {
+            for (int i = 0; i < searchfield.Count; i++)
+            {
+                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                {
+                    con.Open();
+                    String query = "SELECT * FROM fileInfo where fileID = @searchfield";
+                    MySqlCommand command = new MySqlCommand(query, con);
+                    command.Parameters.AddWithValue("@searchfield", searchfield[i].ToString());
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ArrayList row = new ArrayList();
+                            row.Add(reader.GetInt32(reader.GetOrdinal("fileID")));
+                            row.Add(reader.GetString(reader.GetOrdinal("fileName")));
+                            row.Add(reader.GetString(reader.GetOrdinal("fileSize")));
+                            row.Add(reader.GetString(reader.GetOrdinal("dateCreated")));
+                            row.Add(reader.GetString(reader.GetOrdinal("fileOwnerID")));
+                            row.Add(reader.GetString(reader.GetOrdinal("fileOwner")));
+                            row.Add(reader.GetString(reader.GetOrdinal("Description")));
+                            dataFilesGrid.Rows.Add(row.ToArray());
+                        }
+
+                        if (reader != null)
+                            reader.Close();
+                    }
                 }
             }
         }
@@ -401,7 +462,7 @@ namespace DataAsGuard.Profiles.Admin
                 e.RowIndex >= 0 && e.ColumnIndex == 7)
             {
                 DataGridViewRow row = new DataGridViewRow();
-                row = dataAccountGrid.Rows[e.RowIndex];
+                row = dataFilesGrid.Rows[e.RowIndex];
                 //TODO - Button Clicked - Execute Code Here
                 //MessageBox.Show(row.Cells[0].Value.ToString());
 
@@ -416,6 +477,51 @@ namespace DataAsGuard.Profiles.Admin
 
         }
 
+        //account fields filter
+        private void filesFilter_TextChanged(object sender, EventArgs e)
+        {
+            string filesvalue = filesList.Text.ToString();
+            string searchfield = filesFilter.Text;
+            ArrayList fileid = new ArrayList();
+            if (dataFilesGrid.RowCount == 0)
+            {
+                retrieveFiles();
+            }
+            for (int i = 0; i < dataFilesGrid.RowCount; i++)
+            {
+                 if (filesvalue == "Filename")
+                 {
+                    if (dataFilesGrid.Rows[i].Cells[1].Value.ToString().Contains(searchfield))
+                    {
+                        fileid.Add(dataFilesGrid.Rows[i].Cells[0].Value.ToString());
+                    }
+                 }
+                else if (filesvalue == "FileOwner")
+                {
+                    if (dataFilesGrid.Rows[i].Cells[5].Value.ToString().Contains(searchfield))
+                    {
+                        fileid.Add(dataFilesGrid.Rows[i].Cells[0].Value.ToString());
+                    }
+                }
+                else if (filesvalue == "Fileownerid")
+                {
+                    if (dataFilesGrid.Rows[i].Cells[4].Value.ToString().Contains(searchfield))
+                    {
+                        fileid.Add(dataFilesGrid.Rows[i].Cells[0].Value.ToString());
+                    }
+                }
+            }
+            if(filesvalue == "" || filesvalue == null)
+            {
+                
+            }
+            else
+            {
+                dataFilesGrid.Rows.Clear();
+                dataFilesGrid.Refresh();
+                retrieveFiles2(filesvalue, fileid);
+            }
+        }
 
 
         //LOGS!!!
@@ -444,7 +550,7 @@ namespace DataAsGuard.Profiles.Admin
             dataLogGrid.AllowUserToAddRows = false;
             dataLogGrid.AllowUserToDeleteRows = false;
 
-            dataLogGrid.ColumnCount = 6;
+            dataLogGrid.ColumnCount = 7;
             dataLogGrid.Columns[0].Name = "Logid";
             dataLogGrid.Columns[1].Name = "Loginfo";
             dataLogGrid.Columns[2].Name = "Logtype";
@@ -460,7 +566,7 @@ namespace DataAsGuard.Profiles.Admin
         //log
         private void userLogRetrieval()
         {
-
+            int count = 0;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -503,8 +609,9 @@ namespace DataAsGuard.Profiles.Admin
                             row.Add(reader.GetString(reader.GetOrdinal("fileID")));
                         }
                         dataLogGrid.Rows.Add(row.ToArray());
+                        count++;
                     }
-
+                    noOfGeneralLogs.Text = count.ToString();
                     if (reader != null)
                         reader.Close();
                 }
@@ -514,55 +621,61 @@ namespace DataAsGuard.Profiles.Admin
         //log with filter by type
         private void userLogRetrieval2(string type)
         {
-
-            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            if (type == "All")
             {
-                con.Open();
-                String query = "SELECT * FROM logInfo where logType = @logtype";
-                MySqlCommand command = new MySqlCommand(query, con);
-                command.Parameters.AddWithValue("@logtype", type);
-                using (MySqlDataReader reader = command.ExecuteReader())
+                userLogRetrieval();
+            }
+            else
+            {
+                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
                 {
-                    while (reader.Read())
+                    con.Open();
+                    String query = "SELECT * FROM logInfo where logType = @logtype";
+                    MySqlCommand command = new MySqlCommand(query, con);
+                    command.Parameters.AddWithValue("@logtype", type);
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        ArrayList row = new ArrayList();
-                        row.Add(reader.GetInt32(reader.GetOrdinal("logid")));
-                        row.Add(reader.GetString(reader.GetOrdinal("loginfo")));
-                        row.Add(reader.GetString(reader.GetOrdinal("logtype")));
-                        row.Add(reader.GetString(reader.GetOrdinal("logdatetime")));
-                        //userid
-                        if (reader.IsDBNull(reader.GetOrdinal("userid")))
+                        while (reader.Read())
                         {
-                            row.Add("Null");
-                        }
-                        else
-                        {
-                            row.Add(reader.GetString(reader.GetOrdinal("userid")));
-                        }
-                        //email
-                        if (reader.IsDBNull(reader.GetOrdinal("email")))
-                        {
-                            row.Add("Null");
-                        }
-                        else
-                        {
-                            row.Add(reader.GetString(reader.GetOrdinal("email")));
-                        }
-                        //fileID
-                        if (reader.IsDBNull(reader.GetOrdinal("fileID")))
-                        {
-                            row.Add("Null");
-                        }
-                        else
-                        {
-                            row.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                            ArrayList row = new ArrayList();
+                            row.Add(reader.GetInt32(reader.GetOrdinal("logid")));
+                            row.Add(reader.GetString(reader.GetOrdinal("loginfo")));
+                            row.Add(reader.GetString(reader.GetOrdinal("logtype")));
+                            row.Add(reader.GetString(reader.GetOrdinal("logdatetime")));
+                            //userid
+                            if (reader.IsDBNull(reader.GetOrdinal("userid")))
+                            {
+                                row.Add("Null");
+                            }
+                            else
+                            {
+                                row.Add(reader.GetString(reader.GetOrdinal("userid")));
+                            }
+                            //email
+                            if (reader.IsDBNull(reader.GetOrdinal("email")))
+                            {
+                                row.Add("Null");
+                            }
+                            else
+                            {
+                                row.Add(reader.GetString(reader.GetOrdinal("email")));
+                            }
+                            //fileID
+                            if (reader.IsDBNull(reader.GetOrdinal("fileID")))
+                            {
+                                row.Add("Null");
+                            }
+                            else
+                            {
+                                row.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                            }
+
+                            dataLogGrid.Rows.Add(row.ToArray());
                         }
 
-                        dataLogGrid.Rows.Add(row.ToArray());
+                        if (reader != null)
+                            reader.Close();
                     }
-
-                    if (reader != null)
-                        reader.Close();
                 }
             }
         }
@@ -571,7 +684,7 @@ namespace DataAsGuard.Profiles.Admin
         private void logsFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             string logListvalue = logTypeList.Text.ToString();
-            if (dataAccountGrid.RowCount == 0)
+            if (dataLogGrid.RowCount == 0)
             {
                 retrieveLogs();
             }
@@ -580,6 +693,101 @@ namespace DataAsGuard.Profiles.Admin
             dataLogGrid.Rows.Clear();
             dataLogGrid.Refresh();
             retrieveLogs2(logListvalue);
+        }
+
+
+        //log grid retrival
+        private void retrieveauthoriseIP()
+        {
+            dataAuthoriseIPGrid.AllowUserToAddRows = false;
+            dataAuthoriseIPGrid.AllowUserToDeleteRows = false;
+
+            dataAuthoriseIPGrid.ColumnCount = 1;
+            dataAuthoriseIPGrid.Columns[0].Name = "IPAddress";
+
+            //add rows from db
+            authorseIPRetrieval();
+        }
+
+        private void authorseIPRetrieval()
+        {
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM authoriseIP";
+                MySqlCommand command = new MySqlCommand(query, con);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ArrayList row = new ArrayList();
+                        row.Add(reader.GetString(reader.GetOrdinal("authoriseIP")));
+
+                        dataAuthoriseIPGrid.Rows.Add(row.ToArray());
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+        }
+
+        //add IP
+        private void authoriseIP_Click(object sender, EventArgs e)
+        {
+            string ipaddress = ipBox.Text;
+            Array properIp = ipaddress.Split('.');
+            if (properIp.Length == 4)
+            {
+                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                {
+                    con.Open();
+                    String executeQuery = "INSERT INTO authoriseIP(authoriseIP) VALUES (@authoriseIP)";
+                    MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
+                    myCommand.Parameters.AddWithValue("@authoriseIP", ipaddress);
+                    myCommand.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                dataAuthoriseIPGrid.Rows.Clear();
+                dataAuthoriseIPGrid.Refresh();
+                authorseIPRetrieval();
+            }
+            else
+            {
+                MessageBox.Show("Please key in a proper IP Address");
+            }
+           
+        }
+
+        //removeIP
+        private void removeIP_Click(object sender, EventArgs e)
+        {
+            string ipaddress = removeIPbox.Text;
+            Array properIp = ipaddress.Split('.');
+            if (properIp.Length == 4)
+            {
+                DialogResult dialogResult = MessageBox.Show("Delete the authorise IP?", "Are you sure?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                    {
+                        con.Open();
+                        //delete authoriseIP
+                        string deleteipQuery = "DELETE FROM authoriseIP WHERE authoriseIP = @authoriseIP";
+                        MySqlCommand deleteIp = new MySqlCommand(deleteipQuery, con);
+                        deleteIp.Parameters.AddWithValue("@authoriseIP", ipaddress);
+                        deleteIp.ExecuteNonQuery();
+                    }
+                    dataAuthoriseIPGrid.Rows.Clear();
+                    dataAuthoriseIPGrid.Refresh();
+                    authorseIPRetrieval();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please key in a proper IP Address");
+            }
         }
 
 
@@ -632,5 +840,6 @@ namespace DataAsGuard.Profiles.Admin
             Hide();
         }
 
+       
     }
 }

@@ -29,13 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileDetails));
-            this.delete = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.fileSize = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.fileID = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.vflag = new System.Windows.Forms.Label();
+            this.fileLock = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.description = new System.Windows.Forms.Label();
@@ -67,15 +66,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.datalogGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // delete
-            // 
-            this.delete.Location = new System.Drawing.Point(650, 228);
-            this.delete.Name = "delete";
-            this.delete.Size = new System.Drawing.Size(75, 43);
-            this.delete.TabIndex = 38;
-            this.delete.Text = "Delete";
-            this.delete.UseVisualStyleBackColor = true;
-            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
@@ -85,7 +75,7 @@
             this.tableLayoutPanel2.Controls.Add(this.label8, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.fileID, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.vflag, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.fileLock, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(498, 76);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -111,11 +101,11 @@
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(92, 88);
+            this.label8.Location = new System.Drawing.Point(96, 88);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(42, 17);
+            this.label8.Size = new System.Drawing.Size(38, 17);
             this.label8.TabIndex = 14;
-            this.label8.Text = "vFlag";
+            this.label8.Text = "Lock";
             // 
             // fileID
             // 
@@ -137,15 +127,15 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "File ID:";
             // 
-            // vflag
+            // fileLock
             // 
-            this.vflag.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.vflag.AutoSize = true;
-            this.vflag.Location = new System.Drawing.Point(140, 88);
-            this.vflag.Name = "vflag";
-            this.vflag.Size = new System.Drawing.Size(38, 17);
-            this.vflag.TabIndex = 11;
-            this.vflag.Text = "vflag";
+            this.fileLock.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.fileLock.AutoSize = true;
+            this.fileLock.Location = new System.Drawing.Point(140, 88);
+            this.fileLock.Name = "fileLock";
+            this.fileLock.Size = new System.Drawing.Size(38, 17);
+            this.fileLock.TabIndex = 11;
+            this.fileLock.Text = "Lock";
             // 
             // label4
             // 
@@ -347,12 +337,13 @@
             // 
             // Lockbtn
             // 
-            this.Lockbtn.Location = new System.Drawing.Point(530, 228);
+            this.Lockbtn.Location = new System.Drawing.Point(593, 198);
             this.Lockbtn.Name = "Lockbtn";
             this.Lockbtn.Size = new System.Drawing.Size(75, 43);
             this.Lockbtn.TabIndex = 29;
             this.Lockbtn.Text = "Lock";
             this.Lockbtn.UseVisualStyleBackColor = true;
+            this.Lockbtn.Click += new System.EventHandler(this.Lockbtn_Click);
             // 
             // settingsButton
             // 
@@ -402,7 +393,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
-            this.Controls.Add(this.delete);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
@@ -430,11 +420,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button delete;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label fileID;
-        private System.Windows.Forms.Label vflag;
+        private System.Windows.Forms.Label fileLock;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label dateCreated;
         private System.Windows.Forms.Label label7;

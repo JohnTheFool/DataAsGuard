@@ -15,11 +15,11 @@ using System.Windows.Forms;
 
 namespace DataAsGuard.Profiles.Users
 {
-    public partial class changePasswordConfirmation : Form
+    public partial class changePasswordRegistration : Form
     {
         Random rand = new Random();
         DBLogger dblog = new DBLogger();
-        public changePasswordConfirmation()
+        public changePasswordRegistration()
         {
             InitializeComponent();
         }

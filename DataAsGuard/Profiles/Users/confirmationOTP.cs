@@ -52,7 +52,7 @@ namespace DataAsGuard.Profiles.Users
                 }
                 else
                 {
-                    changePasswordConfirmation changePasswordConfirmation = new changePasswordConfirmation();
+                    changePasswordRegistration changePasswordConfirmation = new changePasswordRegistration();
                     changePasswordConfirmation.Show();
                     Hide();
                 }
@@ -95,9 +95,9 @@ namespace DataAsGuard.Profiles.Users
             OTPReturn = "12345"; //(Testing purposes to prevent wasting of the messages)
             //If OTP doesn't send after a period of time, replace the 2 API details above with new ones from the list below
             //Here is a list of unused WebAPI account details I prepared and created that still have 10 SMS credits each. 
-            //WebAPI ID: 82540002     WebAPI Password: realitymusic1 (Currently in use above)
-            //WebAPI ID: 82600002     WebAPI Password: realitymusic1
-            //WebAPI ID: 82590002     WebAPI Password: realitymusic1
+            //WebAPI ID: 101510002     WebAPI Password: DataAsguard1 (Currently in use above)
+            //WebAPI ID: 102150002     WebAPI Password: Data@sguard1an   
+            
         }
 
         public static string OTPStr(string ID, string Password, string mobile, string msg)
