@@ -160,9 +160,7 @@ namespace DataAsGuard.FileManagement
                 }
                 else
                 {
-                    //CHECK THIS!!
-                    var process = Process.Start(tempFileName);
-                    process.Exited += (s, ev) => File.Delete(tempFileName);
+                    
                 }
             }
             File.WriteAllBytes(tempFileName, fileBytes);
