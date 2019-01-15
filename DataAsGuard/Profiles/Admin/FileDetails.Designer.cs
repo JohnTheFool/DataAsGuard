@@ -52,7 +52,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.datalogGrid = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.changePassword = new System.Windows.Forms.Button();
             this.Lockbtn = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.Logout = new System.Windows.Forms.Button();
@@ -325,16 +324,6 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // changePassword
-            // 
-            this.changePassword.Location = new System.Drawing.Point(69, 12);
-            this.changePassword.Name = "changePassword";
-            this.changePassword.Size = new System.Drawing.Size(82, 42);
-            this.changePassword.TabIndex = 34;
-            this.changePassword.Text = "Change Password";
-            this.changePassword.UseVisualStyleBackColor = true;
-            this.changePassword.Click += new System.EventHandler(this.chgpass_Click);
-            // 
             // Lockbtn
             // 
             this.Lockbtn.Location = new System.Drawing.Point(593, 198);
@@ -396,7 +385,6 @@
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.changePassword);
             this.Controls.Add(this.Lockbtn);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.Logout);
@@ -437,7 +425,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView datalogGrid;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button changePassword;
         private System.Windows.Forms.Button Lockbtn;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button Logout;

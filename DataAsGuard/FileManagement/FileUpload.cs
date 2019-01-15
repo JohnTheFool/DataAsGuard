@@ -18,6 +18,7 @@ namespace DataAsGuard.FileManagement
     {
         String fileSourcePath;
         String fileOriginalName;
+        String path;
         byte[] fileBytes = null;
         DBLogger dblog = new DBLogger();
         string fileID;
@@ -50,35 +51,59 @@ namespace DataAsGuard.FileManagement
                 if (!CheckIfFileExists(this.fileName.Text))
                 { 
                     if (fileName.Text.Length < 100)
-                    { 
-                        String executeQuery = "INSERT INTO fileInfo(fileName, fileSize, dateCreated, fileOwnerID, fileOwner, description, file, fileLock) VALUES (@nameParam, @sizeParam, @dateParam, @ownerIDParam, @ownerParam, @descParam, @fileParam, @lockParam)";
-                        MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
-                        myCommand.Parameters.AddWithValue("@nameParam", this.fileName.Text);
-                        myCommand.Parameters.AddWithValue("@sizeParam", this.fileSize.Text);
-                        myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
-                        myCommand.Parameters.AddWithValue("@ownerIDParam", Logininfo.userid);
-                        myCommand.Parameters.AddWithValue("@ownerParam", ownerName);
-                        myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
-                        myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
-                        myCommand.Parameters.AddWithValue("@lockParam", 0); //Check with Solomon
-                        myCommand.ExecuteNonQuery();
+                    {
+                        if (flag == "C")
+                        {
+                            try
+                            {
+                                fileBytes = File.ReadAllBytes(path);
 
-					    String query = "SELECT * FROM fileInfo where fileName = @fileName AND dateCreated = @dateCreated AND fileOwnerID=@fileowner;";
-					    MySqlCommand command = new MySqlCommand(query, con);
-					    command.Parameters.AddWithValue("@fileName", this.fileName.Text);
-					    command.Parameters.AddWithValue("@dateCreated",DateTime.Now);
-					    command.Parameters.AddWithValue("@fileowner", Logininfo.userid);
-					    using (reader = command.ExecuteReader())
-					    {
-						    while (reader.Read())
-						    {
-							    fileID = reader.GetString(reader.GetOrdinal("fileID"));
-						    }
+                                String executeQuery = "INSERT INTO fileInfo(fileName, fileSize, dateCreated, fileOwnerID, fileOwner, description, file, fileLock) VALUES (@nameParam, @sizeParam, @dateParam, @ownerIDParam, @ownerParam, @descParam, @fileParam, @lockParam)";
+                                MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
+                                myCommand.Parameters.AddWithValue("@nameParam", this.fileName.Text);
+                                myCommand.Parameters.AddWithValue("@sizeParam", this.fileSize.Text);
+                                myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
+                                myCommand.Parameters.AddWithValue("@ownerIDParam", Logininfo.userid);
+                                myCommand.Parameters.AddWithValue("@ownerParam", ownerName);
+                                myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
+                                myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
+                                myCommand.Parameters.AddWithValue("@lockParam", 0); //Check with Solomon
+                                myCommand.ExecuteNonQuery();
 
-                        if (reader != null)
-                            reader.Close();
-					    }
-					    success = true;
+                                String query = "SELECT * FROM fileInfo where fileName = @fileName AND dateCreated = @dateCreated AND fileOwnerID=@fileowner;";
+                                MySqlCommand command = new MySqlCommand(query, con);
+                                command.Parameters.AddWithValue("@fileName", this.fileName.Text);
+                                command.Parameters.AddWithValue("@dateCreated", DateTime.Now);
+                                command.Parameters.AddWithValue("@fileowner", Logininfo.userid);
+                                using (reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        fileID = reader.GetString(reader.GetOrdinal("fileID"));
+                                    }
+
+                                    if (reader != null)
+                                        reader.Close();
+                                }
+                                success = true;
+                            }
+                            catch (IOException)
+                            {
+                                //might change this : Desmond
+                                //dblog.Log("File cannot be read (" + fileOriginalName + ")", "UploadsFailed", Logininfo.userid, Logininfo.email);
+                                MessageBox.Show("Error file could not be read, please try again.");
+                            }
+                        }
+                        else if (flag == "V")
+                        {
+                            //would like to hide or disable upload but now just show 
+                            MessageBox.Show("Virus File Detected!");
+                        }
+                        else if (flag == "E")
+                        {
+                            MessageBox.Show("Error has Occurred");
+                        }
+                        
                     }
                     else //File Name longer than 100
                     {
@@ -127,7 +152,7 @@ namespace DataAsGuard.FileManagement
             };
             if (dialog.ShowDialog() == DialogResult.OK) // if OK clicked
             {
-                String path = dialog.FileName; // get name of file
+                path = dialog.FileName; // get name of file
                 fileName.Text = dialog.SafeFileName;
                 fileOriginalName = dialog.SafeFileName;
                 var longSize = new FileInfo(dialog.FileName).Length;

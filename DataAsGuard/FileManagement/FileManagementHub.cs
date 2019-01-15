@@ -83,11 +83,11 @@ namespace DataAsGuard.FileManagement
                     if (Logininfo.userid == fileOwnerID)
                     {
                     //Add in check if permissions below in the future
-                    editUserPermButton.Enabled = true;
-                    editGroupPermButton.Enabled = true;
-                    openFileButton.Enabled = true;
-                    deleteFileButton.Enabled = true;
-                    downloadFileButton.Enabled = true;
+                        editUserPermButton.Enabled = true;
+                        editGroupPermButton.Enabled = true;
+                        openFileButton.Enabled = true;
+                        deleteFileButton.Enabled = true;
+                        downloadFileButton.Enabled = true;
                     }
                 }
                 catch (NullReferenceException)
@@ -157,16 +157,18 @@ namespace DataAsGuard.FileManagement
                     applicationWord.Options.SaveNormalPrompt = false;
                     applicationWord.DisplayAlerts = WdAlertLevel.wdAlertsNone;
                     applicationWord.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
+                    //applicationWord.DocumentBeforeClose += new EventHandler(process_Exited);
+                    //var process = Process.GetProcessesByName(tempFileName);
+                    //process[0].Exited += new EventHandler(process_Exited);
                 }
                 else
                 {
-                    File.WriteAllBytes(tempFileName, fileBytes);
-                    var process = Process.Start(tempFileName);
-                    process.Exited += new EventHandler(process_Exited);
+                    //File.WriteAllBytes(tempFileName, fileBytes);
+                    //var process = Process.Start(tempFileName);
+                    //process.Exited += new EventHandler(process_Exited);
                 }
             }
 
-            
         }
             //using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             //{
@@ -284,7 +286,9 @@ namespace DataAsGuard.FileManagement
                     string deletegroupPermsQuery = "DELETE FROM groupFilePermissions WHERE fileID = @idParam";
                     MySqlCommand deletegroupPermsCmd = new MySqlCommand(deletegroupPermsQuery, con);
                     deletegroupPermsCmd.Parameters.AddWithValue("idParam", fileID);
-                    deletegroupPermsCmd.ExecuteNonQuery();
+                    deletegroupPermsCmd.ExecuteNonQuery(); 
+
+                    //Log Deletion
                 }
             }
             else if (dialogResult == DialogResult.No)

@@ -32,7 +32,6 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.changePassword = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.Logout = new System.Windows.Forms.Button();
             this.AdminHome = new System.Windows.Forms.Button();
@@ -42,6 +41,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.datalogGrid = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.DOB = new System.Windows.Forms.Label();
             this.Email = new System.Windows.Forms.Label();
@@ -62,26 +62,15 @@
             this.label8 = new System.Windows.Forms.Label();
             this.Lockbtn = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datalogGrid)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // changePassword
-            // 
-            this.changePassword.Location = new System.Drawing.Point(70, 12);
-            this.changePassword.Name = "changePassword";
-            this.changePassword.Size = new System.Drawing.Size(82, 42);
-            this.changePassword.TabIndex = 24;
-            this.changePassword.Text = "Change Password";
-            this.changePassword.UseVisualStyleBackColor = true;
-            this.changePassword.Click += new System.EventHandler(this.changePassword_Click);
             // 
             // settingsButton
             // 
@@ -176,6 +165,28 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "LoginFrequency";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // chart1
+            // 
+            chartArea1.AxisX.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Rotated90;
+            chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(3, 3);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(714, 231);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
             // 
             // tableLayoutPanel1
             // 
@@ -405,28 +416,6 @@
             this.delete.UseVisualStyleBackColor = true;
             this.delete.Click += new System.EventHandler(this.delete_Click);
             // 
-            // chart1
-            // 
-            chartArea1.AxisX.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Rotated90;
-            chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(3, 3);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(714, 231);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
-            // 
             // AccountDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -436,7 +425,6 @@
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.changePassword);
             this.Controls.Add(this.Lockbtn);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.Logout);
@@ -452,18 +440,16 @@
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.datalogGrid)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button changePassword;
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button Logout;
         private System.Windows.Forms.Button AdminHome;

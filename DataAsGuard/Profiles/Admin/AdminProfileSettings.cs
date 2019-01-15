@@ -265,13 +265,13 @@ namespace DataAsGuard.Profiles.Admin
             g.Dispose();
 
             //check for existing captcha file
-            if (File.Exists("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg"))
+            if (File.Exists("tempimage.jpg"))
             {
 
                 try
                 {
-                    File.Delete("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg");
-                    bitmap.Save("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg", ImageFormat.Jpeg);
+                    File.Delete("tempimage.jpg");
+                    bitmap.Save("tempimage.jpg", ImageFormat.Jpeg);
 
                 }
                 catch (Exception ex)
@@ -283,11 +283,11 @@ namespace DataAsGuard.Profiles.Admin
             else
             {
 
-                bitmap.Save("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg", ImageFormat.Jpeg);
+                bitmap.Save("tempimage.jpg", ImageFormat.Jpeg);
 
             }
             bitmap.Dispose();
-            pictureBox1.Image = Image.FromFile("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg");
+            pictureBox1.Image = Image.FromFile("tempimage.jpg");
         }
 
         //random lines in the captcha
