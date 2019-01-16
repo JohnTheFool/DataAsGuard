@@ -46,6 +46,7 @@
             this.fileInformation = new System.Windows.Forms.RichTextBox();
             this.openFileButton = new System.Windows.Forms.Button();
             this.downloadFileButton = new System.Windows.Forms.Button();
+            this.transferOwnershipButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.permissionGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -225,11 +226,24 @@
             this.downloadFileButton.UseVisualStyleBackColor = true;
             this.downloadFileButton.Click += new System.EventHandler(this.downloadFileButton_Click);
             // 
+            // transferOwnershipButton
+            // 
+            this.transferOwnershipButton.Enabled = false;
+            this.transferOwnershipButton.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.transferOwnershipButton.Location = new System.Drawing.Point(632, 479);
+            this.transferOwnershipButton.Name = "transferOwnershipButton";
+            this.transferOwnershipButton.Size = new System.Drawing.Size(168, 28);
+            this.transferOwnershipButton.TabIndex = 22;
+            this.transferOwnershipButton.Text = "Transfer Ownership";
+            this.transferOwnershipButton.UseVisualStyleBackColor = true;
+            this.transferOwnershipButton.Click += new System.EventHandler(this.transferOwnershipButton_Click);
+            // 
             // FileManagementHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.transferOwnershipButton);
             this.Controls.Add(this.downloadFileButton);
             this.Controls.Add(this.openFileButton);
             this.Controls.Add(this.fileInformation);
@@ -270,5 +284,6 @@
         private System.Windows.Forms.RichTextBox fileInformation;
         private System.Windows.Forms.Button openFileButton;
         private System.Windows.Forms.Button downloadFileButton;
+        private System.Windows.Forms.Button transferOwnershipButton;
     }
 }

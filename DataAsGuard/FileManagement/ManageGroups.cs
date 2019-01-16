@@ -108,6 +108,9 @@ namespace DataAsGuard.FileManagement
             MessageBox.Show("All file permissions related to this group will be removed and those users will not be able to access those files anymore. Continue?");
         }
 
-        
+        private void transferOwnershipButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

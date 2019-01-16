@@ -59,6 +59,13 @@ namespace DataAsGuard.FileManagement
             fileInformation.Clear();
             permissionGrid.Rows.Clear();
             permissionGrid.Refresh();
+
+            editUserPermButton.Enabled = false;
+            editGroupPermButton.Enabled = false;
+            openFileButton.Enabled = false;
+            deleteFileButton.Enabled = false;
+            downloadFileButton.Enabled = false;
+
             string fileOwnerID = null;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
@@ -532,6 +539,11 @@ namespace DataAsGuard.FileManagement
                     }
                 }
             }
+        }
+
+        private void transferOwnershipButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

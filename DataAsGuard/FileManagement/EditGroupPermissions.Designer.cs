@@ -207,6 +207,7 @@
             this.Controls.Add(this.backButton);
             this.Name = "EditGroupPermissions";
             this.Text = "DataAsguard";
+            this.Load += new System.EventHandler(this.EditGroupPermissions_Load);
             this.userSelectedTable.ResumeLayout(false);
             this.userSelectedTable.PerformLayout();
             this.ResumeLayout(false);
