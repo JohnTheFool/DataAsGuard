@@ -421,5 +421,11 @@ namespace DataAsGuard.Profiles
             return IPList;
         }
 
+        private void forgetUsername_Click(object sender, EventArgs e)
+        {
+            forgetUserInfo forgetUser = new forgetUserInfo();
+            forgetUser.Show();
+            Hide();
+        }
     }
 }

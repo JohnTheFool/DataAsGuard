@@ -31,13 +31,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Password = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.username = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.loginbutton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.validation = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.forgetUsernameOrPassword = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -49,10 +50,10 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.Password, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.username, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(278, 149);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(245, 269);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -72,6 +73,27 @@
             this.Password.Size = new System.Drawing.Size(176, 23);
             this.Password.TabIndex = 3;
             // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label2.Location = new System.Drawing.Point(144, 55);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 20);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Password:";
+            // 
+            // username
+            // 
+            this.username.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.username.Location = new System.Drawing.Point(234, 10);
+            this.username.Margin = new System.Windows.Forms.Padding(4);
+            this.username.Name = "username";
+            this.username.Size = new System.Drawing.Size(176, 23);
+            this.username.TabIndex = 2;
+            // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -84,31 +106,10 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Username:";
             // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label2.Location = new System.Drawing.Point(148, 55);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 20);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Password";
-            // 
-            // username
-            // 
-            this.username.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.username.Location = new System.Drawing.Point(234, 10);
-            this.username.Margin = new System.Windows.Forms.Padding(4);
-            this.username.Name = "username";
-            this.username.Size = new System.Drawing.Size(176, 23);
-            this.username.TabIndex = 2;
-            // 
             // loginbutton
             // 
             this.loginbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.loginbutton.Location = new System.Drawing.Point(461, 271);
+            this.loginbutton.Location = new System.Drawing.Point(434, 437);
             this.loginbutton.Margin = new System.Windows.Forms.Padding(4);
             this.loginbutton.Name = "loginbutton";
             this.loginbutton.Size = new System.Drawing.Size(100, 28);
@@ -120,7 +121,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(247, 13);
+            this.pictureBox1.Location = new System.Drawing.Point(214, 133);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(517, 99);
@@ -142,18 +143,30 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.validation, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(278, 240);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(245, 385);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(460, 24);
             this.tableLayoutPanel2.TabIndex = 5;
             // 
+            // forgetUsernameOrPassword
+            // 
+            this.forgetUsernameOrPassword.AutoSize = true;
+            this.forgetUsernameOrPassword.Location = new System.Drawing.Point(368, 360);
+            this.forgetUsernameOrPassword.Name = "forgetUsernameOrPassword";
+            this.forgetUsernameOrPassword.Size = new System.Drawing.Size(216, 17);
+            this.forgetUsernameOrPassword.TabIndex = 7;
+            this.forgetUsernameOrPassword.TabStop = true;
+            this.forgetUsernameOrPassword.Text = "Forget Username OR Password?";
+            this.forgetUsernameOrPassword.Click += new System.EventHandler(this.forgetUsername_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.forgetUsernameOrPassword);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.loginbutton);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -169,6 +182,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -183,5 +197,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label validation;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.LinkLabel forgetUsernameOrPassword;
     }
 }

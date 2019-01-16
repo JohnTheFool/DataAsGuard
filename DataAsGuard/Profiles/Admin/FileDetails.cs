@@ -158,13 +158,6 @@ namespace DataAsGuard.Profiles.Admin
             userfilesRetrieval();
         }
 
-        private void chgpass_Click(object sender, EventArgs e)
-        {
-            AdminChangePassword chgpassword = new AdminChangePassword();
-            chgpassword.Show();
-            Hide();
-        }
-
         private void AddUsers_Click(object sender, EventArgs e)
         {
             //Users.ConfirmationDetails confirmationDetails = new Users.ConfirmationDetails();
@@ -199,12 +192,6 @@ namespace DataAsGuard.Profiles.Admin
             Hide();
         }
 
-        private void changePassword_Click(object sender, EventArgs e)
-        {
-            AdminChangePassword changePassword = new AdminChangePassword();
-            changePassword.Show();
-            Hide();
-        }
 
        
     }

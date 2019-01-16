@@ -247,12 +247,6 @@ namespace DataAsGuard.Profiles.Admin
             chart1.ChartAreas[0].AxisX.Interval = 1;
         }
 
-        private void chgpass_Click(object sender, EventArgs e)
-        {
-            AdminChangePassword chgpassword = new AdminChangePassword();
-            chgpassword.Show();
-            Hide();
-        }
 
         private void AddUsers_Click(object sender, EventArgs e)
         {
@@ -288,11 +282,5 @@ namespace DataAsGuard.Profiles.Admin
             Hide();
         }
 
-        private void changePassword_Click(object sender, EventArgs e)
-        {
-            AdminChangePassword changePassword = new AdminChangePassword();
-            changePassword.Show();
-            Hide();
-        }
     }
 }

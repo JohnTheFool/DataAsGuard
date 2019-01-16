@@ -39,20 +39,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label1.Location = new System.Drawing.Point(349, 305);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.label1.Location = new System.Drawing.Point(376, 344);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(203, 25);
+            this.label1.Size = new System.Drawing.Size(253, 29);
             this.label1.TabIndex = 0;
             this.label1.Text = "Registration Complete";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(194, 199);
+            this.pictureBox1.Location = new System.Drawing.Point(239, 226);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(514, 103);
+            this.pictureBox1.Size = new System.Drawing.Size(528, 106);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -69,7 +69,7 @@
             // 
             // Logout
             // 
-            this.Logout.Location = new System.Drawing.Point(820, 13);
+            this.Logout.Location = new System.Drawing.Point(920, 7);
             this.Logout.Name = "Logout";
             this.Logout.Size = new System.Drawing.Size(52, 50);
             this.Logout.TabIndex = 15;
@@ -80,7 +80,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 611);
+            this.ClientSize = new System.Drawing.Size(984, 661);
             this.Controls.Add(this.Logout);
             this.Controls.Add(this.AdminHome);
             this.Controls.Add(this.pictureBox1);

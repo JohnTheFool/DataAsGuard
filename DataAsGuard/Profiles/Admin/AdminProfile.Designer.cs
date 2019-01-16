@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridView dataFilesGrid;
+            
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminProfile));
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
@@ -80,10 +80,10 @@
             this.Logout = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
             this.changePassword = new System.Windows.Forms.Button();
-            dataFilesGrid = new System.Windows.Forms.DataGridView();
+            this.dataFilesGrid = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(dataFilesGrid)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(dataFilesGrid)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataAccountGrid)).BeginInit();
@@ -105,6 +105,19 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // dataFilesGrid
+            // 
+            dataFilesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            dataFilesGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataFilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataFilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            dataFilesGrid.Location = new System.Drawing.Point(0, 0);
+            dataFilesGrid.Name = "dataFilesGrid";
+            dataFilesGrid.ReadOnly = true;
+            dataFilesGrid.Size = new System.Drawing.Size(775, 356);
+            dataFilesGrid.TabIndex = 0;
+            dataFilesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataFilesGrid_CellContentClick);
             // 
             // tabPage4
             // 
@@ -151,19 +164,6 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(775, 356);
             this.panel6.TabIndex = 6;
-            // 
-            // dataFilesGrid
-            // 
-            dataFilesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataFilesGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            dataFilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataFilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            dataFilesGrid.Location = new System.Drawing.Point(0, 0);
-            dataFilesGrid.Name = "dataFilesGrid";
-            dataFilesGrid.ReadOnly = true;
-            dataFilesGrid.Size = new System.Drawing.Size(775, 356);
-            dataFilesGrid.TabIndex = 0;
-            dataFilesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataFilesGrid_CellContentClick);
             // 
             // filesFilter
             // 
@@ -701,10 +701,10 @@
             this.Name = "AdminProfile";
             this.Text = "AdminProfile";
             this.Load += new System.EventHandler(this.Adminprofile_Load);
+            ((System.ComponentModel.ISupportInitialize)(dataFilesGrid)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(dataFilesGrid)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -738,7 +738,7 @@
         }
 
         #endregion
-
+        private System.Windows.Forms.DataGridView dataFilesGrid;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage1;

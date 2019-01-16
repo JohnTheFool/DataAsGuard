@@ -199,6 +199,12 @@
     <Compile Include="Profiles\Admin\RegistrationConfirm.Designer.cs">
       <DependentUpon>RegistrationConfirm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\forgetUserInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\forgetUserInfo.Designer.cs">
+      <DependentUpon>forgetUserInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Users\changePasswordRegistration.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -368,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Admin\RegistrationConfirm.resx">
       <DependentUpon>RegistrationConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\forgetUserInfo.resx">
+      <DependentUpon>forgetUserInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Users\changePasswordRegistration.resx">
       <DependentUpon>changePasswordRegistration.cs</DependentUpon>

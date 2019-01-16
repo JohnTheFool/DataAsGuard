@@ -151,7 +151,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(720, 237);
+            this.tabPage2.Size = new System.Drawing.Size(823, 237);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "LoginFrequency";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -174,7 +174,7 @@
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
             series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(714, 231);
+            this.chart1.Size = new System.Drawing.Size(817, 231);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -388,9 +388,9 @@
             // 
             // Lockbtn
             // 
-            this.Lockbtn.Location = new System.Drawing.Point(567, 271);
+            this.Lockbtn.Location = new System.Drawing.Point(567, 248);
             this.Lockbtn.Name = "Lockbtn";
-            this.Lockbtn.Size = new System.Drawing.Size(75, 50);
+            this.Lockbtn.Size = new System.Drawing.Size(90, 73);
             this.Lockbtn.TabIndex = 14;
             this.Lockbtn.Text = "Lock";
             this.Lockbtn.UseVisualStyleBackColor = true;
@@ -398,9 +398,9 @@
             // 
             // delete
             // 
-            this.delete.Location = new System.Drawing.Point(736, 271);
+            this.delete.Location = new System.Drawing.Point(736, 248);
             this.delete.Name = "delete";
-            this.delete.Size = new System.Drawing.Size(75, 50);
+            this.delete.Size = new System.Drawing.Size(90, 73);
             this.delete.TabIndex = 28;
             this.delete.Text = "Delete";
             this.delete.UseVisualStyleBackColor = true;
