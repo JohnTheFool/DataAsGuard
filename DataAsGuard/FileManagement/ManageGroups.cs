@@ -105,12 +105,28 @@ namespace DataAsGuard.FileManagement
         {
             CreateNewGroup createNewGroup = new CreateNewGroup();
             createNewGroup.Show();
+            createNewGroup.FormClosed += createNewGroup_FormClosed;
+        }
+
+        private void createNewGroup_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ManageGroups view = new ManageGroups();
+            view.Show();
+            Hide();
         }
 
         private void editGroupButton_Click(object sender, EventArgs e)
         {
             EditGroup view = new EditGroup(groupList.SelectedValue.ToString());
             view.Show();
+            view.FormClosed += editGroup_FormClosed;
+        }
+
+        private void editGroup_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ManageGroups view = new ManageGroups();
+            view.Show();
+            Hide();
         }
 
         private void deleteGroupButton_Click(object sender, EventArgs e)
@@ -153,6 +169,9 @@ namespace DataAsGuard.FileManagement
                     con.Close();
                 }
             }
+            ManageGroups view = new ManageGroups();
+            view.Show();
+            Hide();
         }
 
         private void transferOwnershipButton_Click(object sender, EventArgs e)

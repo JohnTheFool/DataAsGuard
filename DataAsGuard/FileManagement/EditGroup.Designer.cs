@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditGroup));
-            this.settingsButton = new System.Windows.Forms.Button();
-            this.ProfileButton = new System.Windows.Forms.Button();
-            this.homeButton = new System.Windows.Forms.Button();
-            this.BackButton = new System.Windows.Forms.Button();
             this.userLabel = new System.Windows.Forms.Label();
             this.userList = new System.Windows.Forms.ListBox();
             this.groupLabel = new System.Windows.Forms.Label();
@@ -47,44 +43,6 @@
             this.updateGroupButton = new System.Windows.Forms.Button();
             this.groupNameTable.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // settingsButton
-            // 
-            this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
-            this.settingsButton.Location = new System.Drawing.Point(12, 116);
-            this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(37, 36);
-            this.settingsButton.TabIndex = 18;
-            this.settingsButton.UseVisualStyleBackColor = true;
-            // 
-            // ProfileButton
-            // 
-            this.ProfileButton.Image = ((System.Drawing.Image)(resources.GetObject("ProfileButton.Image")));
-            this.ProfileButton.Location = new System.Drawing.Point(12, 63);
-            this.ProfileButton.Name = "ProfileButton";
-            this.ProfileButton.Size = new System.Drawing.Size(37, 36);
-            this.ProfileButton.TabIndex = 17;
-            this.ProfileButton.UseVisualStyleBackColor = true;
-            // 
-            // homeButton
-            // 
-            this.homeButton.Image = ((System.Drawing.Image)(resources.GetObject("homeButton.Image")));
-            this.homeButton.Location = new System.Drawing.Point(12, 12);
-            this.homeButton.Name = "homeButton";
-            this.homeButton.Size = new System.Drawing.Size(37, 36);
-            this.homeButton.TabIndex = 16;
-            this.homeButton.UseVisualStyleBackColor = true;
-            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
-            // 
-            // BackButton
-            // 
-            this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
-            this.BackButton.Location = new System.Drawing.Point(835, 12);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new System.Drawing.Size(37, 36);
-            this.BackButton.TabIndex = 15;
-            this.BackButton.UseVisualStyleBackColor = true;
-            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // userLabel
             // 
@@ -232,10 +190,6 @@
             this.Controls.Add(this.groupLabel);
             this.Controls.Add(this.userList);
             this.Controls.Add(this.userLabel);
-            this.Controls.Add(this.settingsButton);
-            this.Controls.Add(this.ProfileButton);
-            this.Controls.Add(this.homeButton);
-            this.Controls.Add(this.BackButton);
             this.Name = "EditGroup";
             this.Text = "DataAsguard";
             this.Load += new System.EventHandler(this.EditGroup_Load);
@@ -247,11 +201,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button settingsButton;
-        private System.Windows.Forms.Button ProfileButton;
-        private System.Windows.Forms.Button homeButton;
-        private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Label userLabel;
         public System.Windows.Forms.ListBox userList;
         private System.Windows.Forms.Label groupLabel;
