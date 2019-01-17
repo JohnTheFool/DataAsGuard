@@ -59,7 +59,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.74683F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.25317F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 259F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 260F));
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.strengthcheck, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.validateCaptcha, 2, 4);
@@ -89,7 +89,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(67, 27);
+            this.label3.Location = new System.Drawing.Point(66, 27);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 17);
@@ -100,7 +100,7 @@
             // 
             this.strengthcheck.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.strengthcheck.AutoSize = true;
-            this.strengthcheck.Location = new System.Drawing.Point(210, 139);
+            this.strengthcheck.Location = new System.Drawing.Point(209, 139);
             this.strengthcheck.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.strengthcheck.Name = "strengthcheck";
             this.strengthcheck.Size = new System.Drawing.Size(60, 17);
@@ -111,7 +111,7 @@
             // 
             this.validateCaptcha.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateCaptcha.AutoSize = true;
-            this.validateCaptcha.Location = new System.Drawing.Point(314, 274);
+            this.validateCaptcha.Location = new System.Drawing.Point(313, 274);
             this.validateCaptcha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validateCaptcha.Name = "validateCaptcha";
             this.validateCaptcha.Size = new System.Drawing.Size(109, 17);
@@ -121,7 +121,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 247);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 247);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(152, 71);
@@ -132,7 +132,7 @@
             // 
             this.validatecPasword.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatecPasword.AutoSize = true;
-            this.validatecPasword.Location = new System.Drawing.Point(314, 189);
+            this.validatecPasword.Location = new System.Drawing.Point(313, 189);
             this.validatecPasword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatecPasword.Name = "validatecPasword";
             this.validatecPasword.Size = new System.Drawing.Size(127, 17);
@@ -143,7 +143,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(66, 96);
+            this.label1.Location = new System.Drawing.Point(65, 96);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 17);
@@ -154,7 +154,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 189);
+            this.label2.Location = new System.Drawing.Point(13, 189);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(152, 17);
@@ -165,7 +165,7 @@
             // 
             this.validatePassword.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatePassword.AutoSize = true;
-            this.validatePassword.Location = new System.Drawing.Point(314, 96);
+            this.validatePassword.Location = new System.Drawing.Point(313, 96);
             this.validatePassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatePassword.Name = "validatePassword";
             this.validatePassword.Size = new System.Drawing.Size(118, 17);
@@ -175,7 +175,7 @@
             // oldPassword
             // 
             this.oldPassword.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.oldPassword.Location = new System.Drawing.Point(173, 24);
+            this.oldPassword.Location = new System.Drawing.Point(172, 24);
             this.oldPassword.Name = "oldPassword";
             this.oldPassword.PasswordChar = '*';
             this.oldPassword.Size = new System.Drawing.Size(126, 23);
@@ -184,7 +184,7 @@
             // Password
             // 
             this.Password.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.Password.Location = new System.Drawing.Point(173, 93);
+            this.Password.Location = new System.Drawing.Point(172, 93);
             this.Password.Name = "Password";
             this.Password.PasswordChar = '*';
             this.Password.Size = new System.Drawing.Size(126, 23);
@@ -195,7 +195,7 @@
             // CPassword
             // 
             this.CPassword.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.CPassword.Location = new System.Drawing.Point(173, 186);
+            this.CPassword.Location = new System.Drawing.Point(172, 186);
             this.CPassword.Name = "CPassword";
             this.CPassword.PasswordChar = '*';
             this.CPassword.Size = new System.Drawing.Size(126, 23);
@@ -205,7 +205,7 @@
             // captchabox
             // 
             this.captchabox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.captchabox.Location = new System.Drawing.Point(173, 271);
+            this.captchabox.Location = new System.Drawing.Point(172, 271);
             this.captchabox.Name = "captchabox";
             this.captchabox.Size = new System.Drawing.Size(126, 23);
             this.captchabox.TabIndex = 31;
@@ -230,7 +230,7 @@
             this.home.Size = new System.Drawing.Size(49, 44);
             this.home.TabIndex = 10;
             this.home.UseVisualStyleBackColor = true;
-            this.home.Click += new System.EventHandler(this.button1_Click);
+            this.home.Click += new System.EventHandler(this.home_Click);
             // 
             // ProfileButton
             // 

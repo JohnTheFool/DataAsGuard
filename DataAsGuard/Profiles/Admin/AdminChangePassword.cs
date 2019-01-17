@@ -522,6 +522,11 @@ namespace DataAsGuard.Profiles.Admin
             Login login = new Login();
             login.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void AdminHome_Click(object sender, EventArgs e)
@@ -529,6 +534,11 @@ namespace DataAsGuard.Profiles.Admin
             AdminProfile Profiles = new AdminProfile();
             Profiles.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void settingsButton_Click(object sender, EventArgs e)
@@ -536,6 +546,11 @@ namespace DataAsGuard.Profiles.Admin
             AdminProfileSettings settings = new AdminProfileSettings();
             settings.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         //captcha

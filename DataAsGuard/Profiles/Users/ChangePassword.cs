@@ -625,6 +625,11 @@ namespace DataAsGuard.Profiles.Users
             Login login = new Login();
             login.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void ProfileButton_Click(object sender, EventArgs e)
@@ -633,6 +638,11 @@ namespace DataAsGuard.Profiles.Users
             profile.Show();
             Hide();
 
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
 
@@ -641,13 +651,22 @@ namespace DataAsGuard.Profiles.Users
             Profilesettings settings = new Profilesettings();
             settings.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void home_Click(object sender, EventArgs e)
         {
-
+            //home form is not completed
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
-
     }
 }
 
