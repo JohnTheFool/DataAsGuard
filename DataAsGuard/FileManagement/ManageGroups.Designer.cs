@@ -41,6 +41,7 @@
             this.groupInformation = new System.Windows.Forms.RichTextBox();
             this.groupList = new System.Windows.Forms.ListBox();
             this.deleteGroupButton = new System.Windows.Forms.Button();
+            this.transferOwnershipButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // settingsButton
@@ -167,11 +168,24 @@
             this.deleteGroupButton.UseVisualStyleBackColor = true;
             this.deleteGroupButton.Click += new System.EventHandler(this.deleteGroupButton_Click);
             // 
+            // transferOwnershipButton
+            // 
+            this.transferOwnershipButton.Enabled = false;
+            this.transferOwnershipButton.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.transferOwnershipButton.Location = new System.Drawing.Point(573, 395);
+            this.transferOwnershipButton.Name = "transferOwnershipButton";
+            this.transferOwnershipButton.Size = new System.Drawing.Size(179, 28);
+            this.transferOwnershipButton.TabIndex = 26;
+            this.transferOwnershipButton.Text = "Transfer Ownership";
+            this.transferOwnershipButton.UseVisualStyleBackColor = true;
+            this.transferOwnershipButton.Click += new System.EventHandler(this.transferOwnershipButton_Click);
+            // 
             // ManageGroups
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.transferOwnershipButton);
             this.Controls.Add(this.deleteGroupButton);
             this.Controls.Add(this.groupInformation);
             this.Controls.Add(this.createGroupButton);
@@ -206,5 +220,6 @@
         private System.Windows.Forms.Button deleteGroupButton;
         private System.Windows.Forms.ListBox groupList;
         private System.Windows.Forms.ListBox membersList;
+        private System.Windows.Forms.Button transferOwnershipButton;
     }
 }

@@ -205,6 +205,5 @@ namespace DataAsGuard.FileManagement
                 MessageBox.Show("Permissions applied.");
             }
         }
-
     }
 }
