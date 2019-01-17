@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataAsGuard.CSClass;
+using DataAsGuard.Profiles;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -102,6 +104,16 @@ namespace DataAsGuard
         {
             Test testView = new Test();
             testView.Show();
+            Hide();
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            Logininfo.userid = null;
+            Logininfo.email = null;
+            Logininfo.username = null;
+            Login login = new Login();
+            login.Show();
             Hide();
         }
     }

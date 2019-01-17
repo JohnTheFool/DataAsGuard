@@ -84,11 +84,11 @@ namespace DataAsGuard.FileManagement
                 MySqlDataReader reader2 = getgroupidcmd.ExecuteReader();
                 if (reader2.Read())
                 {
-                    groupID = Convert.ToInt32(reader2["userid"]);
+                    groupID = Convert.ToInt32(reader2["groupID"]);
                 }
                 reader2.Close();
 
-                //If user's permission for this file already exists, delete old permission and insert new permission
+                //If group's permission for this file already exists, delete old permission and insert new permission
                 Boolean permissionExists = false;
                 string getPermissionQuery = "SELECT * FROM groupFilePermissions WHERE fileID = @fileIDParam AND groupID = @groupIDParam";
                 MySqlCommand getPermissionCmd = new MySqlCommand(getPermissionQuery, con);
@@ -103,17 +103,17 @@ namespace DataAsGuard.FileManagement
 
                 if (permissionExists)
                 {
-                    string deletePermQuery = "DELETE FROM groupFilePermissions WHERE fileID = @fileIDParam AND groupID = @groupdIDParam";
+                    string deletePermQuery = "DELETE FROM groupFilePermissions WHERE fileID = @fileIDParam AND groupID = @groupIDParam";
                     MySqlCommand deletePermCmd = new MySqlCommand(deletePermQuery, con);
                     deletePermCmd.Parameters.AddWithValue("@fileIDParam", fileID);
-                    deletePermCmd.Parameters.AddWithValue("@userIDParam", groupID);
+                    deletePermCmd.Parameters.AddWithValue("@groupIDParam", groupID);
                     deletePermCmd.ExecuteNonQuery();
                 }
 
-                String executeQuery = "INSERT INTO groupFilePermissions(fileID, groupIDID, readPermission, editPermission, downloadPermission) VALUES (@fileIDParam, @userIDParam, @readParam, @editParam, @downloadParam)";
+                String executeQuery = "INSERT INTO groupFilePermissions(fileID, groupID, readPermission, editPermission, downloadPermission) VALUES (@fileIDParam, @groupIDParam, @readParam, @editParam, @downloadParam)";
                 MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
                 myCommand.Parameters.AddWithValue("@fileIDParam", fileID);
-                myCommand.Parameters.AddWithValue("@userIDParam", groupID);
+                myCommand.Parameters.AddWithValue("@groupIDParam", groupID);
                 myCommand.Parameters.AddWithValue("@readParam", readPermission);
                 myCommand.Parameters.AddWithValue("@editParam", editPermission);
                 myCommand.Parameters.AddWithValue("@downloadParam", downloadPermission);

@@ -42,6 +42,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.watchVideoBtn = new System.Windows.Forms.Button();
             this.testBtn = new System.Windows.Forms.Button();
+            this.logoutButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +58,7 @@
             // backButton
             // 
             this.backButton.Image = ((System.Drawing.Image)(resources.GetObject("backButton.Image")));
-            this.backButton.Location = new System.Drawing.Point(835, 12);
+            this.backButton.Location = new System.Drawing.Point(835, 48);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(37, 36);
             this.backButton.TabIndex = 3;
@@ -179,11 +180,24 @@
             this.testBtn.UseVisualStyleBackColor = true;
             this.testBtn.Click += new System.EventHandler(this.testBtn_Click);
             // 
+            // logoutButton
+            // 
+            this.logoutButton.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.logoutButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.logoutButton.Location = new System.Drawing.Point(773, 12);
+            this.logoutButton.Name = "logoutButton";
+            this.logoutButton.Size = new System.Drawing.Size(99, 30);
+            this.logoutButton.TabIndex = 14;
+            this.logoutButton.Text = "Logout";
+            this.logoutButton.UseVisualStyleBackColor = true;
+            this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.uploadFileButton);
             this.Controls.Add(this.testBtn);
             this.Controls.Add(this.watchVideoBtn);
@@ -219,6 +233,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button watchVideoBtn;
         private System.Windows.Forms.Button testBtn;
+        private System.Windows.Forms.Button logoutButton;
     }
 }
 

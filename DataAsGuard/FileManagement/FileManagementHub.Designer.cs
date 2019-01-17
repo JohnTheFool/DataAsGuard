@@ -146,6 +146,7 @@
             this.homeButton.Size = new System.Drawing.Size(37, 36);
             this.homeButton.TabIndex = 13;
             this.homeButton.UseVisualStyleBackColor = true;
+            this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
             // backButton
             // 

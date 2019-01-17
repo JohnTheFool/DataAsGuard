@@ -81,6 +81,7 @@
             this.backButton.Size = new System.Drawing.Size(37, 36);
             this.backButton.TabIndex = 14;
             this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // groupListLabel
             // 
@@ -190,6 +191,7 @@
             this.applyPermButton.TabIndex = 22;
             this.applyPermButton.Text = "Apply Permissions";
             this.applyPermButton.UseVisualStyleBackColor = true;
+            this.applyPermButton.Click += new System.EventHandler(this.applyPermButton_Click);
             // 
             // EditGroupPermissions
             // 

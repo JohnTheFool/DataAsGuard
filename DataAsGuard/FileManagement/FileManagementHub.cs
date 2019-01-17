@@ -27,6 +27,8 @@ namespace DataAsGuard.FileManagement
         public Image GetImg { get; set; }
         string tempFileName;
         int fileID = 0;
+        List<int> groupIDList = new List<int>();
+
         public FileManagementHub()
         {
             InitializeComponent();
@@ -65,6 +67,7 @@ namespace DataAsGuard.FileManagement
             openFileButton.Enabled = false;
             deleteFileButton.Enabled = false;
             downloadFileButton.Enabled = false;
+            transferOwnershipButton.Enabled = false;
 
             string fileOwnerID = null;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
@@ -73,6 +76,7 @@ namespace DataAsGuard.FileManagement
                 try
                 {
                     string curItem = fileList.SelectedItem.ToString();
+
                     //Retrieve file info from DB
                     String fileInfoquery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
                     MySqlCommand fileInfocmd = new MySqlCommand(fileInfoquery, con);
@@ -87,15 +91,80 @@ namespace DataAsGuard.FileManagement
                         fileID = Convert.ToInt32(reader["fileID"]);
                     }
                     reader.Close();
+
                     if (Logininfo.userid == fileOwnerID)
                     {
-                    //Add in check if permissions below in the future
+                        //If owner of file, allow all buttons
                         editUserPermButton.Enabled = true;
                         editGroupPermButton.Enabled = true;
                         openFileButton.Enabled = true;
                         deleteFileButton.Enabled = true;
                         downloadFileButton.Enabled = true;
+                        transferOwnershipButton.Enabled = true;
                     }
+
+                    //Check user permissions for the file
+                    else
+                    {
+                        String userPermsQuery = "SELECT * FROM userFilePermissions WHERE fileID = @fileIDParam AND userID = @userIDParam";
+                        MySqlCommand userPermsCmd = new MySqlCommand(userPermsQuery, con);
+                        userPermsCmd.Parameters.AddWithValue("@userIDParam", Logininfo.userid);
+                        userPermsCmd.Parameters.AddWithValue("@fileIDParam", fileID);
+                        MySqlDataReader reader2 = userPermsCmd.ExecuteReader();
+                        if (reader2.Read())
+                        {
+                            if (Convert.ToInt32(reader2["readPermission"]) == 1)
+                            {
+                                openFileButton.Enabled = true;
+                            }
+                            if (Convert.ToInt32(reader2["editPermission"]) == 1)
+                            {
+                                //Check with Solo
+                            }
+                            if (Convert.ToInt32(reader2["downloadPermission"]) == 1)
+                            {
+                                downloadFileButton.Enabled = true;
+                            }
+                        }
+                        reader2.Close();
+
+                        //Check user's groups
+                        String userGroupsQuery = "SELECT * FROM groupUsers WHERE userID = @userIDParam";
+                        MySqlCommand userGroupsCmd = new MySqlCommand(userGroupsQuery, con);
+                        userGroupsCmd.Parameters.AddWithValue("@userIDParam", Logininfo.userid);
+                        MySqlDataReader reader3 = userGroupsCmd.ExecuteReader();
+                        while (reader3.Read())
+                        {
+                            groupIDList.Add(Convert.ToInt32(reader3["groupID"]));
+                        }
+                        reader3.Close();
+
+                        //Check group permissions for all the user's groups
+                        for (int i = 0; i < groupIDList.Count; i++)
+                        {
+                            String groupPermsQuery = "SELECT * FROM groupFilePermissions WHERE fileID = @fileIDParam AND groupID = @groupIDParam";
+                            MySqlCommand groupPermsCmd = new MySqlCommand(groupPermsQuery, con);
+                            groupPermsCmd.Parameters.AddWithValue("@fileIDParam", fileID);
+                            groupPermsCmd.Parameters.AddWithValue("@groupIdParam", groupIDList[i]);
+                            MySqlDataReader reader4 = groupPermsCmd.ExecuteReader();
+                            while (reader4.Read())
+                            {
+                                if (Convert.ToInt32(reader4["readPermission"]) == 1)
+                                {
+                                    openFileButton.Enabled = true;
+                                }
+                                if (Convert.ToInt32(reader4["editPermission"]) == 1)
+                                {
+                                    //Check with Solo
+                                }
+                                if (Convert.ToInt32(reader4["downloadPermission"]) == 1)
+                                {
+                                    downloadFileButton.Enabled = true;
+                                }
+                            }
+                            reader4.Close();
+                        }
+                    }   
                 }
                 catch (NullReferenceException)
                 {
@@ -108,7 +177,6 @@ namespace DataAsGuard.FileManagement
         //public string fileExtension { get;  set; }
         //public string tempFileName { get; set; }
         //public string bobo { get; set; }
-
 
         private void openFileButton_Click(object sender, EventArgs e)
         {
@@ -297,6 +365,9 @@ namespace DataAsGuard.FileManagement
 
                     //Log Deletion
                 }
+                FileManagementHub view = new FileManagementHub();
+                view.Show();
+                Hide();
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -544,6 +615,13 @@ namespace DataAsGuard.FileManagement
         private void transferOwnershipButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void homeButton_Click(object sender, EventArgs e)
+        {
+            Home view = new Home();
+            view.Show();
+            Hide();
         }
     }
 }
