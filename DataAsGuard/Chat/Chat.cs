@@ -9,29 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAsGuard.CSClass;
-using Microsoft.AspNet.SignalR;
 using MySql.Data.MySqlClient;
 
 namespace DataAsGuard.Chat
 {
     public partial class Chat : Form
     {
-        //static List<Users> ConnectedUsers = new List<Users>();
-        //static List<Messages> CurrentMessage = new List<Messages>();
-
         public Chat()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        public Chat(string user)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
+            InitializeComponent();
+            userList.Items.Add(user);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -39,41 +31,24 @@ namespace DataAsGuard.Chat
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void Chat_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            //delete this
-            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
-            {
-                con.Open();
-                String query = "SELECT * FROM da_schema.Userinfo";
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    //userList.Items.Add(reader["fullName"].ToString());
-                }
-                reader.Close();
-                con.Close();
+            //only load user with messeges to the userlist
+            List<string> SenderList = new List<string>();
+            SenderList = SortDistinctSender();
+            for (int i = 0; i < SenderList.Count; i++) {
+                userList.Items.Add(SenderList[i]);
             }
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         #region Connection and Disconnection? Signal R how?
-        public void Connect(string username){
+        public void Connect(string username)
+        {
             //var id = Context.ConnectionId;
 
             //if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
@@ -118,20 +93,23 @@ namespace DataAsGuard.Chat
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Keys.Add(new EncryptClass { PublicIV = reader["key"].ToString() , PublicKey = reader["iv"].ToString()});
+                    Keys.Add(new EncryptClass { PublicIV = reader["iv"].ToString(), PublicKey = reader["key"].ToString() });
                 }
 
                 reader.Close();
                 con.Close();
             }
             List<RSAParameters> RSAList = new List<RSAParameters>();
-            for (int i = 0; i < Keys.Count; i++) {
-                RSAList.Add(new RSAParameters { Modulus = Encoding.Unicode.GetBytes(Keys[i].PublicKey), Exponent = Encoding.Unicode.GetBytes(Keys[i].PublicIV)});
+            for (int i = 0; i < Keys.Count; i++)
+            {
+                RSAList.Add(new RSAParameters { Modulus = Encoding.UTF8.GetBytes(Keys[i].PublicKey), Exponent = Encoding.UTF8.GetBytes(Keys[i].PublicIV) });
             }
             return RSAList;
         }
-        public void SendMessage(string senderId,string recieverId, string message, string time)
+
+        public void SendMessage(string recieverId, string message, string time)
         {
+            //change recieverid = currselected?
             List<RSAParameters> recieverKeys = new List<RSAParameters>();
             recieverKeys = GetKeys(recieverId);
             if (recieverKeys.Count != 0)
@@ -139,38 +117,84 @@ namespace DataAsGuard.Chat
                 using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
                 {
                     con.Open();
-                    String executeQuery = "INSERT INTO da_schema.Messages(Sender,Reciever,Message,Time) VALUES (@Sender,@Reciever ,@Message, @Time)";
+                    String executeQuery = "INSERT INTO da_schema.Messages(Sender,Reciever,Message,Time,key) VALUES (@Sender,@Reciever ,@Message, @Time,@key)";
                     MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
-                    myCommand.Parameters.AddWithValue("@Sender", senderId);
+                    myCommand.Parameters.AddWithValue("@Sender", Logininfo.username);
                     myCommand.Parameters.AddWithValue("@Reciever", recieverId);
                     myCommand.Parameters.AddWithValue("@Time", DateTime.Now);
 
                     for (int i = 0; i < recieverKeys.Count; i++)
                     {
-                        message = EncrpytThis(message);
+                        message = EncrpytThis(message, recieverKeys[i]);
                         myCommand.Parameters.AddWithValue("@Message", message);
+                        myCommand.Parameters.AddWithValue("@key", Encoding.UTF8.GetString(recieverKeys[i].Modulus));
                         myCommand.ExecuteNonQuery();
-                        
+
                     }
                     con.Close();
                 }
             }
-            
+
+        }
+
+        public List<Message> GetMessages()
+        {
+            //to generate chat?
+            RSAParameters rsa = GetKeyFromContainer();
+            List<Message> MessageList = new List<Message>();
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String executeQuery = "Select * from da_schema.Messages where Reciever = @reciever AND key = @key";
+                MySqlCommand cmd = new MySqlCommand(executeQuery, con);
+                cmd.Parameters.AddWithValue("@reciever", Logininfo.username);
+                cmd.Parameters.AddWithValue("@key", Encoding.UTF8.GetString(rsa.Modulus));
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    MessageList.Add(new Message { Sender = reader["Sender"].ToString(), Reciever = reader["Reciever"].ToString(),MessageText = reader["Message"].ToString()});  
+                }
+                con.Close();
+            }
+            return MessageList;
+            //check if messageList is empty elsewhere
+        }
+
+        public List<string> SortDistinctSender()
+        {
+            RSAParameters rsa = GetKeyFromContainer();
+            List<string> UniqueUserList = new List<string>();
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                //Select DISTINCT Sender from (Select * from da_schema.Messages where Reciever = @reciever AND key = @key)?
+                String executeQuery = "Select DISTINCT Sender from da_schema.Messages where Reciever = @reciever AND key = @key";
+                MySqlCommand cmd = new MySqlCommand(executeQuery, con);
+                cmd.Parameters.AddWithValue("@reciever", Logininfo.username);
+                cmd.Parameters.AddWithValue("@key", Encoding.UTF8.GetString(rsa.Modulus));
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    UniqueUserList.Add(reader["Sender"].ToString());
+                }
+                con.Close();
+            }
+            return UniqueUserList;
         }
         #endregion
 
         #region encryption
-        public string EncrpytThis(string text)
+        public string EncrpytThis(string text, RSAParameters rsaParam)
         {
             //revisit the site to confirm
             //this is the public key
             //load public key here
             //Initialize the byte arrays to the public key information.  
-            RSAParameters RSAParam = GetKeyFromContainer(""); //what?
-            byte[] PublicKey = RSAParam.Modulus;
+            //RSAParameters RSAParam = GetKeyFromContainer();
+            //byte[] PublicKey = RSAParam.Modulus;
 
             //iv of the public key
-            byte[] Exponent = RSAParam.Exponent;
+            //byte[] Exponent = RSAParam.Exponent;
 
 
             //Maybe the final 2 lines need edit only
@@ -189,7 +213,7 @@ namespace DataAsGuard.Chat
             //RSAKeyInfo.Exponent = Exponent;
 
             //Import key parameters into RSA.  
-            RSA.ImportParameters(RSAParam);
+            RSA.ImportParameters(rsaParam);
 
 
             //Create a new instance of the RijndaelManaged class.  
@@ -199,7 +223,7 @@ namespace DataAsGuard.Chat
             //EncryptedSymmetricKey = RSA.Encrypt(RM.Key, false);
             //EncryptedSymmetricIV = RSA.Encrypt(RM.IV, false);
             byte[] converted = Encoding.UTF8.GetBytes(text);
-            byte[] EncryptedText = RSA.Encrypt(converted,false);
+            byte[] EncryptedText = RSA.Encrypt(converted, false);
 
             string EncryptedString = Encoding.UTF8.GetString(EncryptedText);
             return EncryptedString;
@@ -210,7 +234,7 @@ namespace DataAsGuard.Chat
             //Create a new instance of the RSACryptoServiceProvider class.  
             RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
 
-            RSA.ImportParameters(GetFullKeyFromContainer(""));
+            RSA.ImportParameters(GetFullKeyFromContainer());
 
             // Export the public key information and send it to a third party.  
             // Wait for the third party to encrypt some data and send it back.  
@@ -232,7 +256,7 @@ namespace DataAsGuard.Chat
             //genkey_saveincontainer -> save into db
 
             //might not need to generate new key pair as the containers method does generation too
-            string containername = "DataAsGuard" + Logininfo.userid; 
+            string containername = "DataAsGuard" + Logininfo.email;
             //Generate a public/private key pair.  
             RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
             //Save the public key information to an RSAParameters structure.  
@@ -244,16 +268,17 @@ namespace DataAsGuard.Chat
                 con.Open();
                 String executeQuery = "INSERT INTO da_schema.KeyList(user_id,key,iv) VALUES (@userid,@key,@iv)";
                 MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
-                myCommand.Parameters.AddWithValue("@userid", "");
-                myCommand.Parameters.AddWithValue("@key", Encoding.Unicode.GetString(publickey));
-                myCommand.Parameters.AddWithValue("@iv", Encoding.Unicode.GetString(RSAKeyInfo.Exponent));
+                myCommand.Parameters.AddWithValue("@userid", Logininfo.userid);
+                myCommand.Parameters.AddWithValue("@key", Encoding.UTF8.GetString(publickey));
+                myCommand.Parameters.AddWithValue("@iv", Encoding.UTF8.GetString(RSAKeyInfo.Exponent));
                 myCommand.ExecuteNonQuery();
                 con.Close();
             }
         }
 
-        public static void GenKey_SaveInContainer(string ContainerName)
+        public static void GenKey_SaveInContainer()
         {
+            string ContainerName = "DataAsGuard" + Logininfo.email;
             // Create the CspParameters object and set the key container   
             // name used to store the RSA key pair.  
             CspParameters cp = new CspParameters();
@@ -267,8 +292,9 @@ namespace DataAsGuard.Chat
             Console.WriteLine("Key added to container: \n  {0}", rsa.ToXmlString(true));
         }
 
-        public static RSAParameters GetKeyFromContainer(string ContainerName)
+        public static RSAParameters GetKeyFromContainer()
         {
+            string ContainerName = "DataAsGuard" + Logininfo.email;
             // Create the CspParameters object and set the key container   
             // name used to store the RSA key pair.  
             CspParameters cp = new CspParameters();
@@ -285,8 +311,10 @@ namespace DataAsGuard.Chat
             //Console.WriteLine("Key retrieved from container : \n {0}", rsa.ToXmlString(true));
         }
 
-        public static RSAParameters GetFullKeyFromContainer(string ContainerName)
+        public static RSAParameters GetFullKeyFromContainer()
         {
+            string ContainerName = "DataAsGuard" + Logininfo.email;
+
             // Create the CspParameters object and set the key container   
             // name used to store the RSA key pair.  
             CspParameters cp = new CspParameters();
@@ -303,8 +331,10 @@ namespace DataAsGuard.Chat
             //Console.WriteLine("Key retrieved from container : \n {0}", rsa.ToXmlString(true));
         }
 
-        public static void DeleteKeyFromContainer(string ContainerName)
+        public static void DeleteKeyFromContainer()
         {
+            string ContainerName = "DataAsGuard" + Logininfo.email;
+
             // Create the CspParameters object and set the key container   
             // name used to store the RSA key pair.  
             CspParameters cp = new CspParameters();
@@ -331,5 +361,10 @@ namespace DataAsGuard.Chat
 
         */
         #endregion
+
+        private void userList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //on select change tab label and pull up chat
+        }
     }
 }
