@@ -14,10 +14,10 @@ using MySql.Data.MySqlClient;
 
 namespace DataAsGuard.Chat
 {
-    public partial class Chat :Hub
+    public partial class Chat : Form
     {
-        static List<Users> ConnectedUsers = new List<Users>();
-        static List<Messages> CurrentMessage = new List<Messages>();
+        //static List<Users> ConnectedUsers = new List<Users>();
+        //static List<Messages> CurrentMessage = new List<Messages>();
 
         public Chat()
         {
@@ -65,7 +65,7 @@ namespace DataAsGuard.Chat
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    userList.Items.Add(reader["fullName"].ToString());
+                    //userList.Items.Add(reader["fullName"].ToString());
                 }
                 reader.Close();
                 con.Close();
@@ -74,36 +74,37 @@ namespace DataAsGuard.Chat
 
         #region Connection and Disconnection? Signal R how?
         public void Connect(string username){
-            var id = Context.ConnectionId;
+            //var id = Context.ConnectionId;
 
-            if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
-            {
-                //string UserImg = GetUserImage(userName);
-                string logintime = DateTime.Now.ToString();
-                //ConnectedUsers.Add(new Users { ConnectionId = id, UserName = userName, UserImage = UserImg, LoginTime = logintime });
+            //if (ConnectedUsers.Count(x => x.ConnectionId == id) == 0)
+            //{
+            //    //string UserImg = GetUserImage(userName);
+            //    string logintime = DateTime.Now.ToString();
+            //    //ConnectedUsers.Add(new Users { ConnectionId = id, UserName = userName, UserImage = UserImg, LoginTime = logintime });
 
-                // send to caller
-                //Clients.Caller.onConnected(id, userName, ConnectedUsers, CurrentMessage);
+            //    // send to caller
+            //    //Clients.Caller.onConnected(id, userName, ConnectedUsers, CurrentMessage);
 
-                // send to all except caller client
-                //Clients.AllExcept(id).onNewUserConnected(id, userName, UserImg, logintime);
-            }
+            //    // send to all except caller client
+            //    //Clients.AllExcept(id).onNewUserConnected(id, userName, UserImg, logintime);
+            //}
         }
 
-        public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
-        {
-            var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
-            if (item != null)
-            {
-                ConnectedUsers.Remove(item);
+        //public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
+        //{
+        //    var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == Context.ConnectionId);
+        //    if (item != null)
+        //    {
+        //        ConnectedUsers.Remove(item);
 
-                var id = Context.ConnectionId;
-                Clients.All.onUserDisconnected(id, item.UserName);
+        //        var id = Context.ConnectionId;
+        //        Clients.All.onUserDisconnected(id, item.UserName);
 
-            }
-            return base.OnDisconnected(stopCalled);
-        }
+        //    }
+        //    return base.OnDisconnected(stopCalled);
+        //}
         #endregion
+
         #region Message
         public List<RSAParameters> GetKeys(string recieverId)
         {
