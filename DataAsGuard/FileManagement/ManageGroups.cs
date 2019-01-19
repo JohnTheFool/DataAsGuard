@@ -16,6 +16,7 @@ namespace DataAsGuard.FileManagement
     {
         MySqlDataAdapter adapter;
         DataTable table = new DataTable();
+        int groupCreatorID = 0;
 
         public ManageGroups()
         {
@@ -51,7 +52,6 @@ namespace DataAsGuard.FileManagement
             {
                 con.Open();
                 string curItem = groupList.SelectedValue.ToString();
-                int groupCreatorID = 0;
                 //Retrieve group info from DB
                 String groupInfoquery = "SELECT * FROM groupInfo WHERE groupName = @nameParam";
                 MySqlCommand groupInfocmd = new MySqlCommand(groupInfoquery, con);
@@ -81,7 +81,6 @@ namespace DataAsGuard.FileManagement
                 {
                     deleteGroupButton.Enabled = true;
                     editGroupButton.Enabled = true;
-                    transferOwnershipButton.Enabled = true;
                 }
                 con.Close();
             }
@@ -176,7 +175,53 @@ namespace DataAsGuard.FileManagement
 
         private void transferOwnershipButton_Click(object sender, EventArgs e)
         {
+            string curItem = membersList.SelectedItem.ToString();
+            int newCreatorID = 0;
+            Boolean success = false;
+            DialogResult result = MessageBox.Show("Ownership of the group will be transferred to " + curItem + ". Continue?", "Warning", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                {
+                    con.Open();
+                    String getUserIDQuery = "SELECT * FROM Userinfo WHERE fullName = @nameParam";
+                    MySqlCommand getUserIdCMD = new MySqlCommand(getUserIDQuery, con);
+                    getUserIdCMD.Parameters.AddWithValue("@nameParam", curItem);
+                    MySqlDataReader reader = getUserIdCMD.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        newCreatorID = Convert.ToInt32(reader["userid"]);
+                    }
+                    reader.Close();
+                    String updateOwnerQuery = "UPDATE groupInfo SET groupCreator = @nameParam, groupCreatorID = @IDParam WHERE groupName = @groupParam";
+                    MySqlCommand updateOwnerCmd = new MySqlCommand(updateOwnerQuery, con);
+                    updateOwnerCmd.Parameters.AddWithValue("@nameParam", curItem);
+                    updateOwnerCmd.Parameters.AddWithValue("@IDParam", newCreatorID);
+                    updateOwnerCmd.Parameters.AddWithValue("@groupParam", groupList.SelectedValue.ToString());
+                    updateOwnerCmd.ExecuteNonQuery();
 
+                    success = true;
+                    con.Close();
+                }
+
+                if (success)
+                {
+                    MessageBox.Show("Successfully transferred ownership of group.");
+                    ManageGroups view = new ManageGroups();
+                    view.Show();
+                    Hide();
+                }
+            }
+        }
+
+        private void membersList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            transferOwnershipButton.Enabled = false;
+
+            if (Logininfo.userid == groupCreatorID.ToString())
+            {
+                transferOwnershipButton.Enabled = true;
+            }
         }
     }
 }

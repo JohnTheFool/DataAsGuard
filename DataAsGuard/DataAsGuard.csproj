@@ -188,6 +188,12 @@
     <Compile Include="FileManagement\ManageGroups.Designer.cs">
       <DependentUpon>ManageGroups.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileManagement\TransferOwnerUserList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileManagement\TransferOwnerUserList.Designer.cs">
+      <DependentUpon>TransferOwnerUserList.cs</DependentUpon>
+    </Compile>
     <Compile Include="PermissionMethods\Permissions.cs" />
     <Compile Include="Profiles\Admin\AccountDetails.cs">
       <SubType>Form</SubType>
@@ -374,6 +380,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FileManagement\ManageGroups.resx">
       <DependentUpon>ManageGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\TransferOwnerUserList.resx">
+      <DependentUpon>TransferOwnerUserList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Admin\AccountDetails.resx">
       <DependentUpon>AccountDetails.cs</DependentUpon>

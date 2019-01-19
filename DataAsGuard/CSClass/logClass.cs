@@ -22,6 +22,8 @@ namespace DataAsGuard.CSClass
     //UploadsFailed : Indicate failed Upload
     //UploadsSuccess : Indicate Successful Uploads
     //FileChanges : Indicate File History changes
+    //GroupChanges : Indicate changes to groups
+    //Permissions : Indicate changes to permissions
 
     public class DBLogger : LogClass
     {

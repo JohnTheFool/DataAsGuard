@@ -111,6 +111,7 @@
             this.membersList.Name = "membersList";
             this.membersList.Size = new System.Drawing.Size(177, 548);
             this.membersList.TabIndex = 18;
+            this.membersList.SelectedIndexChanged += new System.EventHandler(this.membersList_SelectedIndexChanged);
             // 
             // editGroupButton
             // 
@@ -171,7 +172,7 @@
             // transferOwnershipButton
             // 
             this.transferOwnershipButton.Enabled = false;
-            this.transferOwnershipButton.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.transferOwnershipButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.transferOwnershipButton.Location = new System.Drawing.Point(573, 395);
             this.transferOwnershipButton.Name = "transferOwnershipButton";
             this.transferOwnershipButton.Size = new System.Drawing.Size(179, 28);

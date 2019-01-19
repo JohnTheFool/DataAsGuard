@@ -614,7 +614,16 @@ namespace DataAsGuard.FileManagement
 
         private void transferOwnershipButton_Click(object sender, EventArgs e)
         {
+            TransferOwnerUserList view = new TransferOwnerUserList(fileList.SelectedItem.ToString());
+            view.Show();
+            view.FormClosed += view_FormClosed;
+        }
 
+        private void view_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FileManagementHub view = new FileManagementHub();
+            view.Show();
+            Hide();
         }
 
         private void homeButton_Click(object sender, EventArgs e)
