@@ -11,6 +11,8 @@ namespace DataAsGuard.Chat
         public string Sender { get; set; }
         public string Reciever { get; set; }
         public string MessageText { get; set; }
+        public string Time { get; set; }
+        public string fromkey { get; set; }
         //key?
     }
 }

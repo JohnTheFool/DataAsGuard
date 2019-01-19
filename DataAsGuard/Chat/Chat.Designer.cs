@@ -28,24 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ChatArea = new System.Windows.Forms.ListBox();
             this.userList = new System.Windows.Forms.ListBox();
             this.ChatMessage = new System.Windows.Forms.TextBox();
             this.Send = new System.Windows.Forms.Button();
             this.NewChat = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.username = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
-            // ChatArea
-            // 
-            this.ChatArea.FormattingEnabled = true;
-            this.ChatArea.ItemHeight = 20;
-            this.ChatArea.Location = new System.Drawing.Point(377, 65);
-            this.ChatArea.Name = "ChatArea";
-            this.ChatArea.Size = new System.Drawing.Size(684, 364);
-            this.ChatArea.TabIndex = 0;
-            this.ChatArea.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // userList
             // 
@@ -73,6 +63,7 @@
             this.Send.TabIndex = 3;
             this.Send.Text = "Send";
             this.Send.UseVisualStyleBackColor = true;
+            this.Send.Click += new System.EventHandler(this.Send_Click);
             // 
             // NewChat
             // 
@@ -102,18 +93,27 @@
             this.username.TabIndex = 6;
             this.username.Text = "userName";
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(377, 65);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(636, 381);
+            this.richTextBox1.TabIndex = 7;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
             // Chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1139, 565);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.username);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.NewChat);
             this.Controls.Add(this.Send);
             this.Controls.Add(this.ChatMessage);
             this.Controls.Add(this.userList);
-            this.Controls.Add(this.ChatArea);
             this.Name = "Chat";
             this.Text = "Chat";
             this.Load += new System.EventHandler(this.Chat_Load);
@@ -123,13 +123,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox ChatArea;
         private System.Windows.Forms.ListBox userList;
         private System.Windows.Forms.TextBox ChatMessage;
         private System.Windows.Forms.Button Send;
         private System.Windows.Forms.Button NewChat;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label username;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
