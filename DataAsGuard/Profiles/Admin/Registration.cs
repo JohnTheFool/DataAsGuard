@@ -364,10 +364,10 @@ namespace DataAsGuard.Profiles.Admin
 
             MailMessage msg = new MailMessage();
             msg.Subject = "Hello " + Firstname + " " + Lastname + "";
-            msg.Body = "Hello " + Firstname + " " + Lastname + ", Your Account has been Registered for DataAsguard!";
+            msg.Body = "Hello " + Firstname + " " + Lastname + ", Your account has been registered for DataAsguard!";
 
             msg.Body += "<tr>";
-            msg.Body += "<td>Your Account Details are given below: </td>";
+            msg.Body += "<td>Your account details are given below: </td>";
             msg.Body += "</tr>";
 
             msg.Body += "<tr>";

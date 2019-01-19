@@ -60,21 +60,6 @@ namespace DataAsGuard.Profiles.Users
             Hide();
         }
 
-        private void chgpic_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Image files | *.jpg, *.jpeg, *.png"; // allowed file types
-            dialog.Multiselect = false; // allow/deny user to upload more than one file at a time
-            if (dialog.ShowDialog() == DialogResult.OK) // if OK clicked
-            {
-                String path = dialog.FileName; // get name of file
-                using (StreamReader reader = new StreamReader(new FileStream(path, FileMode.Open), new UTF8Encoding())) // do wtv
-                {
-                    // ...
-                }
-            }
-        }
-
         private void ProfileButton_Click(object sender, EventArgs e)
         {
             Profile profile = new Profile();
@@ -106,9 +91,5 @@ namespace DataAsGuard.Profiles.Users
             Hide();
         }
 
-        private void BackButton_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

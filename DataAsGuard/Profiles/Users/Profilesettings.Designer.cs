@@ -94,7 +94,7 @@
             // 
             // Logout
             // 
-            this.Logout.Location = new System.Drawing.Point(822, 70);
+            this.Logout.Location = new System.Drawing.Point(922, 70);
             this.Logout.Margin = new System.Windows.Forms.Padding(4);
             this.Logout.Name = "Logout";
             this.Logout.Size = new System.Drawing.Size(49, 44);
@@ -106,7 +106,7 @@
             // BackButton
             // 
             this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
-            this.BackButton.Location = new System.Drawing.Point(821, 16);
+            this.BackButton.Location = new System.Drawing.Point(921, 16);
             this.BackButton.Margin = new System.Windows.Forms.Padding(5);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(49, 44);
@@ -119,7 +119,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.22691F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.77309F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 223F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 224F));
             this.tableLayoutPanel1.Controls.Add(this.validateUsername, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.username, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
@@ -147,14 +147,14 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(562, 324);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(644, 324);
             this.tableLayoutPanel1.TabIndex = 20;
             // 
             // validateUsername
             // 
             this.validateUsername.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateUsername.AutoSize = true;
-            this.validateUsername.Location = new System.Drawing.Point(341, 19);
+            this.validateUsername.Location = new System.Drawing.Point(422, 19);
             this.validateUsername.Name = "validateUsername";
             this.validateUsername.Size = new System.Drawing.Size(119, 16);
             this.validateUsername.TabIndex = 42;
@@ -163,7 +163,7 @@
             // username
             // 
             this.username.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.username.Location = new System.Drawing.Point(228, 16);
+            this.username.Location = new System.Drawing.Point(282, 16);
             this.username.Margin = new System.Windows.Forms.Padding(4);
             this.username.Name = "username";
             this.username.Size = new System.Drawing.Size(106, 22);
@@ -174,7 +174,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(139, 19);
+            this.label1.Location = new System.Drawing.Point(193, 19);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 16);
@@ -185,7 +185,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(177, 68);
+            this.label2.Location = new System.Drawing.Point(231, 68);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 16);
@@ -196,7 +196,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(92, 118);
+            this.label3.Location = new System.Drawing.Point(146, 118);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(127, 16);
@@ -207,7 +207,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(85, 173);
+            this.label4.Location = new System.Drawing.Point(139, 173);
             this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(134, 16);
@@ -218,7 +218,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(172, 228);
+            this.label5.Location = new System.Drawing.Point(226, 228);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(48, 16);
@@ -229,7 +229,7 @@
             // 
             this.email.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.email.AutoSize = true;
-            this.email.Location = new System.Drawing.Point(229, 68);
+            this.email.Location = new System.Drawing.Point(283, 68);
             this.email.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.email.Name = "email";
             this.email.Size = new System.Drawing.Size(42, 16);
@@ -240,7 +240,7 @@
             // 
             this.DOB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.DOB.AutoSize = true;
-            this.DOB.Location = new System.Drawing.Point(229, 165);
+            this.DOB.Location = new System.Drawing.Point(283, 165);
             this.DOB.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.DOB.Name = "DOB";
             this.DOB.Size = new System.Drawing.Size(102, 32);
@@ -251,7 +251,7 @@
             // 
             this.name.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.name.AutoSize = true;
-            this.name.Location = new System.Drawing.Point(228, 228);
+            this.name.Location = new System.Drawing.Point(282, 228);
             this.name.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(48, 16);
@@ -262,7 +262,7 @@
             // 
             this.validateCaptcha.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateCaptcha.AutoSize = true;
-            this.validateCaptcha.Location = new System.Drawing.Point(342, 285);
+            this.validateCaptcha.Location = new System.Drawing.Point(423, 285);
             this.validateCaptcha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validateCaptcha.Name = "validateCaptcha";
             this.validateCaptcha.Size = new System.Drawing.Size(106, 16);
@@ -272,7 +272,7 @@
             // captchabox
             // 
             this.captchabox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.captchabox.Location = new System.Drawing.Point(229, 282);
+            this.captchabox.Location = new System.Drawing.Point(283, 282);
             this.captchabox.Margin = new System.Windows.Forms.Padding(5);
             this.captchabox.Name = "captchabox";
             this.captchabox.Size = new System.Drawing.Size(104, 22);
@@ -281,7 +281,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBox1.Location = new System.Drawing.Point(5, 270);
+            this.pictureBox1.Location = new System.Drawing.Point(59, 270);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(214, 46);
@@ -291,7 +291,7 @@
             // phoneNo
             // 
             this.phoneNo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.phoneNo.Location = new System.Drawing.Point(227, 115);
+            this.phoneNo.Location = new System.Drawing.Point(281, 115);
             this.phoneNo.Name = "phoneNo";
             this.phoneNo.Size = new System.Drawing.Size(108, 22);
             this.phoneNo.TabIndex = 39;
@@ -301,7 +301,7 @@
             // 
             this.validatephoneNO.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatephoneNO.AutoSize = true;
-            this.validatephoneNO.Location = new System.Drawing.Point(342, 118);
+            this.validatephoneNO.Location = new System.Drawing.Point(423, 118);
             this.validatephoneNO.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatephoneNO.Name = "validatephoneNO";
             this.validatephoneNO.Size = new System.Drawing.Size(109, 16);
@@ -310,7 +310,7 @@
             // 
             // UpdateButton
             // 
-            this.UpdateButton.Location = new System.Drawing.Point(409, 461);
+            this.UpdateButton.Location = new System.Drawing.Point(462, 460);
             this.UpdateButton.Margin = new System.Windows.Forms.Padding(4);
             this.UpdateButton.Name = "UpdateButton";
             this.UpdateButton.Size = new System.Drawing.Size(100, 28);
@@ -322,7 +322,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.Validation);
-            this.panel1.Location = new System.Drawing.Point(265, 420);
+            this.panel1.Location = new System.Drawing.Point(318, 419);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(388, 34);
             this.panel1.TabIndex = 22;
@@ -339,7 +339,7 @@
             // 
             // RefreshCaptcha
             // 
-            this.RefreshCaptcha.Location = new System.Drawing.Point(409, 496);
+            this.RefreshCaptcha.Location = new System.Drawing.Point(462, 495);
             this.RefreshCaptcha.Name = "RefreshCaptcha";
             this.RefreshCaptcha.Size = new System.Drawing.Size(99, 42);
             this.RefreshCaptcha.TabIndex = 41;
@@ -351,7 +351,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 611);
+            this.ClientSize = new System.Drawing.Size(984, 661);
             this.Controls.Add(this.RefreshCaptcha);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.UpdateButton);

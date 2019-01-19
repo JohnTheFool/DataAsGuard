@@ -109,7 +109,7 @@
             // loginbutton
             // 
             this.loginbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.loginbutton.Location = new System.Drawing.Point(434, 437);
+            this.loginbutton.Location = new System.Drawing.Point(423, 416);
             this.loginbutton.Margin = new System.Windows.Forms.Padding(4);
             this.loginbutton.Name = "loginbutton";
             this.loginbutton.Size = new System.Drawing.Size(100, 28);
@@ -159,7 +159,7 @@
             this.forgetUsernameOrPassword.TabIndex = 7;
             this.forgetUsernameOrPassword.TabStop = true;
             this.forgetUsernameOrPassword.Text = "Forget Username OR Password?";
-            this.forgetUsernameOrPassword.Click += new System.EventHandler(this.forgetUsername_Click);
+            this.forgetUsernameOrPassword.Click += new System.EventHandler(this.forgetUserInfo_Click);
             // 
             // Login
             // 
@@ -176,6 +176,7 @@
             this.Name = "Login";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.Login_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Login_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
