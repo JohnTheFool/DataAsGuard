@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,27 +8,24 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DataAsGuard.CSClass;
-using MySql.Data.MySqlClient;
 
 namespace DataAsGuard.Profiles.Users
 {
-    public partial class ConfirmationDetails : Form
+    public partial class forgetUsername : Form
     {
         private Random rand = new Random();
         AesEncryption aes = new AesEncryption();
         DBLogger dblog = new DBLogger();
-        public ConfirmationDetails()
+
+        public forgetUsername()
         {
             InitializeComponent();
         }
 
-        private void Registration_Shown(Object sender, EventArgs e)
+        private void forgetUsername_Shown(object sender, EventArgs e)
         {
             validateUsername.Hide();
             validateCaptcha.Hide();
@@ -47,16 +46,32 @@ namespace DataAsGuard.Profiles.Users
                     while (reader.Read())
                     {
                         username.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), Logininfo.userid.ToString());
-                        name.Text = reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname"));
-                        phoneNo.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), Logininfo.userid.ToString());
-                        email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), Logininfo.userid.ToString());
-                        DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
-
                     }
 
                     if (reader != null)
                         reader.Close();
                 }
+            }
+        }
+
+        //Update username
+        public void updateUsername(string username)
+        {
+            //UPDATE username TO DATABASE
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                string queryStr = "";
+                queryStr = "UPDATE Userinfo set username=@username,verificationflag=@vflag where userid = @userid";
+
+                MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
+                cmd.Parameters.AddWithValue("@username", aes.Encryptstring(username, Logininfo.userid));
+                cmd.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
+                cmd.Parameters.AddWithValue("@vflag","T");
+                cmd.ExecuteReader();
+                con.Close();
+                dblog.Log("User Information changed", "Accounts", Logininfo.userid.ToString(), Logininfo.email);
+                dblog.Log("Account Status Changed(FU -> T)", "Accounts", Logininfo.userid.ToString(), Logininfo.email);
             }
         }
 
@@ -71,9 +86,10 @@ namespace DataAsGuard.Profiles.Users
                 if ((contains == true && checkuserid == Logininfo.userid) || (contains == false))
                 {
                     updateUsername(username.Text);
+                    MessageBox.Show("Username Updated");
                     //route to OTP page
-                    confirmationOTP registerOTP = new confirmationOTP();
-                    registerOTP.Show();
+                    Profile Profile = new Profile();
+                    Profile.Show();
                     Hide();
                     if (pictureBox1.Image != null)
                     {
@@ -93,25 +109,6 @@ namespace DataAsGuard.Profiles.Users
                 validateCaptcha.Show();
                 validateCaptcha.ForeColor = Color.Red;
                 validateCaptcha.Text = "Incorrect Entry";
-            }
-        }
-
-        //Update username
-        public void updateUsername(string username)
-        {
-            //UPDATE username TO DATABASE
-            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
-            {
-                con.Open();
-                string queryStr = "";
-                queryStr = "UPDATE Userinfo set username=@username where userid = @userid";
-
-                MySqlCommand cmd = new MySql.Data.MySqlClient.MySqlCommand(queryStr, con);
-                cmd.Parameters.AddWithValue("@username", aes.Encryptstring(username,Logininfo.userid));
-                cmd.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
-                cmd.ExecuteReader();
-                con.Close();
-                dblog.Log("User Information changed", "Accounts", Logininfo.userid.ToString(), Logininfo.email);
             }
         }
 
@@ -212,16 +209,16 @@ namespace DataAsGuard.Profiles.Users
 
             //if (String.IsNullOrEmpty(code))
             //{
-                string alphabets = "abcdefghijklmnopqrstuvwxyz1234567890";
+            string alphabets = "abcdefghijklmnopqrstuvwxyz1234567890";
 
-                Random r = new Random();
-                for (int j = 0; j <= 5; j++)
-                {
+            Random r = new Random();
+            for (int j = 0; j <= 5; j++)
+            {
 
-                    randomText.Append(alphabets[r.Next(alphabets.Length)]);
-                }
+                randomText.Append(alphabets[r.Next(alphabets.Length)]);
+            }
 
-                code = randomText.ToString();
+            code = randomText.ToString();
             //}
 
             return code;
@@ -283,6 +280,6 @@ namespace DataAsGuard.Profiles.Users
             }
             return contains;
         }
+
     }
 }
-

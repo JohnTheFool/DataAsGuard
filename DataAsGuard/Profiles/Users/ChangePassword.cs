@@ -209,6 +209,7 @@ namespace DataAsGuard.Profiles.Users
                 cmd.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
                 cmd.ExecuteReader();
                 con.Close();
+                dblog.Log("Password Updated", "Accounts", Logininfo.userid.ToString(), Logininfo.email);
             }
             
         }

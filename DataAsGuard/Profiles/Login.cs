@@ -36,6 +36,15 @@ namespace DataAsGuard.Profiles
         private void Login_Shown(Object sender, EventArgs e)
         {
             validation.Hide();
+            this.KeyPreview = true;
+        }
+
+        private void Login_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                loginbutton.PerformClick();
+            }
         }
 
         private void loginbutton_Click(object sender, EventArgs e)
@@ -282,6 +291,26 @@ namespace DataAsGuard.Profiles
                                         register.Show();
                                         Hide();
                                     }
+                                    else if (checkvflag == "FU")
+                                    {
+                                        Logininfo.userid = userid.ToString();
+                                        Logininfo.username = username;
+                                        Logininfo.email = email;
+                                        dblog.Log("First Time Login after forget Username: " + username, "LogonSuccess", userid.ToString(), email);
+                                        Users.forgetUsername forgetUsername = new Users.forgetUsername(); // If status is Not completed
+                                        forgetUsername.Show();
+                                        Hide();
+                                    }
+                                    else if (checkvflag == "FP")
+                                    {
+                                        Logininfo.userid = userid.ToString();
+                                        Logininfo.username = username;
+                                        Logininfo.email = email;
+                                        dblog.Log("First Time Login after forget Password: " + username, "LogonSuccess", userid.ToString(), email);
+                                        Users.forgetPassword forgetPassword = new Users.forgetPassword(); // If status is Not completed
+                                        forgetPassword.Show();
+                                        Hide();
+                                    }
                                     //T if have verification and change password.
                                     else if (checkvflag == "T")
                                     {
@@ -421,7 +450,7 @@ namespace DataAsGuard.Profiles
             return IPList;
         }
 
-        private void forgetUsername_Click(object sender, EventArgs e)
+        private void forgetUserInfo_Click(object sender, EventArgs e)
         {
             forgetUserInfo forgetUser = new forgetUserInfo();
             forgetUser.Show();
