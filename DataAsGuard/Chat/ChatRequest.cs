@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataAsGuard.CSClass;
 using MySql.Data.MySqlClient;
 
 namespace DataAsGuard.Chat
@@ -61,7 +62,10 @@ namespace DataAsGuard.Chat
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    userList.Items.Add(reader["fullName"].ToString());
+                    if (reader["userid"].ToString() != "1" && reader["userid"].ToString() != Logininfo.userid)
+                    {
+                        userList.Items.Add(reader["fullName"].ToString());
+                    }
                 }
                 reader.Close();
                 con.Close();
