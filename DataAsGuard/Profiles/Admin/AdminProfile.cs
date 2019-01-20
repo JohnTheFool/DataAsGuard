@@ -696,7 +696,7 @@ namespace DataAsGuard.Profiles.Admin
         }
 
 
-        //log grid retrival
+        //IP retrival
         private void retrieveauthoriseIP()
         {
             dataAuthoriseIPGrid.AllowUserToAddRows = false;

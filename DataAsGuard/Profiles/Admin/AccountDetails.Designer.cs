@@ -36,11 +36,6 @@
             this.Logout = new System.Windows.Forms.Button();
             this.AdminHome = new System.Windows.Forms.Button();
             this.AddUser = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.datalogGrid = new System.Windows.Forms.DataGridView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.DOB = new System.Windows.Forms.Label();
             this.Email = new System.Windows.Forms.Label();
@@ -61,13 +56,23 @@
             this.label8 = new System.Windows.Forms.Label();
             this.Lockbtn = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.datalogGrid)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.datalogGrid = new System.Windows.Forms.DataGridView();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.groupList = new System.Windows.Forms.ListBox();
+            this.filegrid = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.datalogGrid)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.filegrid)).BeginInit();
             this.SuspendLayout();
             // 
             // settingsButton
@@ -112,71 +117,6 @@
             this.AddUser.TabIndex = 20;
             this.AddUser.UseVisualStyleBackColor = true;
             this.AddUser.Click += new System.EventHandler(this.AddUsers_Click);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(74, 373);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(831, 266);
-            this.tabControl1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.datalogGrid);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(823, 237);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Logs";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // datalogGrid
-            // 
-            this.datalogGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.datalogGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.datalogGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.datalogGrid.Location = new System.Drawing.Point(3, 3);
-            this.datalogGrid.Name = "datalogGrid";
-            this.datalogGrid.ReadOnly = true;
-            this.datalogGrid.Size = new System.Drawing.Size(817, 231);
-            this.datalogGrid.TabIndex = 0;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.chart1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(823, 237);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "LoginFrequency";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // chart1
-            // 
-            chartArea1.AxisX.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Rotated90;
-            chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(3, 3);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(817, 231);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
             // 
             // tableLayoutPanel1
             // 
@@ -406,12 +346,107 @@
             this.delete.UseVisualStyleBackColor = true;
             this.delete.Click += new System.EventHandler(this.delete_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.chart1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(823, 237);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "LoginFrequency";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.filegrid);
+            this.tabPage2.Controls.Add(this.groupList);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(823, 237);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "GroupList";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.datalogGrid);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(823, 237);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Logs";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // datalogGrid
+            // 
+            this.datalogGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.datalogGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datalogGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.datalogGrid.Location = new System.Drawing.Point(3, 3);
+            this.datalogGrid.Name = "datalogGrid";
+            this.datalogGrid.ReadOnly = true;
+            this.datalogGrid.Size = new System.Drawing.Size(817, 231);
+            this.datalogGrid.TabIndex = 0;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(74, 373);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(831, 266);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // chart1
+            // 
+            chartArea1.AxisX.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Rotated90;
+            chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(3, 3);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(817, 231);
+            this.chart1.TabIndex = 1;
+            this.chart1.Text = "chart1";
+            // 
+            // groupList
+            // 
+            this.groupList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupList.FormattingEnabled = true;
+            this.groupList.ItemHeight = 16;
+            this.groupList.Location = new System.Drawing.Point(20, 21);
+            this.groupList.Name = "groupList";
+            this.groupList.Size = new System.Drawing.Size(177, 196);
+            this.groupList.TabIndex = 17;
+            // 
+            // filegrid
+            // 
+            this.filegrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.filegrid.Location = new System.Drawing.Point(244, 21);
+            this.filegrid.Name = "filegrid";
+            this.filegrid.Size = new System.Drawing.Size(557, 196);
+            this.filegrid.TabIndex = 18;
+            // 
             // AccountDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.delete);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -420,20 +455,23 @@
             this.Controls.Add(this.Logout);
             this.Controls.Add(this.AdminHome);
             this.Controls.Add(this.AddUser);
+            this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AccountDetails";
             this.Text = "AccountDetails";
             this.Shown += new System.EventHandler(this.accountDetails_Shown);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.datalogGrid)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.datalogGrid)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.filegrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -461,12 +499,15 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button Lockbtn;
         private System.Windows.Forms.Button delete;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.DataGridView datalogGrid;
         private System.Windows.Forms.Label statusDate;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView datalogGrid;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.ListBox groupList;
+        private System.Windows.Forms.DataGridView filegrid;
     }
 }

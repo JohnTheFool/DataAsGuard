@@ -117,9 +117,9 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.22691F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.77309F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 224F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.41584F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.58416F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 138F));
             this.tableLayoutPanel1.Controls.Add(this.validateUsername, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.username, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
@@ -154,7 +154,7 @@
             // 
             this.validateUsername.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateUsername.AutoSize = true;
-            this.validateUsername.Location = new System.Drawing.Point(422, 19);
+            this.validateUsername.Location = new System.Drawing.Point(508, 19);
             this.validateUsername.Name = "validateUsername";
             this.validateUsername.Size = new System.Drawing.Size(119, 16);
             this.validateUsername.TabIndex = 42;
@@ -163,10 +163,10 @@
             // username
             // 
             this.username.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.username.Location = new System.Drawing.Point(282, 16);
+            this.username.Location = new System.Drawing.Point(299, 16);
             this.username.Margin = new System.Windows.Forms.Padding(4);
             this.username.Name = "username";
-            this.username.Size = new System.Drawing.Size(106, 22);
+            this.username.Size = new System.Drawing.Size(122, 22);
             this.username.TabIndex = 38;
             this.username.Leave += new System.EventHandler(this.username_Leave);
             // 
@@ -174,7 +174,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(193, 19);
+            this.label1.Location = new System.Drawing.Point(210, 19);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 16);
@@ -185,7 +185,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(231, 68);
+            this.label2.Location = new System.Drawing.Point(248, 68);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 16);
@@ -196,7 +196,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(146, 118);
+            this.label3.Location = new System.Drawing.Point(163, 118);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(127, 16);
@@ -207,7 +207,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(139, 173);
+            this.label4.Location = new System.Drawing.Point(156, 173);
             this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(134, 16);
@@ -218,7 +218,7 @@
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(226, 228);
+            this.label5.Location = new System.Drawing.Point(243, 228);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(48, 16);
@@ -229,7 +229,7 @@
             // 
             this.email.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.email.AutoSize = true;
-            this.email.Location = new System.Drawing.Point(283, 68);
+            this.email.Location = new System.Drawing.Point(300, 68);
             this.email.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.email.Name = "email";
             this.email.Size = new System.Drawing.Size(42, 16);
@@ -240,10 +240,10 @@
             // 
             this.DOB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.DOB.AutoSize = true;
-            this.DOB.Location = new System.Drawing.Point(283, 165);
+            this.DOB.Location = new System.Drawing.Point(300, 173);
             this.DOB.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.DOB.Name = "DOB";
-            this.DOB.Size = new System.Drawing.Size(102, 32);
+            this.DOB.Size = new System.Drawing.Size(134, 16);
             this.DOB.TabIndex = 34;
             this.DOB.Text = "DOB (DD/MM/YYYY)";
             // 
@@ -251,7 +251,7 @@
             // 
             this.name.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.name.AutoSize = true;
-            this.name.Location = new System.Drawing.Point(282, 228);
+            this.name.Location = new System.Drawing.Point(299, 228);
             this.name.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(48, 16);
@@ -262,7 +262,7 @@
             // 
             this.validateCaptcha.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateCaptcha.AutoSize = true;
-            this.validateCaptcha.Location = new System.Drawing.Point(423, 285);
+            this.validateCaptcha.Location = new System.Drawing.Point(509, 285);
             this.validateCaptcha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validateCaptcha.Name = "validateCaptcha";
             this.validateCaptcha.Size = new System.Drawing.Size(106, 16);
@@ -272,16 +272,16 @@
             // captchabox
             // 
             this.captchabox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.captchabox.Location = new System.Drawing.Point(283, 282);
+            this.captchabox.Location = new System.Drawing.Point(300, 282);
             this.captchabox.Margin = new System.Windows.Forms.Padding(5);
             this.captchabox.Name = "captchabox";
-            this.captchabox.Size = new System.Drawing.Size(104, 22);
+            this.captchabox.Size = new System.Drawing.Size(121, 22);
             this.captchabox.TabIndex = 37;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBox1.Location = new System.Drawing.Point(59, 270);
+            this.pictureBox1.Location = new System.Drawing.Point(76, 270);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(214, 46);
@@ -291,9 +291,9 @@
             // phoneNo
             // 
             this.phoneNo.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.phoneNo.Location = new System.Drawing.Point(281, 115);
+            this.phoneNo.Location = new System.Drawing.Point(298, 115);
             this.phoneNo.Name = "phoneNo";
-            this.phoneNo.Size = new System.Drawing.Size(108, 22);
+            this.phoneNo.Size = new System.Drawing.Size(123, 22);
             this.phoneNo.TabIndex = 39;
             this.phoneNo.TextChanged += new System.EventHandler(this.phonenumber_TextChanged);
             // 
@@ -301,7 +301,7 @@
             // 
             this.validatephoneNO.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatephoneNO.AutoSize = true;
-            this.validatephoneNO.Location = new System.Drawing.Point(423, 118);
+            this.validatephoneNO.Location = new System.Drawing.Point(509, 118);
             this.validatephoneNO.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatephoneNO.Name = "validatephoneNO";
             this.validatephoneNO.Size = new System.Drawing.Size(109, 16);
