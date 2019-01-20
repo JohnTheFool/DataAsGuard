@@ -73,6 +73,7 @@
             this.NewChat.TabIndex = 4;
             this.NewChat.Text = "Find a user";
             this.NewChat.UseVisualStyleBackColor = true;
+            this.NewChat.Click += new System.EventHandler(this.NewChat_Click);
             // 
             // label1
             // 

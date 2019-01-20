@@ -116,5 +116,12 @@ namespace DataAsGuard
             login.Show();
             Hide();
         }
+
+        private void Chat_Click(object sender, EventArgs e)
+        {
+            DataAsGuard.Chat.Chat chat = new DataAsGuard.Chat.Chat();
+            chat.Show();
+            Hide();
+        }
     }
 }

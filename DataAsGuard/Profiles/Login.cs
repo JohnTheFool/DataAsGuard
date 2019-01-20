@@ -289,6 +289,18 @@ namespace DataAsGuard.Profiles
                                         Logininfo.username = username;
                                         Logininfo.email = email;
                                         dblog.Log("Login User: " + username, "LogonSuccess", userid.ToString(), email);
+                                        //Chat.Chat.DeleteKeyFromContainer();
+                                        if ((Chat.Chat.DoesKeyExists()))
+                                        {
+                                            //Do nothing
+                                            //Chat.Chat.GenKey_SaveInContainer();
+                                            Console.WriteLine("here?");
+                                        }
+                                        else
+                                        {
+                                            Chat.Chat.GenKey_SaveInContainer();
+                                        }
+
                                         Users.Profile profile = new Users.Profile();
                                         profile.Show();
                                         Hide();
