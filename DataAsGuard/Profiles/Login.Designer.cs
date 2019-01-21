@@ -52,7 +52,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.username, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(169, 196);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(278, 149);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
@@ -108,7 +108,7 @@
             // loginbutton
             // 
             this.loginbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.loginbutton.Location = new System.Drawing.Point(352, 318);
+            this.loginbutton.Location = new System.Drawing.Point(461, 271);
             this.loginbutton.Margin = new System.Windows.Forms.Padding(4);
             this.loginbutton.Name = "loginbutton";
             this.loginbutton.Size = new System.Drawing.Size(100, 28);
@@ -120,7 +120,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(169, 13);
+            this.pictureBox1.Location = new System.Drawing.Point(247, 13);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(517, 99);
@@ -142,7 +142,7 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.validation, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(169, 287);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(278, 240);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -153,7 +153,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 611);
+            this.ClientSize = new System.Drawing.Size(984, 661);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.loginbutton);
             this.Controls.Add(this.tableLayoutPanel1);
