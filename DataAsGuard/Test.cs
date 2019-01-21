@@ -194,15 +194,15 @@ namespace DataAsGuard
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(GetIPAddress());
+            //MessageBox.Show(GetIPAddress());
         }
 
-        protected string GetIPAddress()
-        {
-            string myHost = Dns.GetHostName();
-            string myIP = Dns.GetHostByName(myHost).AddressList[0].ToString();
+        //protected string GetIPAddress()
+        //{
+        //    string myHost = Dns.GetHostName();
+        //    //string myIP = Dns.GetHostByName(myHost).AddressList[0].ToString();
 
-            return myIP;
-        }
+        //    return myIP;
+        //}
     }
 }

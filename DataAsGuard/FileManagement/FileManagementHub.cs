@@ -18,6 +18,7 @@ using System.Drawing.Imaging;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using iTextSharp.text.pdf;
+using Microsoft.Office.Core;
 
 namespace DataAsGuard.FileManagement
 {
@@ -157,6 +158,24 @@ namespace DataAsGuard.FileManagement
                     applicationWord.Options.SaveNormalPrompt = false;
                     applicationWord.DisplayAlerts = WdAlertLevel.wdAlertsNone;
                     applicationWord.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
+                }
+                else if (fileExtension == ".xlsx")
+                {
+                    object readOnly = true;
+                    string fileName = tempFileName;
+                    object missing = System.Reflection.Missing.Value;
+                    var applicationExcel = new Microsoft.Office.Interop.Excel.Application();
+                    applicationExcel.Visible = true;
+                    applicationExcel.Workbooks.Open(fileName, missing, readOnly, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing);
+                }
+                else if ( fileExtension == ".ppt")
+                {
+                    string fileName = tempFileName;
+                    MsoTriState readOnly = MsoTriState.msoTrue;
+                    object missing = System.Reflection.Missing.Value;
+                    Microsoft.Office.Interop.PowerPoint.Application applicationPPT = new Microsoft.Office.Interop.PowerPoint.Application();
+                    applicationPPT.Presentations.Open(fileName, readOnly, MsoTriState.msoTrue, MsoTriState.msoTrue);
+                    // JUST GREAT MSOTRISTATE NOT WORKING
                 }
                 else
                 {
