@@ -52,11 +52,11 @@ namespace DataAsGuard
 
         private void button1_Click(object sender, EventArgs e)
         {
-            PdfReader reader = new PdfReader(@"C:\Users\Solomon\Documents\TEST\test.pdf");
-            iTextSharp.text.Rectangle size = reader.GetPageSizeWithRotation(1);
-            Document document = new Document(size);
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(@"C:\Users\Solomon\Documents\TEST\tefe.pdf", FileMode.Create, FileAccess.Write));
-            document.AddTitle("Seolhyun");
+            //PdfReader reader = new PdfReader(@"C:\Users\Solomon\Documents\TEST\test.pdf");
+            //iTextSharp.text.Rectangle size = reader.GetPageSizeWithRotation(1);
+            //Document document = new Document(size);
+            //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(@"C:\Users\Solomon\Documents\TEST\tefe.pdf", FileMode.Create, FileAccess.Write));
+            //document.AddTitle("Seolhyun");
             //document.AddTitle(dt.Rows[0].ItemArray[2].ToString());
             //document.AddSubject(dt.Rows[0].ItemArray[7].ToString());
             //document.AddCreator(dt.Rows[0].ItemArray[9].ToString());
@@ -67,19 +67,19 @@ namespace DataAsGuard
             //document.AddHeader("Version", dt.Rows[0].ItemArray[6].ToString());
             //document.AddHeader("Source", dt.Rows[0].ItemArray[8].ToString());
             //document.AddCreator("Scorpus");
-            document.Open();
-            PdfContentByte cb = writer.DirectContent;
-            for (int pageNumber = 1; pageNumber <= reader.NumberOfPages; pageNumber++)
-            {
-                document.NewPage();
-                PdfImportedPage page = writer.GetImportedPage(reader, pageNumber);
-                cb.AddTemplate(page, 0, 0);
-            }
-            document.Close();
+            //document.Open();
+            //PdfContentByte cb = writer.DirectContent;
+            //for (int pageNumber = 1; pageNumber <= reader.NumberOfPages; pageNumber++)
+            //{
+            //    document.NewPage();
+            //    PdfImportedPage page = writer.GetImportedPage(reader, pageNumber);
+            //    cb.AddTemplate(page, 0, 0);
+            //}
+            //document.Close();
 
-            PdfReader reader2 = new PdfReader(@"C:\Users\Solomon\Documents\TEST\tefe.pdf");
-            string s = reader2.Info["Title"];
-            MessageBox.Show(s);
+            //PdfReader reader2 = new PdfReader(@"C:\Users\Solomon\Documents\TEST\tefe.pdf");
+            //string s = reader2.Info["Title"];
+            //MessageBox.Show(s);
             //PdfDocument document = PdfReader.Open(@"C:\Users\Solomon\Documents\TEST\test.pdf");
             //document.Info.Author = "ME";
             //document.Save("Result");

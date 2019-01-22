@@ -422,7 +422,8 @@ namespace DataAsGuard.FileManagement
             string[] oldAuthors = file.Properties.System.Author.Value;
             string oldTitle = file.Properties.System.Title.Value;
 
-            file.Properties.System.Company.Value = "©COPYRIGHT DATAASGUARD";
+            file.Properties.System.Copyright.Value = "©COPYRIGHT DATAASGUARD";
+            file.Properties.System.Company.Value = "DATAASGUARD";
             file.Properties.System.Title.Value = originalFileName;
             //file.Properties.System.Author.Value = new string[] { Owner of the file };
             file.Properties.System.Comment.Value = DataAsGuard.CSClass.Logininfo.username;

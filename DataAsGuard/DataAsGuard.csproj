@@ -440,6 +440,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Viewer\MetaAdmin.resx">
+      <DependentUpon>MetaAdmin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Viewer\PdfViewer.resx">
       <DependentUpon>PdfViewer.cs</DependentUpon>
     </EmbeddedResource>

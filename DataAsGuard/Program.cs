@@ -21,6 +21,7 @@ namespace DataAsGuard
             //Application.Run(new Home());
             //Application.Run(new Test());
             Application.Run(new Login());
+            //Application.Run(new MetaAdmin());
         }
     }
 }
