@@ -28,7 +28,6 @@ namespace DataAsGuard.Profiles.Admin
             retrieveAccounts();
             retrieveLogs();
             retrieveFiles();
-            retrieveauthoriseIP();
         }
 
         //accounts tab
@@ -694,102 +693,6 @@ namespace DataAsGuard.Profiles.Admin
             dataLogGrid.Refresh();
             retrieveLogs2(logListvalue);
         }
-
-
-        //IP retrival
-        private void retrieveauthoriseIP()
-        {
-            dataAuthoriseIPGrid.AllowUserToAddRows = false;
-            dataAuthoriseIPGrid.AllowUserToDeleteRows = false;
-
-            dataAuthoriseIPGrid.ColumnCount = 1;
-            dataAuthoriseIPGrid.Columns[0].Name = "IPAddress";
-
-            //add rows from db
-            authorseIPRetrieval();
-        }
-
-        private void authorseIPRetrieval()
-        {
-            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
-            {
-                con.Open();
-                String query = "SELECT * FROM authoriseIP";
-                MySqlCommand command = new MySqlCommand(query, con);
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ArrayList row = new ArrayList();
-                        row.Add(reader.GetString(reader.GetOrdinal("authoriseIP")));
-
-                        dataAuthoriseIPGrid.Rows.Add(row.ToArray());
-                    }
-
-                    if (reader != null)
-                        reader.Close();
-                }
-            }
-        }
-
-        //add IP
-        private void authoriseIP_Click(object sender, EventArgs e)
-        {
-            string ipaddress = ipBox.Text;
-            Array properIp = ipaddress.Split('.');
-            if (properIp.Length == 4)
-            {
-                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
-                {
-                    con.Open();
-                    String executeQuery = "INSERT INTO authoriseIP(authoriseIP) VALUES (@authoriseIP)";
-                    MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
-                    myCommand.Parameters.AddWithValue("@authoriseIP", ipaddress);
-                    myCommand.ExecuteNonQuery();
-                    con.Close();
-                }
-
-                dataAuthoriseIPGrid.Rows.Clear();
-                dataAuthoriseIPGrid.Refresh();
-                authorseIPRetrieval();
-            }
-            else
-            {
-                MessageBox.Show("Please key in a proper IP Address");
-            }
-           
-        }
-
-        //removeIP
-        private void removeIP_Click(object sender, EventArgs e)
-        {
-            string ipaddress = removeIPbox.Text;
-            Array properIp = ipaddress.Split('.');
-            if (properIp.Length == 4)
-            {
-                DialogResult dialogResult = MessageBox.Show("Delete the authorise IP?", "Are you sure?", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
-                    {
-                        con.Open();
-                        //delete authoriseIP
-                        string deleteipQuery = "DELETE FROM authoriseIP WHERE authoriseIP = @authoriseIP";
-                        MySqlCommand deleteIp = new MySqlCommand(deleteipQuery, con);
-                        deleteIp.Parameters.AddWithValue("@authoriseIP", ipaddress);
-                        deleteIp.ExecuteNonQuery();
-                    }
-                    dataAuthoriseIPGrid.Rows.Clear();
-                    dataAuthoriseIPGrid.Refresh();
-                    authorseIPRetrieval();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please key in a proper IP Address");
-            }
-        }
-
 
         //buttons 
 
