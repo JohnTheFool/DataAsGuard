@@ -64,7 +64,7 @@ namespace DataAsGuard.Profiles.Users
         //validatenumber
         private void phonenumber_TextChanged(object sender, EventArgs e)
         {
-            var regex = "([0-9]{8,12})$";
+            var regex = "((8|9)[0-9]{7})$";
             Match match = Regex.Match(phoneNo.Text, regex, RegexOptions.IgnoreCase);
 
             if (phoneNo.Text == string.Empty)
@@ -111,6 +111,11 @@ namespace DataAsGuard.Profiles.Users
             Profile profile = new Profile();
             profile.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void Logout_Click(object sender, EventArgs e)
@@ -121,6 +126,11 @@ namespace DataAsGuard.Profiles.Users
             Login login = new Login();
             login.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void ProfileButton_Click(object sender, EventArgs e)
@@ -128,6 +138,11 @@ namespace DataAsGuard.Profiles.Users
             Profile profile = new Profile();
             profile.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void settingsButton_Click(object sender, EventArgs e)
@@ -135,6 +150,11 @@ namespace DataAsGuard.Profiles.Users
             Profilesettings settings = new Profilesettings();
             settings.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void Home_Click(object sender, EventArgs e)
@@ -142,6 +162,11 @@ namespace DataAsGuard.Profiles.Users
             Home home = new Home();
             home.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
@@ -149,14 +174,14 @@ namespace DataAsGuard.Profiles.Users
             //ensure captcha is correct
             if (captchabox.Text == code.ToString())
             {
-                if (username.Text == null || username.Text == "")
+                if (username.Text != null || username.Text != "")
                 {
                     bool contains = usernamechecker(username.Text);
                     //if contains == true and username is the same as the current username for the current user OR
                     //if contains == false
                     if ((contains == true && checkuserid == Logininfo.userid) || (contains == false))
                     {
-                        if (phoneNo.Text == null || phoneNo.Text == "")
+                        if (phoneNo.Text != null || phoneNo.Text != "")
                         {
                             updateInfo();
                             Validation.Show();
@@ -259,13 +284,13 @@ namespace DataAsGuard.Profiles.Users
             g.Dispose();
 
             //check for existing captcha file
-            if (File.Exists("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg"))
+            if (File.Exists("tempimage.jpg"))
             {
 
                 try
                 {
-                    File.Delete("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg");
-                    bitmap.Save("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg", ImageFormat.Jpeg);
+                    File.Delete("tempimage.jpg");
+                    bitmap.Save("tempimage.jpg", ImageFormat.Jpeg);
 
                 }
                 catch (Exception ex)
@@ -277,11 +302,11 @@ namespace DataAsGuard.Profiles.Users
             else
             {
 
-                bitmap.Save("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg", ImageFormat.Jpeg);
+                bitmap.Save("tempimage.jpg", ImageFormat.Jpeg);
 
             }
             bitmap.Dispose();
-            pictureBox1.Image = Image.FromFile("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg");
+            pictureBox1.Image = Image.FromFile("tempimage.jpg");
         }
 
         //random lines in the captcha
@@ -380,7 +405,7 @@ namespace DataAsGuard.Profiles.Users
                     //if it contains a value.
                     while (reader.Read())
                     {
-                        if (usernamevalue == aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("dob"))))
+                        if (usernamevalue == aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid"))))
                         {
                             contains = true;
                             checkuserid = reader.GetString(reader.GetOrdinal("userid"));

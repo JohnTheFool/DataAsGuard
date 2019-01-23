@@ -11,5 +11,7 @@ namespace DataAsGuard.CSClass
         public static string userid;
         public static string username;
         public static string email;
+        public static string forgetUserinfo;
+        public static string forgetEmail;
     }
 }

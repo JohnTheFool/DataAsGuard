@@ -57,7 +57,7 @@
             // 
             // Logout
             // 
-            this.Logout.Location = new System.Drawing.Point(817, 67);
+            this.Logout.Location = new System.Drawing.Point(920, 67);
             this.Logout.Name = "Logout";
             this.Logout.Size = new System.Drawing.Size(51, 50);
             this.Logout.TabIndex = 25;
@@ -67,7 +67,7 @@
             // 
             // RefreshCaptcha
             // 
-            this.RefreshCaptcha.Location = new System.Drawing.Point(376, 507);
+            this.RefreshCaptcha.Location = new System.Drawing.Point(446, 533);
             this.RefreshCaptcha.Name = "RefreshCaptcha";
             this.RefreshCaptcha.Size = new System.Drawing.Size(99, 42);
             this.RefreshCaptcha.TabIndex = 24;
@@ -78,7 +78,7 @@
             // backbutton
             // 
             this.backbutton.Image = ((System.Drawing.Image)(resources.GetObject("backbutton.Image")));
-            this.backbutton.Location = new System.Drawing.Point(819, 13);
+            this.backbutton.Location = new System.Drawing.Point(922, 13);
             this.backbutton.Margin = new System.Windows.Forms.Padding(4);
             this.backbutton.Name = "backbutton";
             this.backbutton.Size = new System.Drawing.Size(49, 44);
@@ -110,7 +110,7 @@
             // 
             // confirm
             // 
-            this.confirm.Location = new System.Drawing.Point(375, 471);
+            this.confirm.Location = new System.Drawing.Point(445, 497);
             this.confirm.Margin = new System.Windows.Forms.Padding(4);
             this.confirm.Name = "confirm";
             this.confirm.Size = new System.Drawing.Size(100, 28);
@@ -125,7 +125,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.74683F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.25317F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 159F));
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.strengthcheck, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.validateCaptcha, 2, 4);
@@ -138,7 +138,7 @@
             this.tableLayoutPanel1.Controls.Add(this.Password, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.CPassword, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.captchabox, 1, 4);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(160, 70);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(217, 97);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
@@ -166,7 +166,7 @@
             // 
             this.strengthcheck.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.strengthcheck.AutoSize = true;
-            this.strengthcheck.Location = new System.Drawing.Point(288, 139);
+            this.strengthcheck.Location = new System.Drawing.Point(287, 139);
             this.strengthcheck.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.strengthcheck.Name = "strengthcheck";
             this.strengthcheck.Size = new System.Drawing.Size(60, 17);
@@ -177,7 +177,7 @@
             // 
             this.validateCaptcha.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateCaptcha.AutoSize = true;
-            this.validateCaptcha.Location = new System.Drawing.Point(415, 274);
+            this.validateCaptcha.Location = new System.Drawing.Point(414, 274);
             this.validateCaptcha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validateCaptcha.Name = "validateCaptcha";
             this.validateCaptcha.Size = new System.Drawing.Size(109, 17);
@@ -198,7 +198,7 @@
             // 
             this.validatecPasword.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatecPasword.AutoSize = true;
-            this.validatecPasword.Location = new System.Drawing.Point(415, 189);
+            this.validatecPasword.Location = new System.Drawing.Point(414, 189);
             this.validatecPasword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatecPasword.Name = "validatecPasword";
             this.validatecPasword.Size = new System.Drawing.Size(127, 17);
@@ -231,7 +231,7 @@
             // 
             this.validatePassword.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatePassword.AutoSize = true;
-            this.validatePassword.Location = new System.Drawing.Point(415, 96);
+            this.validatePassword.Location = new System.Drawing.Point(414, 96);
             this.validatePassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatePassword.Name = "validatePassword";
             this.validatePassword.Size = new System.Drawing.Size(118, 17);
@@ -279,7 +279,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.Validation);
-            this.panel1.Location = new System.Drawing.Point(229, 411);
+            this.panel1.Location = new System.Drawing.Point(289, 437);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(427, 53);
             this.panel1.TabIndex = 26;
@@ -287,7 +287,7 @@
             // Validation
             // 
             this.Validation.AutoSize = true;
-            this.Validation.Location = new System.Drawing.Point(176, 0);
+            this.Validation.Location = new System.Drawing.Point(156, 21);
             this.Validation.Name = "Validation";
             this.Validation.Size = new System.Drawing.Size(70, 17);
             this.Validation.TabIndex = 0;
@@ -297,7 +297,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 611);
+            this.ClientSize = new System.Drawing.Size(984, 661);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Logout);
             this.Controls.Add(this.RefreshCaptcha);

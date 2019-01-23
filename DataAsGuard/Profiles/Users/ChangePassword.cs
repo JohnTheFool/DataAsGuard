@@ -209,6 +209,7 @@ namespace DataAsGuard.Profiles.Users
                 cmd.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
                 cmd.ExecuteReader();
                 con.Close();
+                dblog.Log("Password Updated", "Accounts", Logininfo.userid.ToString(), Logininfo.email);
             }
             
         }
@@ -540,13 +541,13 @@ namespace DataAsGuard.Profiles.Users
             g.Dispose();
 
             //check for existing captcha file
-            if (File.Exists("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg"))
+            if (File.Exists("tempimage.jpg"))
             {
 
                 try
                 {
-                    File.Delete("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg");
-                    bitmap.Save("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg", ImageFormat.Jpeg);
+                    File.Delete("tempimage.jpg");
+                    bitmap.Save("tempimage.jpg", ImageFormat.Jpeg);
 
                 }
                 catch (Exception ex)
@@ -558,11 +559,11 @@ namespace DataAsGuard.Profiles.Users
             else
             {
 
-                bitmap.Save("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg", ImageFormat.Jpeg);
+                bitmap.Save("tempimage.jpg", ImageFormat.Jpeg);
 
             }
             bitmap.Dispose();
-            pictureBox1.Image = Image.FromFile("C:/Users/Desmond/Documents/OSPJ/DataAsGuard/DataAsGuard/Profiles/Admin/tempimage.jpg");
+            pictureBox1.Image = Image.FromFile("tempimage.jpg");
         }
 
         //random lines in the captcha
@@ -625,6 +626,11 @@ namespace DataAsGuard.Profiles.Users
             Login login = new Login();
             login.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void ProfileButton_Click(object sender, EventArgs e)
@@ -633,6 +639,11 @@ namespace DataAsGuard.Profiles.Users
             profile.Show();
             Hide();
 
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
 
@@ -641,13 +652,22 @@ namespace DataAsGuard.Profiles.Users
             Profilesettings settings = new Profilesettings();
             settings.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void home_Click(object sender, EventArgs e)
         {
-
+            //home form is not completed
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
-
     }
 }
 

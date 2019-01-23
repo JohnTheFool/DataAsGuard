@@ -218,6 +218,24 @@
     <Compile Include="Profiles\Admin\RegistrationConfirm.Designer.cs">
       <DependentUpon>RegistrationConfirm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Profiles\EmailSend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\EmailSend.Designer.cs">
+      <DependentUpon>EmailSend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\ForgetOTP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\ForgetOTP.Designer.cs">
+      <DependentUpon>ForgetOTP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\forgetUserInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\forgetUserInfo.Designer.cs">
+      <DependentUpon>forgetUserInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Profiles\Users\changePasswordRegistration.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,6 +247,18 @@
     </Compile>
     <Compile Include="Profiles\Users\changePasswordConfirm.Designer.cs">
       <DependentUpon>changePasswordConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Users\forgetPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Users\forgetPassword.Designer.cs">
+      <DependentUpon>forgetPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles\Users\forgetUsername.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Profiles\Users\forgetUsername.Designer.cs">
+      <DependentUpon>forgetUsername.cs</DependentUpon>
     </Compile>
     <Compile Include="Profiles\Users\Profilesettings.cs">
       <SubType>Form</SubType>
@@ -389,11 +419,26 @@
     <EmbeddedResource Include="Profiles\Admin\RegistrationConfirm.resx">
       <DependentUpon>RegistrationConfirm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\EmailSend.resx">
+      <DependentUpon>EmailSend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\ForgetOTP.resx">
+      <DependentUpon>ForgetOTP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\forgetUserInfo.resx">
+      <DependentUpon>forgetUserInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Users\changePasswordRegistration.resx">
       <DependentUpon>changePasswordRegistration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Users\changePasswordConfirm.resx">
       <DependentUpon>changePasswordConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Users\forgetPassword.resx">
+      <DependentUpon>forgetPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Profiles\Users\forgetUsername.resx">
+      <DependentUpon>forgetUsername.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Users\Profilesettings.resx">
       <DependentUpon>Profilesettings.cs</DependentUpon>

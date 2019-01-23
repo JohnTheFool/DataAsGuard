@@ -17,6 +17,11 @@ namespace DataAsGuard.Profiles.Admin
     {
         AesEncryption aes = new AesEncryption();
         DBLogger dblog = new DBLogger();
+        MySqlDataAdapter adapter;
+        DataTable table = new DataTable();
+        ArrayList grouplist = new ArrayList();
+        ArrayList filelist = new ArrayList();
+        ArrayList permissionlist = new ArrayList();
 
         public AccountDetails()
         {
@@ -27,7 +32,9 @@ namespace DataAsGuard.Profiles.Admin
         {
             userdataRetrieval();
             retrieveLogs();
+            groupInfo();
             chartInitialized();
+            retrieveFileAccess();
         }
 
         private void userdataRetrieval()
@@ -38,16 +45,16 @@ namespace DataAsGuard.Profiles.Admin
                 con.Open();
                 String query = "SELECT * FROM Userinfo WHERE userid=@userid";
                 MySqlCommand command = new MySqlCommand(query, con);
-                command.Parameters.AddWithValue("@userid", CSClass.Logininfo.userid.ToString());
+                command.Parameters.AddWithValue("@userid", AdminSession.userid.ToString());
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         userid.Text = reader.GetString(reader.GetOrdinal("userid"));
-                        Username.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), Logininfo.userid.ToString());
+                        Username.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), AdminSession.userid.ToString());
                         FName.Text = reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname"));
-                        Contact.Text = "****" + aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), Logininfo.userid.ToString()).Substring(4, 4);
-                        Email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), Logininfo.userid.ToString());
+                        Contact.Text = "****" + aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), AdminSession.userid.ToString()).Substring(4, 4);
+                        Email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), AdminSession.userid.ToString());
                         DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
                         vflag.Text = reader.GetString(reader.GetOrdinal("verificationflag"));
                         if (reader.IsDBNull(reader.GetOrdinal("statusDate")))
@@ -103,6 +110,256 @@ namespace DataAsGuard.Profiles.Admin
                         row.Add(reader.GetString(reader.GetOrdinal("userid")));
                         row.Add(reader.GetString(reader.GetOrdinal("email")));
                         datalogGrid.Rows.Add(row.ToArray());
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+        }
+
+        private void chartInitialized()
+        {
+            ArrayList data = new ArrayList();
+
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM logInfo where logtype = @logtype AND userid=@userid";
+                MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@logtype", "LogonSuccess");
+                command.Parameters.AddWithValue("@userid", AdminSession.userid);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        data.Add(DateTime.ParseExact(reader.GetString(reader.GetOrdinal("logDateTime")), "dd/MM/yyyy HH:mm:ss", null));
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+            int count = 0;
+            ArrayList xvalue = new ArrayList();
+            ArrayList yvalue = new ArrayList();
+            DateTime olddate = new DateTime();
+            string checkoldDate = null;
+            for (int i = 0; i < data.Count; i++)
+            {
+                //compare dates if the same date collate under count and place into chart
+                DateTime date = DateTime.Parse(data[i].ToString());
+                string checkdate = date.ToString("dd/MM/yyyy");
+
+                if (checkoldDate == null)
+                {
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                }
+
+                if (checkdate == checkoldDate)
+                {
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                    count++;
+                    if (i == data.Count - 1)
+                    {
+                        xvalue.Add(checkoldDate);
+                        yvalue.Add(count);
+                    }
+                }
+                else
+                {
+                    xvalue.Add(checkoldDate);
+                    yvalue.Add(count);
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                    count = 1;
+                    if (i == data.Count - 1)
+                    {
+                        xvalue.Add(checkoldDate);
+                        yvalue.Add(count);
+                    }
+                }
+            }
+
+
+            //chart1.ChartAreas.AxisX.Interval = 1;
+            for (int u = 0; u < xvalue.Count; u++)
+            {
+                chart1.Series["Series1"].Points.AddXY(xvalue[u], yvalue[u]);
+            }
+            chart1.ChartAreas[0].AxisX.LabelStyle.Angle = 90;
+            chart1.ChartAreas[0].AxisX.Interval = 1;
+        }
+
+        private void groupInfo()
+        {
+            //Load all groups from MySql
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM groupUsers where userid = @userid";
+                MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@userid", AdminSession.userid);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        grouplist.Add(reader.GetString(reader.GetOrdinal("groupID")));
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+
+                String query2 = "SELECT * FROM groupInfo";
+                MySqlCommand command2 = new MySqlCommand(query2, con);
+                using (MySqlDataReader reader = command2.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < grouplist.Count; i++)
+                        {
+                            if (grouplist[i].ToString() == reader.GetString(reader.GetOrdinal("groupID")))
+                            {
+                                groupList.Items.Add(reader.GetString(reader.GetOrdinal("groupName")));
+                            }
+                        }
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+
+        }
+
+        private void retrieveFileAccess()
+        {
+            filegrid.AllowUserToAddRows = false;
+            filegrid.AllowUserToDeleteRows = false;
+            filegrid.ColumnCount = 7;
+            filegrid.Columns[0].Name = "fileid";
+            filegrid.Columns[1].Name = "filename";
+            filegrid.Columns[2].Name = "fileOwnerID";
+            filegrid.Columns[3].Name = "fileOwner";
+            filegrid.Columns[4].Name = "readPermission";
+            filegrid.Columns[5].Name = "editPermission";
+            filegrid.Columns[6].Name = "downloadPermission";
+
+            //add rows from db
+            userfileAccessibleRetrieval();
+        }
+
+        private void userfileAccessibleRetrieval()
+        {
+
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM groupFilePermissions";
+                MySqlCommand command = new MySqlCommand(query, con);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < grouplist.Count; i++)
+                        {
+                            if (grouplist[i].ToString() == reader.GetString(reader.GetOrdinal("groupID")))
+                            {
+                                filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                                permissionlist.Add(reader.GetString(reader.GetOrdinal("readPermission")));
+                                permissionlist.Add(reader.GetString(reader.GetOrdinal("editPermission")));
+                                permissionlist.Add(reader.GetString(reader.GetOrdinal("downloadPermission")));
+                            }
+                        }
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+
+                String query1 = "SELECT * FROM userFilePermissions where userid = @userid";
+                MySqlCommand command1 = new MySqlCommand(query1, con);
+                command1.Parameters.AddWithValue("@userid", AdminSession.userid);
+                using (MySqlDataReader reader = command1.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < filelist.Count; i++)
+                        {
+                            bool contains = false;
+                            if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileid")))
+                            {
+                                contains = true;
+                            }
+                            
+                            if(contains == false && i == filelist.Count - 1)
+                            {
+                                filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                                permissionlist.Add(reader.GetString(reader.GetOrdinal("readPermission")));
+                                permissionlist.Add(reader.GetString(reader.GetOrdinal("editPermission")));
+                                permissionlist.Add(reader.GetString(reader.GetOrdinal("downloadPermission")));
+                            }
+                        }
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+
+                String query2 = "SELECT * FROM fileInfo where fileOwnerID = @userid";
+                MySqlCommand command2 = new MySqlCommand(query2, con);
+                command2.Parameters.AddWithValue("@userid", AdminSession.userid);
+                using (MySqlDataReader reader = command2.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < filelist.Count; i++)
+                        {
+                            bool contains = false;
+                            if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileid")))
+                            {
+                                contains = true;
+                            }
+
+                            if (contains == false && i == filelist.Count - 1)
+                            {
+                                filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                                permissionlist.Add("True");
+                                permissionlist.Add("True");
+                                permissionlist.Add("True");
+                            }
+                        }
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+
+                String query3 = "SELECT * FROM fileInfo";
+                MySqlCommand command3 = new MySqlCommand(query3, con);
+                using (MySqlDataReader reader = command3.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < filelist.Count; i++)
+                        {
+                            if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileID")))
+                            {
+                                ArrayList row = new ArrayList();
+                                row.Add(reader.GetInt32(reader.GetOrdinal("fileid")));
+                                row.Add(reader.GetString(reader.GetOrdinal("filename")));
+                                row.Add(reader.GetString(reader.GetOrdinal("fileOwnerID")));
+                                row.Add(reader.GetString(reader.GetOrdinal("fileOwner")));
+                                row.Add(permissionlist[0].ToString());
+                                row.Add(permissionlist[1].ToString());
+                                row.Add(permissionlist[2].ToString());
+                                permissionlist.RemoveRange(0, 3);
+                                filegrid.Rows.Add(row.ToArray());
+                            }
+                        }
                     }
 
                     if (reader != null)
@@ -172,87 +429,15 @@ namespace DataAsGuard.Profiles.Admin
                             deleteaccount.Parameters.AddWithValue("@userid", AdminSession.userid);
                             deleteaccount.ExecuteNonQuery();
                             //may add deletion for other info relating to the user
+                            dblog.Log("Account Deleted" + Username.Text, "Accounts", Logininfo.userid, Logininfo.email);
                         }
                     }
                 }
             }
         }
 
-        private void chartInitialized()
-        {
-            ArrayList data = new ArrayList();
-            
-            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
-            {
-                con.Open();
-                String query = "SELECT * FROM logInfo where logtype = @logtype AND userid=@userid";
-                MySqlCommand command = new MySqlCommand(query, con);
-                command.Parameters.AddWithValue("@logtype", "LogonSuccess");
-                command.Parameters.AddWithValue("@userid", AdminSession.userid);
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        data.Add(DateTime.ParseExact(reader.GetString(reader.GetOrdinal("logDateTime")),"dd/MM/yyyy HH:mm:ss",null));
-                    }
+        
 
-                    if (reader != null)
-                        reader.Close();
-                }
-            }
-            int count = 0;
-            ArrayList xvalue = new ArrayList();
-            ArrayList yvalue = new ArrayList();
-            DateTime olddate = new DateTime();
-            string checkoldDate = null;
-            for (int i = 0; i < data.Count; i++)
-            {
-                
-                DateTime date = DateTime.Parse(data[i].ToString());
-                string checkdate = date.ToString("dd/MM/yyyy");
-               
-                if (checkoldDate == null)
-                {
-                    olddate = DateTime.Parse(data[i].ToString());
-                    checkoldDate = olddate.ToString("dd/MM/yyyy");
-                }
-
-                if(checkdate == checkoldDate)
-                {
-                    olddate = DateTime.Parse(data[i].ToString());
-                    checkoldDate = olddate.ToString("dd/MM/yyyy");
-                    count++;
-                    if(i == data.Count-1) {
-                        xvalue.Add(checkoldDate);
-                        yvalue.Add(count);
-                    }
-                }
-                else
-                {
-                    xvalue.Add(checkoldDate);
-                    yvalue.Add(count);
-                    olddate = DateTime.Parse(data[i].ToString());
-                    checkoldDate = olddate.ToString("dd/MM/yyyy");
-                    count = 1;
-                }
-            }
-            
-
-            //chart1.ChartAreas.AxisX.Interval = 1;
-            for (int u = 0; u < xvalue.Count; u++)
-            {
-                chart1.Series["Series1"].Points.AddXY(xvalue[u], yvalue[u]);
-            }
-            chart1.ChartAreas[0].AxisX.LabelStyle.Angle = 90;
-            chart1.ChartAreas[0].AxisX.Interval = 1;
-        }
-
-        private void chgpass_Click(object sender, EventArgs e)
-        {
-            AdminChangePassword chgpassword = new AdminChangePassword();
-            chgpassword.Show();
-            Hide();
-        }
 
         private void AddUsers_Click(object sender, EventArgs e)
         {
@@ -288,11 +473,5 @@ namespace DataAsGuard.Profiles.Admin
             Hide();
         }
 
-        private void changePassword_Click(object sender, EventArgs e)
-        {
-            AdminChangePassword changePassword = new AdminChangePassword();
-            changePassword.Show();
-            Hide();
-        }
     }
 }

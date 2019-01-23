@@ -19,7 +19,6 @@ namespace DataAsGuard.Profiles.Admin
 {
     public partial class Registration : Form
     {
-       
         private Random rand = new Random();
         //smtp
         string emails, password, Firstname, Lastname;
@@ -291,26 +290,26 @@ namespace DataAsGuard.Profiles.Admin
         //validatenumber
         private void phonenumber_TextChanged(object sender, EventArgs e)
         {
-            var regex = "([0-9]{8,12})$";
+            var regex = "((8|9)[0-9]{7})$";
             Match match = Regex.Match(PhoneNO.Text, regex, RegexOptions.IgnoreCase);
 
             if (PhoneNO.Text == string.Empty)
             {
-                //"Please insert a proper email",
+                //"Please insert a proper phone number",
                 validatephoneNO.Show();
                 validatephoneNO.ForeColor = Color.Red;
                 validatephoneNO.Text = "Please a proper phone number";
             }
             else if (PhoneNO.Text != string.Empty && !match.Success)
             {
-                //"Please insert a proper email",
+                //"Please insert a proper phone number",
                 validatephoneNO.Show();
                 validatephoneNO.ForeColor = Color.Red;
                 validatephoneNO.Text = "Please insert a proper phone number";
             }
             else if (PhoneNO.Text != string.Empty && match.Success)
             {
-                //"Please insert a proper email",
+                //"Please insert a proper phone number",
                 validatephoneNO.Show();
                 validatephoneNO.ForeColor = Color.ForestGreen;
                 validatephoneNO.Text = "Phone Number Validated";
@@ -365,10 +364,10 @@ namespace DataAsGuard.Profiles.Admin
 
             MailMessage msg = new MailMessage();
             msg.Subject = "Hello " + Firstname + " " + Lastname + "";
-            msg.Body = "Hello " + Firstname + " " + Lastname + ", Your Account has been Registered for DataAsguard!";
+            msg.Body = "Hello " + Firstname + " " + Lastname + ", Your account has been registered for DataAsguard!";
 
             msg.Body += "<tr>";
-            msg.Body += "<td>Your Account Details are given below: </td>";
+            msg.Body += "<td>Your account details are given below: </td>";
             msg.Body += "</tr>";
 
             msg.Body += "<tr>";
@@ -427,7 +426,6 @@ namespace DataAsGuard.Profiles.Admin
         //captcha
         private void CreateImage()
         {
-
             string code = GetRandomText();
 
             Bitmap bitmap = new Bitmap(200, 50, PixelFormat.Format32bppArgb);
@@ -494,7 +492,6 @@ namespace DataAsGuard.Profiles.Admin
             {
                 g.DrawLines(new Pen(green, 2), GetRandomPoints());
             }
-
         }
 
 
@@ -517,6 +514,12 @@ namespace DataAsGuard.Profiles.Admin
             Login login = new Login();
             login.Show();
             Hide();
+
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void AdminHome_Click(object sender, EventArgs e)
@@ -524,6 +527,11 @@ namespace DataAsGuard.Profiles.Admin
             AdminProfile Profiles = new AdminProfile();
             Profiles.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private Point[] GetRandomPoints()

@@ -113,6 +113,11 @@ namespace DataAsGuard.Profiles.Admin
             AdminProfile profile = new AdminProfile();
             profile.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         //traverse to login
@@ -124,6 +129,11 @@ namespace DataAsGuard.Profiles.Admin
             Login login = new Login();
             login.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         //traverse to adminprofile
@@ -132,6 +142,11 @@ namespace DataAsGuard.Profiles.Admin
             AdminProfile profile = new AdminProfile();
             profile.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         //traverse to this page
@@ -140,6 +155,11 @@ namespace DataAsGuard.Profiles.Admin
             AdminProfileSettings settings = new AdminProfileSettings();
             settings.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         //traverse to home
@@ -148,6 +168,11 @@ namespace DataAsGuard.Profiles.Admin
             AdminProfile Profiles = new AdminProfile();
             Profiles.Show();
             Hide();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
