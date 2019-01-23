@@ -15,8 +15,8 @@ namespace DataAsGuard.FileManagement
 {
     public partial class CreateNewGroup : Form
     {
-        //MySqlDataAdapter adapter;
         DataTable table = new DataTable();
+        DBLogger dblog = new DBLogger();
 
         public CreateNewGroup()
         {
@@ -38,7 +38,7 @@ namespace DataAsGuard.FileManagement
             else
             {
                 if (InsertGroupInfoIntoDatabase() && InsertGroupMembersIntoDatabase())
-                {
+                {      
                     System.Windows.Forms.MessageBox.Show("Successfully created group.");
                     Hide();
                 }
@@ -94,6 +94,7 @@ namespace DataAsGuard.FileManagement
                 myCommand.ExecuteNonQuery();
                 con.Close();
                 success = true;
+                dblog.Log("Created new group '" + this.groupName_Text.Text + "'.", "GroupChanges", Logininfo.userid.ToString(), Logininfo.email.ToString());
             }
             return success;
         }

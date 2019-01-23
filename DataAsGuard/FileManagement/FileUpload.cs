@@ -84,8 +84,10 @@ namespace DataAsGuard.FileManagement
 
                                     if (reader != null)
                                         reader.Close();
+
                                 }
                                 success = true;
+
                             }
                             catch (IOException)
                             {
@@ -119,6 +121,10 @@ namespace DataAsGuard.FileManagement
                 con.Close();
             }
 
+            if (success)
+            {
+                dblog.fileLog("File '" + this.fileName.Text + "' uploaded to database.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
+            }
             return success;
         }
         

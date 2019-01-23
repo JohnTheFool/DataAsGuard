@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,8 @@ namespace DataAsGuard.FileManagement
     public partial class EditGroup : Form
     {
         String originalGroupName = null;
+        DBLogger dblog = new DBLogger();
+        
         public EditGroup(String groupEdited)
         {
             InitializeComponent();
@@ -134,6 +137,8 @@ namespace DataAsGuard.FileManagement
                     myCommand.Parameters.AddWithValue("@dateParam", DateTime.Now);
                     myCommand.ExecuteNonQuery();
 
+                    dblog.Log("Member  '" + groupMembers.Items[i].ToString() + "' added to " + this.groupName_Text.Text + ".", "GroupChanges", Logininfo.userid.ToString(), Logininfo.email.ToString());
+
                 }
                 success = true;
                 con.Close();
@@ -174,11 +179,12 @@ namespace DataAsGuard.FileManagement
 
                     if (userExists)
                     {
-                    String executeQuery = "DELETE FROM groupUsers WHERE groupName = @nameParam AND userID = @userParam)";
-                    MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
-                    checkUserCmd.Parameters.AddWithValue("@nameParam", this.groupName_Text.Text);
-                    checkUserCmd.Parameters.AddWithValue("@userParam", userID);
-                    myCommand.ExecuteNonQuery();
+                        String executeQuery = "DELETE FROM groupUsers WHERE groupName = @nameParam AND userID = @userParam)";
+                        MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
+                        checkUserCmd.Parameters.AddWithValue("@nameParam", this.groupName_Text.Text);
+                        checkUserCmd.Parameters.AddWithValue("@userParam", userID);
+                        myCommand.ExecuteNonQuery();
+                        dblog.Log("Member  '" + groupMembers.Items[i].ToString() + "' removed from "+ this.groupName_Text.Text+".", "GroupChanges", Logininfo.userid.ToString(), Logininfo.email.ToString());
                     }
 
                 }
@@ -202,7 +208,10 @@ namespace DataAsGuard.FileManagement
                 myCommand.ExecuteNonQuery();
                 con.Close();
                 success = true;
+
+                dblog.Log("Group information of " + this.groupName_Text.Text + " has been updated.", "GroupChanges", Logininfo.userid.ToString(), Logininfo.email.ToString());
             }
+
             return success;
         }
 

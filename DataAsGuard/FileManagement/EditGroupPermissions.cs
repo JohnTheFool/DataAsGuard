@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ namespace DataAsGuard.FileManagement
         DataTable table = new DataTable();
         string fileNameRefer;
         int fileID = 0;
+        DBLogger dblog = new DBLogger();
 
         public EditGroupPermissions(String fileName)
         {
@@ -120,6 +122,10 @@ namespace DataAsGuard.FileManagement
                 myCommand.ExecuteNonQuery();
                 con.Close();
                 success = true;
+            }
+            if (success)
+            {
+                dblog.fileLog("Edited group permissions for file '" + fileNameRefer + "'.", "FileChanges", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
             }
             return success;
         }

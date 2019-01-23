@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,8 @@ namespace DataAsGuard.FileManagement
     public partial class TransferOwnerUserList : Form
     {
         string fileParam = "";
+        DBLogger dblog = new DBLogger();
+
         public TransferOwnerUserList(string fileName)
         {
             InitializeComponent();
@@ -30,7 +33,7 @@ namespace DataAsGuard.FileManagement
             string newOwnerName = userList.SelectedItem.ToString();
             int newOwnerID = 0;
             Boolean success = false;
-
+            int fileID = 0;
             DialogResult result = MessageBox.Show("Ownership of the file will be transferred to " + newOwnerName + ". Continue?", "Warning", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
@@ -47,6 +50,16 @@ namespace DataAsGuard.FileManagement
                     }
                     reader.Close();
 
+                    String getFileIDQuery = "SELECT * FROM fileInfo WHERE fileName = @fileParam";
+                    MySqlCommand getFileIDCmd = new MySqlCommand(getFileIDQuery, con);
+                    getFileIDCmd.Parameters.AddWithValue("@fileParam", fileParam);
+                    MySqlDataReader reader2 = getFileIDCmd.ExecuteReader();
+                    if (reader2.Read())
+                    {
+                        fileID = Convert.ToInt32(reader["fileID"]);
+                    }
+                    reader2.Close();
+
                     String updateOwnerQuery = "UPDATE fileInfo SET fileOwner = @nameParam, fileOwnerID = @IDParam WHERE fileName = @fileParam";
                     MySqlCommand updateOwnerCmd = new MySqlCommand(updateOwnerQuery, con);
                     updateOwnerCmd.Parameters.AddWithValue("@nameParam", newOwnerName);
@@ -60,6 +73,7 @@ namespace DataAsGuard.FileManagement
                 if (success)
                 {
                     MessageBox.Show("Successfully transferred ownership of file.");
+                    dblog.fileLog("Transferred file ownership to '" + newOwnerName + "'. ID: " + newOwnerID + ".", "FileChanges", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
                     Hide();
                 }
             }

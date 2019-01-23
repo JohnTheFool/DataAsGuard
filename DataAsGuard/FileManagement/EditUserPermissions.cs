@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DataAsGuard.CSClass;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace DataAsGuard.FileManagement
         DataTable table = new DataTable();
         int fileID = 0;
         string fileNameRefer;
+        DBLogger dblog = new DBLogger();
 
         public EditUserPermissions(String fileName)
         {
@@ -122,6 +124,10 @@ namespace DataAsGuard.FileManagement
                 myCommand.ExecuteNonQuery();
                 con.Close();
                 success = true;
+            }
+            if (success)
+            {
+                dblog.fileLog("Edited user permissions for file '" + fileNameRefer + "'.", "FileChanges", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
             }
             return success;
         }

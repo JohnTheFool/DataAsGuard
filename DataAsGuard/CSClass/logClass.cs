@@ -21,6 +21,7 @@ namespace DataAsGuard.CSClass
     //Accounts: Indicate Account Changes
     //UploadsFailed : Indicate failed Upload
     //UploadsSuccess : Indicate Successful Uploads
+    //FileActions : Indicate actions to files
     //FileChanges : Indicate File History changes
     //GroupChanges : Indicate changes to groups
     //Permissions : Indicate changes to permissions
