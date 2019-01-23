@@ -147,7 +147,7 @@ namespace DataAsGuard.Profiles.Admin
             string checkoldDate = null;
             for (int i = 0; i < data.Count; i++)
             {
-
+                //compare dates if the same date collate under count and place into chart
                 DateTime date = DateTime.Parse(data[i].ToString());
                 string checkdate = date.ToString("dd/MM/yyyy");
 
@@ -175,6 +175,11 @@ namespace DataAsGuard.Profiles.Admin
                     olddate = DateTime.Parse(data[i].ToString());
                     checkoldDate = olddate.ToString("dd/MM/yyyy");
                     count = 1;
+                    if (i == data.Count - 1)
+                    {
+                        xvalue.Add(checkoldDate);
+                        yvalue.Add(count);
+                    }
                 }
             }
 
@@ -304,10 +309,10 @@ namespace DataAsGuard.Profiles.Admin
                         reader.Close();
                 }
 
-                String query3 = "SELECT * FROM fileInfo where fileOwnerID = @userid";
-                MySqlCommand command3 = new MySqlCommand(query3, con);
-                command3.Parameters.AddWithValue("@userid", AdminSession.userid);
-                using (MySqlDataReader reader = command3.ExecuteReader())
+                String query2 = "SELECT * FROM fileInfo where fileOwnerID = @userid";
+                MySqlCommand command2 = new MySqlCommand(query2, con);
+                command2.Parameters.AddWithValue("@userid", AdminSession.userid);
+                using (MySqlDataReader reader = command2.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -333,9 +338,9 @@ namespace DataAsGuard.Profiles.Admin
                         reader.Close();
                 }
 
-                String query2 = "SELECT * FROM fileInfo";
-                MySqlCommand command2 = new MySqlCommand(query2, con);
-                using (MySqlDataReader reader = command2.ExecuteReader())
+                String query3 = "SELECT * FROM fileInfo";
+                MySqlCommand command3 = new MySqlCommand(query3, con);
+                using (MySqlDataReader reader = command3.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -424,6 +429,7 @@ namespace DataAsGuard.Profiles.Admin
                             deleteaccount.Parameters.AddWithValue("@userid", AdminSession.userid);
                             deleteaccount.ExecuteNonQuery();
                             //may add deletion for other info relating to the user
+                            dblog.Log("Account Deleted" + Username.Text, "Accounts", Logininfo.userid, Logininfo.email);
                         }
                     }
                 }

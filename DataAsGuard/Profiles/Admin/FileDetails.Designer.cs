@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileDetails));
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.fileSize = new System.Windows.Forms.Label();
@@ -52,17 +55,34 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.datalogGrid = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
             this.Lockbtn = new System.Windows.Forms.Button();
             this.Logout = new System.Windows.Forms.Button();
             this.AdminHome = new System.Windows.Forms.Button();
             this.AddUser = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
+            this.groupList = new System.Windows.Forms.ListBox();
+            this.membersList = new System.Windows.Forms.ListBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.groupPermissionInformation = new System.Windows.Forms.RichTextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.IndividualList = new System.Windows.Forms.ListBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.userPermissionInfo = new System.Windows.Forms.RichTextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.datalogGrid)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel2
@@ -287,6 +307,8 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -318,6 +340,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chart1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -325,6 +348,53 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "File Access";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // chart1
+            // 
+            chartArea2.AxisX.TextOrientation = System.Windows.Forms.DataVisualization.Charting.TextOrientation.Rotated90;
+            chartArea2.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(3, 3);
+            this.chart1.Name = "chart1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
+            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(821, 231);
+            this.chart1.TabIndex = 2;
+            this.chart1.Text = "chart1";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.groupPermissionInformation);
+            this.tabPage3.Controls.Add(this.label11);
+            this.tabPage3.Controls.Add(this.label10);
+            this.tabPage3.Controls.Add(this.membersList);
+            this.tabPage3.Controls.Add(this.groupList);
+            this.tabPage3.Controls.Add(this.label9);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(827, 237);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "File Accessible (Groups)";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 17);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(70, 17);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "GroupList";
             // 
             // Lockbtn
             // 
@@ -379,6 +449,110 @@
             this.settingsButton.UseVisualStyleBackColor = true;
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
+            // groupList
+            // 
+            this.groupList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.groupList.FormattingEnabled = true;
+            this.groupList.ItemHeight = 16;
+            this.groupList.Location = new System.Drawing.Point(18, 39);
+            this.groupList.Name = "groupList";
+            this.groupList.Size = new System.Drawing.Size(177, 180);
+            this.groupList.TabIndex = 21;
+            this.groupList.SelectedIndexChanged += new System.EventHandler(this.groupList_SelectedIndexChanged);
+            // 
+            // membersList
+            // 
+            this.membersList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.membersList.FormattingEnabled = true;
+            this.membersList.ItemHeight = 16;
+            this.membersList.Location = new System.Drawing.Point(227, 39);
+            this.membersList.Name = "membersList";
+            this.membersList.Size = new System.Drawing.Size(177, 180);
+            this.membersList.TabIndex = 22;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(224, 17);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(88, 17);
+            this.label10.TabIndex = 23;
+            this.label10.Text = "MembersList";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(437, 17);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(99, 17);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "PermissionList";
+            // 
+            // groupPermissionInformation
+            // 
+            this.groupPermissionInformation.BackColor = System.Drawing.SystemColors.Control;
+            this.groupPermissionInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.groupPermissionInformation.Location = new System.Drawing.Point(440, 39);
+            this.groupPermissionInformation.Name = "groupPermissionInformation";
+            this.groupPermissionInformation.ReadOnly = true;
+            this.groupPermissionInformation.Size = new System.Drawing.Size(353, 180);
+            this.groupPermissionInformation.TabIndex = 25;
+            this.groupPermissionInformation.Text = "";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.label13);
+            this.tabPage4.Controls.Add(this.userPermissionInfo);
+            this.tabPage4.Controls.Add(this.label12);
+            this.tabPage4.Controls.Add(this.IndividualList);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(827, 237);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "File Accessible (Individuals)";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // IndividualList
+            // 
+            this.IndividualList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.IndividualList.FormattingEnabled = true;
+            this.IndividualList.ItemHeight = 16;
+            this.IndividualList.Location = new System.Drawing.Point(18, 39);
+            this.IndividualList.Name = "IndividualList";
+            this.IndividualList.Size = new System.Drawing.Size(206, 180);
+            this.IndividualList.TabIndex = 22;
+            this.IndividualList.SelectedIndexChanged += new System.EventHandler(this.Individual_SelectedIndexChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(15, 19);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(93, 17);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "Individual List";
+            // 
+            // userPermissionInfo
+            // 
+            this.userPermissionInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.userPermissionInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.userPermissionInfo.Location = new System.Drawing.Point(255, 39);
+            this.userPermissionInfo.Name = "userPermissionInfo";
+            this.userPermissionInfo.ReadOnly = true;
+            this.userPermissionInfo.Size = new System.Drawing.Size(538, 180);
+            this.userPermissionInfo.TabIndex = 26;
+            this.userPermissionInfo.Text = "";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(252, 19);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(99, 17);
+            this.label13.TabIndex = 27;
+            this.label13.Text = "PermissionList";
+            // 
             // FileDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -405,6 +579,12 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.datalogGrid)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -438,5 +618,18 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button AddUser;
         private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ListBox groupList;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ListBox membersList;
+        private System.Windows.Forms.RichTextBox groupPermissionInformation;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.RichTextBox userPermissionInfo;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ListBox IndividualList;
     }
 }

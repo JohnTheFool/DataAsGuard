@@ -18,6 +18,8 @@ namespace DataAsGuard.Profiles.Admin
 
         AesEncryption aes = new AesEncryption();
         DBLogger dblog = new DBLogger();
+        ArrayList grouplist = new ArrayList();
+        ArrayList individualUserlist = new ArrayList();
 
         public FileDetails()
         {
@@ -28,6 +30,9 @@ namespace DataAsGuard.Profiles.Admin
         {
             userfilesRetrieval();
             retrieveLogs();
+            chartInitialized();
+            groupInfo();
+            individualuserInfo();
         }
 
         //userfileDetails
@@ -129,6 +134,257 @@ namespace DataAsGuard.Profiles.Admin
             }
         }
 
+        private void groupInfo()
+        {
+            //Load all groups from MySql
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM groupFilePermissions where fileID = @fileID";
+                MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@fileID", AdminSession.fileID);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        grouplist.Add(reader.GetString(reader.GetOrdinal("groupID")));
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+
+                String query2 = "SELECT * FROM groupInfo";
+                MySqlCommand command2 = new MySqlCommand(query2, con);
+                using (MySqlDataReader reader = command2.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < grouplist.Count; i++)
+                        {
+                            if (grouplist[i].ToString() == reader.GetString(reader.GetOrdinal("groupID")))
+                            {
+                                groupList.Items.Add(reader.GetString(reader.GetOrdinal("groupName")));
+                            }
+                        }
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+
+        }
+
+        private void groupList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            groupPermissionInformation.Clear();
+            membersList.Items.Clear();
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                string curItem = groupList.SelectedItem.ToString();
+                string groupid = null;
+                //Retrieve group members from DB
+                String getGroupMembersquery = "SELECT * FROM groupUsers WHERE groupName = @nameParam";
+                MySqlCommand groupMemberscmd = new MySqlCommand(getGroupMembersquery, con);
+                groupMemberscmd.Parameters.AddWithValue("@nameParam", curItem);
+                MySqlDataReader reader2 = groupMemberscmd.ExecuteReader();
+                while (reader2.Read())
+                {
+                    membersList.Items.Add(reader2["userFullName"].ToString());
+                    groupid = reader2.GetString(reader2.GetOrdinal("groupID"));
+                }
+                reader2.Close();
+
+                String groupInfoquery = "SELECT * FROM groupFilePermissions WHERE groupID = @groupid and fileid=@fileid";
+                MySqlCommand groupInfocmd = new MySqlCommand(groupInfoquery, con);
+                groupInfocmd.Parameters.AddWithValue("@groupid", groupid);
+                groupInfocmd.Parameters.AddWithValue("@fileid", AdminSession.fileID);
+                MySqlDataReader reader = groupInfocmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    groupPermissionInformation.AppendText("Readable: " + reader.GetString(reader.GetOrdinal("readPermission")));
+                    groupPermissionInformation.AppendText(Environment.NewLine + "Editable: " + reader.GetString(reader.GetOrdinal("editPermission")));
+                    groupPermissionInformation.AppendText(Environment.NewLine + "Downloadable: " + reader.GetString(reader.GetOrdinal("downloadPermission")));
+                }
+
+                con.Close();
+            }
+        }
+
+        private void individualuserInfo()
+        {
+            //Load all groups from MySql
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM userFilePermissions where fileID = @fileID";
+                MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@fileID", AdminSession.fileID);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        individualUserlist.Add(reader.GetString(reader.GetOrdinal("userID")));
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+
+                String query2 = "SELECT * FROM Userinfo";
+                MySqlCommand command2 = new MySqlCommand(query2, con);
+                using (MySqlDataReader reader = command2.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < individualUserlist.Count; i++)
+                        {
+                            if (individualUserlist[i].ToString() == reader.GetString(reader.GetOrdinal("userid")))
+                            {
+                                IndividualList.Items.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid"))));
+                            }
+                        }
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+
+        }
+
+        private void Individual_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string userid = null;
+            userPermissionInfo.Clear();
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                string curItem = IndividualList.SelectedItem.ToString();
+                //find the particular userid of the selected username
+                String getUsersquery = "SELECT * FROM Userinfo";
+                MySqlCommand userMemberscmd = new MySqlCommand(getUsersquery, con);
+                MySqlDataReader reader2 = userMemberscmd.ExecuteReader();
+                while (reader2.Read())
+                {
+                    if(aes.Decryptstring(reader2.GetString(reader2.GetOrdinal("username")), reader2.GetString(reader2.GetOrdinal("userid"))) == curItem){ 
+                        userid = reader2.GetString(reader2.GetOrdinal("userid"));
+                        break;
+                    }
+                }
+                reader2.Close();
+
+                //retrieve the permission relating to the particular user.
+                String query = "SELECT * FROM userFilePermissions where fileID = @fileID and userID = @userid";
+                MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@fileID", AdminSession.fileID);
+                command.Parameters.AddWithValue("@userid", userid);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        userPermissionInfo.AppendText("Readable: " + reader.GetString(reader.GetOrdinal("readPermission")));
+                        userPermissionInfo.AppendText(Environment.NewLine + "Editable: " + reader.GetString(reader.GetOrdinal("editPermission")));
+                        userPermissionInfo.AppendText(Environment.NewLine + "Downloadable: " + reader.GetString(reader.GetOrdinal("downloadPermission")));
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+
+                con.Close();
+                
+            }
+        }
+
+        private void chartInitialized()
+        {
+            ArrayList data = new ArrayList();
+
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM logInfo where logtype = @fileActions AND fileID=@fileID";
+                MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@fileActions", "FileActions");
+                command.Parameters.AddWithValue("@fileID", AdminSession.fileID);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        if (reader.GetString(reader.GetOrdinal("logInfo")).Contains("Opened"))
+                        {
+                            if (reader.IsDBNull(reader.GetOrdinal("fileID")))
+                            {
+
+                            }
+                            else
+                            {
+                                data.Add(DateTime.ParseExact(reader.GetString(reader.GetOrdinal("logDateTime")), "dd/MM/yyyy HH:mm:ss", null));
+                            }
+                        }
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+            int count = 0;
+            ArrayList xvalue = new ArrayList();
+            ArrayList yvalue = new ArrayList();
+            DateTime olddate = new DateTime();
+            string checkoldDate = null;
+            for (int i = 0; i < data.Count; i++)
+            {
+
+                DateTime date = DateTime.Parse(data[i].ToString());
+                string checkdate = date.ToString("dd/MM/yyyy");
+
+                if (checkoldDate == null)
+                {
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                }
+
+                if (checkdate == checkoldDate)
+                {
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                    count++;
+                    if (i == data.Count - 1)
+                    {
+                        xvalue.Add(checkoldDate);
+                        yvalue.Add(count);
+                    }
+                }
+                else
+                {
+                    xvalue.Add(checkoldDate);
+                    yvalue.Add(count);
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                    count = 1;
+                    if (i == data.Count - 1)
+                    {
+                        xvalue.Add(checkoldDate);
+                        yvalue.Add(count);
+                    }
+                }
+            }
+
+
+            //chart1.ChartAreas.AxisX.Interval = 1;
+            for (int u = 0; u < xvalue.Count; u++)
+            {
+                chart1.Series["Series1"].Points.AddXY(xvalue[u], yvalue[u]);
+            }
+            chart1.ChartAreas[0].AxisX.LabelStyle.Angle = 90;
+            chart1.ChartAreas[0].AxisX.Interval = 1;
+        }
+
         private void Lockbtn_Click(object sender, EventArgs e)
         {
             //UPDATE Lock TO DATABASE
@@ -192,7 +448,7 @@ namespace DataAsGuard.Profiles.Admin
             Hide();
         }
 
-
-       
+        
     }
+    
 }

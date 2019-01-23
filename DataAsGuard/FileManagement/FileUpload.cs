@@ -70,10 +70,9 @@ namespace DataAsGuard.FileManagement
                                 myCommand.Parameters.AddWithValue("@lockParam", 0); //Check with Solomon
                                 myCommand.ExecuteNonQuery();
 
-                                String query = "SELECT * FROM fileInfo where fileName = @fileName AND dateCreated = @dateCreated AND fileOwnerID=@fileowner;";
+                                String query = "SELECT * FROM fileInfo where fileName = @fileName AND fileOwnerID=@fileowner;";
                                 MySqlCommand command = new MySqlCommand(query, con);
                                 command.Parameters.AddWithValue("@fileName", this.fileName.Text);
-                                command.Parameters.AddWithValue("@dateCreated", DateTime.Now);
                                 command.Parameters.AddWithValue("@fileowner", Logininfo.userid);
                                 using (reader = command.ExecuteReader())
                                 {
