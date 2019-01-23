@@ -42,6 +42,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.watchVideoBtn = new System.Windows.Forms.Button();
             this.testBtn = new System.Windows.Forms.Button();
+            this.metaAdmin = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -179,11 +180,22 @@
             this.testBtn.UseVisualStyleBackColor = true;
             this.testBtn.Click += new System.EventHandler(this.testBtn_Click);
             // 
+            // metaAdmin
+            // 
+            this.metaAdmin.Location = new System.Drawing.Point(12, 396);
+            this.metaAdmin.Name = "metaAdmin";
+            this.metaAdmin.Size = new System.Drawing.Size(75, 23);
+            this.metaAdmin.TabIndex = 14;
+            this.metaAdmin.Text = "Meta Admin";
+            this.metaAdmin.UseVisualStyleBackColor = true;
+            this.metaAdmin.Click += new System.EventHandler(this.metaAdmin_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.metaAdmin);
             this.Controls.Add(this.uploadFileButton);
             this.Controls.Add(this.testBtn);
             this.Controls.Add(this.watchVideoBtn);
@@ -219,6 +231,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button watchVideoBtn;
         private System.Windows.Forms.Button testBtn;
+        private System.Windows.Forms.Button metaAdmin;
     }
 }
 

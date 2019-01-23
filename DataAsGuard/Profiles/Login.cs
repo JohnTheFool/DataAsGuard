@@ -54,7 +54,7 @@ namespace DataAsGuard.Profiles
             string lname = null;
             string ipaddress = null;
 
-            ArrayList iplist = GetAuthoriseIPAddressList();
+            //ArrayList iplist = GetAuthoriseIPAddressList();
 
             if (sw.IsRunning == true)
             {

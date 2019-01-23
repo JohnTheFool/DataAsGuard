@@ -442,8 +442,8 @@ namespace DataAsGuard.FileManagement
             customTag.SetDashBox("User", "Downloaded", DataAsGuard.CSClass.Logininfo.username);
             videoFile.Save();
             videoFile.Dispose();
-            string tokenValue = customTag.GetDashBox("User", "Downloaded");
-            MessageBox.Show(tokenValue);
+            //string tokenValue = customTag.GetDashBox("User", "Downloaded");
+            //MessageBox.Show(tokenValue);
         }
 
         private void pdfMeta(string readPath, string writePath, string orgFileName)
@@ -490,7 +490,7 @@ namespace DataAsGuard.FileManagement
                 }
                 reader.Close();
                 File.WriteAllBytes(tempFileName, fileBytes);
-                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents;Word Docx;Png;All |*.txt;*.docx;*.png;*.*", ValidateNames = true })
+                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents;Word Docx;PPTX;XLSX;Png;MP4;All |*.txt;*.docx;*pptx;*xlsx;*.png;*mp4;*.*", ValidateNames = true })
                 {
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {

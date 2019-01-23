@@ -34,6 +34,7 @@
             this.filePath = new System.Windows.Forms.TextBox();
             this.openFileBtn = new System.Windows.Forms.Button();
             this.textBox = new System.Windows.Forms.TextBox();
+            this.backBtn = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,11 +76,22 @@
             this.textBox.Size = new System.Drawing.Size(490, 276);
             this.textBox.TabIndex = 3;
             // 
+            // backBtn
+            // 
+            this.backBtn.Location = new System.Drawing.Point(22, 39);
+            this.backBtn.Name = "backBtn";
+            this.backBtn.Size = new System.Drawing.Size(54, 23);
+            this.backBtn.TabIndex = 4;
+            this.backBtn.Text = "Back";
+            this.backBtn.UseVisualStyleBackColor = true;
+            this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
+            // 
             // MetaAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.backBtn);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.openFileBtn);
             this.Controls.Add(this.filePath);
@@ -98,5 +110,6 @@
         private System.Windows.Forms.TextBox filePath;
         private System.Windows.Forms.Button openFileBtn;
         private System.Windows.Forms.TextBox textBox;
+        private System.Windows.Forms.Button backBtn;
     }
 }

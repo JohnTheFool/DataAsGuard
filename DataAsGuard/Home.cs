@@ -104,5 +104,12 @@ namespace DataAsGuard
             testView.Show();
             Hide();
         }
+
+        private void metaAdmin_Click(object sender, EventArgs e)
+        {
+            Viewer.MetaAdmin metaView = new Viewer.MetaAdmin();
+            metaView.Show();
+            Hide();
+        }
     }
 }

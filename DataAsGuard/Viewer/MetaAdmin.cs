@@ -21,12 +21,52 @@ namespace DataAsGuard.Viewer
         }
         private Bitmap bmp = null;
 
+        private void readMeta(string fileName)
+        {
+            // Read File extended properties
+            List<string> arrHeaders = new List<string>();
+            List<Tuple<int, string, string>> attributes = new List<Tuple<int, string, string>>();
+
+            Shell32.Shell shell = new Shell32.Shell();
+            Shell32.Folder objFolder = shell.NameSpace(System.IO.Path.GetDirectoryName(fileName));
+            Shell32.FolderItem folderItem = objFolder.ParseName(System.IO.Path.GetFileName(fileName));
+
+
+            for (int i = 0; i < short.MaxValue; i++)
+            {
+                string header = objFolder.GetDetailsOf(null, i);
+                if (String.IsNullOrEmpty(header))
+                    break;
+                arrHeaders.Add(header);
+            }
+
+            // The attributes list below will contain a tuple with attribute index, name and value
+            // Once you know the index of the attribute you want to get, 
+            // you can get it directly without looping, like this:
+            var Authors = objFolder.GetDetailsOf(folderItem, 20);
+
+            for (int i = 0; i < arrHeaders.Count; i++)
+            {
+                var attrName = arrHeaders[i];
+                var attrValue = objFolder.GetDetailsOf(folderItem, i);
+                var attrIdx = i;
+
+                attributes.Add(new Tuple<int, string, string>(attrIdx, attrName, attrValue));
+                if (i <= 5 || i == 10 || i == 21 || i == 24 || i == 25 || i == 33)
+                {
+                    textBox.Text += attrName + ": " + attrValue + Environment.NewLine;
+                    //Console.WriteLine("{0}\t{1}: {2}", i, attrName, attrValue);
+                    Console.WriteLine("{0}\t{1}: {2}", i + 1, attrName, attrValue);
+                }
+            }
+        }
+
         private void openFileBtn_Click(object sender, EventArgs e)
         {
             filePath.Clear();
             textBox.Clear();
             OpenFileDialog open_dialog = new OpenFileDialog();
-            open_dialog.Filter = "Text Files;RTF;DOCX;PNG;MP4|*.txt;*.rtf;*.docx;*.png;*.mp4";
+            open_dialog.Filter = "Text Documents;Word Docx;PPTX;XLSX;Png;MP4;All |*.txt;*.docx;*pptx;*xlsx;*.png;*mp4;*.*";
             if (open_dialog.ShowDialog() == DialogResult.OK)
             {
                 filePath.Text = open_dialog.FileName;
@@ -34,42 +74,13 @@ namespace DataAsGuard.Viewer
                 switch (extension.ToLower())
                 {
                     case ".docx":
-                        // Read File extended properties
-                        List<string> arrHeaders = new List<string>();
-                        List<Tuple<int, string, string>> attributes = new List<Tuple<int, string, string>>();
-
-                        Shell32.Shell shell = new Shell32.Shell();
-                        Shell32.Folder objFolder = shell.NameSpace(System.IO.Path.GetDirectoryName(open_dialog.FileName));
-                        Shell32.FolderItem folderItem = objFolder.ParseName(System.IO.Path.GetFileName(open_dialog.FileName));
-
-
-                        for (int i = 0; i < short.MaxValue; i++)
-                        {
-                            string header = objFolder.GetDetailsOf(null, i);
-                            if (String.IsNullOrEmpty(header))
-                                break;
-                            arrHeaders.Add(header);
-                        }
-
-                        // The attributes list below will contain a tuple with attribute index, name and value
-                        // Once you know the index of the attribute you want to get, 
-                        // you can get it directly without looping, like this:
-                        var Authors = objFolder.GetDetailsOf(folderItem, 20);
-
-                        for (int i = 0; i < arrHeaders.Count; i++)
-                        {
-                            var attrName = arrHeaders[i];
-                            var attrValue = objFolder.GetDetailsOf(folderItem, i);
-                            var attrIdx = i;
-
-                            attributes.Add(new Tuple<int, string, string>(attrIdx, attrName, attrValue));
-                            if (i <= 5 || i == 10 || i == 21 || i ==24 || i == 25 || i == 33)
-                            {
-                                textBox.Text += attrName + ": " + attrValue + Environment.NewLine;
-                                //Console.WriteLine("{0}\t{1}: {2}", i, attrName, attrValue);
-                                Console.WriteLine("{0}\t{1}: {2}", i + 1, attrName, attrValue);
-                            }
-                        }
+                        readMeta(open_dialog.FileName);
+                        break;
+                    case ".xlsx":
+                        readMeta(open_dialog.FileName);
+                        break;
+                    case ".pptx":
+                        readMeta(open_dialog.FileName);
                         break;
                     case ".png":
                         string password = "Ilovethispic123";
@@ -112,12 +123,18 @@ namespace DataAsGuard.Viewer
                     case ".mp4":
                         TagLib.File videoFile = TagLib.File.Create(open_dialog.FileName);
                         TagLib.Mpeg4.AppleTag customTag = (TagLib.Mpeg4.AppleTag)videoFile.GetTag(TagLib.TagTypes.Apple);
-                        customTag.SetDashBox("User", "Downloaded", DataAsGuard.CSClass.Logininfo.username);
                         string tokenValue = customTag.GetDashBox("User", "Downloaded");
-                        MessageBox.Show(tokenValue);
+                        textBox.Text = tokenValue;
                         break;
                     }
                 }
             }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            Home home = new Home();
+            home.Show();
+            Hide();
+        }
     }
 }
