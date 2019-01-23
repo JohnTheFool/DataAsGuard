@@ -172,12 +172,6 @@
     <Compile Include="FileManagement\EditUserPermissions.Designer.cs">
       <DependentUpon>EditUserPermissions.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManagement\FileSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FileManagement\FileSearch.Designer.cs">
-      <DependentUpon>FileSearch.cs</DependentUpon>
-    </Compile>
     <Compile Include="FileManagement\FileUpload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -365,9 +359,6 @@
     <EmbeddedResource Include="FileManagement\FileManagementHub.resx">
       <DependentUpon>FileManagementHub.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileManagement\FileSearch.resx">
-      <DependentUpon>FileSearch.cs</DependentUpon>
-    </EmbeddedResource>
     <Compile Include="Viewer\PdfViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -419,9 +410,6 @@
     <EmbeddedResource Include="Viewer\ImgViewerForm.resx">
       <DependentUpon>ImgViewerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileManagement\RecycleBin.resx">
-      <DependentUpon>RecycleBin.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
@@ -445,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Profiles\Users\ConfirmationDetails.resx">
       <DependentUpon>ConfirmationDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileManagement\RecycleBin.resx">
+      <DependentUpon>RecycleBin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

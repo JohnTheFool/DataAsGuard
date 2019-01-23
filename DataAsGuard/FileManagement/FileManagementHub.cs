@@ -18,6 +18,7 @@ using System.Drawing.Imaging;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using iTextSharp.text.pdf;
+using System.Collections;
 
 namespace DataAsGuard.FileManagement
 {
@@ -60,8 +61,10 @@ namespace DataAsGuard.FileManagement
         private void fileList_SelectedIndexChanged(object sender, EventArgs e)
         {
             fileInformation.Clear();
-            permissionGrid.Rows.Clear();
-            permissionGrid.Refresh();
+            userPermGrid.Rows.Clear();
+            userPermGrid.Refresh();
+            groupPermGrid.Rows.Clear();
+            groupPermGrid.Refresh();
 
             editUserPermButton.Enabled = false;
             editGroupPermButton.Enabled = false;
@@ -69,6 +72,9 @@ namespace DataAsGuard.FileManagement
             deleteFileButton.Enabled = false;
             downloadFileButton.Enabled = false;
             transferOwnershipButton.Enabled = false;
+
+            ArrayList userPermRow = new ArrayList();
+            ArrayList groupPermRow = new ArrayList();
 
             string fileOwnerID = null;
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
@@ -92,6 +98,108 @@ namespace DataAsGuard.FileManagement
                         fileID = Convert.ToInt32(reader["fileID"]);
                     }
                     reader.Close();
+
+                    //Get user permissions for dataGrid
+                    String userpermQuery = "SELECT * FROM userFilePermissions WHERE fileID = @idParam";
+                    MySqlCommand getPermcmd = new MySqlCommand(userpermQuery, con);
+                    getPermcmd.Parameters.AddWithValue("@idParam", fileID);
+                    MySqlDataReader permreader = getPermcmd.ExecuteReader();
+                    while (permreader.Read())
+                    {
+                        userPermRow.Add(Convert.ToInt32(permreader["userID"]));
+                        userPermRow.Add(Convert.ToInt32(permreader["readPermission"]));
+                        userPermRow.Add(Convert.ToInt32(permreader["editPermission"]));
+                        userPermRow.Add(Convert.ToInt32(permreader["downloadPermission"]));
+                    }
+                    permreader.Close();
+
+                    //Get group permissions for dataGrid
+                    String grouppermQuery = "SELECT * FROM groupFilePermissions WHERE fileID = @idParam";
+                    MySqlCommand getGroupPermcmd = new MySqlCommand(grouppermQuery, con);
+                    getGroupPermcmd.Parameters.AddWithValue("@idParam", fileID);
+                    MySqlDataReader permreader2 = getGroupPermcmd.ExecuteReader();
+                    while (permreader2.Read())
+                    {
+                        groupPermRow.Add(Convert.ToInt32(permreader2["groupID"]));
+                        groupPermRow.Add(Convert.ToInt32(permreader2["readPermission"]));
+                        groupPermRow.Add(Convert.ToInt32(permreader2["editPermission"]));
+                        groupPermRow.Add(Convert.ToInt32(permreader2["downloadPermission"]));
+                    }
+                    permreader2.Close();
+
+                    for (int i = 0; i < userPermRow.Count - 1; i += 3)
+                    {
+                        //Get user name from userID
+                        String userQuery = "SELECT * FROM Userinfo WHERE userid = @idParam";
+                        MySqlCommand userQueryCmd = new MySqlCommand(userQuery, con);
+                        userQueryCmd.Parameters.AddWithValue("@idParam", userPermRow[i]);
+                        MySqlDataReader permreader3 = userQueryCmd.ExecuteReader();
+                        if (permreader3.Read())
+                        {
+                            userPermRow[i] = permreader3["fullName"].ToString();
+                        }
+                        permreader3.Close();
+
+                        if (Convert.ToInt32(userPermRow[i + 1]) == 1)
+                            userPermRow[i + 1] = "Yes";
+                        else
+                            userPermRow[i + 1] = "No";
+
+                        if (Convert.ToInt32(userPermRow[i + 2]) == 1)
+                            userPermRow[i + 2] = "Yes";
+                        else
+                            userPermRow[i + 2] = "No";
+
+                        if (Convert.ToInt32(userPermRow[i + 3]) == 1)
+                            userPermRow[i + 3] = "Yes";
+                        else
+                            userPermRow[i + 3] = "No";
+
+                        ArrayList newRow = new ArrayList();
+                        newRow.Add(userPermRow[i]);
+                        newRow.Add(userPermRow[i+1]);
+                        newRow.Add(userPermRow[i+2]);
+                        newRow.Add(userPermRow[i+3]);
+                        userPermGrid.Rows.Add(newRow.ToArray());
+                        newRow.Clear();
+                    }
+
+                    for (int i = 0; i < groupPermRow.Count - 1; i += 3)
+                    {
+                        //Get group name from groupID
+                        String groupQuery = "SELECT * FROM groupInfo WHERE groupID = @idParam";
+                        MySqlCommand groupQueryCmd = new MySqlCommand(groupQuery, con);
+                        groupQueryCmd.Parameters.AddWithValue("@idParam", groupPermRow[i]);
+                        MySqlDataReader permreader4 = groupQueryCmd.ExecuteReader();
+                        if (permreader4.Read())
+                        {
+                            groupPermRow[i] = permreader4["groupName"].ToString();
+                        }
+                        permreader4.Close();
+
+                        if (Convert.ToInt32(groupPermRow[i + 1]) == 1)
+                            groupPermRow[i + 1] = "Yes";
+                        else
+                            groupPermRow[i + 1] = "No";
+
+                        if (Convert.ToInt32(groupPermRow[i + 2]) == 1)
+                            groupPermRow[i + 2] = "Yes";
+                        else
+                            groupPermRow[i + 2] = "No";
+
+                        if (Convert.ToInt32(groupPermRow[i + 3]) == 1)
+                            groupPermRow[i + 3] = "Yes";
+                        else
+                            groupPermRow[i + 3] = "No";
+
+                        ArrayList newRow = new ArrayList();
+                        newRow.Add(groupPermRow[i]);
+                        newRow.Add(groupPermRow[i + 1]);
+                        newRow.Add(groupPermRow[i + 2]);
+                        newRow.Add(groupPermRow[i + 3]);
+                        groupPermGrid.Rows.Add(newRow.ToArray());
+                        newRow.Clear();
+                    }
 
                     if (Logininfo.userid == fileOwnerID)
                     {
@@ -165,19 +273,18 @@ namespace DataAsGuard.FileManagement
                             }
                             reader4.Close();
                         }
+
+                        
                     }   
                 }
                 catch (NullReferenceException)
                 {
                     //Do nothing
                 }
+                con.Close();
+                
             }
         }
-
-        //public string nameOfFile { get; set; }
-        //public string fileExtension { get;  set; }
-        //public string tempFileName { get; set; }
-        //public string bobo { get; set; }
 
         private void openFileButton_Click(object sender, EventArgs e)
         {
