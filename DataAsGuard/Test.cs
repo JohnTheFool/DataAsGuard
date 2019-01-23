@@ -49,9 +49,58 @@ namespace DataAsGuard
             return tags;
         }
 
+        public bool IsFileLock(string filePath)
+        {
+            FileStream stream = null;
+            try
+            {
+                stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+            return false;
+        }
+
+        private string stupid(string fileName)
+        {
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+
+                string lockNo = "";
+                String fileErmQuery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+                MySqlCommand getFilecmd = new MySqlCommand(fileErmQuery, con);
+                getFilecmd.Parameters.AddWithValue("@nameParam", fileName);
+                MySqlDataReader reader = getFilecmd.ExecuteReader();
+                if (IsFileLock(@"C:\Users\Solomon\Documents\TEST\shitshit.docx") == true)
+                {
+                    String fileLockQuery = "UPDATE da_schema.fileInfo SET fileLock = '1' WHERE fileName = @lockNo";
+                    MySqlCommand fileLockCmd = new MySqlCommand(fileLockQuery, con);
+                    fileLockCmd.Parameters.AddWithValue("@lockNo", fileName);
+                    fileLockCmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    String fileLockQuery = "UPDATE da_schema.fileInfo SET fileLock = '0' WHERE fileName = @lockNo";
+                    MySqlCommand fileLockCmd = new MySqlCommand(fileLockQuery, con);
+                    fileLockCmd.Parameters.AddWithValue("@lockNo", fileName);
+                    fileLockCmd.ExecuteNonQuery();
+                }
+                lockNo = reader["fileLock"].ToString();
+                return lockNo;
+                }
+            }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            MessageBox.Show( stupid(@"C:\Users\Solomon\Documents\TEST\shitshit.docx"));
             //PdfReader reader = new PdfReader(@"C:\Users\Solomon\Documents\TEST\test.pdf");
             //iTextSharp.text.Rectangle size = reader.GetPageSizeWithRotation(1);
             //Document document = new Document(size);
