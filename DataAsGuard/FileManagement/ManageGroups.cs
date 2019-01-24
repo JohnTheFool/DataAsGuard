@@ -17,6 +17,7 @@ namespace DataAsGuard.FileManagement
         MySqlDataAdapter adapter;
         DataTable table = new DataTable();
         int groupCreatorID = 0;
+        DBLogger dblog = new DBLogger();
 
         public ManageGroups()
         {
@@ -207,6 +208,7 @@ namespace DataAsGuard.FileManagement
                 if (success)
                 {
                     MessageBox.Show("Successfully transferred ownership of group.");
+                    dblog.Log("Group ownership of '" + groupList.SelectedValue.ToString() + "' transferred to "+ curItem+".", "GroupChanges", Logininfo.userid.ToString(), Logininfo.email.ToString());
                     ManageGroups view = new ManageGroups();
                     view.Show();
                     Hide();
