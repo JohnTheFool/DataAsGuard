@@ -1,5 +1,6 @@
 ﻿using DataAsGuard.CSClass;
 using DataAsGuard.Profiles;
+using DataAsGuard.Viewer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +34,6 @@ namespace DataAsGuard
 
         private void button2_Click(object sender, EventArgs e)
         {
-
             Profiles.Login register = new DataAsGuard.Profiles.Login();
             register.Show();
             Hide();
@@ -125,8 +125,8 @@ namespace DataAsGuard
 
         private void metaAdmin_Click(object sender, EventArgs e)
         {
-            Viewer.MetaAdmin metaView = new Viewer.MetaAdmin();
-            metaView.Show();
+            MetaAdmin view = new MetaAdmin();
+            view.Show();
             Hide();
         }
     }

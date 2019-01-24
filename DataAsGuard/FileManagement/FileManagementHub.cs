@@ -466,6 +466,7 @@ namespace DataAsGuard.FileManagement
                         //var process = Process.Start(tempFileName);
                         //process.Exited += new EventHandler(process_Exited);
                     }
+                    dblog.fileLog("Opened file '" + fileList.SelectedItem.ToString() + "'.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
                     if (fileExtension == ".docx" || fileExtension == ".xlsx" || fileExtension == ".pptx" || fileExtension == ".txt")
                     {
                         await PutTaskDelay();
@@ -477,7 +478,6 @@ namespace DataAsGuard.FileManagement
                     releaseLock(nameOfFile);
                 }
             }
-            dblog.fileLog("Opened file '" + fileList.SelectedItem.ToString() + "'.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
             else
             {
                 MessageBox.Show("File is in use! Please try again later");
