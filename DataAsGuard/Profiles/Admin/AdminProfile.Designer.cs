@@ -35,58 +35,61 @@
             this.settingsButton = new System.Windows.Forms.Button();
             this.changePassword = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label28 = new System.Windows.Forms.Label();
+            this.logTypeList = new System.Windows.Forms.ComboBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.dataLogGrid = new System.Windows.Forms.DataGridView();
-            this.logTypeList = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label20 = new System.Windows.Forms.Label();
-            this.filesFilter = new System.Windows.Forms.TextBox();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.filesList = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.filesList = new System.Windows.Forms.ComboBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.dataFilesGrid = new System.Windows.Forms.DataGridView();
+            this.filesFilter = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
-            this.accountFilter = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.accountList = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.dataAccountGrid = new System.Windows.Forms.DataGridView();
-            this.accountList = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.accountFilter = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.noOfFilesCreated = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.noOfAccounts = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
             this.noOfGeneralLogs = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.noOfAccounts = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.noOfFilesCreated = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.suspiciousLabel = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.dataFilesGrid = new System.Windows.Forms.DataGridView();
             this.tabPage2.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLogGrid)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataFilesGrid)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataAccountGrid)).BeginInit();
             this.tabPage1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataFilesGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // AddUser
@@ -156,15 +159,22 @@
             this.tabPage2.Text = "General Logs";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label28
+            // logTypeList
             // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(23, 31);
-            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(39, 17);
-            this.label28.TabIndex = 3;
-            this.label28.Text = "Filter";
+            this.logTypeList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.logTypeList.FormattingEnabled = true;
+            this.logTypeList.Items.AddRange(new object[] {
+            "All",
+            "LogonFailure",
+            "LogonSuccess",
+            "Registration",
+            "Accounts",
+            "Error"});
+            this.logTypeList.Location = new System.Drawing.Point(69, 28);
+            this.logTypeList.Name = "logTypeList";
+            this.logTypeList.Size = new System.Drawing.Size(121, 24);
+            this.logTypeList.TabIndex = 7;
+            this.logTypeList.SelectedIndexChanged += new System.EventHandler(this.logsFilter_SelectedIndexChanged);
             // 
             // panel7
             // 
@@ -185,22 +195,15 @@
             this.dataLogGrid.Size = new System.Drawing.Size(780, 356);
             this.dataLogGrid.TabIndex = 0;
             // 
-            // logTypeList
+            // label28
             // 
-            this.logTypeList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.logTypeList.FormattingEnabled = true;
-            this.logTypeList.Items.AddRange(new object[] {
-            "All",
-            "LogonFailure",
-            "LogonSuccess",
-            "Registration",
-            "Accounts",
-            "Error"});
-            this.logTypeList.Location = new System.Drawing.Point(69, 28);
-            this.logTypeList.Name = "logTypeList";
-            this.logTypeList.Size = new System.Drawing.Size(121, 24);
-            this.logTypeList.TabIndex = 7;
-            this.logTypeList.SelectedIndexChanged += new System.EventHandler(this.logsFilter_SelectedIndexChanged);
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(23, 31);
+            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(39, 17);
+            this.label28.TabIndex = 3;
+            this.label28.Text = "Filter";
             // 
             // tabPage4
             // 
@@ -218,32 +221,14 @@
             this.tabPage4.Text = "Files Management";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // label20
+            // label7
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(23, 31);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(39, 17);
-            this.label20.TabIndex = 3;
-            this.label20.Text = "Filter";
-            // 
-            // filesFilter
-            // 
-            this.filesFilter.Location = new System.Drawing.Point(300, 28);
-            this.filesFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.filesFilter.Name = "filesFilter";
-            this.filesFilter.Size = new System.Drawing.Size(132, 23);
-            this.filesFilter.TabIndex = 5;
-            this.filesFilter.TextChanged += new System.EventHandler(this.filesFilter_TextChanged);
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.dataFilesGrid);
-            this.panel6.Location = new System.Drawing.Point(26, 58);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(775, 356);
-            this.panel6.TabIndex = 6;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(236, 31);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 17);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Search:";
             // 
             // filesList
             // 
@@ -258,14 +243,45 @@
             this.filesList.Size = new System.Drawing.Size(132, 24);
             this.filesList.TabIndex = 7;
             // 
-            // label7
+            // panel6
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(236, 31);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 17);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Search:";
+            this.panel6.Controls.Add(this.dataFilesGrid);
+            this.panel6.Location = new System.Drawing.Point(26, 58);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(775, 356);
+            this.panel6.TabIndex = 6;
+            // 
+            // dataFilesGrid
+            // 
+            this.dataFilesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataFilesGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataFilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataFilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataFilesGrid.Location = new System.Drawing.Point(0, 0);
+            this.dataFilesGrid.Name = "dataFilesGrid";
+            this.dataFilesGrid.ReadOnly = true;
+            this.dataFilesGrid.Size = new System.Drawing.Size(775, 356);
+            this.dataFilesGrid.TabIndex = 1;
+            this.dataFilesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataFilesGrid_CellContentClick);
+            // 
+            // filesFilter
+            // 
+            this.filesFilter.Location = new System.Drawing.Point(300, 28);
+            this.filesFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.filesFilter.Name = "filesFilter";
+            this.filesFilter.Size = new System.Drawing.Size(132, 23);
+            this.filesFilter.TabIndex = 5;
+            this.filesFilter.TextChanged += new System.EventHandler(this.filesFilter_TextChanged);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(23, 31);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(39, 17);
+            this.label20.TabIndex = 3;
+            this.label20.Text = "Filter";
             // 
             // tabPage3
             // 
@@ -283,24 +299,28 @@
             this.tabPage3.Text = "AccountManagement";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // label6
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 31);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 17);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Filter";
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(235, 31);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 17);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Search:";
             // 
-            // accountFilter
+            // accountList
             // 
-            this.accountFilter.Location = new System.Drawing.Point(299, 29);
-            this.accountFilter.Margin = new System.Windows.Forms.Padding(4);
-            this.accountFilter.Name = "accountFilter";
-            this.accountFilter.Size = new System.Drawing.Size(132, 23);
-            this.accountFilter.TabIndex = 2;
-            this.accountFilter.TextChanged += new System.EventHandler(this.accountFilter_TextChanged);
+            this.accountList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.accountList.FormattingEnabled = true;
+            this.accountList.Items.AddRange(new object[] {
+            "Username",
+            "Email",
+            "FullName",
+            "Contact"});
+            this.accountList.Location = new System.Drawing.Point(69, 28);
+            this.accountList.Name = "accountList";
+            this.accountList.Size = new System.Drawing.Size(132, 24);
+            this.accountList.TabIndex = 6;
             // 
             // panel5
             // 
@@ -323,28 +343,24 @@
             this.dataAccountGrid.TabIndex = 0;
             this.dataAccountGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataAccountGrid_CellContentClick);
             // 
-            // accountList
+            // accountFilter
             // 
-            this.accountList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.accountList.FormattingEnabled = true;
-            this.accountList.Items.AddRange(new object[] {
-            "Username",
-            "Email",
-            "FullName",
-            "Contact"});
-            this.accountList.Location = new System.Drawing.Point(69, 28);
-            this.accountList.Name = "accountList";
-            this.accountList.Size = new System.Drawing.Size(132, 24);
-            this.accountList.TabIndex = 6;
+            this.accountFilter.Location = new System.Drawing.Point(299, 29);
+            this.accountFilter.Margin = new System.Windows.Forms.Padding(4);
+            this.accountFilter.Name = "accountFilter";
+            this.accountFilter.Size = new System.Drawing.Size(132, 23);
+            this.accountFilter.TabIndex = 2;
+            this.accountFilter.TextChanged += new System.EventHandler(this.accountFilter_TextChanged);
             // 
-            // label6
+            // label5
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(235, 31);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 17);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Search:";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(23, 31);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(39, 17);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Filter";
             // 
             // tabPage1
             // 
@@ -361,13 +377,105 @@
             this.tabPage1.Text = "Dashboard";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.tableLayoutPanel5);
+            this.panel4.Location = new System.Drawing.Point(529, 239);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(278, 176);
+            this.panel4.TabIndex = 2;
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Controls.Add(this.noOfGeneralLogs, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(17, 13);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(244, 142);
+            this.tableLayoutPanel5.TabIndex = 4;
+            // 
+            // noOfGeneralLogs
+            // 
+            this.noOfGeneralLogs.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.noOfGeneralLogs.AutoSize = true;
+            this.noOfGeneralLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noOfGeneralLogs.Location = new System.Drawing.Point(131, 27);
+            this.noOfGeneralLogs.Name = "noOfGeneralLogs";
+            this.noOfGeneralLogs.Size = new System.Drawing.Size(103, 87);
+            this.noOfGeneralLogs.TabIndex = 4;
+            this.noOfGeneralLogs.Text = "noOfGeneralLogs";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 54);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(94, 34);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Number of General Logs";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.tableLayoutPanel1);
+            this.panel2.Location = new System.Drawing.Point(529, 28);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(278, 178);
+            this.panel2.TabIndex = 1;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.noOfAccounts, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(17, 13);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(244, 150);
+            this.tableLayoutPanel1.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(22, 58);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 34);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Number of accounts:";
+            // 
+            // noOfAccounts
+            // 
+            this.noOfAccounts.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.noOfAccounts.AutoSize = true;
+            this.noOfAccounts.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noOfAccounts.Location = new System.Drawing.Point(127, 46);
+            this.noOfAccounts.Name = "noOfAccounts";
+            this.noOfAccounts.Size = new System.Drawing.Size(111, 58);
+            this.noOfAccounts.TabIndex = 2;
+            this.noOfAccounts.Text = "noOfAccounts";
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.tableLayoutPanel3);
             this.panel1.Location = new System.Drawing.Point(23, 28);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(267, 178);
+            this.panel1.Size = new System.Drawing.Size(275, 178);
             this.panel1.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -386,17 +494,6 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(240, 150);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 58);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 34);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Number Of File Created";
-            // 
             // noOfFilesCreated
             // 
             this.noOfFilesCreated.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -408,116 +505,62 @@
             this.noOfFilesCreated.TabIndex = 3;
             this.noOfFilesCreated.Text = "noOfFiles";
             // 
-            // panel2
+            // label1
             // 
-            this.panel2.Controls.Add(this.tableLayoutPanel1);
-            this.panel2.Location = new System.Drawing.Point(541, 28);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(266, 178);
-            this.panel2.TabIndex = 1;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.noOfAccounts, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(17, 13);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(232, 150);
-            this.tableLayoutPanel1.TabIndex = 2;
-            // 
-            // noOfAccounts
-            // 
-            this.noOfAccounts.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.noOfAccounts.AutoSize = true;
-            this.noOfAccounts.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.noOfAccounts.Location = new System.Drawing.Point(124, 46);
-            this.noOfAccounts.Name = "noOfAccounts";
-            this.noOfAccounts.Size = new System.Drawing.Size(98, 58);
-            this.noOfAccounts.TabIndex = 2;
-            this.noOfAccounts.Text = "noOfAccounts";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 58);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 34);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Number of accounts:";
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 58);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 34);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Number Of File Created";
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.tableLayoutPanel2);
             this.panel3.Location = new System.Drawing.Point(23, 239);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(267, 176);
+            this.panel3.Size = new System.Drawing.Size(275, 176);
             this.panel3.TabIndex = 1;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.suspiciousLabel, 1, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(18, 13);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(240, 150);
+            this.tableLayoutPanel2.TabIndex = 3;
             // 
             // label3
             // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 53);
+            this.label3.Location = new System.Drawing.Point(20, 49);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(198, 17);
+            this.label3.Size = new System.Drawing.Size(80, 51);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Number oF Suspicious Activity";
+            this.label3.Text = "Number of Suspicious Activity";
             // 
-            // panel4
+            // suspiciousLabel
             // 
-            this.panel4.Controls.Add(this.tableLayoutPanel5);
-            this.panel4.Location = new System.Drawing.Point(541, 239);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(266, 176);
-            this.panel4.TabIndex = 2;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Controls.Add(this.noOfGeneralLogs, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label4, 0, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(17, 13);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(232, 142);
-            this.tableLayoutPanel5.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 54);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 34);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Number of General Logs";
-            // 
-            // noOfGeneralLogs
-            // 
-            this.noOfGeneralLogs.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.noOfGeneralLogs.AutoSize = true;
-            this.noOfGeneralLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.noOfGeneralLogs.Location = new System.Drawing.Point(122, 27);
-            this.noOfGeneralLogs.Name = "noOfGeneralLogs";
-            this.noOfGeneralLogs.Size = new System.Drawing.Size(103, 87);
-            this.noOfGeneralLogs.TabIndex = 4;
-            this.noOfGeneralLogs.Text = "noOfGeneralLogs";
+            this.suspiciousLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.suspiciousLabel.AutoSize = true;
+            this.suspiciousLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.suspiciousLabel.Location = new System.Drawing.Point(137, 60);
+            this.suspiciousLabel.Name = "suspiciousLabel";
+            this.suspiciousLabel.Size = new System.Drawing.Size(85, 29);
+            this.suspiciousLabel.TabIndex = 2;
+            this.suspiciousLabel.Text = "label9";
             // 
             // tabControl1
             // 
@@ -531,19 +574,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(840, 476);
             this.tabControl1.TabIndex = 1;
-            // 
-            // dataFilesGrid
-            // 
-            this.dataFilesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataFilesGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataFilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataFilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataFilesGrid.Location = new System.Drawing.Point(0, 0);
-            this.dataFilesGrid.Name = "dataFilesGrid";
-            this.dataFilesGrid.ReadOnly = true;
-            this.dataFilesGrid.Size = new System.Drawing.Size(775, 356);
-            this.dataFilesGrid.TabIndex = 1;
-            this.dataFilesGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataFilesGrid_CellContentClick);
             // 
             // AdminProfile
             // 
@@ -568,24 +598,25 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataFilesGrid)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataAccountGrid)).EndInit();
             this.tabPage1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataFilesGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -631,5 +662,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.DataGridView dataFilesGrid;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label suspiciousLabel;
     }
 }

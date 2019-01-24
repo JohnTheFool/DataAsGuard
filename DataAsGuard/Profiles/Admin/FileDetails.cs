@@ -33,6 +33,15 @@ namespace DataAsGuard.Profiles.Admin
             chartInitialized();
             groupInfo();
             individualuserInfo();
+            if(groupList.Items.Count != 0)
+            {
+                groupList.SetSelected(0, true);
+            }
+            if(IndividualList.Items.Count != 0)
+            {
+                IndividualList.SetSelected(0, true);
+            }
+            
         }
 
         //userfileDetails
