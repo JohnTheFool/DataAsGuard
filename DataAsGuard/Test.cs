@@ -49,14 +49,63 @@ namespace DataAsGuard
             return tags;
         }
 
+        public bool IsFileLock(string filePath)
+        {
+            FileStream stream = null;
+            try
+            {
+                stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+            return false;
+        }
+
+        private string stupid(string fileName)
+        {
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+
+                string lockNo = "";
+                String fileErmQuery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+                MySqlCommand getFilecmd = new MySqlCommand(fileErmQuery, con);
+                getFilecmd.Parameters.AddWithValue("@nameParam", fileName);
+                MySqlDataReader reader = getFilecmd.ExecuteReader();
+                if (IsFileLock(@"C:\Users\Solomon\Documents\TEST\shitshit.docx") == true)
+                {
+                    String fileLockQuery = "UPDATE da_schema.fileInfo SET fileLock = '1' WHERE fileName = @lockNo";
+                    MySqlCommand fileLockCmd = new MySqlCommand(fileLockQuery, con);
+                    fileLockCmd.Parameters.AddWithValue("@lockNo", fileName);
+                    fileLockCmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    String fileLockQuery = "UPDATE da_schema.fileInfo SET fileLock = '0' WHERE fileName = @lockNo";
+                    MySqlCommand fileLockCmd = new MySqlCommand(fileLockQuery, con);
+                    fileLockCmd.Parameters.AddWithValue("@lockNo", fileName);
+                    fileLockCmd.ExecuteNonQuery();
+                }
+                lockNo = reader["fileLock"].ToString();
+                return lockNo;
+                }
+            }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            PdfReader reader = new PdfReader(@"C:\Users\Solomon\Documents\TEST\test.pdf");
-            iTextSharp.text.Rectangle size = reader.GetPageSizeWithRotation(1);
-            Document document = new Document(size);
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(@"C:\Users\Solomon\Documents\TEST\tefe.pdf", FileMode.Create, FileAccess.Write));
-            document.AddTitle("Seolhyun");
+            MessageBox.Show( stupid(@"C:\Users\Solomon\Documents\TEST\shitshit.docx"));
+            //PdfReader reader = new PdfReader(@"C:\Users\Solomon\Documents\TEST\test.pdf");
+            //iTextSharp.text.Rectangle size = reader.GetPageSizeWithRotation(1);
+            //Document document = new Document(size);
+            //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(@"C:\Users\Solomon\Documents\TEST\tefe.pdf", FileMode.Create, FileAccess.Write));
+            //document.AddTitle("Seolhyun");
             //document.AddTitle(dt.Rows[0].ItemArray[2].ToString());
             //document.AddSubject(dt.Rows[0].ItemArray[7].ToString());
             //document.AddCreator(dt.Rows[0].ItemArray[9].ToString());
@@ -67,19 +116,19 @@ namespace DataAsGuard
             //document.AddHeader("Version", dt.Rows[0].ItemArray[6].ToString());
             //document.AddHeader("Source", dt.Rows[0].ItemArray[8].ToString());
             //document.AddCreator("Scorpus");
-            document.Open();
-            PdfContentByte cb = writer.DirectContent;
-            for (int pageNumber = 1; pageNumber <= reader.NumberOfPages; pageNumber++)
-            {
-                document.NewPage();
-                PdfImportedPage page = writer.GetImportedPage(reader, pageNumber);
-                cb.AddTemplate(page, 0, 0);
-            }
-            document.Close();
+            //document.Open();
+            //PdfContentByte cb = writer.DirectContent;
+            //for (int pageNumber = 1; pageNumber <= reader.NumberOfPages; pageNumber++)
+            //{
+            //    document.NewPage();
+            //    PdfImportedPage page = writer.GetImportedPage(reader, pageNumber);
+            //    cb.AddTemplate(page, 0, 0);
+            //}
+            //document.Close();
 
-            PdfReader reader2 = new PdfReader(@"C:\Users\Solomon\Documents\TEST\tefe.pdf");
-            string s = reader2.Info["Title"];
-            MessageBox.Show(s);
+            //PdfReader reader2 = new PdfReader(@"C:\Users\Solomon\Documents\TEST\tefe.pdf");
+            //string s = reader2.Info["Title"];
+            //MessageBox.Show(s);
             //PdfDocument document = PdfReader.Open(@"C:\Users\Solomon\Documents\TEST\test.pdf");
             //document.Info.Author = "ME";
             //document.Save("Result");
@@ -194,15 +243,15 @@ namespace DataAsGuard
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(GetIPAddress());
+            //MessageBox.Show(GetIPAddress());
         }
 
-        protected string GetIPAddress()
-        {
-            string myHost = Dns.GetHostName();
-            string myIP = Dns.GetHostByName(myHost).AddressList[0].ToString();
+        //protected string GetIPAddress()
+        //{
+        //    string myHost = Dns.GetHostName();
+        //    //string myIP = Dns.GetHostByName(myHost).AddressList[0].ToString();
 
-            return myIP;
-        }
+        //    return myIP;
+        //}
     }
 }
