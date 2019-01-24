@@ -61,8 +61,12 @@ namespace DataAsGuard.Profiles.Users
                             //update database
                             updatePassword(hashpassword);
 
-                            changePasswordConfirm change = new changePasswordConfirm();
-                            change.Show();
+                            MessageBox.Show("Change password Updated. Please login with your new password.");
+                            Logininfo.userid = null;
+                            Logininfo.email = null;
+                            Logininfo.username = null;
+                            Login login = new Login();
+                            login.Show();
                             Hide();
                             //release resources uses by captcha to prevent issues
                             if (pictureBox1.Image != null)
