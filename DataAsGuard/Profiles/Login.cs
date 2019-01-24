@@ -61,7 +61,6 @@ namespace DataAsGuard.Profiles
             string checkvflag = null;
             string fname = null;
             string lname = null;
-            string ipaddress = null;
 
             if (sw.IsRunning == true)
             {
