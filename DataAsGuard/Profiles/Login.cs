@@ -61,7 +61,6 @@ namespace DataAsGuard.Profiles
             string checkvflag = null;
             string fname = null;
             string lname = null;
-            string ipaddress = null;
 
             if (sw.IsRunning == true)
             {
@@ -284,6 +283,7 @@ namespace DataAsGuard.Profiles
                                 register.Show();
                                 Hide();
                             }
+                            //FU User who have request forget username
                             else if (checkvflag == "FU")
                             {
                                 Logininfo.userid = userid.ToString();
@@ -294,6 +294,7 @@ namespace DataAsGuard.Profiles
                                 forgetUsername.Show();
                                 Hide();
                             }
+                            //FP User who have request forget password
                             else if (checkvflag == "FP")
                             {
                                 Logininfo.userid = userid.ToString();

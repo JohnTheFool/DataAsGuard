@@ -86,10 +86,13 @@ namespace DataAsGuard.Profiles.Users
                 if ((contains == true && checkuserid == Logininfo.userid) || (contains == false))
                 {
                     updateUsername(username.Text);
-                    MessageBox.Show("Username Updated");
+                    MessageBox.Show("Username Updated. Please login with your new username");
                     //route to OTP page
-                    Profile Profile = new Profile();
-                    Profile.Show();
+                    Logininfo.userid = null;
+                    Logininfo.email = null;
+                    Logininfo.username = null;
+                    Login login = new Login();
+                    login.Show();
                     Hide();
                     if (pictureBox1.Image != null)
                     {
