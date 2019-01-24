@@ -39,6 +39,7 @@
             this.userList = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // settingsButton
@@ -50,6 +51,7 @@
             this.settingsButton.Size = new System.Drawing.Size(56, 55);
             this.settingsButton.TabIndex = 23;
             this.settingsButton.UseVisualStyleBackColor = true;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click_1);
             // 
             // ProfileButton
             // 
@@ -60,6 +62,7 @@
             this.ProfileButton.Size = new System.Drawing.Size(56, 55);
             this.ProfileButton.TabIndex = 22;
             this.ProfileButton.UseVisualStyleBackColor = true;
+            this.ProfileButton.Click += new System.EventHandler(this.ProfileButton_Click_1);
             // 
             // button1
             // 
@@ -70,6 +73,7 @@
             this.button1.Size = new System.Drawing.Size(56, 55);
             this.button1.TabIndex = 21;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // BackButton
             // 
@@ -80,6 +84,7 @@
             this.BackButton.Size = new System.Drawing.Size(56, 55);
             this.BackButton.TabIndex = 24;
             this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
             // label1
             // 
@@ -94,15 +99,16 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(267, 159);
+            this.textBox1.Location = new System.Drawing.Point(207, 156);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(169, 26);
             this.textBox1.TabIndex = 26;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(197, 159);
+            this.label2.Location = new System.Drawing.Point(137, 159);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 20);
             this.label2.TabIndex = 27;
@@ -141,11 +147,22 @@
             this.label3.Text = "Users";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(382, 159);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 31;
+            this.button3.Text = "Send";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            // 
             // ChatRequest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.userList);
@@ -177,5 +194,6 @@
         private System.Windows.Forms.ListBox userList;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button3;
     }
 }

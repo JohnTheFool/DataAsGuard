@@ -1,5 +1,8 @@
-﻿using DataAsGuard.CSClass;
+﻿using DataAsGuard.Chat;
+using DataAsGuard.CSClass;
 using DataAsGuard.Profiles.Admin;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
@@ -312,6 +315,24 @@ namespace DataAsGuard.Profiles
                                 Logininfo.username = username;
                                 Logininfo.email = email;
                                 dblog.Log("Login User: " + username, "LogonSuccess", userid.ToString(), email);
+                                //Chat.Chat.DeleteKeyFromContainer();
+                                if ((Chat.Chat.DoesKeyExists()))
+                                {
+                                    //Do Nothing
+                                    //Console.WriteLine("meh im here")
+                                }
+                                else
+                                {
+                                    Chat.Chat.GenKey_SaveInContainer();
+                                }
+                                //testing for now
+                                //var hubcontext = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+                                //hubcontext.Clients.All.Connect(Logininfo.userid);
+                                //below dont work
+                                //DefaultHubManager hd = new DefaultHubManager(GlobalHost.DependencyResolver);
+                                //var hub = hd.ResolveHub("ChatHub") as ChatHub;
+                                //hub.Connect(Logininfo.userid);
+
                                 Users.Profile profile = new Users.Profile();
                                 profile.Show();
                                 Hide();

@@ -10,7 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataAsGuard.CSClass;
+using DataAsGuard.Profiles.Users;
 using iTextSharp.text;
+using Microsoft.AspNet.SignalR.Client;
 using MySql.Data.MySqlClient;
 
 namespace DataAsGuard.Chat
@@ -25,7 +27,37 @@ namespace DataAsGuard.Chat
         public Chat(string user)
         {
             InitializeComponent();
-            userList.Items.Add(user);
+            if ((ListBox.NoMatches != userList.FindStringExact(user)))
+            {
+                userList.Items.Add(user);
+            }
+            else
+            {
+                richTextBox1.Clear();
+                richTextBox1.ReadOnly = true;
+                string userSelected = userList.Text.ToString();
+                List<Message> messagelist = GetMessages(getIdoffullName(userSelected));
+                username.Text = userSelected;
+                Console.WriteLine("Messagecount:" + messagelist.Count);
+                if (messagelist.Count != 0)
+                {
+                    for (int i = 0; i < messagelist.Count(); i++)
+                    {
+                        if (messagelist[i].Sender == Logininfo.userid)
+                        {
+                            richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
+                            richTextBox1.AppendText(messagelist[i].MessageText);
+                        }
+                        else
+                        {
+                            richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+                            richTextBox1.AppendText(messagelist[i].MessageText);
+
+                        }
+                        richTextBox1.AppendText(Environment.NewLine);
+                    }
+                }
+            }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -37,11 +69,14 @@ namespace DataAsGuard.Chat
         {
             //only load user with messeges to the userlist
             List<string> SenderList = getuniquesender();
-            //Console.WriteLine("senderlist" + SenderList.Count);
+            Console.WriteLine("senderlist" + SenderList.Count);
             foreach(string s in SenderList)
             {
-                if (s != Logininfo.userid)
+                //Console.WriteLine(s);
+                if (s != Logininfo.userid && (ListBox.NoMatches == userList.FindStringExact(s)))
                 {
+                    //try adding coloured item when for notifications
+                    //Console.WriteLine("im stupid");
                     userList.Items.Add(getNameOfId(s));
                 }
             }
@@ -114,12 +149,17 @@ namespace DataAsGuard.Chat
             }
             return RSAList;
         }
+        public void SendPrivateMessage(string fromUserId, string message, string CurrentDateTime)
+        {
+            var hubConnection = new HubConnection("");
+        }
 
         public void SendMessage(string recieverId, string message)
         {
             
             EncrpytThis(message, recieverId);
             
+            //ChatHub.HubContext.Clients.User(recieverId).SendPrivateMessage(recieverId, message);
             //new change use encrpytthis to add into db ... edit this to make it so that happends
             //change recieverid = currselected?
             //List<RSAParameters> recieverKeys = new List<RSAParameters>();
@@ -171,16 +211,17 @@ namespace DataAsGuard.Chat
                 //checkthis
                 while (reader.Read())
                 {
-
-                    MessageList.Add(new Message { Sender = reader["Sender"].ToString(), Reciever = reader["Reciever"].ToString(), MessageText = reader["Message"].ToString(), Time = reader["Time"].ToString(), fromkey = reader["fromkey"].ToString(), otherkey = reader["keyval"].ToString()});
-
-
+                    Message message = new Message { Sender = reader["Sender"].ToString(), Reciever = reader["Reciever"].ToString(), MessageText = reader["Message"].ToString(), Time = reader["Time"].ToString(), fromkey = reader["fromkey"].ToString(), otherkey = reader["keyval"].ToString() };
+                    if (!MessageList.Contains(message))
+                    {
+                        MessageList.Add(message);
+                    }
                 }
                 Console.WriteLine("MessageList" + MessageList.Count());
                 reader.Close();
                 con.Close();
             }
-            //something not working here
+            
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
@@ -191,6 +232,7 @@ namespace DataAsGuard.Chat
                 mycmd.Parameters.AddWithValue("@reciever1", "");
                 mycmd.Parameters.AddWithValue("@sender", "");
                 //change the logic? its working but this decryption is slowaf cuz per message so change to get all keys from parties and then search keylist?
+                //bool flag = false;
                 for (int i = 0; i < MessageList.Count(); i++)
                 {
                     if (MessageList[i].fromkey.Equals(Convert.ToBase64String(rsa.Modulus)))
@@ -212,7 +254,7 @@ namespace DataAsGuard.Chat
                             RM.Key = RSAD.Decrypt(Convert.FromBase64String(reader["sendersym"].ToString()),false);
                             RM.IV = RSAD.Decrypt(Convert.FromBase64String(reader["senderiv"].ToString()), false);
                             MessageList[i].MessageText = Decrpyt(MessageList[i].MessageText, RM);
-                            Console.WriteLine("Test me");
+                            //Console.WriteLine("Test me");
                         }
                         else 
                         {
@@ -220,7 +262,7 @@ namespace DataAsGuard.Chat
                             RM.Key = RSAD.Decrypt(Convert.FromBase64String(reader["symkey"].ToString()), false);
                             RM.IV = RSAD.Decrypt(Convert.FromBase64String(reader["symiv"].ToString()), false);
                             MessageList[i].MessageText = Decrpyt(MessageList[i].MessageText, RM);
-                            Console.WriteLine("fuck me");
+                            //Console.WriteLine("fuck me");
                         }
                     }
                     else { Console.WriteLine("Scream"); }
@@ -296,15 +338,17 @@ namespace DataAsGuard.Chat
                 while (reader.Read())
                 {
                     string s = reader["Sender"].ToString();
-                    if (s.Equals(Logininfo.userid))
+                    string r = reader["Reciever"].ToString();
+                    if (UniqueUserList.Contains(r) == false && s.Equals(Logininfo.userid))
                     {
                         UniqueUserList.Add(reader["Reciever"].ToString());
                     }
-                    else
+                    else if(UniqueUserList.Contains(s) == false && !s.Equals(Logininfo.userid))
                     {
                         UniqueUserList.Add(s);
                     }
                 }
+                
                 con.Close();
             }
             return UniqueUserList;
@@ -326,19 +370,30 @@ namespace DataAsGuard.Chat
             List<encryptedsym> symkeylist = new List<encryptedsym>();
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
-                con.Open();
+                
 
                 if (keylist.Count != 0)
                 {
                     //sql not working?
-                    string executeQuery = "select * from SymKey where (intendedkey = @reciever AND senderpub = @sender) OR (intendedkey = @reciever1 AND senderpub = @sender1)";
-                    MySqlCommand cmd = new MySqlCommand(executeQuery, con);
-                    cmd.Parameters.AddWithValue("@reciever1", Convert.ToBase64String(mykey.Modulus));
-                    cmd.Parameters.AddWithValue("@sender",Convert.ToBase64String(mykey.Modulus));
+                    //string executeQuery = "select * from SymKey where (intendedkey = @reciever AND senderpub = @sender) OR (intendedkey = @reciever1 AND senderpub = @sender1)";
+                    //MySqlCommand cmd = new MySqlCommand(executeQuery, con);
+                    //cmd.Parameters.AddWithValue("@reciever1", Convert.ToBase64String(mykey.Modulus));
+                    //cmd.Parameters.AddWithValue("@sender",Convert.ToBase64String(mykey.Modulus));
+                    //cmd.Parameters.AddWithValue("@reciever", "");
+                    //cmd.Parameters.AddWithValue("@sender1", "");
                     for (int i = 0; i < keylist.Count(); i++)
                     {
-                        cmd.Parameters.AddWithValue("@reciever", Convert.ToBase64String(keylist[i].Modulus));
-                        cmd.Parameters.AddWithValue("@sender1", Convert.ToBase64String(keylist[i].Modulus));
+                        con.Open();
+                        string executeQuery = "select * from SymKey where (intendedkey = @reciever AND senderpub = @sender) OR (intendedkey = @reciever1 AND senderpub = @sender1)";
+                        MySqlCommand cmd = new MySqlCommand(executeQuery, con);
+                        cmd.Parameters.AddWithValue("@reciever1", Convert.ToBase64String(mykey.Modulus));
+                        cmd.Parameters.AddWithValue("@sender", Convert.ToBase64String(mykey.Modulus));
+                        cmd.Parameters.AddWithValue("@reciever", "");
+                        cmd.Parameters.AddWithValue("@sender1", "");
+                        cmd.Parameters["@reciever"].Value = Convert.ToBase64String(keylist[i].Modulus);
+                        cmd.Parameters["@sender1"].Value = Convert.ToBase64String(keylist[i].Modulus);
+                        //cmd.Parameters.AddWithValue("@reciever", Convert.ToBase64String(keylist[i].Modulus));
+                        //cmd.Parameters.AddWithValue("@sender1", Convert.ToBase64String(keylist[i].Modulus));
                         MySqlDataReader reader = cmd.ExecuteReader();
                         if (reader.Read())
                         {
@@ -349,7 +404,7 @@ namespace DataAsGuard.Chat
                             }
                             else
                             {
-                                symkeylist.Add(new encryptedsym { symkey = reader["recieversym"].ToString(), symiv = reader["recieveriv"].ToString(), relatedkey = reader["senderpub"].ToString() });
+                                symkeylist.Add(new encryptedsym { symkey = reader["symkey"].ToString(), symiv = reader["symiv"].ToString(), relatedkey = reader["senderpub"].ToString() });
                             }
                         }
                         else
@@ -359,10 +414,11 @@ namespace DataAsGuard.Chat
                                 symkeylist.Add(GenSymKey(reciever, keylist[i]));
                             }
                         }
+                        con.Close();
                     }
                    
                 }
-                con.Close();
+                //con.Close();
             }
             return symkeylist;
         }
@@ -429,6 +485,8 @@ namespace DataAsGuard.Chat
                 myCommand.Parameters.AddWithValue("@Reciever", reciever);
                 myCommand.Parameters.AddWithValue("@Time", DateTime.Now);
                 myCommand.Parameters.AddWithValue("@fromkey",Convert.ToBase64String(RSA.ExportParameters(false).Modulus));
+                myCommand.Parameters.AddWithValue("@Message", "");
+                myCommand.Parameters.AddWithValue("@key", "");
                 for (int i = 0; i < intialkeylist.Count; i++)
                 {
                     using (RijndaelManaged RM = new RijndaelManaged())
@@ -436,8 +494,10 @@ namespace DataAsGuard.Chat
                         //how do i know to send to which account ... add related key to encryptedsym
                         RM.Key = RSA.Decrypt(Convert.FromBase64String(intialkeylist[i].symkey), false);
                         RM.IV = RSA.Decrypt(Convert.FromBase64String(intialkeylist[i].symiv), false);
-                        myCommand.Parameters.AddWithValue("@Message",(Convert.ToBase64String(EncryptStringToBytes(text, RM.Key, RM.IV))));
-                        myCommand.Parameters.AddWithValue("@key", intialkeylist[i].relatedkey);
+                        //myCommand.Parameters.AddWithValue("@Message",(Convert.ToBase64String(EncryptStringToBytes(text, RM.Key, RM.IV))));
+                        //myCommand.Parameters.AddWithValue("@key", intialkeylist[i].relatedkey);
+                        myCommand.Parameters["@Message"].Value = (Convert.ToBase64String(EncryptStringToBytes(text, RM.Key, RM.IV)));
+                        myCommand.Parameters["@key"].Value = intialkeylist[i].relatedkey;
                         myCommand.ExecuteNonQuery();
                     }
                 }
@@ -449,14 +509,16 @@ namespace DataAsGuard.Chat
                     myCommand.Parameters.AddWithValue("@Reciever", reciever);
                     myCommand.Parameters.AddWithValue("@Time", DateTime.Now);
                     myCommand.Parameters.AddWithValue("@fromkey", Convert.ToBase64String(RSA.ExportParameters(false).Modulus));
+                    myCommand.Parameters.AddWithValue("@Message", "");
+                    myCommand.Parameters.AddWithValue("@key", "");
                     for (int i =0;i< SendtoSelfList.Count(); i++)
                     {
                         using (RijndaelManaged RM = new RijndaelManaged())
                         {
                             RM.Key = RSA.Decrypt(Convert.FromBase64String(SendtoSelfList[i].symkey), false);
                             RM.IV = RSA.Decrypt(Convert.FromBase64String(SendtoSelfList[i].symiv), false);
-                            myCommand.Parameters.AddWithValue("@Message", (Convert.ToBase64String(EncryptStringToBytes(text, RM.Key, RM.IV))));
-                            myCommand.Parameters.AddWithValue("@key", SendtoSelfList[i].relatedkey);
+                            myCommand.Parameters["@Message"].Value = (Convert.ToBase64String(EncryptStringToBytes(text, RM.Key, RM.IV)));
+                            myCommand.Parameters["@key"].Value = SendtoSelfList[i].relatedkey;
                             
                             myCommand.ExecuteNonQuery();
                         }
@@ -812,6 +874,7 @@ namespace DataAsGuard.Chat
                     richTextBox1.AppendText(Environment.NewLine);
                 }
             }
+            richTextBox1.ScrollToCaret();
             //DisplayMessages.Controls.Add(new Label());
             //DisplayMessages.Controls.Add(orig_form);
 
@@ -830,6 +893,7 @@ namespace DataAsGuard.Chat
             richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
             richTextBox1.AppendText(message);
             richTextBox1.AppendText(Environment.NewLine);
+            richTextBox1.ScrollToCaret();
         }
 
         private void DisplayMessages_Paint(object sender, PaintEventArgs e)
@@ -846,6 +910,35 @@ namespace DataAsGuard.Chat
         {
             ChatRequest requestchat = new ChatRequest();
             requestchat.Show();
+            Hide();
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            Home home = new Home();
+            home.Show();
+            Hide();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Home home = new Home();
+            home.Show();
+            Hide();
+        }
+
+        private void ProfileButton_Click(object sender, EventArgs e)
+        {
+            Profile profile = new Profile();
+            profile.Show();
+            Hide();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            Profilesettings settings = new Profilesettings();
+            settings.Show();
             Hide();
         }
     }

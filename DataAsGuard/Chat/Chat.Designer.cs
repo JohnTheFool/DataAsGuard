@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Chat));
             this.userList = new System.Windows.Forms.ListBox();
             this.ChatMessage = new System.Windows.Forms.TextBox();
             this.Send = new System.Windows.Forms.Button();
@@ -35,6 +36,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.username = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.settingsButton = new System.Windows.Forms.Button();
+            this.ProfileButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.BackButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // userList
@@ -103,11 +108,59 @@
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
+            // settingsButton
+            // 
+            this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
+            this.settingsButton.Location = new System.Drawing.Point(13, 187);
+            this.settingsButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(56, 55);
+            this.settingsButton.TabIndex = 26;
+            this.settingsButton.UseVisualStyleBackColor = true;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            // 
+            // ProfileButton
+            // 
+            this.ProfileButton.Image = ((System.Drawing.Image)(resources.GetObject("ProfileButton.Image")));
+            this.ProfileButton.Location = new System.Drawing.Point(13, 106);
+            this.ProfileButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProfileButton.Name = "ProfileButton";
+            this.ProfileButton.Size = new System.Drawing.Size(56, 55);
+            this.ProfileButton.TabIndex = 25;
+            this.ProfileButton.UseVisualStyleBackColor = true;
+            this.ProfileButton.Click += new System.EventHandler(this.ProfileButton_Click);
+            // 
+            // button1
+            // 
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.Location = new System.Drawing.Point(13, 27);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(56, 55);
+            this.button1.TabIndex = 24;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // BackButton
+            // 
+            this.BackButton.Image = ((System.Drawing.Image)(resources.GetObject("BackButton.Image")));
+            this.BackButton.Location = new System.Drawing.Point(1061, 27);
+            this.BackButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(56, 55);
+            this.BackButton.TabIndex = 27;
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
+            // 
             // Chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1139, 565);
+            this.Controls.Add(this.BackButton);
+            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.ProfileButton);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.username);
             this.Controls.Add(this.label1);
@@ -131,5 +184,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label username;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Button ProfileButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BackButton;
     }
 }
