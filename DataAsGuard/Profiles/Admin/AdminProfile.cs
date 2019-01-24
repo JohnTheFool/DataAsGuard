@@ -737,6 +737,5 @@ namespace DataAsGuard.Profiles.Admin
             Hide();
         }
 
-       
     }
 }
