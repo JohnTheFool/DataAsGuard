@@ -38,7 +38,7 @@ namespace DataAsGuard
             register.Show();
             Hide();
         }
-
+		
         private void showImg(object sender, EventArgs e)
         {
             ImgViewer.ImgViewerForm imgViewerForm = new ImgViewer.ImgViewerForm();
@@ -55,7 +55,7 @@ namespace DataAsGuard
 
         private void HomeButton_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void ProfileButton_Click(object sender, EventArgs e)
@@ -121,12 +121,6 @@ namespace DataAsGuard
         {
             DataAsGuard.Chat.Chat chat = new DataAsGuard.Chat.Chat();
             chat.Show();
-        }
-
-        private void metaAdmin_Click(object sender, EventArgs e)
-        {
-            Viewer.MetaAdmin metaView = new Viewer.MetaAdmin();
-            metaView.Show();
             Hide();
         }
     }

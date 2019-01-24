@@ -507,11 +507,11 @@ namespace DataAsGuard.Viewer
                     var attrIdx = i;
 
                     attributes.Add(new Tuple<int, string, string>(attrIdx, attrName, attrValue));
-                //if (i <= 5 || i == 10 || i == 21 || i == 24)
-                //{
+                if (i <= 5 || i == 10 || i == 21 || i == 24)
+                {
                     //Console.WriteLine("{0}\t{1}: {2}", i, attrName, attrValue);
                     Console.WriteLine("{0}\t{1}: {2}", i+1, attrName, attrValue);
-                //}
+                }
             }
             Console.ReadLine();
         }
