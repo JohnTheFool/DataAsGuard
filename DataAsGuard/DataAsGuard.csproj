@@ -606,6 +606,7 @@
     <Content Include="Media\SettingsIcon.png" />
     <Content Include="Media\fullscreen-20x20.png" />
     <Content Include="Media\UserIcon.png" />
+    <Content Include="Media\WindowIcon.ico" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
