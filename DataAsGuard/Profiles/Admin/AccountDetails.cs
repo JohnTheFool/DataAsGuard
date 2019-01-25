@@ -394,20 +394,31 @@ namespace DataAsGuard.Profiles.Admin
                 {
                     while (reader.Read())
                     {
-                        for (int i = 0; i < filelist.Count; i++)
+                        if (filelist.Count == 0)
                         {
-                            bool contains = false;
-                            if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileid")))
+                            filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                            permissionlist.Add("True");
+                            permissionlist.Add("True");
+                            permissionlist.Add("True");
+                        }
+                        else
+                        {
+                            for (int i = 0; i < filelist.Count; i++)
                             {
-                                contains = true;
-                            }
 
-                            if (contains == false && i == filelist.Count - 1)
-                            {
-                                filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
-                                permissionlist.Add("True");
-                                permissionlist.Add("True");
-                                permissionlist.Add("True");
+                                bool contains = false;
+                                if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileid")))
+                                {
+                                    contains = true;
+                                }
+
+                                if (contains == false && i == filelist.Count - 1)
+                                {
+                                    filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                                    permissionlist.Add("True");
+                                    permissionlist.Add("True");
+                                    permissionlist.Add("True");
+                                }
                             }
                         }
                     }
@@ -485,14 +496,18 @@ namespace DataAsGuard.Profiles.Admin
             bool containgroup = false;
             bool containfile = false;
             DateTime prevLockDate = DateTime.ParseExact(statusDate.Text, "dd'/'MM'/'yyyy HH:mm:ss", null);
-            if (statusDate.Text == null || statusDate.Text == "" || statusDate.Text == "NULL")
+            if(vflag.Text == "A")
+            {
+                MessageBox.Show("User had been Archived.");
+            }
+            else if (statusDate.Text == null || statusDate.Text == "" || statusDate.Text == "NULL")
             {
                 MessageBox.Show("Account need to be lock for more than 7 days before able to be deleted");
             }
             else
             {
                 //check if the previous lock date has already pass 7 days
-                if (prevLockDate >= DateTime.Now.AddDays(-7))
+                if (prevLockDate >= DateTime.Now.AddDays(-7) && vflag.Text != "L")
                 {
                     MessageBox.Show("Account need to be lock for more than 7 days before able to be deleted");
                 }
@@ -543,7 +558,7 @@ namespace DataAsGuard.Profiles.Admin
                         }
                     }
                     //if they are both false run archive
-                    if (containgroup == false || containfile == false)
+                    if (containgroup == false && containfile == false)
                     {
                         DialogResult dialogResult = MessageBox.Show("Archive the account? You will not be able to unlock it.", "Are you sure?", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.Yes)
@@ -556,46 +571,26 @@ namespace DataAsGuard.Profiles.Admin
                                 MySqlCommand archiveaccount = new MySqlCommand(archiveaccountQuery, con);
                                 archiveaccount.Parameters.AddWithValue("@vflag", "A");
                                 archiveaccount.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss"));
+                                archiveaccount.Parameters.AddWithValue("@userid", AdminSession.userid);
                                 archiveaccount.ExecuteNonQuery();
                                 //may add deletion for other info relating to the user
                                 dblog.Log("Account status changed(L -> A) by Admin", "Accounts", Logininfo.userid, Logininfo.email);
                                 dblog.Log("User is Archived:" + AdminSession.userid, "Accounts", Logininfo.userid, Logininfo.email);
 
-                                string retrieveGroupUserQuery = "SELECT * FROM groupUsers where userID = @userid";
-                                MySqlCommand retrieveGroupUser = new MySqlCommand(retrieveGroupUserQuery, con);
-                                retrieveGroupUser.Parameters.AddWithValue("@userid", AdminSession.userid);
-                                using (MySqlDataReader reader = retrieveGroupUser.ExecuteReader())
-                                {
-                                    if(reader.Read())
-                                    {
-                                        string deleteGroupUserQuery = "Delete FROM groupUsers where userID = @userid";
-                                        MySqlCommand deleteGroupUser = new MySqlCommand(deleteGroupUserQuery, con);
-                                        deleteGroupUser.Parameters.AddWithValue("@userid", AdminSession.userid);
-                                        deleteGroupUser.ExecuteNonQuery();
-                                    }
+                                string deleteGroupUserQuery = "Delete FROM groupUsers where userID = @userid";
+                                MySqlCommand deleteGroupUser = new MySqlCommand(deleteGroupUserQuery, con);
+                                deleteGroupUser.Parameters.AddWithValue("@userid", AdminSession.userid);
+                                deleteGroupUser.ExecuteNonQuery();
 
-                                    if (reader != null)
-                                        reader.Close();
-                                }
+                                string deletefileUserQuery = "Delete FROM userFilePermissions where userID = @userid";
+                                MySqlCommand deletefileUserPermission = new MySqlCommand(deletefileUserQuery, con);
+                                deletefileUserPermission.Parameters.AddWithValue("@userid", AdminSession.userid);
+                                deletefileUserPermission.ExecuteNonQuery();
 
-                                //retrieve file user permission and delete
-                                string retrievefileUserPermissionQuery = "SELECT * FROM userFilePermissions where userID = @userid";
-                                MySqlCommand retrievefileUserPermission = new MySqlCommand(retrievefileUserPermissionQuery, con);
-                                retrievefileUserPermission.Parameters.AddWithValue("@userid", AdminSession.userid);
-                                using (MySqlDataReader reader = retrievefileUserPermission.ExecuteReader())
-                                {
-                                    if (reader.Read())
-                                    {
-                                        string deletefileUserQuery = "Delete FROM userFilePermissions where userID = @userid";
-                                        MySqlCommand deletefileUserPermission = new MySqlCommand(deletefileUserQuery, con);
-                                        deletefileUserPermission.Parameters.AddWithValue("@userid", AdminSession.userid);
-                                        deletefileUserPermission.ExecuteNonQuery();
-                                    }
-
-                                    if (reader != null)
-                                        reader.Close();
-                                }
-
+                                MessageBox.Show("User have been archived.");
+                                AccountDetails accountdetails = new AccountDetails();
+                                accountdetails.Show();
+                                Hide();
                             }
                         }
                     }
