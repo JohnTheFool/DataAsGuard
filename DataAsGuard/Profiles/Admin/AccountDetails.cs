@@ -34,6 +34,7 @@ namespace DataAsGuard.Profiles.Admin
             retrieveLogs();
             groupInfo();
             chartInitialized();
+            chartInitialized2();
             retrieveFileAccess();
         }
 
@@ -77,7 +78,7 @@ namespace DataAsGuard.Profiles.Admin
         {
             datalogGrid.AllowUserToAddRows = false;
             datalogGrid.AllowUserToDeleteRows = false;
-            datalogGrid.ColumnCount = 7;
+            datalogGrid.ColumnCount = 6;
             datalogGrid.Columns[0].Name = "logid";
             datalogGrid.Columns[1].Name = "loginfo";
             datalogGrid.Columns[2].Name = "logtype";
@@ -118,6 +119,7 @@ namespace DataAsGuard.Profiles.Admin
             }
         }
 
+        //for login frequency
         private void chartInitialized()
         {
             ArrayList data = new ArrayList();
@@ -191,6 +193,82 @@ namespace DataAsGuard.Profiles.Admin
             }
             chart1.ChartAreas[0].AxisX.LabelStyle.Angle = 90;
             chart1.ChartAreas[0].AxisX.Interval = 1;
+        }
+
+        //for fail login 
+        private void chartInitialized2()
+        {
+            ArrayList data = new ArrayList();
+
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM logInfo where logtype = @logtype AND userid=@userid";
+                MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@logtype", "LogonFailure");
+                command.Parameters.AddWithValue("@userid", AdminSession.userid);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        data.Add(DateTime.ParseExact(reader.GetString(reader.GetOrdinal("logDateTime")), "dd/MM/yyyy HH:mm:ss", null));
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+            int count = 0;
+            ArrayList xvalue = new ArrayList();
+            ArrayList yvalue = new ArrayList();
+            DateTime olddate = new DateTime();
+            string checkoldDate = null;
+            for (int i = 0; i < data.Count; i++)
+            {
+                //compare dates if the same date collate under count and place into chart
+                DateTime date = DateTime.Parse(data[i].ToString());
+                string checkdate = date.ToString("dd/MM/yyyy");
+
+                if (checkoldDate == null)
+                {
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                }
+
+                if (checkdate == checkoldDate)
+                {
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                    count++;
+                    if (i == data.Count - 1)
+                    {
+                        xvalue.Add(checkoldDate);
+                        yvalue.Add(count);
+                    }
+                }
+                else
+                {
+                    xvalue.Add(checkoldDate);
+                    yvalue.Add(count);
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                    count = 1;
+                    if (i == data.Count - 1)
+                    {
+                        xvalue.Add(checkoldDate);
+                        yvalue.Add(count);
+                    }
+                }
+            }
+
+
+            //chart1.ChartAreas.AxisX.Interval = 1;
+            for (int u = 0; u < xvalue.Count; u++)
+            {
+                chart2.Series["Series1"].Points.AddXY(xvalue[u], yvalue[u]);
+            }
+            chart2.ChartAreas[0].AxisX.LabelStyle.Angle = 90;
+            chart2.ChartAreas[0].AxisX.Interval = 1;
         }
 
         private void groupInfo()
@@ -389,7 +467,7 @@ namespace DataAsGuard.Profiles.Admin
                 {
                     //unlock to lock
                     cmd.Parameters.AddWithValue("@vflag", "L");
-                    cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                    cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd'/'MM'/'yyyy HH: mm:ss"));
                     dblog.Log("Account status changed(T -> L) by Admin", "Accounts", Logininfo.userid, Logininfo.email);
                 }
                 cmd.Parameters.AddWithValue("@userid", AdminSession.userid);
@@ -401,9 +479,12 @@ namespace DataAsGuard.Profiles.Admin
             
         }
 
-        private void delete_Click(object sender, EventArgs e)
+        //might change to archive
+        private void archive_Click(object sender, EventArgs e)
         {
-            DateTime prevLockDate = DateTime.ParseExact(statusDate.Text, "dd/MM/yyyy HH:mm:ss", null);
+            bool containgroup = false;
+            bool containfile = false;
+            DateTime prevLockDate = DateTime.ParseExact(statusDate.Text, "dd'/'MM'/'yyyy HH:mm:ss", null);
             if (statusDate.Text == null || statusDate.Text == "" || statusDate.Text == "NULL")
             {
                 MessageBox.Show("Account need to be lock for more than 7 days before able to be deleted");
@@ -417,32 +498,129 @@ namespace DataAsGuard.Profiles.Admin
                 }
                 else
                 {
-                    DialogResult dialogResult = MessageBox.Show("Delete the account?", "Are you sure?", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
+                    //check existing group Ownership
+                    using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
                     {
-                        using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                        con.Open();
+                        String query = "SELECT * FROM groupInfo where groupCreatorID = @groupcreatorID";
+                        MySqlCommand command = new MySqlCommand(query, con);
+                        command.Parameters.AddWithValue("@groupcreatorID", AdminSession.userid);
+                        using (MySqlDataReader reader = command.ExecuteReader())
                         {
-                            con.Open();
-                            //delete userInfo
-                            string deleteaccountQuery = "DELETE FROM Userinfo WHERE userid = @userid";
-                            MySqlCommand deleteaccount = new MySqlCommand(deleteaccountQuery, con);
-                            deleteaccount.Parameters.AddWithValue("@userid", AdminSession.userid);
-                            deleteaccount.ExecuteNonQuery();
-                            //may add deletion for other info relating to the user
-                            dblog.Log("Account Deleted" + Username.Text, "Accounts", Logininfo.userid, Logininfo.email);
+                            while (reader.Read())
+                            {
+                                if (reader.GetString(reader.GetOrdinal("groupCreatorID")) != null)
+                                {
+                                    //
+                                    containgroup = true;
+                                }
+                            }
+
+                            if (reader != null)
+                                reader.Close();
+                        }
+                    }
+                    //check existing file Ownership
+                    using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                    {
+                        con.Open();
+                        String query = "SELECT * FROM fileInfo where fileOwnerID = @fileOwnerID";
+                        MySqlCommand command = new MySqlCommand(query, con);
+                        command.Parameters.AddWithValue("@fileOwnerID", AdminSession.userid);
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetString(reader.GetOrdinal("fileOwnerID")) != null)
+                                {
+                                    //contain currently Own a file
+                                    containfile = true;
+                                }
+                            }
+
+                            if (reader != null)
+                                reader.Close();
+                        }
+                    }
+                    //if they are both false run archive
+                    if (containgroup == false || containfile == false)
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Archive the account? You will not be able to unlock it.", "Are you sure?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                            {
+                                con.Open();
+                                //archive userInfo
+                                string archiveaccountQuery = "UPDATE Userinfo set verificationflag=@vflag, statusDate=@statusDate where userid = @userid";
+                                MySqlCommand archiveaccount = new MySqlCommand(archiveaccountQuery, con);
+                                archiveaccount.Parameters.AddWithValue("@vflag", "A");
+                                archiveaccount.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss"));
+                                archiveaccount.ExecuteNonQuery();
+                                //may add deletion for other info relating to the user
+                                dblog.Log("Account status changed(L -> A) by Admin", "Accounts", Logininfo.userid, Logininfo.email);
+                                dblog.Log("User is Archived:" + AdminSession.userid, "Accounts", Logininfo.userid, Logininfo.email);
+
+                                string retrieveGroupUserQuery = "SELECT * FROM groupUsers where userID = @userid";
+                                MySqlCommand retrieveGroupUser = new MySqlCommand(retrieveGroupUserQuery, con);
+                                retrieveGroupUser.Parameters.AddWithValue("@userid", AdminSession.userid);
+                                using (MySqlDataReader reader = retrieveGroupUser.ExecuteReader())
+                                {
+                                    if(reader.Read())
+                                    {
+                                        string deleteGroupUserQuery = "Delete FROM groupUsers where userID = @userid";
+                                        MySqlCommand deleteGroupUser = new MySqlCommand(deleteGroupUserQuery, con);
+                                        deleteGroupUser.Parameters.AddWithValue("@userid", AdminSession.userid);
+                                        deleteGroupUser.ExecuteNonQuery();
+                                    }
+
+                                    if (reader != null)
+                                        reader.Close();
+                                }
+
+                                //retrieve file user permission and delete
+                                string retrievefileUserPermissionQuery = "SELECT * FROM userFilePermissions where userID = @userid";
+                                MySqlCommand retrievefileUserPermission = new MySqlCommand(retrievefileUserPermissionQuery, con);
+                                retrievefileUserPermission.Parameters.AddWithValue("@userid", AdminSession.userid);
+                                using (MySqlDataReader reader = retrievefileUserPermission.ExecuteReader())
+                                {
+                                    if (reader.Read())
+                                    {
+                                        string deletefileUserQuery = "Delete FROM userFilePermissions where userID = @userid";
+                                        MySqlCommand deletefileUserPermission = new MySqlCommand(deletefileUserQuery, con);
+                                        deletefileUserPermission.Parameters.AddWithValue("@userid", AdminSession.userid);
+                                        deletefileUserPermission.ExecuteNonQuery();
+                                    }
+
+                                    if (reader != null)
+                                        reader.Close();
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(containgroup && containfile)
+                        {
+                            MessageBox.Show("User contains ownership of both files and group. Please request to change ownership before archiving");
+                        }
+                        else if (containgroup)
+                        {
+                            MessageBox.Show("User contains ownership of group. Please request to change ownership of group before archiving");
+                        }
+                        else if (containfile)
+                        {
+                            MessageBox.Show("User contains ownership of files. Please request to change ownership of file before archiving");
                         }
                     }
                 }
             }
         }
 
-        
-
 
         private void AddUsers_Click(object sender, EventArgs e)
         {
-            //Users.ConfirmationDetails confirmationDetails = new Users.ConfirmationDetails();
-            //confirmationDetails.Show();
 
             Registration Registration = new Registration();
             Registration.Show();

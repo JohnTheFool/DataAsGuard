@@ -506,7 +506,7 @@
             this.Lockbtn.Name = "Lockbtn";
             this.Lockbtn.Size = new System.Drawing.Size(75, 43);
             this.Lockbtn.TabIndex = 29;
-            this.Lockbtn.Text = "Lock";
+            this.Lockbtn.Text = "Lock File";
             this.Lockbtn.UseVisualStyleBackColor = true;
             this.Lockbtn.Click += new System.EventHandler(this.Lockbtn_Click);
             // 
