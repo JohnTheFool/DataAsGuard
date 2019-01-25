@@ -99,7 +99,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Username",
             "Password"});
-            this.comboBox1.Location = new System.Drawing.Point(215, 54);
+            this.comboBox1.Location = new System.Drawing.Point(215, 53);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(142, 24);
             this.comboBox1.TabIndex = 3;
@@ -144,6 +144,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.NextButton);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "forgetUserInfo";
             this.Text = "forgetUserInfo";

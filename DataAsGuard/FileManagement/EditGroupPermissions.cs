@@ -70,14 +70,26 @@ namespace DataAsGuard.FileManagement
                     readPermission = 1;
                 }
 
-                if (permissionCheckBox.GetItemCheckState(1) == CheckState.Checked) //Edit permission
+                if (readPermission == 0)
                 {
-                    editPermission = 1;
+                    if (permissionCheckBox.GetItemCheckState(1) == CheckState.Checked || permissionCheckBox.GetItemCheckState(2) == CheckState.Checked)
+                    {
+                        MessageBox.Show("Read permission must be applied to apply edit or download permissions. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return success;
+                    }
                 }
 
-                if (permissionCheckBox.GetItemCheckState(2) == CheckState.Checked) //Download permission
+                else if (readPermission == 1)
                 {
-                    downloadPermission = 1;
+                    if (permissionCheckBox.GetItemCheckState(1) == CheckState.Checked) //Read permission
+                    {
+                        editPermission = 1;
+                    }
+
+                    if (permissionCheckBox.GetItemCheckState(2) == CheckState.Checked) //Read permission
+                    {
+                        downloadPermission = 1;
+                    }
                 }
 
                 String getUserIDQuery = "SELECT * FROM groupInfo WHERE groupName = @groupNameParam";
@@ -208,7 +220,7 @@ namespace DataAsGuard.FileManagement
         {
             if (AddPermissionToDB())
             {
-                MessageBox.Show("Permissions applied.");
+                MessageBox.Show("Permissions applied.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

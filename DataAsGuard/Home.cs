@@ -1,4 +1,5 @@
 ﻿using DataAsGuard.CSClass;
+using DataAsGuard.FileManagement;
 using DataAsGuard.Profiles;
 using DataAsGuard.Viewer;
 using System;
@@ -27,7 +28,7 @@ namespace DataAsGuard
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FileManagement.FileUpload fileUpload = new FileManagement.FileUpload();
+            FileUpload fileUpload = new FileUpload();
             fileUpload.Show();
             Hide();
         }
@@ -67,14 +68,14 @@ namespace DataAsGuard
 
         private void manageFilesButton_Click(object sender, EventArgs e)
         {
-            FileManagement.FileManagementHub filePermissions = new FileManagement.FileManagementHub();
+            FileManagementHub filePermissions = new FileManagementHub();
             filePermissions.Show();
             Hide();
         }
 
         private void uploadFileButton_Click(object sender, EventArgs e)
         {
-            FileManagement.FileUpload fileUpload = new FileManagement.FileUpload();
+            FileUpload fileUpload = new FileUpload();
             fileUpload.Show();
             Hide();
         }
@@ -126,6 +127,13 @@ namespace DataAsGuard
         private void metaAdmin_Click(object sender, EventArgs e)
         {
             MetaAdmin view = new MetaAdmin();
+            view.Show();
+            Hide();
+        }
+
+        private void groupManagerButton_Click(object sender, EventArgs e)
+        {
+            ManageGroups view = new ManageGroups();
             view.Show();
             Hide();
         }

@@ -16,31 +16,57 @@ namespace DataAsGuard.FileManagement
     {
         String originalGroupName = null;
         DBLogger dblog = new DBLogger();
-        
-        public EditGroup(String groupEdited)
+        ManageGroups formToClose;
+        String ownerName = "";
+
+        public EditGroup(String groupEdited, ManageGroups obj)
         {
             InitializeComponent();
             groupName_Text.Text = groupEdited;
             originalGroupName = groupEdited;
+            formToClose = obj;
         }
 
         private void EditGroup_Load(object sender, EventArgs e)
         {
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM groupInfo WHERE groupName = @nameParam";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("nameParam", groupName_Text.Text);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    ownerName = reader["groupCreator"].ToString();
+                    groupDescription_Text.Text = reader["groupDescription"].ToString();
+                }
+                reader.Close();
+                con.Close();
+            }
+
             LoadUsersIntoMembersList();
             LoadUsersIntoList();
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            formToClose.Hide();
+            ManageGroups newForm = new ManageGroups();
+            newForm.Show();
+        }
         private void updateGroupButton_Click(object sender, EventArgs e)
         {
             if (InsertGroupMembersIntoDatabase() && UpdateGroupInfoIntoDatabase() && RemoveGroupMembersFromDB())
             {
-                MessageBox.Show("Group successfully updated.");
+                MessageBox.Show("Group successfully updated.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            EditGroup refresh = new EditGroup(groupName_Text.Text);
+            EditGroup refresh = new EditGroup(groupName_Text.Text, formToClose);
             refresh.Show();
             Hide();
-            
         }
 
         private void LoadUsersIntoMembersList()
@@ -95,6 +121,8 @@ namespace DataAsGuard.FileManagement
                 con.Open();
                 for (int i = 0; i < groupMembers.Items.Count; i++)
                 {
+                    Boolean skip = false;
+
                     String getUserIDQuery = "SELECT * FROM Userinfo WHERE fullName = @fullNameParam";
                     MySqlCommand getUsercmd = new MySqlCommand(getUserIDQuery, con);
                     getUsercmd.Parameters.AddWithValue("@fullNameParam", groupMembers.Items[i].ToString());
@@ -114,9 +142,14 @@ namespace DataAsGuard.FileManagement
                     if (reader2.Read())
                     {
                         //If user is already in group, skip inserting into DB
-                        continue;
+                        skip = true;
                     }
                     reader2.Close();
+
+                    if (skip)
+                    {
+                        continue;
+                    }
 
                     String getGroupIDQuery = "SELECT * FROM groupInfo WHERE groupName = @nameParam";
                     MySqlCommand getGroupcmd = new MySqlCommand(getGroupIDQuery, con);
@@ -158,7 +191,7 @@ namespace DataAsGuard.FileManagement
                     Boolean userExists = false;
                     String getUserIDQuery = "SELECT * FROM Userinfo WHERE fullName = @fullNameParam";
                     MySqlCommand getUsercmd = new MySqlCommand(getUserIDQuery, con);
-                    getUsercmd.Parameters.AddWithValue("@fullNameParam", groupMembers.Items[i].ToString());
+                    getUsercmd.Parameters.AddWithValue("@fullNameParam", userList.Items[i].ToString());
                     MySqlDataReader reader = getUsercmd.ExecuteReader();
                     if (reader.Read())
                     {
@@ -177,14 +210,15 @@ namespace DataAsGuard.FileManagement
                         userExists = true;
                     }
                     reader2.Close();
+
                     if (userExists)
                     {
-                        String executeQuery = "DELETE FROM groupUsers WHERE groupName = @nameParam AND userID = @userParam)";
+                        String executeQuery = "DELETE FROM groupUsers WHERE groupName = @nameParam AND userID = @userParam";
                         MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
                         myCommand.Parameters.AddWithValue("@nameParam", this.groupName_Text.Text);
                         myCommand.Parameters.AddWithValue("@userParam", userID);
                         myCommand.ExecuteNonQuery();
-                        dblog.Log("Member  '" + groupMembers.Items[i].ToString() + "' removed from "+ this.groupName_Text.Text+".", "GroupChanges", Logininfo.userid.ToString(), Logininfo.email.ToString());
+                        dblog.Log("Member '" + userList.Items[i].ToString() + "' removed from "+ this.groupName_Text.Text+".", "GroupChanges", Logininfo.userid.ToString(), Logininfo.email.ToString());
                     }
                 }
                 success = true;
@@ -199,7 +233,7 @@ namespace DataAsGuard.FileManagement
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
-                String executeQuery = "UPDATE groupInfo SET groupDesc = @groupDescParam, groupName = @groupNameParam WHERE groupName = @originalGroupParam";
+                String executeQuery = "UPDATE groupInfo SET groupDescription = @groupDescParam, groupName = @groupNameParam WHERE groupName = @originalGroupParam";
                 MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
                 myCommand.Parameters.AddWithValue("@originalGroupParam", originalGroupName);
                 myCommand.Parameters.AddWithValue("@groupNameParam", this.groupName_Text.Text);
@@ -227,6 +261,30 @@ namespace DataAsGuard.FileManagement
             }
         }
 
+        private void MoveListBoxItemsCheckOwner(ListBox source, ListBox destination)
+        {
+            Boolean ownerInGroup = false;
+            ListBox.SelectedObjectCollection sourceItems = source.SelectedItems;
+            for (int i = 0; i < source.SelectedItems.Count; i++)
+            {
+                if (source.SelectedItems[i].ToString() == ownerName)
+                {
+                    MessageBox.Show("The creator of the group cannot be removed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ownerInGroup = true;
+                    break;
+                }
+                else
+                    destination.Items.Add(source.SelectedItems[i].ToString());
+            }
+            if (!ownerInGroup)
+            {
+                while (source.SelectedItems.Count > 0)
+                {
+                    source.Items.Remove(source.SelectedItems[0]);
+                }
+            }
+        }
+
         private void moveToGroupButton_Click(object sender, EventArgs e)
         {
             MoveListBoxItems(userList, groupMembers);
@@ -234,7 +292,7 @@ namespace DataAsGuard.FileManagement
 
         private void removeFromGroupButton_Click(object sender, EventArgs e)
         {
-            MoveListBoxItems(groupMembers, userList);
+            MoveListBoxItemsCheckOwner(groupMembers, userList);
         }
 
         private void BackButton_Click(object sender, EventArgs e)

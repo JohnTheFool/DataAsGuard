@@ -190,6 +190,7 @@
             this.Controls.Add(this.removeFromGroupButton);
             this.Controls.Add(this.userLabel);
             this.Controls.Add(this.userList);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CreateNewGroup";
             this.Text = "DataAsguard";
             this.Load += new System.EventHandler(this.CreateNewGroup_Load);

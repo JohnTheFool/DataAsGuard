@@ -59,7 +59,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.74683F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.25317F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 260F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 261F));
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.strengthcheck, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.validateCaptcha, 2, 4);
@@ -100,7 +100,7 @@
             // 
             this.strengthcheck.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.strengthcheck.AutoSize = true;
-            this.strengthcheck.Location = new System.Drawing.Point(209, 139);
+            this.strengthcheck.Location = new System.Drawing.Point(208, 139);
             this.strengthcheck.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.strengthcheck.Name = "strengthcheck";
             this.strengthcheck.Size = new System.Drawing.Size(60, 17);
@@ -111,7 +111,7 @@
             // 
             this.validateCaptcha.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateCaptcha.AutoSize = true;
-            this.validateCaptcha.Location = new System.Drawing.Point(313, 274);
+            this.validateCaptcha.Location = new System.Drawing.Point(312, 274);
             this.validateCaptcha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validateCaptcha.Name = "validateCaptcha";
             this.validateCaptcha.Size = new System.Drawing.Size(109, 17);
@@ -132,7 +132,7 @@
             // 
             this.validatecPasword.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatecPasword.AutoSize = true;
-            this.validatecPasword.Location = new System.Drawing.Point(313, 189);
+            this.validatecPasword.Location = new System.Drawing.Point(312, 189);
             this.validatecPasword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatecPasword.Name = "validatecPasword";
             this.validatecPasword.Size = new System.Drawing.Size(127, 17);
@@ -165,7 +165,7 @@
             // 
             this.validatePassword.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validatePassword.AutoSize = true;
-            this.validatePassword.Location = new System.Drawing.Point(313, 96);
+            this.validatePassword.Location = new System.Drawing.Point(312, 96);
             this.validatePassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.validatePassword.Name = "validatePassword";
             this.validatePassword.Size = new System.Drawing.Size(118, 17);
@@ -298,6 +298,7 @@
             this.Controls.Add(this.confirm);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ChangePassword";
             this.Text = "ChangePassword";

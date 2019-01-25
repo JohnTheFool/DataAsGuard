@@ -106,6 +106,7 @@
             this.Controls.Add(this.chooseFileBtn);
             this.Controls.Add(this.filePathBox);
             this.Controls.Add(this.axWindowsMediaPlayer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "VideoPlayer";
             this.Text = "VideoPlayer";
             this.Load += new System.EventHandler(this.videoLoad);

@@ -39,7 +39,7 @@ namespace DataAsGuard.FileManagement
 
         private void FileManagementHub_Load(object sender, EventArgs e)
         {
-            LoadFileInfoFromDB();
+            LoadOwnerFileInfoFromDB();
         }
 
         private bool CheckFileLock(string fileName)
@@ -76,11 +76,60 @@ namespace DataAsGuard.FileManagement
 
         private void LoadFileInfoFromDB()
         {
+            List<String> allFiles = new List<String>();
+            List<int> allFileIDs = new List<int>();
+            List<int> allFileOwnerIDs = new List<int>();
+            ArrayList userPermRow = new ArrayList();
+
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
                 String query = "SELECT * FROM da_schema.fileInfo";
                 MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    allFileOwnerIDs.Add(Convert.ToInt32(reader["fileOwnerID"]));
+                    allFileIDs.Add(Convert.ToInt32(reader["fileID"]));
+                    allFiles.Add(reader["fileName"].ToString());
+                }
+                reader.Close();
+
+                String userpermQuery = "SELECT * FROM userFilePermissions WHERE userID = @idParam";
+                MySqlCommand getPermcmd = new MySqlCommand(userpermQuery, con);
+                getPermcmd.Parameters.AddWithValue("@idParam", Logininfo.userid);
+                MySqlDataReader permreader = getPermcmd.ExecuteReader();
+                while (permreader.Read())
+                {
+                    userPermRow.Add(Convert.ToInt32(permreader["fileID"]));
+                    userPermRow.Add(Convert.ToInt32(permreader["readPermission"]));
+                }
+                permreader.Close();
+
+                for (int i = 0; i < allFileIDs.Count; i++)
+                {
+                    for (int j = 0; j < userPermRow.Count - 1; j += 2)
+                    {
+                        if (Convert.ToInt32(userPermRow[j]) == allFileIDs[i])
+                        {
+                            if (Convert.ToInt32(userPermRow[j+1]) == 1)
+                            {
+                                fileList.Items.Add(allFiles[i]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void LoadOwnerFileInfoFromDB()
+        {
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM da_schema.fileInfo WHERE fileOwnerID = @idParam";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@idParam", Logininfo.userid);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -90,7 +139,6 @@ namespace DataAsGuard.FileManagement
                 con.Close();
             }
         }
-
         private void fileList_SelectedIndexChanged(object sender, EventArgs e)
         {
             fileInformation.Clear();
@@ -382,105 +430,130 @@ namespace DataAsGuard.FileManagement
 
         private async void openFileButton_Click(object sender, EventArgs e)
         {
-            string nameOfFile = fileList.SelectedItem.ToString();
-            string fileExtension = Path.GetExtension(nameOfFile);
-            tempFileName = Path.GetTempFileName() + "." + fileExtension;
-            //if (IsFileLock(tempFileName) == false)
-            //{
-            if (CheckFileLock(nameOfFile) == false)
+            try
             {
-                setLock(nameOfFile);
-                byte[] fileBytes = new byte[] { 0x0 };
-                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                string nameOfFile = fileList.SelectedItem.ToString();
+                string fileExtension = Path.GetExtension(nameOfFile);
+                Random rnd = new Random();
+                string relativePath = @"..\..\Files\temp" + rnd.Next(1, 10000000).ToString() + fileExtension;
+                tempFileName = Path.GetFullPath(relativePath);
+                //if (IsFileLock(tempFileName) == false)
+                //{
+                if (CheckFileLock(nameOfFile) == false)
                 {
-                    con.Open();
-                    String fileQuery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
-                    MySqlCommand getFilecmd = new MySqlCommand(fileQuery, con);
-                    getFilecmd.Parameters.AddWithValue("@nameParam", fileList.SelectedItem.ToString());
-                    MySqlDataReader reader = getFilecmd.ExecuteReader();
-                    if (reader.Read())
+                    setLock(nameOfFile);
+                    byte[] fileBytes = new byte[] { 0x0 };
+                    using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
                     {
-                        fileBytes = (byte[])reader["file"];
-                    }
-                    reader.Close();
-                    File.WriteAllBytes(tempFileName, fileBytes);
-                    if (fileExtension == ".txt")
-                    {
-                        string hu = File.ReadAllText(tempFileName); ;
-                        DocEd dd = new DocEd();
-                        dd.GetText = hu;
-                        dd.Show();
-                        this.Hide();
-                    }
-                    else if (fileExtension == ".jpeg" || fileExtension == ".jpg" || fileExtension == ".png")
-                    {
-                        ImgViewer.ImgViewerForm imgView = new ImgViewer.ImgViewerForm();
-                        imgView.path = tempFileName;
-                        imgView.Show();
-                        this.Hide();
-                    }
-                    else if (fileExtension == ".mp4")
-                    {
-                        VideoPlayer vd = new VideoPlayer();
-                        vd.videoPath = tempFileName;
-                        vd.Show();
-                        this.Hide();
-                    }
-                    else if (fileExtension == ".doc" || fileExtension == ".docx")
-                    {
-                        object readOnly = true;
-                        object fileName = tempFileName;
-                        object missing = System.Reflection.Missing.Value;
-                        var applicationWord = new Microsoft.Office.Interop.Word.Application();
-                        applicationWord.Visible = true;
-                        //object gg = applicationWord.DocumentBeforeSave();
-                        applicationWord.Options.SavePropertiesPrompt = false;
-                        applicationWord.Options.SaveNormalPrompt = false;
-                        applicationWord.DisplayAlerts = WdAlertLevel.wdAlertsNone;
-                        applicationWord.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
-                        //applicationWord.DocumentBeforeClose += new EventHandler(process_Exited);
-                        //var process = Process.GetProcessesByName(tempFileName);
-                        //process[0].Exited += new EventHandler(process_Exited);
-                    }
-                    else if (fileExtension == ".xlsx")
-                    {
-                        object readOnly = true;
-                        string fileName = tempFileName;
-                        object missing = System.Reflection.Missing.Value;
-                        var applicationExcel = new Microsoft.Office.Interop.Excel.Application();
-                        applicationExcel.Visible = true;
-                        applicationExcel.Workbooks.Open(fileName, missing, readOnly, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing);
-                    }
-                    else if (fileExtension == ".pptx")
-                    {
-                        string fileName = tempFileName;
-                        MsoTriState readOnly = MsoTriState.msoTrue;
-                        object missing = System.Reflection.Missing.Value;
-                        Microsoft.Office.Interop.PowerPoint.Application applicationPPT = new Microsoft.Office.Interop.PowerPoint.Application();
-                        applicationPPT.Presentations.Open(fileName, readOnly, MsoTriState.msoTrue, MsoTriState.msoTrue);
-                        // JUST GREAT MSOTRISTATE NOT WORKING
-                    }
-                    else
-                    {
-                        //File.WriteAllBytes(tempFileName, fileBytes);
-                        //var process = Process.Start(tempFileName);
-                        //process.Exited += new EventHandler(process_Exited);
-                    }
-                    dblog.fileLog("Opened file '" + fileList.SelectedItem.ToString() + "'.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
-                    if (fileExtension == ".docx" || fileExtension == ".xlsx" || fileExtension == ".pptx" || fileExtension == ".txt")
-                    {
-                        await PutTaskDelay();
-                        while (IsFileLock(tempFileName) == true)
+                        con.Open();
+                        String fileQuery = "SELECT * FROM fileInfo WHERE fileName = @nameParam";
+                        MySqlCommand getFilecmd = new MySqlCommand(fileQuery, con);
+                        getFilecmd.Parameters.AddWithValue("@nameParam", fileList.SelectedItem.ToString());
+                        MySqlDataReader reader = getFilecmd.ExecuteReader();
+                        if (reader.Read())
                         {
-
+                            fileBytes = (byte[])reader["file"];
                         }
+                        reader.Close();
+                        File.WriteAllBytes(tempFileName, fileBytes);
+                        if (fileExtension == ".txt")
+                        {
+                            string hu = File.ReadAllText(tempFileName); ;
+                            DocEd dd = new DocEd();
+                            dd.GetText = hu;
+                            dd.Show();
+                            this.Hide();
+                        }
+                        else if (fileExtension == ".jpeg" || fileExtension == ".jpg" || fileExtension == ".png")
+                        {
+                            ImgViewer.ImgViewerForm imgView = new ImgViewer.ImgViewerForm();
+                            imgView.path = tempFileName;
+                            imgView.Show();
+                            this.Hide();
+                        }
+                        else if (fileExtension == ".mp4")
+                        {
+                            VideoPlayer vd = new VideoPlayer();
+                            vd.videoPath = tempFileName;
+                            vd.Show();
+                            this.Hide();
+                        }
+                        else if (fileExtension == ".doc" || fileExtension == ".docx")
+                        {
+                            object readOnly = true;
+                            object fileName = tempFileName;
+                            //openFileFunctionTest(tempFileName);
+                            object missing = System.Reflection.Missing.Value;
+                            var applicationWord = new Microsoft.Office.Interop.Word.Application();
+                            applicationWord.Visible = true;
+                            //object gg = applicationWord.DocumentBeforeSave();
+                            applicationWord.Options.SavePropertiesPrompt = false;
+                            applicationWord.Options.SaveNormalPrompt = false;
+                            applicationWord.DisplayAlerts = WdAlertLevel.wdAlertsNone;
+                            applicationWord.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
+                            //applicationWord.DocumentBeforeClose += new EventHandler(process_Exited);
+                            //var process = Process.GetProcessesByName(tempFileName);
+                            //process[0].Exited += new EventHandler(process_Exited);
+                        }
+                        else if (fileExtension == ".xlsx")
+                        {
+                            object readOnly = true;
+                            string fileName = tempFileName;
+                            object missing = System.Reflection.Missing.Value;
+                            var applicationExcel = new Microsoft.Office.Interop.Excel.Application();
+                            applicationExcel.Visible = true;
+                            applicationExcel.Workbooks.Open(fileName, missing, readOnly, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing);
+                        }
+                        else if (fileExtension == ".pptx")
+                        {
+                            string fileName = tempFileName;
+                            MsoTriState readOnly = MsoTriState.msoTrue;
+                            object missing = System.Reflection.Missing.Value;
+                            Microsoft.Office.Interop.PowerPoint.Application applicationPPT = new Microsoft.Office.Interop.PowerPoint.Application();
+                            applicationPPT.Presentations.Open(fileName, readOnly, MsoTriState.msoTrue, MsoTriState.msoTrue);
+                            // JUST GREAT MSOTRISTATE NOT WORKING
+                        }
+                        else
+                        {
+                            //File.WriteAllBytes(tempFileName, fileBytes);
+                            //var process = Process.Start(tempFileName);
+                            //process.Exited += new EventHandler(process_Exited);
+                        }
+                        dblog.fileLog("Opened file '" + fileList.SelectedItem.ToString() + "'.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
+                        if (fileExtension == ".docx" || fileExtension == ".xlsx" || fileExtension == ".pptx" || fileExtension == ".txt")
+                        {
+                            await PutTaskDelay();
+                            while (IsFileLock(tempFileName) == true)
+                            {
+
+                            }
+                        }
+                        releaseLock(nameOfFile);
                     }
-                    releaseLock(nameOfFile);
+                }
+                else
+                {
+                    MessageBox.Show("File is in use! Please try again later");
                 }
             }
-            else
+            catch (NullReferenceException)
             {
-                MessageBox.Show("File is in use! Please try again later");
+
+            }
+        }
+        
+        private void openFileFunctionTest(string tempFileName)
+        {
+            using (System.Diagnostics.Process execute = new System.Diagnostics.Process())
+            {
+                execute.StartInfo.FileName = tempFileName;
+                execute.EnableRaisingEvents = true;
+                execute.Exited += (object sender, EventArgs e) =>
+                {
+                    //do whatever here, delete, log, wtv
+                };
+                execute.Start();
+                execute.WaitForExit();
             }
         }
         //using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
@@ -580,7 +653,7 @@ namespace DataAsGuard.FileManagement
 
         private void deleteFileButton_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Delete the selected file " + fileList.SelectedItem.ToString() + "? All content and permissions related to this file will be lost.", "Are you sure?", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Delete the selected file " + fileList.SelectedItem.ToString() + "? All content and permissions related to this file will be lost.", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (dialogResult == DialogResult.Yes)
             {
                 using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
@@ -872,6 +945,21 @@ namespace DataAsGuard.FileManagement
             Home view = new Home();
             view.Show();
             Hide();
+        }
+
+        private void checkBoxOwned_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBoxOwned.Checked == true)
+            {
+                fileList.Items.Clear();
+                LoadOwnerFileInfoFromDB();
+            }
+
+            if (checkBoxOwned.Checked == false)
+            {
+                fileList.Items.Clear();
+                LoadFileInfoFromDB();
+            }
         }
     }
 }

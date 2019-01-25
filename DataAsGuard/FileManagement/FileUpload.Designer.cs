@@ -37,7 +37,6 @@
             this.settingsButton = new System.Windows.Forms.Button();
             this.ProfileButton = new System.Windows.Forms.Button();
             this.homeButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.fileNameLabel = new System.Windows.Forms.Label();
             this.fileName = new System.Windows.Forms.TextBox();
             this.fileSizeLabel = new System.Windows.Forms.Label();
@@ -138,16 +137,6 @@
             this.homeButton.UseVisualStyleBackColor = true;
             this.homeButton.Click += new System.EventHandler(this.homeButton_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label1.Location = new System.Drawing.Point(375, 539);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(135, 19);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Upload Limit: GB/GB";
-            // 
             // fileNameLabel
             // 
             this.fileNameLabel.AutoSize = true;
@@ -216,13 +205,13 @@
             this.Controls.Add(this.fileSizeLabel);
             this.Controls.Add(this.fileName);
             this.Controls.Add(this.fileNameLabel);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);
             this.Controls.Add(this.homeButton);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.uploadButton);
             this.Controls.Add(this.browseTable);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FileUpload";
             this.Text = "DataAsGuard";
             this.browseTable.ResumeLayout(false);
@@ -242,7 +231,6 @@
         private System.Windows.Forms.Button settingsButton;
         private System.Windows.Forms.Button ProfileButton;
         private System.Windows.Forms.Button homeButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label fileNameLabel;
         private System.Windows.Forms.TextBox fileName;
         private System.Windows.Forms.Label fileSizeLabel;

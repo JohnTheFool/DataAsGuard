@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MetaAdmin));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filePath = new System.Windows.Forms.TextBox();
@@ -95,6 +96,7 @@
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.openFileBtn);
             this.Controls.Add(this.filePath);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MetaAdmin";
             this.Text = "MetaAdmin";
             this.contextMenuStrip1.ResumeLayout(false);

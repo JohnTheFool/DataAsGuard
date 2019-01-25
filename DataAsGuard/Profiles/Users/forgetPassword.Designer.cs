@@ -35,12 +35,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.password = new System.Windows.Forms.TextBox();
             this.cPassword = new System.Windows.Forms.TextBox();
             this.captchabox = new System.Windows.Forms.TextBox();
-            this.validatePassword = new System.Windows.Forms.Label();
             this.validatecPasword = new System.Windows.Forms.Label();
             this.validateCaptcha = new System.Windows.Forms.Label();
+            this.password = new System.Windows.Forms.TextBox();
+            this.validatePassword = new System.Windows.Forms.Label();
             this.strengthcheck = new System.Windows.Forms.Label();
             this.Confirm = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -93,12 +93,6 @@
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
             // 
-            // password
-            // 
-            resources.ApplyResources(this.password, "password");
-            this.password.Name = "password";
-            this.password.TextChanged += new System.EventHandler(this.password_onleave);
-            // 
             // cPassword
             // 
             resources.ApplyResources(this.cPassword, "cPassword");
@@ -111,11 +105,6 @@
             resources.ApplyResources(this.captchabox, "captchabox");
             this.captchabox.Name = "captchabox";
             // 
-            // validatePassword
-            // 
-            resources.ApplyResources(this.validatePassword, "validatePassword");
-            this.validatePassword.Name = "validatePassword";
-            // 
             // validatecPasword
             // 
             resources.ApplyResources(this.validatecPasword, "validatecPasword");
@@ -125,6 +114,17 @@
             // 
             resources.ApplyResources(this.validateCaptcha, "validateCaptcha");
             this.validateCaptcha.Name = "validateCaptcha";
+            // 
+            // password
+            // 
+            resources.ApplyResources(this.password, "password");
+            this.password.Name = "password";
+            this.password.TextChanged += new System.EventHandler(this.password_onleave);
+            // 
+            // validatePassword
+            // 
+            resources.ApplyResources(this.validatePassword, "validatePassword");
+            this.validatePassword.Name = "validatePassword";
             // 
             // strengthcheck
             // 

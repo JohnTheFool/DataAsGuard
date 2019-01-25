@@ -199,6 +199,7 @@
             this.Controls.Add(this.ProfileButton);
             this.Controls.Add(this.homeButton);
             this.Controls.Add(this.BackButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ManageGroups";
             this.Text = "DataAsguard";
             this.Load += new System.EventHandler(this.ManageGroups_Load);

@@ -206,6 +206,7 @@
             this.Controls.Add(this.profileButton);
             this.Controls.Add(this.homeButton);
             this.Controls.Add(this.backButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditUserPermissions";
             this.Text = "DataAsguard";
             this.Load += new System.EventHandler(this.EditUserPermissions_Load);

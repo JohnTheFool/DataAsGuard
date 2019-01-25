@@ -17,14 +17,17 @@ namespace DataAsGuard.FileManagement
     {
         DataTable table = new DataTable();
         DBLogger dblog = new DBLogger();
-
-        public CreateNewGroup()
+        ManageGroups formToClose;
+        String ownerName = "";
+        public CreateNewGroup(ManageGroups obj)
         {
             InitializeComponent();
+            formToClose = obj;
         }
 
         private void CreateNewGroup_Load(object sender, EventArgs e)
         {
+            LoadOwnerIntoList();
             LoadUsersIntoList();
         }
 
@@ -32,19 +35,22 @@ namespace DataAsGuard.FileManagement
         {
             if (CheckIfGroupExists())
             {
-                System.Windows.Forms.MessageBox.Show("Group name already exists, please enter another name.");
+                System.Windows.Forms.MessageBox.Show("Group name already exists, please enter another name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             else
             {
                 if (InsertGroupInfoIntoDatabase() && InsertGroupMembersIntoDatabase())
                 {      
-                    System.Windows.Forms.MessageBox.Show("Successfully created group.");
+                    System.Windows.Forms.MessageBox.Show("Successfully created group.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    formToClose.Close();
+                    ManageGroups newView = new ManageGroups();
+                    newView.Show();
                     Hide();
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("Failed to create group, please try again.");
+                    System.Windows.Forms.MessageBox.Show("Failed to create group, please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Hide();
                 }
             }
@@ -61,7 +67,29 @@ namespace DataAsGuard.FileManagement
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    userList.Items.Add(reader["fullName"].ToString());
+                    if (reader["fullName"].ToString() != ownerName)
+                    {
+                        userList.Items.Add(reader["fullName"].ToString());
+                    }
+                }
+                reader.Close();
+                con.Close();
+            }
+        }
+
+        private void LoadOwnerIntoList()
+        {
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM da_schema.Userinfo WHERE userid = @idParam";
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@idParam", Logininfo.userid);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    ownerName = reader["fullName"].ToString();
+                    groupMembers.Items.Add(ownerName);
                 }
                 reader.Close();
                 con.Close();
@@ -141,11 +169,11 @@ namespace DataAsGuard.FileManagement
 
                     String getGroupIDQuery = "SELECT * FROM groupInfo WHERE groupName = @nameParam";
                     MySqlCommand getGroupcmd = new MySqlCommand(getGroupIDQuery, con);
-                    getUsercmd.Parameters.AddWithValue("@nameParam", this.groupName_Text.Text);
-                    MySqlDataReader reader2 = getUsercmd.ExecuteReader();
+                    getGroupcmd.Parameters.AddWithValue("@nameParam", this.groupName_Text.Text);
+                    MySqlDataReader reader2 = getGroupcmd.ExecuteReader();
                     if (reader2.Read())
                     {
-                        groupID = Convert.ToInt32(reader["groupID"]);
+                        groupID = Convert.ToInt32(reader2["groupID"]);
                     }
                     reader2.Close();
 
@@ -177,6 +205,30 @@ namespace DataAsGuard.FileManagement
             }
         }
 
+        private void MoveListBoxItemsCheckOwner(ListBox source, ListBox destination)
+        {
+            Boolean ownerInGroup = false;
+            ListBox.SelectedObjectCollection sourceItems = source.SelectedItems;
+            for (int i = 0; i < source.SelectedItems.Count; i++)
+            {
+                if (source.SelectedItems[i].ToString() == ownerName)
+                {
+                    MessageBox.Show("The creator of the group cannot be removed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ownerInGroup = true;
+                    break;
+                }
+                else
+                    destination.Items.Add(source.SelectedItems[i].ToString());
+            }
+            if (!ownerInGroup)
+            {
+                while (source.SelectedItems.Count > 0)
+                {
+                    source.Items.Remove(source.SelectedItems[0]);
+                }
+            }
+        }
+
         private void moveToGroupButton_Click(object sender, EventArgs e)
         {
             MoveListBoxItems(userList, groupMembers);
@@ -184,7 +236,7 @@ namespace DataAsGuard.FileManagement
 
         private void removeFromGroupButton_Click(object sender, EventArgs e)
         {
-            MoveListBoxItems(groupMembers, userList);
+            MoveListBoxItemsCheckOwner(groupMembers, userList);
         }
 
         private void BackButton_Click(object sender, EventArgs e)

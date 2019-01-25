@@ -67,19 +67,31 @@ namespace DataAsGuard.FileManagement
                 int downloadPermission = 0;
                 int userID = 0;
 
-                if (permissionCheckBox.GetItemCheckState(0) == CheckState.Checked) //Read permission
+                if (permissionCheckBox.GetItemCheckState(0) == CheckState.Checked)
                 {
                     readPermission = 1;
                 }
 
-                if (permissionCheckBox.GetItemCheckState(1) == CheckState.Checked) //Edit permission
+                if (readPermission == 0)
                 {
-                    editPermission = 1;
+                    if (permissionCheckBox.GetItemCheckState(1) == CheckState.Checked || permissionCheckBox.GetItemCheckState(2) == CheckState.Checked)
+                    {
+                        MessageBox.Show("Read permission must be applied to apply edit or download permissions. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return success;
+                    }
                 }
 
-                if (permissionCheckBox.GetItemCheckState(2) == CheckState.Checked) //Download permission
+                else if (readPermission == 1)
                 {
-                    downloadPermission = 1;
+                    if (permissionCheckBox.GetItemCheckState(1) == CheckState.Checked)
+                    {
+                        editPermission = 1;
+                    }
+
+                    if (permissionCheckBox.GetItemCheckState(2) == CheckState.Checked)
+                    {
+                        downloadPermission = 1;
+                    }
                 }
 
                 String getUserIDQuery = "SELECT * FROM Userinfo WHERE fullName = @fullNameParam";
@@ -139,55 +151,69 @@ namespace DataAsGuard.FileManagement
             permissionCheckBox.SetItemChecked(0, false);
             permissionCheckBox.SetItemChecked(1, false);
             permissionCheckBox.SetItemChecked(2, false);
+            applyPermButton.Enabled = true;
 
-            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            if (userList.SelectedValue.ToString() == Logininfo.userid)
             {
-                con.Open();
-                string curItem = userList.SelectedValue.ToString();
-                String query = "SELECT * FROM da_schema.Userinfo WHERE userid = @idParam";
-                MySqlCommand cmd = new MySqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@idParam", curItem);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    userSelectedLabel.Text = reader["fullName"].ToString();
-                }
-                reader.Close();
+                MessageBox.Show("Permissions of owner cannot be edited.","Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                permissionCheckBox.SetItemChecked(0, true);
+                permissionCheckBox.SetItemChecked(1, true);
+                permissionCheckBox.SetItemChecked(2, true);
 
-                String getUserIDQuery = "SELECT * FROM Userinfo WHERE fullName = @fullNameParam";
-                MySqlCommand getuseridcmd = new MySqlCommand(getUserIDQuery, con);
-                getuseridcmd.Parameters.AddWithValue("@fullNameParam", userSelectedLabel.Text);
-                MySqlDataReader reader3 = getuseridcmd.ExecuteReader();
-                if (reader3.Read())
-                {
-                    userID = Convert.ToInt32(reader3["userid"]);
-                }
-                reader3.Close();
+                applyPermButton.Enabled = false;
+            }
 
-                //If user's permission for this file already exists, delete old permission and insert new permission
-                string getPermissionQuery = "SELECT * FROM userFilePermissions WHERE fileID = @fileIDParam AND userID = @userIDParam";
-                MySqlCommand getPermissionCmd = new MySqlCommand(getPermissionQuery, con);
-                getPermissionCmd.Parameters.AddWithValue("@fileIDParam", fileID);
-                getPermissionCmd.Parameters.AddWithValue("@userIDParam", userID);
-                MySqlDataReader reader4 = getPermissionCmd.ExecuteReader();
-                if (reader4.Read())
+            else
+            {
+                using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
                 {
-                    if(Convert.ToInt32(reader4["readPermission"]) == 1)
+                    con.Open();
+                    string curItem = userList.SelectedValue.ToString();
+                    String query = "SELECT * FROM da_schema.Userinfo WHERE userid = @idParam";
+                    MySqlCommand cmd = new MySqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@idParam", curItem);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
                     {
-                        permissionCheckBox.SetItemChecked(0, true);
+                        userSelectedLabel.Text = reader["fullName"].ToString();
                     }
-                    if (Convert.ToInt32(reader4["editPermission"]) == 1)
-                    {
-                        permissionCheckBox.SetItemChecked(1, true);
-                    }
-                    if (Convert.ToInt32(reader4["downloadPermission"]) == 1)
-                    {
-                        permissionCheckBox.SetItemChecked(2, true);
-                    }
-                }
-                reader4.Close();
+                    reader.Close();
 
-                con.Close();
+                    String getUserIDQuery = "SELECT * FROM Userinfo WHERE fullName = @fullNameParam";
+                    MySqlCommand getuseridcmd = new MySqlCommand(getUserIDQuery, con);
+                    getuseridcmd.Parameters.AddWithValue("@fullNameParam", userSelectedLabel.Text);
+                    MySqlDataReader reader3 = getuseridcmd.ExecuteReader();
+                    if (reader3.Read())
+                    {
+                        userID = Convert.ToInt32(reader3["userid"]);
+                    }
+                    reader3.Close();
+
+                    //If user's permission for this file already exists, delete old permission and insert new permission
+                    string getPermissionQuery = "SELECT * FROM userFilePermissions WHERE fileID = @fileIDParam AND userID = @userIDParam";
+                    MySqlCommand getPermissionCmd = new MySqlCommand(getPermissionQuery, con);
+                    getPermissionCmd.Parameters.AddWithValue("@fileIDParam", fileID);
+                    getPermissionCmd.Parameters.AddWithValue("@userIDParam", userID);
+                    MySqlDataReader reader4 = getPermissionCmd.ExecuteReader();
+                    if (reader4.Read())
+                    {
+                        if (Convert.ToInt32(reader4["readPermission"]) == 1)
+                        {
+                            permissionCheckBox.SetItemChecked(0, true);
+                        }
+                        if (Convert.ToInt32(reader4["editPermission"]) == 1)
+                        {
+                            permissionCheckBox.SetItemChecked(1, true);
+                        }
+                        if (Convert.ToInt32(reader4["downloadPermission"]) == 1)
+                        {
+                            permissionCheckBox.SetItemChecked(2, true);
+                        }
+                    }
+                    reader4.Close();
+
+                    con.Close();
+                }
             }
         }
 
@@ -202,7 +228,7 @@ namespace DataAsGuard.FileManagement
         {
             if (AddPermissionToDB())
             {
-                MessageBox.Show("Permissions applied.");
+                MessageBox.Show("Permissions applied.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

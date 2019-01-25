@@ -18,7 +18,7 @@ namespace DataAsGuard.FileManagement
         DataTable table = new DataTable();
         int groupCreatorID = 0;
         DBLogger dblog = new DBLogger();
-
+        String groupOwner = "";
         public ManageGroups()
         {
             InitializeComponent();
@@ -62,6 +62,7 @@ namespace DataAsGuard.FileManagement
                 {
                     groupInformation.AppendText("Date Created: " + reader["dateCreated"].ToString());
                     groupInformation.AppendText(Environment.NewLine + "Group Creator: " + reader["groupCreator"].ToString());
+                    groupOwner = reader["groupCreator"].ToString();
                     groupInformation.AppendText(Environment.NewLine + "Group Description: " + reader["groupDescription"].ToString());
                     groupCreatorID = Convert.ToInt32(reader["groupCreatorID"]);
                 }
@@ -96,43 +97,29 @@ namespace DataAsGuard.FileManagement
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            FileManagementHub view = new FileManagementHub();
+            Home view = new Home();
             view.Show();
             Hide();
         }
 
         private void createGroupButton_Click(object sender, EventArgs e)
         {
-            CreateNewGroup createNewGroup = new CreateNewGroup();
+            ManageGroups manageGroups = (ManageGroups)Application.OpenForms["ManageGroups"];
+            CreateNewGroup createNewGroup = new CreateNewGroup(manageGroups);
             createNewGroup.Show();
-            createNewGroup.FormClosed += createNewGroup_FormClosed;
-        }
-
-        private void createNewGroup_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            ManageGroups view = new ManageGroups();
-            view.Show();
-            Hide();
         }
 
         private void editGroupButton_Click(object sender, EventArgs e)
         {
-            EditGroup view = new EditGroup(groupList.SelectedValue.ToString());
+            ManageGroups manageGroups = (ManageGroups)Application.OpenForms["ManageGroups"];
+            EditGroup view = new EditGroup(groupList.SelectedValue.ToString(), manageGroups);
             view.Show();
-            view.FormClosed += editGroup_FormClosed;
-        }
-
-        private void editGroup_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            ManageGroups view = new ManageGroups();
-            view.Show();
-            Hide();
         }
 
         private void deleteGroupButton_Click(object sender, EventArgs e)
         {
             int groupID = 0;
-            DialogResult result = MessageBox.Show("All file permissions related to this group will be removed and those users will not be able to access those files anymore. Continue?", "Warning", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("All file permissions related to this group will be removed and those users will not be able to access those files anymore. Continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 if (result == DialogResult.Yes)
@@ -179,7 +166,7 @@ namespace DataAsGuard.FileManagement
             string curItem = membersList.SelectedItem.ToString();
             int newCreatorID = 0;
             Boolean success = false;
-            DialogResult result = MessageBox.Show("Ownership of the group will be transferred to " + curItem + ". Continue?", "Warning", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("Ownership of the group will be transferred to " + curItem + ". Continue?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (result == DialogResult.Yes)
             {
                 using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
@@ -208,7 +195,7 @@ namespace DataAsGuard.FileManagement
 
                 if (success)
                 {
-                    MessageBox.Show("Successfully transferred ownership of group.");
+                    MessageBox.Show("Successfully transferred ownership of group.", "Transfer Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     dblog.Log("Group ownership of '" + groupList.SelectedValue.ToString() + "' transferred to "+ curItem+".", "GroupChanges", Logininfo.userid.ToString(), Logininfo.email.ToString());
                     ManageGroups view = new ManageGroups();
                     view.Show();
@@ -223,7 +210,15 @@ namespace DataAsGuard.FileManagement
 
             if (Logininfo.userid == groupCreatorID.ToString())
             {
-                transferOwnershipButton.Enabled = true;
+                try
+                {
+                if (membersList.SelectedItem.ToString() != groupOwner)
+                    transferOwnershipButton.Enabled = true;
+                }
+                catch (NullReferenceException)
+                {
+                    //Do nothing
+                }
             }
         }
     }

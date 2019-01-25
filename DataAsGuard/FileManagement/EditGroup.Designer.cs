@@ -190,6 +190,7 @@
             this.Controls.Add(this.groupLabel);
             this.Controls.Add(this.userList);
             this.Controls.Add(this.userLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditGroup";
             this.Text = "DataAsguard";
             this.Load += new System.EventHandler(this.EditGroup_Load);

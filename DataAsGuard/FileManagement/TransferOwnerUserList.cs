@@ -34,7 +34,7 @@ namespace DataAsGuard.FileManagement
             int newOwnerID = 0;
             Boolean success = false;
             int fileID = 0;
-            DialogResult result = MessageBox.Show("Ownership of the file will be transferred to " + newOwnerName + ". Continue?", "Warning", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show("Ownership of the file will be transferred to " + newOwnerName + ". Continue?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (result == DialogResult.Yes)
             {
                 using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))

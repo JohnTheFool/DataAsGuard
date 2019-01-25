@@ -45,6 +45,7 @@
             this.logoutButton = new System.Windows.Forms.Button();
             this.toChat = new System.Windows.Forms.Button();
             this.metaAdmin = new System.Windows.Forms.Button();
+            this.groupManagerButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -174,7 +175,7 @@
             // 
             // testBtn
             // 
-            this.testBtn.Location = new System.Drawing.Point(699, 415);
+            this.testBtn.Location = new System.Drawing.Point(773, 553);
             this.testBtn.Name = "testBtn";
             this.testBtn.Size = new System.Drawing.Size(75, 23);
             this.testBtn.TabIndex = 13;
@@ -216,11 +217,24 @@
             this.metaAdmin.UseVisualStyleBackColor = true;
             this.metaAdmin.Click += new System.EventHandler(this.metaAdmin_Click);
             // 
+            // groupManagerButton
+            // 
+            this.groupManagerButton.Font = new System.Drawing.Font("Segoe UI", 13F);
+            this.groupManagerButton.Location = new System.Drawing.Point(185, 360);
+            this.groupManagerButton.Name = "groupManagerButton";
+            this.groupManagerButton.Size = new System.Drawing.Size(526, 57);
+            this.groupManagerButton.TabIndex = 17;
+            this.groupManagerButton.Text = "Group Manager";
+            this.groupManagerButton.UseMnemonic = false;
+            this.groupManagerButton.UseVisualStyleBackColor = true;
+            this.groupManagerButton.Click += new System.EventHandler(this.groupManagerButton_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.groupManagerButton);
             this.Controls.Add(this.metaAdmin);
             this.Controls.Add(this.toChat);
             this.Controls.Add(this.logoutButton);
@@ -237,6 +251,7 @@
             this.Controls.Add(this.homeButton);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Home";
             this.Text = "DataAsguard";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -262,5 +277,6 @@
         private System.Windows.Forms.Button logoutButton;
         private System.Windows.Forms.Button toChat;
         private System.Windows.Forms.Button metaAdmin;
+        private System.Windows.Forms.Button groupManagerButton;
     }
 }

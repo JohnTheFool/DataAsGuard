@@ -81,7 +81,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.89605F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.10395F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 138F));
             this.tableLayoutPanel1.Controls.Add(this.validateUsername, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.captchabox, 1, 1);
@@ -101,7 +101,7 @@
             // 
             this.validateUsername.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateUsername.AutoSize = true;
-            this.validateUsername.Location = new System.Drawing.Point(477, 23);
+            this.validateUsername.Location = new System.Drawing.Point(476, 23);
             this.validateUsername.Name = "validateUsername";
             this.validateUsername.Size = new System.Drawing.Size(122, 17);
             this.validateUsername.TabIndex = 42;
@@ -110,7 +110,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.pictureBox1.Location = new System.Drawing.Point(38, 80);
+            this.pictureBox1.Location = new System.Drawing.Point(37, 80);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(195, 61);
@@ -120,7 +120,7 @@
             // captchabox
             // 
             this.captchabox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.captchabox.Location = new System.Drawing.Point(241, 99);
+            this.captchabox.Location = new System.Drawing.Point(240, 99);
             this.captchabox.Margin = new System.Windows.Forms.Padding(4);
             this.captchabox.Name = "captchabox";
             this.captchabox.Size = new System.Drawing.Size(132, 23);
@@ -130,7 +130,7 @@
             // 
             this.validateCaptcha.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.validateCaptcha.AutoSize = true;
-            this.validateCaptcha.Location = new System.Drawing.Point(477, 102);
+            this.validateCaptcha.Location = new System.Drawing.Point(476, 102);
             this.validateCaptcha.Name = "validateCaptcha";
             this.validateCaptcha.Size = new System.Drawing.Size(109, 17);
             this.validateCaptcha.TabIndex = 23;
@@ -140,7 +140,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(150, 23);
+            this.label1.Location = new System.Drawing.Point(149, 23);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 17);
@@ -150,7 +150,7 @@
             // username
             // 
             this.username.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.username.Location = new System.Drawing.Point(240, 20);
+            this.username.Location = new System.Drawing.Point(239, 20);
             this.username.Name = "username";
             this.username.Size = new System.Drawing.Size(133, 23);
             this.username.TabIndex = 24;
@@ -178,6 +178,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.Confirm);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "forgetUsername";
             this.Text = "forgetUsername";

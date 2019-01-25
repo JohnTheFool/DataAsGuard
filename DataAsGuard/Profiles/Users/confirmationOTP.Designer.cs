@@ -58,6 +58,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(272, 54);
             this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanel1.UseWaitCursor = true;
             // 
             // OTPInput
             // 
@@ -67,6 +68,7 @@
             this.OTPInput.Name = "OTPInput";
             this.OTPInput.Size = new System.Drawing.Size(124, 23);
             this.OTPInput.TabIndex = 1;
+            this.OTPInput.UseWaitCursor = true;
             // 
             // label1
             // 
@@ -78,6 +80,7 @@
             this.label1.Size = new System.Drawing.Size(113, 34);
             this.label1.TabIndex = 0;
             this.label1.Text = "OTP (One-Time Password):";
+            this.label1.UseWaitCursor = true;
             // 
             // OTPConfirm
             // 
@@ -88,6 +91,7 @@
             this.OTPConfirm.TabIndex = 1;
             this.OTPConfirm.Text = "Confirm";
             this.OTPConfirm.UseVisualStyleBackColor = true;
+            this.OTPConfirm.UseWaitCursor = true;
             this.OTPConfirm.Click += new System.EventHandler(this.OTPConfirm_Click);
             // 
             // pictureBox1
@@ -98,6 +102,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(523, 107);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.UseWaitCursor = true;
             // 
             // refreshOTP
             // 
@@ -107,6 +112,7 @@
             this.refreshOTP.TabIndex = 3;
             this.refreshOTP.Text = "RefreshOTP";
             this.refreshOTP.UseVisualStyleBackColor = true;
+            this.refreshOTP.UseWaitCursor = true;
             this.refreshOTP.Click += new System.EventHandler(this.refreshOTP_Click);
             // 
             // validationOTP
@@ -119,6 +125,7 @@
             this.validationOTP.Size = new System.Drawing.Size(97, 17);
             this.validationOTP.TabIndex = 4;
             this.validationOTP.Text = "validationOTP";
+            this.validationOTP.UseWaitCursor = true;
             // 
             // label2
             // 
@@ -128,6 +135,7 @@
             this.label2.Size = new System.Drawing.Size(337, 17);
             this.label2.TabIndex = 5;
             this.label2.Text = "A 5 digit OTP has been sent to your Phone Number.";
+            this.label2.UseWaitCursor = true;
             // 
             // panel1
             // 
@@ -136,6 +144,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(458, 38);
             this.panel1.TabIndex = 6;
+            this.panel1.UseWaitCursor = true;
             // 
             // confirmationOTP
             // 
@@ -149,9 +158,11 @@
             this.Controls.Add(this.OTPConfirm);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "confirmationOTP";
             this.Text = "confirmationOTP";
+            this.UseWaitCursor = true;
             this.Shown += new System.EventHandler(this.OTP_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

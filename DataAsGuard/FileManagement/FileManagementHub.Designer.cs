@@ -36,7 +36,6 @@
             this.homeButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.deleteFileButton = new System.Windows.Forms.Button();
-            this.manageGroupsButton = new System.Windows.Forms.Button();
             this.editGroupPermButton = new System.Windows.Forms.Button();
             this.fileInformation = new System.Windows.Forms.RichTextBox();
             this.openFileButton = new System.Windows.Forms.Button();
@@ -55,6 +54,7 @@
             this.groupReadColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupEditColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupDownloadColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkBoxOwned = new System.Windows.Forms.CheckBox();
             this.tabControl.SuspendLayout();
             this.userPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userPermGrid)).BeginInit();
@@ -68,9 +68,9 @@
             this.fileList.FormattingEnabled = true;
             this.fileList.HorizontalScrollbar = true;
             this.fileList.ItemHeight = 16;
-            this.fileList.Location = new System.Drawing.Point(55, 12);
+            this.fileList.Location = new System.Drawing.Point(55, 28);
             this.fileList.Name = "fileList";
-            this.fileList.Size = new System.Drawing.Size(219, 580);
+            this.fileList.Size = new System.Drawing.Size(219, 564);
             this.fileList.TabIndex = 0;
             this.fileList.SelectedIndexChanged += new System.EventHandler(this.fileList_SelectedIndexChanged);
             this.fileList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.fileDoubleClick);
@@ -79,7 +79,7 @@
             // 
             this.editUserPermButton.Enabled = false;
             this.editUserPermButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.editUserPermButton.Location = new System.Drawing.Point(458, 479);
+            this.editUserPermButton.Location = new System.Drawing.Point(463, 479);
             this.editUserPermButton.Name = "editUserPermButton";
             this.editUserPermButton.Size = new System.Drawing.Size(168, 28);
             this.editUserPermButton.TabIndex = 6;
@@ -129,7 +129,7 @@
             // 
             this.deleteFileButton.Enabled = false;
             this.deleteFileButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.deleteFileButton.Location = new System.Drawing.Point(289, 513);
+            this.deleteFileButton.Location = new System.Drawing.Point(289, 522);
             this.deleteFileButton.Name = "deleteFileButton";
             this.deleteFileButton.Size = new System.Drawing.Size(163, 28);
             this.deleteFileButton.TabIndex = 16;
@@ -137,22 +137,11 @@
             this.deleteFileButton.UseVisualStyleBackColor = true;
             this.deleteFileButton.Click += new System.EventHandler(this.deleteFileButton_Click);
             // 
-            // manageGroupsButton
-            // 
-            this.manageGroupsButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.manageGroupsButton.Location = new System.Drawing.Point(289, 547);
-            this.manageGroupsButton.Name = "manageGroupsButton";
-            this.manageGroupsButton.Size = new System.Drawing.Size(163, 28);
-            this.manageGroupsButton.TabIndex = 17;
-            this.manageGroupsButton.Text = "Manage Groups";
-            this.manageGroupsButton.UseVisualStyleBackColor = true;
-            this.manageGroupsButton.Click += new System.EventHandler(this.manageGroupsButton_Click);
-            // 
             // editGroupPermButton
             // 
             this.editGroupPermButton.Enabled = false;
             this.editGroupPermButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.editGroupPermButton.Location = new System.Drawing.Point(458, 513);
+            this.editGroupPermButton.Location = new System.Drawing.Point(463, 522);
             this.editGroupPermButton.Name = "editGroupPermButton";
             this.editGroupPermButton.Size = new System.Drawing.Size(168, 28);
             this.editGroupPermButton.TabIndex = 18;
@@ -186,9 +175,9 @@
             // 
             this.downloadFileButton.Enabled = false;
             this.downloadFileButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.downloadFileButton.Location = new System.Drawing.Point(458, 547);
+            this.downloadFileButton.Location = new System.Drawing.Point(289, 564);
             this.downloadFileButton.Name = "downloadFileButton";
-            this.downloadFileButton.Size = new System.Drawing.Size(168, 28);
+            this.downloadFileButton.Size = new System.Drawing.Size(163, 28);
             this.downloadFileButton.TabIndex = 21;
             this.downloadFileButton.Text = "Download File";
             this.downloadFileButton.UseVisualStyleBackColor = true;
@@ -198,7 +187,7 @@
             // 
             this.transferOwnershipButton.Enabled = false;
             this.transferOwnershipButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.transferOwnershipButton.Location = new System.Drawing.Point(632, 479);
+            this.transferOwnershipButton.Location = new System.Drawing.Point(463, 564);
             this.transferOwnershipButton.Name = "transferOwnershipButton";
             this.transferOwnershipButton.Size = new System.Drawing.Size(168, 28);
             this.transferOwnershipButton.TabIndex = 22;
@@ -316,18 +305,32 @@
             this.groupDownloadColumn.Name = "groupDownloadColumn";
             this.groupDownloadColumn.ReadOnly = true;
             // 
+            // checkBoxOwned
+            // 
+            this.checkBoxOwned.AutoSize = true;
+            this.checkBoxOwned.Checked = true;
+            this.checkBoxOwned.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxOwned.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.checkBoxOwned.Location = new System.Drawing.Point(97, 4);
+            this.checkBoxOwned.Name = "checkBoxOwned";
+            this.checkBoxOwned.Size = new System.Drawing.Size(133, 20);
+            this.checkBoxOwned.TabIndex = 24;
+            this.checkBoxOwned.Text = "View Owned Files";
+            this.checkBoxOwned.UseVisualStyleBackColor = true;
+            this.checkBoxOwned.CheckedChanged += new System.EventHandler(this.checkBoxOwned_CheckedChanged);
+            // 
             // FileManagementHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.checkBoxOwned);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.transferOwnershipButton);
             this.Controls.Add(this.downloadFileButton);
             this.Controls.Add(this.openFileButton);
             this.Controls.Add(this.fileInformation);
             this.Controls.Add(this.editGroupPermButton);
-            this.Controls.Add(this.manageGroupsButton);
             this.Controls.Add(this.deleteFileButton);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.profileButton);
@@ -335,6 +338,7 @@
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.editUserPermButton);
             this.Controls.Add(this.fileList);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FileManagementHub";
             this.Text = "DataAsguard";
             this.Load += new System.EventHandler(this.FileManagementHub_Load);
@@ -344,6 +348,7 @@
             this.groupPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupPermGrid)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -356,7 +361,6 @@
         private System.Windows.Forms.Button homeButton;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Button deleteFileButton;
-        private System.Windows.Forms.Button manageGroupsButton;
         private System.Windows.Forms.Button editGroupPermButton;
         private System.Windows.Forms.RichTextBox fileInformation;
         private System.Windows.Forms.Button openFileButton;
@@ -375,5 +379,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn groupReadColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn groupEditColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn groupDownloadColumn;
+        private System.Windows.Forms.CheckBox checkBoxOwned;
     }
 }

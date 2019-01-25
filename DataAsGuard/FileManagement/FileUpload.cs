@@ -67,7 +67,7 @@ namespace DataAsGuard.FileManagement
                                 myCommand.Parameters.AddWithValue("@ownerParam", ownerName);
                                 myCommand.Parameters.AddWithValue("@descParam", this.fileDescBox.Text);
                                 myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
-                                myCommand.Parameters.AddWithValue("@lockParam", 0); //Check with Solomon
+                                myCommand.Parameters.AddWithValue("@lockParam", 0);
                                 myCommand.ExecuteNonQuery();
 
                                 String query = "SELECT * FROM fileInfo where fileName = @fileName AND fileOwnerID=@fileowner;";
@@ -85,6 +85,16 @@ namespace DataAsGuard.FileManagement
                                         reader.Close();
 
                                 }
+
+                                String executePermQuery = "INSERT INTO userFilePermissions VALUES (@fileParam, @idParam, @readParam, @editParam, @downloadParam)";
+                                MySqlCommand myPermCommand = new MySqlCommand(executePermQuery, con);
+                                myPermCommand.Parameters.AddWithValue("@fileParam", fileID);
+                                myPermCommand.Parameters.AddWithValue("@idParam", Logininfo.userid);
+                                myPermCommand.Parameters.AddWithValue("@readParam", 1);
+                                myPermCommand.Parameters.AddWithValue("@editParam", 1);
+                                myPermCommand.Parameters.AddWithValue("@downloadParam", 1);
+                                myPermCommand.ExecuteNonQuery();
+
                                 success = true;
 
                             }
