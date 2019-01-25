@@ -381,19 +381,20 @@ namespace DataAsGuard.Profiles
                 }
 
                 reader.Close();
+
+
+                //The first 2 values("WebAPI ID", "WebAPI Password") in the string input below are Commzgate Web API account details which will differ between different accounts used
+                //string response = OTPStr("102150002", "DataAsguard1", "65" + hpnumber, "Your One-Time-Password for DataAsguard is *OTP*");
+                //Retrieve the back value
+                //OTPReturn = response.Substring(Math.Max(0, response.Length - 5));
+
+                OTPReturn = "12345"; //(Testing purposes to prevent wasting of the messages)
+                //If OTP doesn't send after a period of time, replace the 2 API details above with new ones from the list below
+                //Here is a list of unused WebAPI account details I prepared and created that still have 10 SMS credits each. 
+                //WebAPI ID: 101510002     WebAPI Password: DataAsguard1 (Used Up)
+                //WebAPI ID: 102150002     WebAPI Password: Data@sguard1an   (Currently in use above)
+
             }
-
-            //The first 2 values("WebAPI ID", "WebAPI Password") in the string input below are Commzgate Web API account details which will differ between different accounts used
-            //string response = OTPStr("101510002", "DataAsguard1", "65" + hpnumber, "Your One-Time-Password for DataAsguard is *OTP*");
-            //Retrieve the back value
-            //OTPReturn = response.Substring(Math.Max(0, response.Length - 5));
-
-            OTPReturn = "12345"; //(Testing purposes to prevent wasting of the messages)
-                                 //If OTP doesn't send after a period of time, replace the 2 API details above with new ones from the list below
-                                 //Here is a list of unused WebAPI account details I prepared and created that still have 10 SMS credits each. 
-                                 //WebAPI ID: 101510002     WebAPI Password: DataAsguard1 (Currently in use above)
-                                 //WebAPI ID: 102150002     WebAPI Password: Data@sguard1an   
-
         }
 
         public static string OTPStr(string ID, string Password, string mobile, string msg)

@@ -71,14 +71,14 @@ namespace DataAsGuard.FileManagement
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
+                    userList.Items.Add(reader["fullName"].ToString());
                     for (int i = 0; i < groupMembers.Items.Count; i++)
                     {
                         if (reader["fullName"].ToString() == groupMembers.Items[i].ToString())
                         {
-                            continue;
+                            userList.Items.RemoveAt(userList.Items.Count - 1);
                         }
                     }
-                    userList.Items.Add(reader["fullName"].ToString());
                 }
                 reader.Close();
                 con.Close();
@@ -121,10 +121,10 @@ namespace DataAsGuard.FileManagement
                     String getGroupIDQuery = "SELECT * FROM groupInfo WHERE groupName = @nameParam";
                     MySqlCommand getGroupcmd = new MySqlCommand(getGroupIDQuery, con);
                     getGroupcmd.Parameters.AddWithValue("@nameParam", this.groupName_Text.Text);
-                    MySqlDataReader reader3 = getUsercmd.ExecuteReader();
+                    MySqlDataReader reader3 = getGroupcmd.ExecuteReader();
                     if (reader3.Read())
                     {
-                        groupID = Convert.ToInt32(reader["groupID"]);
+                        groupID = Convert.ToInt32(reader3["groupID"]);
                     }
                     reader3.Close();
 
@@ -176,17 +176,16 @@ namespace DataAsGuard.FileManagement
                     {
                         userExists = true;
                     }
-
+                    reader2.Close();
                     if (userExists)
                     {
                         String executeQuery = "DELETE FROM groupUsers WHERE groupName = @nameParam AND userID = @userParam)";
                         MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
-                        checkUserCmd.Parameters.AddWithValue("@nameParam", this.groupName_Text.Text);
-                        checkUserCmd.Parameters.AddWithValue("@userParam", userID);
+                        myCommand.Parameters.AddWithValue("@nameParam", this.groupName_Text.Text);
+                        myCommand.Parameters.AddWithValue("@userParam", userID);
                         myCommand.ExecuteNonQuery();
                         dblog.Log("Member  '" + groupMembers.Items[i].ToString() + "' removed from "+ this.groupName_Text.Text+".", "GroupChanges", Logininfo.userid.ToString(), Logininfo.email.ToString());
                     }
-
                 }
                 success = true;
                 con.Close();
@@ -200,7 +199,7 @@ namespace DataAsGuard.FileManagement
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
-                String executeQuery = "UPDATE groupInfo SET groupDesc = @groupDescParam, groupName = @groupNameParam WHERE groupName = @originalGroupParam)";
+                String executeQuery = "UPDATE groupInfo SET groupDesc = @groupDescParam, groupName = @groupNameParam WHERE groupName = @originalGroupParam";
                 MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
                 myCommand.Parameters.AddWithValue("@originalGroupParam", originalGroupName);
                 myCommand.Parameters.AddWithValue("@groupNameParam", this.groupName_Text.Text);

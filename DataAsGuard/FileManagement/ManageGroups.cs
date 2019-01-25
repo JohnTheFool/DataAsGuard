@@ -194,6 +194,7 @@ namespace DataAsGuard.FileManagement
                         newCreatorID = Convert.ToInt32(reader["userid"]);
                     }
                     reader.Close();
+
                     String updateOwnerQuery = "UPDATE groupInfo SET groupCreator = @nameParam, groupCreatorID = @IDParam WHERE groupName = @groupParam";
                     MySqlCommand updateOwnerCmd = new MySqlCommand(updateOwnerQuery, con);
                     updateOwnerCmd.Parameters.AddWithValue("@nameParam", curItem);

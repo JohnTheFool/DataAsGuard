@@ -160,7 +160,7 @@ namespace DataAsGuard.FileManagement
                     }
                     permreader2.Close();
 
-                    for (int i = 0; i < userPermRow.Count - 1; i += 3)
+                    for (int i = 0; i < userPermRow.Count - 3; i += 4)
                     {
                         //Get user name from userID
                         String userQuery = "SELECT * FROM Userinfo WHERE userid = @idParam";
@@ -197,7 +197,7 @@ namespace DataAsGuard.FileManagement
                         newRow.Clear();
                     }
 
-                    for (int i = 0; i < groupPermRow.Count - 1; i += 3)
+                    for (int i = 0; i < groupPermRow.Count - 3; i += 4)
                     {
                         //Get group name from groupID
                         String groupQuery = "SELECT * FROM groupInfo WHERE groupID = @idParam";

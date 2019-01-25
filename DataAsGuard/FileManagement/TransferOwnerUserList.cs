@@ -56,7 +56,7 @@ namespace DataAsGuard.FileManagement
                     MySqlDataReader reader2 = getFileIDCmd.ExecuteReader();
                     if (reader2.Read())
                     {
-                        fileID = Convert.ToInt32(reader["fileID"]);
+                        fileID = Convert.ToInt32(reader2["fileID"]);
                     }
                     reader2.Close();
 
