@@ -24,6 +24,30 @@ namespace DataAsGuard.Profiles.Users
         private void profile_Shown(Object sender, EventArgs e)
         {
             userdataRetrieval();
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Logininfo.GetIdleTime() >= 10000 && Logininfo.GetIdleTime() < 10100)
+            {   //30 secs, Time to wait before locking
+                
+                Logininfo.userid = null;
+                Logininfo.email = null;
+                Logininfo.username = null;
+                FormCollection fc = Application.OpenForms;
+
+                foreach (Form frm in fc)
+                {
+                    frm.Hide();
+                }
+                Login login = new Login();
+                login.Show();
+                Hide();
+
+                MessageBox.Show("Due to idling, you have been log out.");
+                timer1.Stop();
+            }
         }
 
         private void userdataRetrieval()

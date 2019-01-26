@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Profile));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -48,6 +49,7 @@
             this.ProfileButton = new System.Windows.Forms.Button();
             this.home = new System.Windows.Forms.Button();
             this.Logout = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -270,6 +272,11 @@
             this.Logout.UseVisualStyleBackColor = true;
             this.Logout.Click += new System.EventHandler(this.Logout_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Profile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -314,5 +321,6 @@
         private System.Windows.Forms.Label DOB;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button Logout;
+        private System.Windows.Forms.Timer timer1;
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminProfile));
             this.AddUser = new System.Windows.Forms.Button();
             this.AdminHome = new System.Windows.Forms.Button();
@@ -72,6 +73,7 @@
             this.suspiciousLabel = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.metaAdmin = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabPage2.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLogGrid)).BeginInit();
@@ -585,6 +587,11 @@
             this.metaAdmin.UseVisualStyleBackColor = true;
             this.metaAdmin.Click += new System.EventHandler(this.metaAdmin_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // AdminProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -676,5 +683,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label suspiciousLabel;
         private System.Windows.Forms.Button metaAdmin;
+        private System.Windows.Forms.Timer timer1;
     }
 }
