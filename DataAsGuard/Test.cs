@@ -98,6 +98,41 @@ namespace DataAsGuard
                 }
             }
 
+        private string CheckWriteOnly(string userId ,string fileName)
+        {
+            string isWrite = "";
+            string fileId = "";
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String fileIdQuery = "SELECT * FROM da_schema.fileInfo WHERE fileName = @nameParam";
+                MySqlCommand getFileIdcmd = new MySqlCommand(fileIdQuery, con);
+                getFileIdcmd.Parameters.AddWithValue("@nameParam", fileName);
+                MySqlDataReader reader = getFileIdcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileId = reader["fileId"].ToString();
+                }
+                reader.Close();
+
+                //MessageBox.Show(fileId);
+
+                String fileWritePermQuery = "SELECT * FROM da_schema.userFilePermissions WHERE fileID = @fileParam AND userID = @userIdParam";
+                MySqlCommand getFilePermcmd = new MySqlCommand(fileWritePermQuery, con);
+                getFilePermcmd.Parameters.AddWithValue("@fileParam", fileId);
+                getFilePermcmd.Parameters.AddWithValue("@userIdParam", userId);
+                MySqlDataReader reader2 = getFilePermcmd.ExecuteReader();
+                if (reader2.Read())
+                {
+                    isWrite = reader2["editPermission"].ToString();
+                }
+                //MessageBox.Show(isWrite);
+                reader2.Close();
+                con.Close();
+                return isWrite;
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if(IsFileLock(@"C:\Users\Solomon\Documents\TEST\somerubbish.xlsx") == true)
@@ -253,15 +288,69 @@ namespace DataAsGuard
             //MessageBox.Show(GetIPAddress());
         }
 
+        private string CheckWriteOnlyGroup(string fileName)
+        {
+            string isWrite = "";
+            List<string> groupIdList = new List<string>();
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+
+                // Get FIle ID
+                string fileId = "";
+                String fileIdQuery = "SELECT * FROM da_schema.fileInfo WHERE fileName = @nameParam";
+                MySqlCommand getFileIdcmd = new MySqlCommand(fileIdQuery, con);
+                getFileIdcmd.Parameters.AddWithValue("@nameParam", fileName);
+                MySqlDataReader reader = getFileIdcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileId = reader["fileId"].ToString();
+                }
+                reader.Close();
+                MessageBox.Show(fileId);
+
+                // Get Group ID
+                String grpIdQuery = "SELECT * FROM da_schema.groupUsers WHERE userID = @userParam";
+                MySqlCommand getFileIdcmd2 = new MySqlCommand(grpIdQuery, con);
+                getFileIdcmd.Parameters.AddWithValue("@userParam", "4");
+                MySqlDataReader reader2 = getFileIdcmd.ExecuteReader();
+                if (reader2.Read())
+                {
+                    groupIdList.Add(reader["groupID"].ToString());
+                    foreach (string i in groupIdList)
+                    {
+                        MessageBox.Show(i);
+                    }
+
+                }
+                reader.Close();
+                MessageBox.Show(groupIdList.ToString());
+
+                // Get Perms
+                //String fileWritePermQuery = "SELECT * FROM da_schema.groupFilePermissions WHERE groupID = @groupIdParam AND fileID = @fileIdParam";
+                //MySqlCommand getFilePermcmd = new MySqlCommand(fileWritePermQuery, con);
+                //getFilePermcmd.Parameters.AddWithValue("@fileIdParam", fileId);
+                //getFilePermcmd.Parameters.AddWithValue("@groupIdParam", groupId);
+                //MySqlDataReader reader2 = getFilePermcmd.ExecuteReader();
+                //if (reader2.Read())
+                //{
+                //    isWrite = reader2["editPermission"].ToString();
+                //}
+                //reader2.Close();
+                con.Close();
+                return isWrite;
+            }
+        }
+
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (IsFileLock(@"C:\Users\Solomon\AppData\Local\Temp\tmp8D32.tmp..xlsx") == true)
+            if (CheckWriteOnlyGroup("Excel Schedule.xlsx") == "True")
             {
-                MessageBox.Show("Open");
+                MessageBox.Show("TRUE");
             }
             else
             {
-                MessageBox.Show("Close");
+                MessageBox.Show("False");
             }
         }
 

@@ -407,6 +407,75 @@ namespace DataAsGuard.FileManagement
             return success;
         }
 
+        private string CheckWriteOnlyUser(string userId, string fileName)
+        {
+            string isWrite = "";
+            string fileId = "";
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String fileIdQuery = "SELECT fileID FROM da_schema.fileInfo WHERE fileName = @nameParam";
+                MySqlCommand getFileIdcmd = new MySqlCommand(fileIdQuery, con);
+                getFileIdcmd.Parameters.AddWithValue("@nameParam", fileName);
+                MySqlDataReader reader = getFileIdcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileId = reader["fileId"].ToString();
+                }
+                reader.Close();
+
+                String fileWritePermQuery = "SELECT editPermission FROM da_schema.userFilePermissions WHERE fileID = @fileParam AND userID = @userIdParam";
+                MySqlCommand getFilePermcmd = new MySqlCommand(fileWritePermQuery, con);
+                getFilePermcmd.Parameters.AddWithValue("@fileParam", fileId);
+                getFilePermcmd.Parameters.AddWithValue("@userIdParam", userId);
+                MySqlDataReader reader2 = getFilePermcmd.ExecuteReader();
+                if (reader2.Read())
+                {
+                    isWrite = reader2["editPermission"].ToString();
+                }
+                reader2.Close();
+                con.Close();
+                return isWrite;
+            }
+        }
+
+        private string CheckWriteOnlyGroup(string groupId, string fileName)
+        {
+            string isWrite = "";
+            List<string> fileId = new List<string>();
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String fileIdQuery = "SELECT * FROM da_schema.groupUsers WHERE userID = @userParam";
+                MySqlCommand getFileIdcmd = new MySqlCommand(fileIdQuery, con);
+                getFileIdcmd.Parameters.AddWithValue("@userParam", CSClass.Logininfo.userid);
+                MySqlDataReader reader = getFileIdcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileId.Add(reader["groupID"].ToString());
+                    foreach(string i in fileId)
+                    {
+                        
+                    }
+                    
+                }
+                reader.Close();
+
+                String fileWritePermQuery = "SELECT editPermission FROM da_schema.groupFilePermissions WHERE fileID = @fileParam AND groupID = @groupIdParam";
+                MySqlCommand getFilePermcmd = new MySqlCommand(fileWritePermQuery, con);
+                getFilePermcmd.Parameters.AddWithValue("@fileParam", fileId);
+                getFilePermcmd.Parameters.AddWithValue("@groupIdParam", groupId);
+                MySqlDataReader reader2 = getFilePermcmd.ExecuteReader();
+                if (reader2.Read())
+                {
+                    isWrite = reader2["editPermission"].ToString();
+                }
+                reader2.Close();
+                con.Close();
+                return isWrite;
+            }
+        }
+
         //public string nameOfFile { get; set; }
         //public string fileExtension { get;  set; }
         //public string tempFileName { get; set; }
@@ -464,6 +533,15 @@ namespace DataAsGuard.FileManagement
                     else if (fileExtension == ".doc" || fileExtension == ".docx")
                     {
                         object readOnly = false;
+                        string isWrite = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
+                        if (isWrite == "True")
+                        {
+                            readOnly = false;
+                        }
+                        else
+                        {
+                            readOnly = true;
+                        }
                         object fileName = tempFileName;
                         object missing = System.Reflection.Missing.Value;
                         var applicationWord = new Microsoft.Office.Interop.Word.Application();
@@ -479,7 +557,17 @@ namespace DataAsGuard.FileManagement
                     }
                     else if (fileExtension == ".xlsx")
                     {
-                        object readOnly = true;
+                        object readOnly = false;
+                        string isWriteUser = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
+                        //string isWriteGroup = CheckWriteOnlyGroup(, nameOfFile);
+                        if (isWriteUser == "True")
+                        {
+                            readOnly = false;
+                        }
+                        else
+                        {
+                            readOnly = true;
+                        }
                         string fileName = tempFileName;
                         object missing = System.Reflection.Missing.Value;
                         var applicationExcel = new Microsoft.Office.Interop.Excel.Application();
@@ -490,6 +578,15 @@ namespace DataAsGuard.FileManagement
                     {
                         string fileName = tempFileName;
                         MsoTriState readOnly = MsoTriState.msoTrue;
+                        string isWrite = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
+                        if (isWrite == "True")
+                        {
+                            readOnly = MsoTriState.msoFalse;
+                        }
+                        else
+                        {
+                            readOnly = MsoTriState.msoTrue;
+                        }
                         object missing = System.Reflection.Missing.Value;
                         Microsoft.Office.Interop.PowerPoint.Application applicationPPT = new Microsoft.Office.Interop.PowerPoint.Application();
                         applicationPPT.Presentations.Open(fileName, readOnly, MsoTriState.msoTrue, MsoTriState.msoTrue);
