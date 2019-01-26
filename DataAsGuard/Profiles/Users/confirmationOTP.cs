@@ -16,7 +16,6 @@ namespace DataAsGuard.Profiles.Users
 {
     public partial class confirmationOTP : Form
     {
-
         static Stopwatch sw;
         private string hpnumber;
         private static double timeElapsed;

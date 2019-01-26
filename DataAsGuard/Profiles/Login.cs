@@ -138,7 +138,7 @@ namespace DataAsGuard.Profiles
                     {
                         validation.Show();
                         validation.ForeColor = Color.Red;
-                        validation.Text = "Incorrect Email or Password.";
+                        validation.Text = "Incorrect Username or Password.";
                         FailureAttempts = 0;
                         //if fail logon due to password with username
                         //Add username into array which act as a counter if more than 6 of the same username appear in the array that the user key in the text field
@@ -174,7 +174,7 @@ namespace DataAsGuard.Profiles
                         //log wrong password attempts on wrong username.
                         dblog.Log("Failure to Login User (Wrong username): " + username, "LogonFailure", "null", "null");
                     }
-                    //if email found, check if it is lock account and whether it has the correct password
+                    //if username found, check if it is lock account and whether it has the correct password
                     else
                     {
                         if (checkvflag == "L")
@@ -204,7 +204,7 @@ namespace DataAsGuard.Profiles
                                 {
                                     validation.Show();
                                     validation.ForeColor = Color.Red;
-                                    validation.Text = "Incorrect Email or Password.";
+                                    validation.Text = "Incorrect Username or Password.";
                                     passwordcheck = 0;
                                     //log if wrong password for particular user.
                                     dblog.Log("Failure to Login User (Wrong Password): " + username, "LogonFailure", userid.ToString(), email);
@@ -351,7 +351,7 @@ namespace DataAsGuard.Profiles
                 {
                     validation.Show();
                     validation.ForeColor = Color.Red;
-                    validation.Text = "Incorrect Email or Password.";
+                    validation.Text = "Incorrect Username or Password.";
                 }
             }
         }
