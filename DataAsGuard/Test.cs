@@ -100,7 +100,14 @@ namespace DataAsGuard
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show( stupid(@"C:\Users\Solomon\Documents\TEST\shitshit.docx"));
+            if(IsFileLock(@"C:\Users\Solomon\Documents\TEST\somerubbish.xlsx") == true)
+            {
+                MessageBox.Show("Open");
+            }
+            else
+            {
+                MessageBox.Show("Close");
+            }
             //PdfReader reader = new PdfReader(@"C:\Users\Solomon\Documents\TEST\test.pdf");
             //iTextSharp.text.Rectangle size = reader.GetPageSizeWithRotation(1);
             //Document document = new Document(size);
@@ -244,6 +251,18 @@ namespace DataAsGuard
         private void button3_Click(object sender, EventArgs e)
         {
             //MessageBox.Show(GetIPAddress());
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (IsFileLock(@"C:\Users\Solomon\AppData\Local\Temp\tmp8D32.tmp..xlsx") == true)
+            {
+                MessageBox.Show("Open");
+            }
+            else
+            {
+                MessageBox.Show("Close");
+            }
         }
 
         //protected string GetIPAddress()

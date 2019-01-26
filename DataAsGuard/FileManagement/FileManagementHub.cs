@@ -374,6 +374,39 @@ namespace DataAsGuard.FileManagement
             await System.Threading.Tasks.Task.Delay(5000);
         }
 
+        private Boolean UpdateFileToDb(string readFile,string fileName)
+        {
+            byte[] fileBytes = null;
+            Boolean success = false;
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                    try
+                    {
+                        fileBytes = File.ReadAllBytes(readFile);
+                        String executeQuery = "UPDATE da_schema.fileInfo SET file = @fileParam WHERE fileName = @fileName";
+                        MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
+                        myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
+                        myCommand.Parameters.AddWithValue("@fileName", fileName);
+                        myCommand.ExecuteNonQuery();
+                        success = true;
+                    }
+                    catch (IOException)
+                    {
+                        MessageBox.Show("Error file could not be read, please try again.");
+                        success = false;
+                    }
+                con.Close();
+            }
+
+            //if (success)
+            //{
+            //    dblog.fileLog("File '" + fileName + "' uploaded to database.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
+            //}
+
+            return success;
+        }
+
         //public string nameOfFile { get; set; }
         //public string fileExtension { get;  set; }
         //public string tempFileName { get; set; }
@@ -385,9 +418,11 @@ namespace DataAsGuard.FileManagement
             string nameOfFile = fileList.SelectedItem.ToString();
             string fileExtension = Path.GetExtension(nameOfFile);
             tempFileName = Path.GetTempFileName() + "." + fileExtension;
-            //if (IsFileLock(tempFileName) == false)
-            //{
-            if (CheckFileLock(nameOfFile) == false)
+            if (IsFileLock(tempFileName) == true)
+            {
+                MessageBox.Show("open");
+            }
+                if (CheckFileLock(nameOfFile) == false)
             {
                 setLock(nameOfFile);
                 byte[] fileBytes = new byte[] { 0x0 };
@@ -428,7 +463,7 @@ namespace DataAsGuard.FileManagement
                     }
                     else if (fileExtension == ".doc" || fileExtension == ".docx")
                     {
-                        object readOnly = true;
+                        object readOnly = false;
                         object fileName = tempFileName;
                         object missing = System.Reflection.Missing.Value;
                         var applicationWord = new Microsoft.Office.Interop.Word.Application();
@@ -466,6 +501,7 @@ namespace DataAsGuard.FileManagement
                         //var process = Process.Start(tempFileName);
                         //process.Exited += new EventHandler(process_Exited);
                     }
+                    MessageBox.Show(tempFileName);
                     dblog.fileLog("Opened file '" + fileList.SelectedItem.ToString() + "'.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
                     if (fileExtension == ".docx" || fileExtension == ".xlsx" || fileExtension == ".pptx" || fileExtension == ".txt")
                     {
@@ -474,7 +510,17 @@ namespace DataAsGuard.FileManagement
                         {
 
                         }
+                        if (IsFileLock(tempFileName) == true)
+                        {
+                            MessageBox.Show("open");
+                        }
                     }
+                    if (IsFileLock(tempFileName) == false)
+                    {
+                        MessageBox.Show("close");
+                    }
+                    //MessageBox.Show(nameOfFile);
+                    UpdateFileToDb(tempFileName, nameOfFile);
                     releaseLock(nameOfFile);
                 }
             }
