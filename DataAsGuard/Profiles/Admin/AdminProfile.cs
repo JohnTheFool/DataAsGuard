@@ -29,6 +29,8 @@ namespace DataAsGuard.Profiles.Admin
             retrieveAccounts();
             retrieveLogs();
             retrieveFiles();
+            //meant for suspiciouslabel
+            suspiciousdetails();
             timer1.Start();
         }
 
@@ -720,6 +722,29 @@ namespace DataAsGuard.Profiles.Admin
             dataLogGrid.Rows.Clear();
             dataLogGrid.Refresh();
             retrieveLogs2(logListvalue);
+        }
+
+        //can be expanded but mainly for suspicious activity
+        private void suspiciousdetails()
+        {
+            int count = 0;
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM logInfo";
+                MySqlCommand command = new MySqlCommand(query, con);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetString(reader.GetOrdinal("logInfo")).Contains("Suspicious"))
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+            suspiciousLabel.Text = count.ToString();
         }
 
         //buttons 

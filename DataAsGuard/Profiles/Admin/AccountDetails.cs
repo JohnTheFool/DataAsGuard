@@ -365,9 +365,9 @@ namespace DataAsGuard.Profiles.Admin
                 {
                     while (reader.Read())
                     {
+                        bool contains = false;
                         for (int i = 0; i < filelist.Count; i++)
                         {
-                            bool contains = false;
                             if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileid")))
                             {
                                 contains = true;
@@ -387,45 +387,45 @@ namespace DataAsGuard.Profiles.Admin
                         reader.Close();
                 }
 
-                String query2 = "SELECT * FROM fileInfo where fileOwnerID = @userid";
-                MySqlCommand command2 = new MySqlCommand(query2, con);
-                command2.Parameters.AddWithValue("@userid", AdminSession.userid);
-                using (MySqlDataReader reader = command2.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        if (filelist.Count == 0)
-                        {
-                            filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
-                            permissionlist.Add("True");
-                            permissionlist.Add("True");
-                            permissionlist.Add("True");
-                        }
-                        else
-                        {
-                            for (int i = 0; i < filelist.Count; i++)
-                            {
+                //String query2 = "SELECT * FROM fileInfo where fileOwnerID = @userid";
+                //MySqlCommand command2 = new MySqlCommand(query2, con);
+                //command2.Parameters.AddWithValue("@userid", AdminSession.userid);
+                //using (MySqlDataReader reader = command2.ExecuteReader())
+                //{
+                //    while (reader.Read())
+                //    {
+                //        if (filelist.Count == 0)
+                //        {
+                //            filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                //            permissionlist.Add("True");
+                //            permissionlist.Add("True");
+                //            permissionlist.Add("True");
+                //        }
+                //        else
+                //        {
+                //            for (int i = 0; i < filelist.Count; i++)
+                //            {
 
-                                bool contains = false;
-                                if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileid")))
-                                {
-                                    contains = true;
-                                }
+                //                bool contains = false;
+                //                if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileid")))
+                //                {
+                //                    contains = true;
+                //                }
 
-                                if (contains == false && i == filelist.Count - 1)
-                                {
-                                    filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
-                                    permissionlist.Add("True");
-                                    permissionlist.Add("True");
-                                    permissionlist.Add("True");
-                                }
-                            }
-                        }
-                    }
+                //                if (contains == false && i == filelist.Count - 1)
+                //                {
+                //                    filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                //                    permissionlist.Add("True");
+                //                    permissionlist.Add("True");
+                //                    permissionlist.Add("True");
+                //                }
+                //            }
+                //        }
+                //    }
 
-                    if (reader != null)
-                        reader.Close();
-                }
+                //    if (reader != null)
+                //        reader.Close();
+                //}
 
                 String query3 = "SELECT * FROM fileInfo";
                 MySqlCommand command3 = new MySqlCommand(query3, con);
