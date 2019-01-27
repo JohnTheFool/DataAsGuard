@@ -27,7 +27,7 @@ namespace DataAsGuard.Chat
         public Chat(string user)
         {
             InitializeComponent();
-            if ((ListBox.NoMatches != userList.FindStringExact(user)))
+            if ((ListBox.NoMatches == userList.FindStringExact(user)))
             {
                 userList.Items.Add(user);
             }
@@ -46,13 +46,14 @@ namespace DataAsGuard.Chat
                         if (messagelist[i].Sender == Logininfo.userid)
                         {
                             richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
-                            richTextBox1.AppendText(messagelist[i].MessageText);
+                            richTextBox1.AppendText(getNameOfId(Logininfo.userid) + ":" + Environment.NewLine + messagelist[i].MessageText);
+                            
                         }
                         else
                         {
                             richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
-                            richTextBox1.AppendText(messagelist[i].MessageText);
-
+                            richTextBox1.AppendText(username.Text + ":" + Environment.NewLine + messagelist[i].MessageText);
+                           
                         }
                         richTextBox1.AppendText(Environment.NewLine);
                     }
@@ -863,12 +864,19 @@ namespace DataAsGuard.Chat
                     if (messagelist[i].Sender == Logininfo.userid)
                     {
                         richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
-                        richTextBox1.AppendText(messagelist[i].MessageText);
+                        richTextBox1.AppendText( getNameOfId(Logininfo.userid) + ":" + Environment.NewLine + messagelist[i].MessageText);
                     }
                     else
                     {
+                        //Label label = new Label();
+                        //label.Location = new System.Drawing.Point(5, 5);
+                        //label.Size = new System.Drawing.Size(110, 25);
+                        //label.Text = messagelist[i].MessageText;
                         richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
-                        richTextBox1.AppendText(messagelist[i].MessageText);
+                        //richTextBox1.Controls.Add(label);
+                        //richTextBox1.SelectionColor = System.Drawing.Color.White;
+                        //richTextBox1.SelectionBackColor = System.Drawing.Color.Blue;
+                        richTextBox1.AppendText(username.Text + ":" + Environment.NewLine + messagelist[i].MessageText );
 
                     }
                     richTextBox1.AppendText(Environment.NewLine);

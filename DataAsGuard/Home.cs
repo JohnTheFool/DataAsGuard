@@ -122,6 +122,7 @@ namespace DataAsGuard
         {
             DataAsGuard.Chat.Chat chat = new DataAsGuard.Chat.Chat();
             chat.Show();
+            Hide();
         }
 
         private void metaAdmin_Click(object sender, EventArgs e)
