@@ -374,7 +374,7 @@ namespace DataAsGuard.FileManagement
             await System.Threading.Tasks.Task.Delay(5000);
         }
 
-        private Boolean UpdateFileToDb(string readFile,string fileName)
+        public Boolean UpdateFileToDb(string readFile,string fileName)
         {
             byte[] fileBytes = null;
             Boolean success = false;
@@ -518,10 +518,10 @@ namespace DataAsGuard.FileManagement
             string nameOfFile = fileList.SelectedItem.ToString();
             string fileExtension = Path.GetExtension(nameOfFile);
             tempFileName = Path.GetTempFileName() + "." + fileExtension;
-            if (IsFileLock(tempFileName) == true)
-            {
-                MessageBox.Show("open");
-            }
+            //if (IsFileLock(tempFileName) == true)
+            //{
+            //    MessageBox.Show("open");
+            //}
                 if (CheckFileLock(nameOfFile) == false)
             {
                 setLock(nameOfFile);
@@ -541,9 +541,26 @@ namespace DataAsGuard.FileManagement
                     File.WriteAllBytes(tempFileName, fileBytes);
                     if (fileExtension == ".txt")
                     {
+                        object readOnly = false;
+                        string isWriteGroup = "";
+                        string isWrite = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
+                        string fileId = GetFileId(nameOfFile);
+                        List<string> groupId = GetGroupId(CSClass.Logininfo.userid);
+                        //CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+                        for (int i = 0; i < groupId.Count; i++)
+                        {
+                            if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+                            {
+                                isWriteGroup = "True";
+                            }
+                        }
                         string hu = File.ReadAllText(tempFileName); ;
                         DocEd dd = new DocEd();
                         dd.GetText = hu;
+                        dd.GetIsWriteUser = isWrite;
+                        dd.GetIsWriteGroup = isWriteGroup;
+                        dd.GetReadFile = tempFileName;
+                        dd.GetSaveFile = nameOfFile;
                         dd.Show();
                         this.Hide();
                     }
@@ -564,8 +581,19 @@ namespace DataAsGuard.FileManagement
                     else if (fileExtension == ".doc" || fileExtension == ".docx")
                     {
                         object readOnly = false;
+                        string isWriteGroup = "";
                         string isWrite = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
-                        if (isWrite == "True")
+                        string fileId = GetFileId(nameOfFile);
+                        List<string> groupId = GetGroupId(CSClass.Logininfo.userid);
+                        //CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+                        for (int i = 0; i < groupId.Count; i++)
+                        {
+                            if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+                            {
+                                isWriteGroup = "True";
+                            }
+                        }
+                        if (isWrite == "True" || isWriteGroup == "True")
                         {
                             readOnly = false;
                         }
@@ -620,9 +648,20 @@ namespace DataAsGuard.FileManagement
                     else if (fileExtension == ".pptx")
                     {
                         string fileName = tempFileName;
-                        MsoTriState readOnly = MsoTriState.msoTrue;
+                        string isWriteGroup = "";
+                        MsoTriState readOnly = MsoTriState.msoFalse;
                         string isWrite = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
-                        if (isWrite == "True")
+                        string fileId = GetFileId(nameOfFile);
+                        List<string> groupId = GetGroupId(CSClass.Logininfo.userid);
+                        //CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+                        for (int i = 0; i < groupId.Count; i++)
+                        {
+                            if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+                            {
+                                isWriteGroup = "True";
+                            }
+                        }
+                        if (isWrite == "True" || isWriteGroup == "True")
                         {
                             readOnly = MsoTriState.msoFalse;
                         }
@@ -651,7 +690,6 @@ namespace DataAsGuard.FileManagement
 
                         }
                         UpdateFileToDb(tempFileName, nameOfFile);
-                        releaseLock(nameOfFile);
                         //if (IsFileLock(tempFileName) == true)
                         //{
                         //    MessageBox.Show("open");
@@ -661,6 +699,7 @@ namespace DataAsGuard.FileManagement
                     //{
                     //    MessageBox.Show("close");
                     //}
+                    releaseLock(nameOfFile);
                     //MessageBox.Show(nameOfFile);
                 }
             }

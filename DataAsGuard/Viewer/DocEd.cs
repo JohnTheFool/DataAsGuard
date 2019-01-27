@@ -24,6 +24,14 @@ namespace DataAsGuard.Viewer
     {
         public string GetText { get; set; }
 
+        public string GetReadFile { get; set; }
+
+        public string GetSaveFile { get; set; }
+
+        public string GetIsWriteUser { get; set; }
+
+        public string GetIsWriteGroup { get; set; }
+
         public string GetUsername { get; set; }
 
         public DocEd()
@@ -139,6 +147,21 @@ namespace DataAsGuard.Viewer
         private void DocEd_Load(object sender, EventArgs e)
         {
             rtfBox.Text = this.GetText;
+            underlineBtn.Hide();
+            italicBtn.Hide();
+            boldBtn.Hide();
+            pColor.Hide();
+            btnSave.Hide();
+            testBtn.Hide();
+            colorSelectBtn.Hide();
+            if (this.GetIsWriteUser == "True" || this.GetIsWriteGroup == "True")
+            {
+                rtfBox.ReadOnly = false;
+            }
+            else
+            {
+                rtfBox.ReadOnly = true;
+            }
             //FileManagement.FileManagementHub n = new FileManagement.FileManagementHub();
             //string something = n.store;
             //Console.WriteLine(something);
@@ -239,110 +262,110 @@ namespace DataAsGuard.Viewer
             return totaltext;
         }
 
-        public void CreateDocument(string content, object filename)
-        {
-            try
-            {
-                //Create an instance for word app
-                Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
+        //public void CreateDocument(string content, object filename)
+        //{
+        //    try
+        //    {
+        //        //Create an instance for word app
+        //        Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
 
-                //Set animation status for word application
-                winword.ShowAnimation = false;
+        //        //Set animation status for word application
+        //        winword.ShowAnimation = false;
 
-                //Set status for word application is to be visible or not.
-                winword.Visible = false;
+        //        //Set status for word application is to be visible or not.
+        //        winword.Visible = false;
 
-                //Create a missing variable for missing value
-                object missing = System.Reflection.Missing.Value;
+        //        //Create a missing variable for missing value
+        //        object missing = System.Reflection.Missing.Value;
 
-                //Create a new document
-                Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+        //        //Create a new document
+        //        Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
 
-                //Add header into the document
-                //foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
-                //{
-                //    //Get the header range and add the header details.
-                //    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                //    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                //    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                //    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
-                //    headerRange.Font.Size = 10;
-                //    headerRange.Text = header;
-                //}
+        //        //Add header into the document
+        //        //foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+        //        //{
+        //        //    //Get the header range and add the header details.
+        //        //    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+        //        //    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+        //        //    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+        //        //    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+        //        //    headerRange.Font.Size = 10;
+        //        //    headerRange.Text = header;
+        //        //}
 
-                //Add the footers into the document
-                //foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
-                //{
-                //    //Get the footer range and add the footer details.
-                //    Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                //    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
-                //    footerRange.Font.Size = 10;
-                //    footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                //    footerRange.Text = footer;
-                //}
+        //        //Add the footers into the document
+        //        //foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
+        //        //{
+        //        //    //Get the footer range and add the footer details.
+        //        //    Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+        //        //    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
+        //        //    footerRange.Font.Size = 10;
+        //        //    footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+        //        //    footerRange.Text = footer;
+        //        //}
 
-                //adding text to document
-                document.Content.SetRange(0, 0);
-                document.Content.Text = content;
+        //        //adding text to document
+        //        document.Content.SetRange(0, 0);
+        //        document.Content.Text = content;
 
-                //Add paragraph with Heading 1 style
-                //Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
-                //object styleHeading1 = "Heading 1";
-                //para1.Range.set_Style(ref styleHeading1);
-                //para1.Range.Text = "Para 1 text";
-                //para1.Range.InsertParagraphAfter();
+        //        //Add paragraph with Heading 1 style
+        //        //Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+        //        //object styleHeading1 = "Heading 1";
+        //        //para1.Range.set_Style(ref styleHeading1);
+        //        //para1.Range.Text = "Para 1 text";
+        //        //para1.Range.InsertParagraphAfter();
 
-                ////Add paragraph with Heading 2 style
-                //Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-                //object styleHeading2 = "Heading 2";
-                //para2.Range.set_Style(ref styleHeading2);
-                //para2.Range.Text = "Para 2 text";
-                //para2.Range.InsertParagraphAfter();
+        //        ////Add paragraph with Heading 2 style
+        //        //Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+        //        //object styleHeading2 = "Heading 2";
+        //        //para2.Range.set_Style(ref styleHeading2);
+        //        //para2.Range.Text = "Para 2 text";
+        //        //para2.Range.InsertParagraphAfter();
 
-                //Create a 5X5 table and insert some dummy record
-                //Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
+        //        //Create a 5X5 table and insert some dummy record
+        //        //Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
 
-                //firstTable.Borders.Enable = 1;
-                //foreach (Row row in firstTable.Rows)
-                //{
-                //    foreach (Cell cell in row.Cells)
-                //    {
-                //        //Header row
-                //        if (cell.RowIndex == 1)
-                //        {
-                //            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
-                //            cell.Range.Font.Bold = 1;
-                //            //other format properties goes here
-                //            cell.Range.Font.Name = "verdana";
-                //            cell.Range.Font.Size = 10;
-                //            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                            
-                //            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
-                //            //Center alignment for the Header cells
-                //            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                //            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+        //        //firstTable.Borders.Enable = 1;
+        //        //foreach (Row row in firstTable.Rows)
+        //        //{
+        //        //    foreach (Cell cell in row.Cells)
+        //        //    {
+        //        //        //Header row
+        //        //        if (cell.RowIndex == 1)
+        //        //        {
+        //        //            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
+        //        //            cell.Range.Font.Bold = 1;
+        //        //            //other format properties goes here
+        //        //            cell.Range.Font.Name = "verdana";
+        //        //            cell.Range.Font.Size = 10;
+        //        //            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                            
+        //        //            cell.Shading.BackgroundPatternColor = WdColor.wdColorGray25;
+        //        //            //Center alignment for the Header cells
+        //        //            cell.VerticalAlignment = WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+        //        //            cell.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
 
-                //        }
-                //        //Data row
-                //        else
-                //        {
-                //            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
-                //        }
-                //    }
-                //}
+        //        //        }
+        //        //        //Data row
+        //        //        else
+        //        //        {
+        //        //            cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
+        //        //        }
+        //        //    }
+        //        //}
 
-                //Save the document
-                document.SaveAs2(ref filename);
-                document.Close(ref missing, ref missing, ref missing);
-                document = null;
-                winword.Quit(ref missing, ref missing, ref missing);
-                winword = null;
-                MessageBox.Show("Document created successfully !");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //        //Save the document
+        //        document.SaveAs2(ref filename);
+        //        document.Close(ref missing, ref missing, ref missing);
+        //        document = null;
+        //        winword.Quit(ref missing, ref missing, ref missing);
+        //        winword = null;
+        //        MessageBox.Show("Document created successfully !");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
 
         private void rtfBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -386,74 +409,117 @@ namespace DataAsGuard.Viewer
 
             private void openToolStripMenuItem_Click(object sender, EventArgs e)
             {
-            //FileManagementHub open = new FileManagementHub();
-            //open.Show();
-            //this.Hide();
-            //string fileExtension = Path.GetExtension(nameOfFile);
-            //string tempFileName = System.IO.Path.GetTempFileName() + "." + fileExtension;
-            rtfBox.Clear();
-            OpenFileDialog open_dialog = new OpenFileDialog();
-            open_dialog.Filter = "Text Files;RTF;DOCX|*.txt;*.rtf;*.docx";
-            if (open_dialog.ShowDialog() == DialogResult.OK)
-            {
-                var extension = Path.GetExtension(open_dialog.FileName);
-                string rtfbox;
-                switch (extension.ToLower())
-                {
-                    case ".rtf":
-                        if (IsFileLock(open_dialog.FileName))
-                        {
-                            MessageBox.Show("File is in use!");
-                        }
-                        else
-                        {
-                            rtfbox = File.ReadAllText(open_dialog.FileName);     //Read content
-                            rtfBox.Rtf = rtfbox;                                //Display content in rtf file in rtb
-                        }
+            FileManagementHub ff = new FileManagementHub();
+            ff.Show();
+            ff.Hide();
+            ////FileManagementHub open = new FileManagementHub();
+            ////open.Show();
+            ////this.Hide();
+            ////string fileExtension = Path.GetExtension(nameOfFile);
+            ////string tempFileName = System.IO.Path.GetTempFileName() + "." + fileExtension;
+            //rtfBox.Clear();
+            //OpenFileDialog open_dialog = new OpenFileDialog();
+            //open_dialog.Filter = "Text Files;RTF;DOCX|*.txt;*.rtf;*.docx";
+            //if (open_dialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    var extension = Path.GetExtension(open_dialog.FileName);
+            //    string rtfbox;
+            //    switch (extension.ToLower())
+            //    {
+            //        case ".rtf":
+            //            if (IsFileLock(open_dialog.FileName))
+            //            {
+            //                MessageBox.Show("File is in use!");
+            //            }
+            //            else
+            //            {
+            //                rtfbox = File.ReadAllText(open_dialog.FileName);     //Read content
+            //                rtfBox.Rtf = rtfbox;                                //Display content in rtf file in rtb
+            //            }
 
-                        break;
-                    case ".txt":
-                        if (IsFileLock(open_dialog.FileName))
-                        {
-                            MessageBox.Show("File is in use!");
-                        }
-                        else
-                        {
-                            rtfbox = File.ReadAllText(open_dialog.FileName);
-                            rtfBox.Text = rtfbox;
-                        }
-                        break;
-                    case ".docx":
-                        if (IsFileLock(open_dialog.FileName))
-                        {
-                            MessageBox.Show("File is in use!");
-                        }
-                        else
-                        {
-                            object readOnly = true;
-                            object fileName = open_dialog.FileName;
-                            object missing = System.Reflection.Missing.Value;
-                            var applicationWord = new Microsoft.Office.Interop.Word.Application();
-                            applicationWord.Visible = true;
-                            //object gg = applicationWord.DocumentBeforeSave();
-                            applicationWord.Options.SavePropertiesPrompt = false;
-                            applicationWord.Options.SaveNormalPrompt = false;
-                            applicationWord.DisplayAlerts = WdAlertLevel.wdAlertsNone;
-                            applicationWord.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
-                            //object doNotSaveChanges = Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges;
-                            //applicationWord.ActiveDocument.Close(ref doNotSaveChanges, ref missing, ref missing);
-                        }
+            //            break;
+            //        case ".txt":
+            //            if (IsFileLock(open_dialog.FileName))
+            //            {
+            //                MessageBox.Show("File is in use!");
+            //            }
+            //            else
+            //            {
+            //                rtfbox = File.ReadAllText(open_dialog.FileName);
+            //                rtfBox.Text = rtfbox;
+            //            }
+            //            break;
+            //        case ".docx":
+            //            if (IsFileLock(open_dialog.FileName))
+            //            {
+            //                MessageBox.Show("File is in use!");
+            //            }
+            //            else
+            //            {
+            //                object readOnly = true;
+            //                object fileName = open_dialog.FileName;
+            //                object missing = System.Reflection.Missing.Value;
+            //                var applicationWord = new Microsoft.Office.Interop.Word.Application();
+            //                applicationWord.Visible = true;
+            //                //object gg = applicationWord.DocumentBeforeSave();
+            //                applicationWord.Options.SavePropertiesPrompt = false;
+            //                applicationWord.Options.SaveNormalPrompt = false;
+            //                applicationWord.DisplayAlerts = WdAlertLevel.wdAlertsNone;
+            //                applicationWord.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
+            //                //object doNotSaveChanges = Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges;
+            //                //applicationWord.ActiveDocument.Close(ref doNotSaveChanges, ref missing, ref missing);
+            //            }
 
 
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(extension);
-                }
-            }
+            //            break;
+            //        default:
+            //            throw new ArgumentOutOfRangeException(extension);
+            //    }
+            //}
         }
 
-            private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        //public Boolean UpdateTextFileToDb(string textToUpdate, string fileName)
+        //{
+        //    byte[] fileBytes = null;
+        //    Boolean success = false;
+        //    using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+        //    {
+        //        con.Open();
+        //        try
+        //        {
+        //            fileBytes = File.ReadAllBytes(readFile);
+        //            String executeQuery = "UPDATE da_schema.fileInfo SET file = @fileParam WHERE fileName = @fileName";
+        //            MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
+        //            myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
+        //            myCommand.Parameters.AddWithValue("@fileName", fileName);
+        //            myCommand.ExecuteNonQuery();
+        //            success = true;
+        //        }
+        //        catch (IOException)
+        //        {
+        //            MessageBox.Show("Error file could not be read, please try again.");
+        //            success = false;
+        //        }
+        //        con.Close();
+        //    }
+
+        //    //if (success)
+        //    //{
+        //    //    dblog.fileLog("File '" + fileName + "' uploaded to database.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
+        //    //}
+
+        //    return success;
+        //}
+
+        private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
             {
+                using (StreamWriter sw = new StreamWriter(this.GetReadFile))
+                {
+                    await sw.WriteLineAsync(rtfBox.Text);
+                    MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                FileManagementHub fm = new FileManagementHub();
+                fm.UpdateFileToDb(this.GetReadFile, this.GetSaveFile);
 
             }
 
@@ -540,8 +606,6 @@ namespace DataAsGuard.Viewer
                             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
                             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
                             startInfo.FileName = "cmd.exe";
-                            //startInfo.Arguments = "/C echo 'SECRET MSG' > C:\\Users\\Solomon\\Documents\\something.txt:SOMETHING";
-                            //Write Hidden text to file
                             startInfo.Arguments = "/C echo " + DataAsGuard.CSClass.Logininfo.username + " > " + sfd.FileName + ":DS1";
                             process.StartInfo = startInfo;
                             process.Start();

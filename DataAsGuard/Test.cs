@@ -18,6 +18,7 @@ using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using System.IO;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using Microsoft.Office.Core;
 
 namespace DataAsGuard
 {
@@ -418,8 +419,19 @@ namespace DataAsGuard
         //    }
         //}
 
+        private void CheckPpt()
+        {
+            string fileName = @"C:\Users\Solomon\Documents\TEST\trided.pptx";
+            MsoTriState readOnly = MsoTriState.msoFalse;
+            object missing = System.Reflection.Missing.Value;
+            Microsoft.Office.Interop.PowerPoint.Application applicationPPT = new Microsoft.Office.Interop.PowerPoint.Application();
+            applicationPPT.Presentations.Open(fileName, readOnly, MsoTriState.msoTrue, MsoTriState.msoTrue);
+        }
+
         private void button1_Click_1(object sender, EventArgs e)
         {
+            CheckPpt();
+
             //if (CompareGroupPerms() == true)
             //{
             //    MessageBox.Show("TRUE");
@@ -428,20 +440,24 @@ namespace DataAsGuard
             //{
             //    MessageBox.Show("FALSE");
             //}
-            string fileId = GetFileId("Excel Schedule.xlsx");
-            List<string> groupId = GetGroupId("4");
-            //CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
-            for (int i = 0; i < groupId.Count; i++)
-            {
-                if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
-                {
-                    MessageBox.Show("TRUE");
-                }
-                else
-                {
-                    MessageBox.Show("FALSE");
-                }
-            }
+
+            //string fileId = GetFileId("Excel Schedule.xlsx");
+            //List<string> groupId = GetGroupId("4");
+            ////CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+            //for (int i = 0; i < groupId.Count; i++)
+            //{
+            //    if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+            //    {
+            //        MessageBox.Show("TRUE");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("FALSE");
+            //    }
+            //}
+
+
+
             //if (CheckWriteOnlyGroup("4", "Excel Schedule.xlsx") == "True" || CheckWriteOnlyGroup("4", "Excel Schedule.xlsx") == "1")
             //{
             //    MessageBox.Show("TRUE");
