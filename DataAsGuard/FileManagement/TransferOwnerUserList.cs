@@ -16,16 +16,26 @@ namespace DataAsGuard.FileManagement
     {
         string fileParam = "";
         DBLogger dblog = new DBLogger();
-
-        public TransferOwnerUserList(string fileName)
+        FileManagementHub formToClose;
+        public TransferOwnerUserList(string fileName, FileManagementHub obj)
         {
             InitializeComponent();
             fileParam = fileName;
+            formToClose = obj;
         }
 
         private void userList_SelectedIndexChanged(object sender, EventArgs e)
         {
             transferOwnershipButton.Enabled = true;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            formToClose.Hide();
+            FileManagementHub newForm = new FileManagementHub();
+            newForm.Show();
         }
 
         private void transferOwnershipButton_Click(object sender, EventArgs e)
@@ -34,7 +44,7 @@ namespace DataAsGuard.FileManagement
             int newOwnerID = 0;
             Boolean success = false;
             int fileID = 0;
-            DialogResult result = MessageBox.Show("Ownership of the file will be transferred to " + newOwnerName + ". Continue?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            DialogResult result = MessageBox.Show("Ownership of the file will be transferred to " + newOwnerName + ", all of your permissions will be removed and transferred to " + newOwnerName+ ". Continue?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (result == DialogResult.Yes)
             {
                 using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
@@ -66,6 +76,25 @@ namespace DataAsGuard.FileManagement
                     updateOwnerCmd.Parameters.AddWithValue("@IDParam", newOwnerID);
                     updateOwnerCmd.Parameters.AddWithValue("@fileParam", fileParam);
                     updateOwnerCmd.ExecuteNonQuery();
+
+                    String deleteOwnerPerms = "DELETE FROM userFilePermissions WHERE fileID = @fileParam AND userID = @idParam";
+                    MySqlCommand deleteOwnercmd = new MySqlCommand(deleteOwnerPerms, con);
+                    deleteOwnercmd.Parameters.AddWithValue("@fileParam", fileID);
+                    deleteOwnercmd.Parameters.AddWithValue("@idParam", Logininfo.userid);
+                    deleteOwnercmd.ExecuteNonQuery();
+
+                    String deleteNewOwnerPerms = "DELETE FROM userFilePermissions WHERE fileID = @fileParam AND userID = @idParam";
+                    MySqlCommand deleteNewOwnercmd = new MySqlCommand(deleteNewOwnerPerms, con);
+                    deleteNewOwnercmd.Parameters.AddWithValue("@fileParam", fileID);
+                    deleteNewOwnercmd.Parameters.AddWithValue("@idParam", newOwnerID);
+                    deleteNewOwnercmd.ExecuteNonQuery();
+
+                    String newOwnerPerms = "INSERT INTO userFilePermissions VALUES (@fileParam, @idParam, 1, 1, 1)";
+                    MySqlCommand newOwnerPermCmd = new MySqlCommand(newOwnerPerms, con);
+                    newOwnerPermCmd.Parameters.AddWithValue("@fileParam", fileID);
+                    newOwnerPermCmd.Parameters.AddWithValue("@idParam", newOwnerID);
+                    newOwnerPermCmd.ExecuteNonQuery();
+
                     success = true;
                     con.Close();
                 }
@@ -75,6 +104,9 @@ namespace DataAsGuard.FileManagement
                     MessageBox.Show("Successfully transferred ownership of file.");
                     dblog.fileLog("Transferred file ownership to '" + newOwnerName + "'. ID: " + newOwnerID + ".", "FileChanges", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
                     Hide();
+                    formToClose.Hide();
+                    FileManagementHub newForm = new FileManagementHub();
+                    newForm.Show();
                 }
             }
         }
