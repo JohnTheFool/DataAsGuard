@@ -68,6 +68,8 @@ namespace DataAsGuard.Chat
 
         private void Chat_Load(object sender, EventArgs e)
         {
+            ChatMessage.MaxLength = 300;
+            Counter.Text = "Word Count:0";
             //only load user with messeges to the userlist
             List<string> SenderList = getuniquesender();
             Console.WriteLine("senderlist" + SenderList.Count);
@@ -897,11 +899,16 @@ namespace DataAsGuard.Chat
         private void Send_Click(object sender, EventArgs e)
         {
             string message = ChatMessage.Text.ToString();
+            if(message.Length > 300)
+            {
+                Counter.Text = "Please shorten message";
+            }
             SendMessage(getIdoffullName(username.Text), message);
             richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
             richTextBox1.AppendText(message);
             richTextBox1.AppendText(Environment.NewLine);
             richTextBox1.ScrollToCaret();
+            ChatMessage.Clear();
         }
 
         private void DisplayMessages_Paint(object sender, PaintEventArgs e)
@@ -948,6 +955,11 @@ namespace DataAsGuard.Chat
             Profilesettings settings = new Profilesettings();
             settings.Show();
             Hide();
+        }
+
+        private void ChatMessage_TextChanged(object sender, EventArgs e)
+        {
+              Counter.Text = "Word Count:"+ ChatMessage.Text.Length;
         }
     }
 }

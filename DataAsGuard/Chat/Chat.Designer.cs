@@ -40,6 +40,7 @@
             this.ProfileButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
+            this.Counter = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // userList
@@ -59,12 +60,13 @@
             this.ChatMessage.Name = "ChatMessage";
             this.ChatMessage.Size = new System.Drawing.Size(636, 57);
             this.ChatMessage.TabIndex = 2;
+            this.ChatMessage.TextChanged += new System.EventHandler(this.ChatMessage_TextChanged);
             // 
             // Send
             // 
-            this.Send.Location = new System.Drawing.Point(1028, 461);
+            this.Send.Location = new System.Drawing.Point(1019, 461);
             this.Send.Name = "Send";
-            this.Send.Size = new System.Drawing.Size(62, 37);
+            this.Send.Size = new System.Drawing.Size(66, 41);
             this.Send.TabIndex = 3;
             this.Send.Text = "Send";
             this.Send.UseVisualStyleBackColor = true;
@@ -72,9 +74,9 @@
             // 
             // NewChat
             // 
-            this.NewChat.Location = new System.Drawing.Point(115, 525);
+            this.NewChat.Location = new System.Drawing.Point(115, 516);
             this.NewChat.Name = "NewChat";
-            this.NewChat.Size = new System.Drawing.Size(173, 28);
+            this.NewChat.Size = new System.Drawing.Size(173, 37);
             this.NewChat.TabIndex = 4;
             this.NewChat.Text = "Find a user";
             this.NewChat.UseVisualStyleBackColor = true;
@@ -152,11 +154,21 @@
             this.BackButton.UseVisualStyleBackColor = true;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
             // 
+            // Counter
+            // 
+            this.Counter.AutoSize = true;
+            this.Counter.Location = new System.Drawing.Point(962, 516);
+            this.Counter.Name = "Counter";
+            this.Counter.Size = new System.Drawing.Size(98, 20);
+            this.Counter.TabIndex = 28;
+            this.Counter.Text = "Word Count:";
+            // 
             // Chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1139, 565);
+            this.Controls.Add(this.Counter);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.ProfileButton);
@@ -188,5 +200,6 @@
         private System.Windows.Forms.Button ProfileButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Label Counter;
     }
 }
