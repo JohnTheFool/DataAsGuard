@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
@@ -83,8 +84,15 @@ namespace DataAsGuard.ImgViewer
 
         private void ImgViewerForm_Load(object sender, EventArgs e)
         {
+            zoom.Hide();
             showPic.Image = Image.FromFile(this.path);
             imgOriginal = showPic.Image;
+            var imageSize = showPic.Image.Size;
+            var fitSize = showPic.ClientSize;
+
+            showPic.SizeMode = imageSize.Width > fitSize.Width || imageSize.Height > fitSize.Height || imageSize.Width < fitSize.Width || imageSize.Height < fitSize.Height ?
+            PictureBoxSizeMode.Zoom : PictureBoxSizeMode.CenterImage;
+
             //this.TopMost = true;
             //this.FormBorderStyle = FormBorderStyle.None;
             //this.WindowState = FormWindowState.Maximized;
@@ -102,7 +110,7 @@ namespace DataAsGuard.ImgViewer
 
         }
 
-        private void downloadBtn_Click(object sender, EventArgs e)
+            private void downloadBtn_Click(object sender, EventArgs e)
         {
             //Hide Text
             string text = DataAsGuard.CSClass.Logininfo.username;

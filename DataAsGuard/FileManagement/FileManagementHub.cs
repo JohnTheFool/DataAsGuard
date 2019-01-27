@@ -1014,8 +1014,32 @@ namespace DataAsGuard.FileManagement
                 }
                 reader.Close();
                 File.WriteAllBytes(tempFileName, fileBytes);
-                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents;Word Docx;PPTX;XLSX;Png;MP4;All |*.txt;*.docx;*pptx;*xlsx;*.png;*mp4;*.*", ValidateNames = true })
+                using (SaveFileDialog sfd = new SaveFileDialog())
                 {
+                    if (fileExtension == ".txt")
+                    {
+                        sfd.Filter = "Text|*.txt|All Files|*.*";
+                    }
+                    else if (fileExtension == ".docx")
+                    {
+                        sfd.Filter = "Word Documents|*.docx|All Files|*.*";
+                    }
+                    else if (fileExtension == ".xlsx")
+                    {
+                        sfd.Filter = "Excel Worksheets|*.xlsx|All Files|*.*";
+                    }
+                    else if (fileExtension == ".png" || fileExtension == ".jpg")
+                    {
+                        sfd.Filter = "Portable Network Graphics|*.png|All Files|*.*";
+                    }
+                    else if (fileExtension == ".mp4")
+                    {
+                        sfd.Filter = "MPEG Layer-4 Audio|.mp4|All Files|*.*";
+                    }
+                    else
+                    {
+                        sfd.Filter = "All Files|*.*";
+                    }
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
                         switch (fileExtension)

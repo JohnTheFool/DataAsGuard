@@ -152,7 +152,7 @@ namespace DataAsGuard.Viewer
             boldBtn.Hide();
             pColor.Hide();
             btnSave.Hide();
-            testBtn.Hide();
+            testBtn.Hide(); 
             colorSelectBtn.Hide();
             if (this.GetIsWriteUser == "True" || this.GetIsWriteGroup == "True")
             {
@@ -161,6 +161,7 @@ namespace DataAsGuard.Viewer
             else
             {
                 rtfBox.ReadOnly = true;
+                saveToolStripMenuItem.Enabled = false;
             }
             //FileManagement.FileManagementHub n = new FileManagement.FileManagementHub();
             //string something = n.store;
@@ -409,9 +410,9 @@ namespace DataAsGuard.Viewer
 
             private void openToolStripMenuItem_Click(object sender, EventArgs e)
             {
-            FileManagementHub ff = new FileManagementHub();
-            ff.Show();
-            ff.Hide();
+                FileManagement.FileManagementHub fmh = new FileManagement.FileManagementHub();
+                fmh.Show();
+                Hide();
             ////FileManagementHub open = new FileManagementHub();
             ////open.Show();
             ////this.Hide();
