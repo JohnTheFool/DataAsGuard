@@ -14,6 +14,7 @@ namespace DataAsGuard.Chat
         public string Time { get; set; }
         public string fromkey { get; set; }
         public string otherkey { get; set; }
+        public string hash { get; set; }
         //key?
 
         

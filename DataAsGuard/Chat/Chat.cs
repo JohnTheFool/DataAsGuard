@@ -30,6 +30,7 @@ namespace DataAsGuard.Chat
             if ((ListBox.NoMatches == userList.FindStringExact(user)))
             {
                 userList.Items.Add(user);
+                username.Text = user;
             }
             else
             {
@@ -38,7 +39,7 @@ namespace DataAsGuard.Chat
                 string userSelected = userList.Text.ToString();
                 List<Message> messagelist = GetMessages(getIdoffullName(userSelected));
                 username.Text = userSelected;
-                Console.WriteLine("Messagecount:" + messagelist.Count);
+
                 if (messagelist.Count != 0)
                 {
                     for (int i = 0; i < messagelist.Count(); i++)
@@ -47,13 +48,13 @@ namespace DataAsGuard.Chat
                         {
                             richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
                             richTextBox1.AppendText(getNameOfId(Logininfo.userid) + ":" + Environment.NewLine + messagelist[i].MessageText);
-                            
+
                         }
                         else
                         {
                             richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
                             richTextBox1.AppendText(username.Text + ":" + Environment.NewLine + messagelist[i].MessageText);
-                           
+
                         }
                         richTextBox1.AppendText(Environment.NewLine);
                     }
@@ -73,7 +74,7 @@ namespace DataAsGuard.Chat
             //only load user with messeges to the userlist
             List<string> SenderList = getuniquesender();
             Console.WriteLine("senderlist" + SenderList.Count);
-            foreach(string s in SenderList)
+            foreach (string s in SenderList)
             {
                 //Console.WriteLine(s);
                 if (s != Logininfo.userid && (ListBox.NoMatches == userList.FindStringExact(s)))
@@ -156,12 +157,17 @@ namespace DataAsGuard.Chat
         {
             var hubConnection = new HubConnection("");
         }
+        public static string hashing(string key, string message)
+        {
+            var hash = new HMACSHA1(Convert.FromBase64String(key));
+            return Convert.ToBase64String(hash.ComputeHash(Encoding.ASCII.GetBytes(message)));
+        }
 
         public void SendMessage(string recieverId, string message)
         {
-            
+
             EncrpytThis(message, recieverId);
-            
+
             //ChatHub.HubContext.Clients.User(recieverId).SendPrivateMessage(recieverId, message);
             //new change use encrpytthis to add into db ... edit this to make it so that happends
             //change recieverid = currselected?
@@ -214,9 +220,10 @@ namespace DataAsGuard.Chat
                 //checkthis
                 while (reader.Read())
                 {
-                    Message message = new Message { Sender = reader["Sender"].ToString(), Reciever = reader["Reciever"].ToString(), MessageText = reader["Message"].ToString(), Time = reader["Time"].ToString(), fromkey = reader["fromkey"].ToString(), otherkey = reader["keyval"].ToString() };
+                    Message message = new Message { Sender = reader["Sender"].ToString(), Reciever = reader["Reciever"].ToString(), MessageText = reader["Message"].ToString(), Time = reader["Time"].ToString(), fromkey = reader["fromkey"].ToString(), otherkey = reader["keyval"].ToString(), hash = reader["hash"].ToString() };
                     if (!MessageList.Contains(message))
                     {
+
                         MessageList.Add(message);
                     }
                 }
@@ -224,13 +231,13 @@ namespace DataAsGuard.Chat
                 reader.Close();
                 con.Close();
             }
-            
+
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
                 String executeQuery = "select * from SymKey where (intendedkey = @reciever AND senderpub = @sender) OR (intendedkey = @reciever1 AND senderpub = @sender1)";
                 MySqlCommand mycmd = new MySqlCommand(executeQuery, con);
-                mycmd.Parameters.AddWithValue("@reciever",Convert.ToBase64String(rsa.Modulus));
+                mycmd.Parameters.AddWithValue("@reciever", Convert.ToBase64String(rsa.Modulus));
                 mycmd.Parameters.AddWithValue("@sender1", Convert.ToBase64String(rsa.Modulus));
                 mycmd.Parameters.AddWithValue("@reciever1", "");
                 mycmd.Parameters.AddWithValue("@sender", "");
@@ -254,18 +261,29 @@ namespace DataAsGuard.Chat
                         if (reader["sender"].ToString().Equals(Logininfo.userid))
                         {
                             RijndaelManaged RM = new RijndaelManaged();
-                            RM.Key = RSAD.Decrypt(Convert.FromBase64String(reader["sendersym"].ToString()),false);
+                            RM.Key = RSAD.Decrypt(Convert.FromBase64String(reader["sendersym"].ToString()), false);
                             RM.IV = RSAD.Decrypt(Convert.FromBase64String(reader["senderiv"].ToString()), false);
                             MessageList[i].MessageText = Decrpyt(MessageList[i].MessageText, RM);
+                            if (hashing(Convert.ToBase64String(RM.Key), MessageList[i].MessageText) != MessageList[i].hash)
+                            {
+                                MessageBox.Show("Messages might have been edited, Please contact admin");
+                                return new List<Message>();
+
+                            }
                             //Console.WriteLine("Test me");
                         }
-                        else 
+                        else
                         {
                             RijndaelManaged RM = new RijndaelManaged();
                             RM.Key = RSAD.Decrypt(Convert.FromBase64String(reader["symkey"].ToString()), false);
                             RM.IV = RSAD.Decrypt(Convert.FromBase64String(reader["symiv"].ToString()), false);
                             MessageList[i].MessageText = Decrpyt(MessageList[i].MessageText, RM);
                             //Console.WriteLine("fuck me");
+                            if (hashing(Convert.ToBase64String(RM.Key), MessageList[i].MessageText) != MessageList[i].hash)
+                            {
+                                MessageBox.Show("Messages might have been edited, Please contact admin");
+                                return new List<Message>();
+                            }
                         }
                     }
                     else { Console.WriteLine("Scream"); }
@@ -306,12 +324,12 @@ namespace DataAsGuard.Chat
             {
                 con.Open();
                 //Select DISTINCT Sender from (Select * from da_schema.Messages where Reciever = @reciever AND key = @key)?
-                
+
                 String executeQuery = "Select fullName from Userinfo where userid = @id";
                 MySqlCommand cmd = new MySqlCommand(executeQuery, con);
                 //cmd.Parameters.AddWithValue("@reciever", Logininfo.username);
                 cmd.Parameters.AddWithValue("@id", userid);
-                
+
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -331,7 +349,7 @@ namespace DataAsGuard.Chat
             {
                 con.Open();
                 //Select DISTINCT Sender from (Select * from da_schema.Messages where Reciever = @reciever AND key = @key)?
-                
+
                 String executeQuery = "Select Distinct Sender, Reciever from da_schema.Messages where keyval = @key OR fromkey = @key1";
                 MySqlCommand cmd = new MySqlCommand(executeQuery, con);
                 //cmd.Parameters.AddWithValue("@reciever", Logininfo.username);
@@ -346,12 +364,12 @@ namespace DataAsGuard.Chat
                     {
                         UniqueUserList.Add(reader["Reciever"].ToString());
                     }
-                    else if(UniqueUserList.Contains(s) == false && !s.Equals(Logininfo.userid))
+                    else if (UniqueUserList.Contains(s) == false && !s.Equals(Logininfo.userid))
                     {
                         UniqueUserList.Add(s);
                     }
                 }
-                
+
                 con.Close();
             }
             return UniqueUserList;
@@ -359,7 +377,7 @@ namespace DataAsGuard.Chat
         #endregion
 
         #region encryption
-        public class encryptedsym{
+        public class encryptedsym {
             public string symkey { get; set; }
             public string symiv { get; set; }
             public string relatedkey { get; set; }
@@ -373,7 +391,7 @@ namespace DataAsGuard.Chat
             List<encryptedsym> symkeylist = new List<encryptedsym>();
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
-                
+
 
                 if (keylist.Count != 0)
                 {
@@ -419,7 +437,7 @@ namespace DataAsGuard.Chat
                         }
                         con.Close();
                     }
-                   
+
                 }
                 //con.Close();
             }
@@ -446,14 +464,14 @@ namespace DataAsGuard.Chat
                 myCommand.Parameters.AddWithValue("@reciever", reciever);
                 //add own sym key in
                 myCommand.Parameters.AddWithValue("@sender", Logininfo.userid);
-                
+
                 myCommand.Parameters.AddWithValue("@senderpub", Convert.ToBase64String(GetKeyFromContainer().Modulus));
 
                 RijndaelManaged RM = new RijndaelManaged();
                 RSA.ImportParameters(recieverkey);
                 EncryptedSymmetricKey = RSA.Encrypt(RM.Key, false);
                 EncryptedSymmetricIV = RSA.Encrypt(RM.IV, false);
-                myCommand.Parameters.AddWithValue("@sendersym", Convert.ToBase64String(RSAin.Encrypt(RM.Key,false)));
+                myCommand.Parameters.AddWithValue("@sendersym", Convert.ToBase64String(RSAin.Encrypt(RM.Key, false)));
                 myCommand.Parameters.AddWithValue("@senderiv", Convert.ToBase64String(RSAin.Encrypt(RM.IV, false)));
                 myCommand.Parameters.AddWithValue("@symkey", Convert.ToBase64String(EncryptedSymmetricKey));
                 myCommand.Parameters.AddWithValue("@symiv", Convert.ToBase64String(EncryptedSymmetricIV));
@@ -461,9 +479,9 @@ namespace DataAsGuard.Chat
                 //Console.WriteLine(reciever);
                 //Console.WriteLine(Logininfo.username);
                 myCommand.ExecuteNonQuery();
-                returnsym = new encryptedsym { symkey = Convert.ToBase64String(RSAin.Encrypt(RM.Key, false)) 
+                returnsym = new encryptedsym { symkey = Convert.ToBase64String(RSAin.Encrypt(RM.Key, false))
                                                 , symiv = Convert.ToBase64String(RSAin.Encrypt(RM.IV, false)),
-                                                    relatedkey = Convert.ToBase64String(recieverkey.Modulus)
+                    relatedkey = Convert.ToBase64String(recieverkey.Modulus)
                 };
 
                 con.Close();
@@ -482,14 +500,15 @@ namespace DataAsGuard.Chat
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
-                String executeQuery = "INSERT INTO da_schema.Messages(Sender,Reciever,Message,Time,keyval,fromkey) VALUES (@Sender,@Reciever ,@Message, @Time,@key,@fromkey)";
+                String executeQuery = "INSERT INTO da_schema.Messages(Sender,Reciever,Message,Time,keyval,fromkey,hash) VALUES (@Sender,@Reciever ,@Message, @Time,@key,@fromkey,@hash)";
                 MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
                 myCommand.Parameters.AddWithValue("@Sender", Logininfo.userid);
                 myCommand.Parameters.AddWithValue("@Reciever", reciever);
                 myCommand.Parameters.AddWithValue("@Time", DateTime.Now);
-                myCommand.Parameters.AddWithValue("@fromkey",Convert.ToBase64String(RSA.ExportParameters(false).Modulus));
+                myCommand.Parameters.AddWithValue("@fromkey", Convert.ToBase64String(RSA.ExportParameters(false).Modulus));
                 myCommand.Parameters.AddWithValue("@Message", "");
                 myCommand.Parameters.AddWithValue("@key", "");
+                myCommand.Parameters.AddWithValue("@hash", "");
                 for (int i = 0; i < intialkeylist.Count; i++)
                 {
                     using (RijndaelManaged RM = new RijndaelManaged())
@@ -497,6 +516,7 @@ namespace DataAsGuard.Chat
                         //how do i know to send to which account ... add related key to encryptedsym
                         RM.Key = RSA.Decrypt(Convert.FromBase64String(intialkeylist[i].symkey), false);
                         RM.IV = RSA.Decrypt(Convert.FromBase64String(intialkeylist[i].symiv), false);
+                        myCommand.Parameters["@hash"].Value = hashing(Convert.ToBase64String(RM.Key), text);
                         //myCommand.Parameters.AddWithValue("@Message",(Convert.ToBase64String(EncryptStringToBytes(text, RM.Key, RM.IV))));
                         //myCommand.Parameters.AddWithValue("@key", intialkeylist[i].relatedkey);
                         myCommand.Parameters["@Message"].Value = (Convert.ToBase64String(EncryptStringToBytes(text, RM.Key, RM.IV)));
@@ -504,9 +524,9 @@ namespace DataAsGuard.Chat
                         myCommand.ExecuteNonQuery();
                     }
                 }
-                if(SendtoSelfList.Count() >= 1)
+                if (SendtoSelfList.Count() >= 1)
                 {
-                    executeQuery = "INSERT INTO da_schema.Messages(Sender,Reciever,Message,Time,keyval,fromkey) VALUES (@Sender,@Reciever ,@Message, @Time,@key,@fromkey)";
+                    executeQuery = "INSERT INTO da_schema.Messages(Sender,Reciever,Message,Time,keyval,fromkey,hash) VALUES (@Sender,@Reciever ,@Message, @Time,@key,@fromkey,@hash)";
                     myCommand = new MySqlCommand(executeQuery, con);
                     myCommand.Parameters.AddWithValue("@Sender", Logininfo.userid);
                     myCommand.Parameters.AddWithValue("@Reciever", reciever);
@@ -514,15 +534,17 @@ namespace DataAsGuard.Chat
                     myCommand.Parameters.AddWithValue("@fromkey", Convert.ToBase64String(RSA.ExportParameters(false).Modulus));
                     myCommand.Parameters.AddWithValue("@Message", "");
                     myCommand.Parameters.AddWithValue("@key", "");
-                    for (int i =0;i< SendtoSelfList.Count(); i++)
+                    myCommand.Parameters.AddWithValue("@hash", "");
+                    for (int i = 0; i < SendtoSelfList.Count(); i++)
                     {
                         using (RijndaelManaged RM = new RijndaelManaged())
                         {
                             RM.Key = RSA.Decrypt(Convert.FromBase64String(SendtoSelfList[i].symkey), false);
                             RM.IV = RSA.Decrypt(Convert.FromBase64String(SendtoSelfList[i].symiv), false);
+                            myCommand.Parameters["@hash"].Value = hashing(Convert.ToBase64String(RM.Key), text);
                             myCommand.Parameters["@Message"].Value = (Convert.ToBase64String(EncryptStringToBytes(text, RM.Key, RM.IV)));
                             myCommand.Parameters["@key"].Value = SendtoSelfList[i].relatedkey;
-                            
+
                             myCommand.ExecuteNonQuery();
                         }
                     }
@@ -576,9 +598,9 @@ namespace DataAsGuard.Chat
 
         public string Decrpyt(string encrypted, RijndaelManaged myRijndael)
         {
-            
+
             //Create a new instance of the RSACryptoServiceProvider class.  
-            
+
 
             // Export the public key information and send it to a third party.  
             // Wait for the third party to encrypt some data and send it back.  
@@ -592,7 +614,7 @@ namespace DataAsGuard.Chat
             //SymmetricKey = RSA.Decrypt(EncryptedSymmetricKey, false);
             //SymmetricIV = RSA.Decrypt(EncryptedSymmetricIV, false);
         }
-        
+
         static byte[] EncryptStringToBytes(string plainText, byte[] Key, byte[] IV)
         {
             // Check arguments. 
@@ -689,7 +711,7 @@ namespace DataAsGuard.Chat
             //genkey_saveincontainer -> save into db
 
             //might not need to generate new key pair as the containers method does generation too
-            string containername = "DataAsGuard" + Logininfo.username +Logininfo.email;
+            string containername = "DataAsGuard" + Logininfo.username + Logininfo.email;
             //Generate a public/private key pair.  
             RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
             //Save the public key information to an RSAParameters structure.  
@@ -707,11 +729,11 @@ namespace DataAsGuard.Chat
                 myCommand.ExecuteNonQuery();
                 con.Close();
             }
-            
+
         }
         public static bool DoesKeyExists()
         {
-            string containerName = "DataAsGuard" + Logininfo.username  + Logininfo.email; 
+            string containerName = "DataAsGuard" + Logininfo.username + Logininfo.email;
             var cspParams = new CspParameters
             {
                 Flags = CspProviderFlags.UseExistingKey,
@@ -731,8 +753,8 @@ namespace DataAsGuard.Chat
 
         public static void GenKey_SaveInContainer()
         {
-            string ContainerName = "DataAsGuard" + Logininfo.username  +  Logininfo.email;
-           
+            string ContainerName = "DataAsGuard" + Logininfo.username + Logininfo.email;
+
             // Create the CspParameters object and set the key container   
             // name used to store the RSA key pair.  
             CspParameters cp = new CspParameters();
@@ -778,7 +800,7 @@ namespace DataAsGuard.Chat
 
         public static RSAParameters GetFullKeyFromContainer()
         {
-            string ContainerName = "DataAsGuard" + Logininfo.username  + Logininfo.email;
+            string ContainerName = "DataAsGuard" + Logininfo.username + Logininfo.email;
 
             // Create the CspParameters object and set the key container   
             // name used to store the RSA key pair.  
@@ -812,14 +834,14 @@ namespace DataAsGuard.Chat
             // Delete the key entry in the container.  
             rsa.PersistKeyInCsp = false;
 
-            using(MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
                 String executeQuery = "Delete From da_schema.KeyList where keyval = @key";
                 MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
-                
+
                 myCommand.Parameters.AddWithValue("@key", Convert.ToBase64String(rsa.ExportParameters(false).Modulus));
-                
+
                 myCommand.ExecuteNonQuery();
                 con.Close();
             }
@@ -866,7 +888,7 @@ namespace DataAsGuard.Chat
                     if (messagelist[i].Sender == Logininfo.userid)
                     {
                         richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
-                        richTextBox1.AppendText( getNameOfId(Logininfo.userid) + ":" + Environment.NewLine + messagelist[i].MessageText);
+                        richTextBox1.AppendText(getNameOfId(Logininfo.userid) + ":" + Environment.NewLine + messagelist[i].MessageText);
                     }
                     else
                     {
@@ -878,7 +900,7 @@ namespace DataAsGuard.Chat
                         //richTextBox1.Controls.Add(label);
                         //richTextBox1.SelectionColor = System.Drawing.Color.White;
                         //richTextBox1.SelectionBackColor = System.Drawing.Color.Blue;
-                        richTextBox1.AppendText(username.Text + ":" + Environment.NewLine + messagelist[i].MessageText );
+                        richTextBox1.AppendText(username.Text + ":" + Environment.NewLine + messagelist[i].MessageText);
 
                     }
                     richTextBox1.AppendText(Environment.NewLine);
@@ -889,7 +911,7 @@ namespace DataAsGuard.Chat
             //DisplayMessages.Controls.Add(orig_form);
 
         }
-        
+
 
         private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
@@ -899,16 +921,33 @@ namespace DataAsGuard.Chat
         private void Send_Click(object sender, EventArgs e)
         {
             string message = ChatMessage.Text.ToString();
-            if(message.Length > 300)
+            if (username.Text == string.Empty || username.Text == "userName")
             {
-                Counter.Text = "Please shorten message";
+
+                richTextBox1.Text = "Please Select a User / Find a user to chat with";
+
             }
-            SendMessage(getIdoffullName(username.Text), message);
-            richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
-            richTextBox1.AppendText(message);
-            richTextBox1.AppendText(Environment.NewLine);
-            richTextBox1.ScrollToCaret();
-            ChatMessage.Clear();
+            else
+            {
+
+                if (message.Length > 300)
+                {
+                    Counter.Text = "Please shorten message";
+                }else if(message == string.Empty)
+                {
+                    Counter.Text = "Please enter a message to be sent";
+                }
+                else
+                {
+                    
+                    SendMessage(getIdoffullName(username.Text), message);
+                    richTextBox1.SelectionAlignment = HorizontalAlignment.Right;
+                    richTextBox1.AppendText(getNameOfId(Logininfo.userid) + ":" + Environment.NewLine + message);
+                    richTextBox1.AppendText(Environment.NewLine);
+                    richTextBox1.ScrollToCaret();
+                    ChatMessage.Clear();
+                }
+            }
         }
 
         private void DisplayMessages_Paint(object sender, PaintEventArgs e)
