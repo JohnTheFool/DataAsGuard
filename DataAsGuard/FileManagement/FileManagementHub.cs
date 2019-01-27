@@ -439,41 +439,72 @@ namespace DataAsGuard.FileManagement
             }
         }
 
-        private string CheckWriteOnlyGroup(string groupId, string fileName)
+        private string GetFileId(string fileName)
         {
-            string isWrite = "";
-            List<string> fileId = new List<string>();
+            string fileId = "";
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
                 con.Open();
-                String fileIdQuery = "SELECT * FROM da_schema.groupUsers WHERE userID = @userParam";
+
+                // Get FIle ID
+                String fileIdQuery = "SELECT * FROM da_schema.fileInfo WHERE fileName = @nameParam";
                 MySqlCommand getFileIdcmd = new MySqlCommand(fileIdQuery, con);
-                getFileIdcmd.Parameters.AddWithValue("@userParam", CSClass.Logininfo.userid);
+                getFileIdcmd.Parameters.AddWithValue("@nameParam", fileName);
                 MySqlDataReader reader = getFileIdcmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    fileId.Add(reader["groupID"].ToString());
-                    foreach(string i in fileId)
-                    {
-                        
-                    }
-                    
+                    fileId = reader["fileId"].ToString();
                 }
                 reader.Close();
+                con.Close();
+            }
+            return fileId;
+        }
 
-                String fileWritePermQuery = "SELECT editPermission FROM da_schema.groupFilePermissions WHERE fileID = @fileParam AND groupID = @groupIdParam";
-                MySqlCommand getFilePermcmd = new MySqlCommand(fileWritePermQuery, con);
-                getFilePermcmd.Parameters.AddWithValue("@fileParam", fileId);
-                getFilePermcmd.Parameters.AddWithValue("@groupIdParam", groupId);
-                MySqlDataReader reader2 = getFilePermcmd.ExecuteReader();
-                if (reader2.Read())
+        private List<string> GetGroupId(string userId)
+        {
+            List<string> groupIdList = new List<string>();
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String grpIdQuery = "SELECT * FROM da_schema.groupUsers WHERE userID = @userParam";
+                MySqlCommand getGroupIdcmd = new MySqlCommand(grpIdQuery, con);
+                getGroupIdcmd.Parameters.AddWithValue("@userParam", userId);
+                MySqlDataReader reader2 = getGroupIdcmd.ExecuteReader();
+                //while (reader2.HasRows)
+                //{
+                while (reader2.Read())
                 {
-                    isWrite = reader2["editPermission"].ToString();
+                    groupIdList.Add(reader2["groupID"].ToString());
                 }
                 reader2.Close();
                 con.Close();
-                return isWrite;
             }
+            return groupIdList;
+        }
+
+        private string CheckWriteOnlyGroup(string fileId, string groupId)
+        {
+            string isWrite = "";
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+
+                String fileWritePermQuery = "SELECT * FROM da_schema.groupFilePermissions WHERE groupID = @groupIdParam AND fileID = @fileIdParam";
+                MySqlCommand getFilePermcmd = new MySqlCommand(fileWritePermQuery, con);
+                getFilePermcmd.Parameters.AddWithValue("@fileIdParam", fileId);
+                //for (int i = 0; i < groupIdList.Count; i++)
+                //{
+                getFilePermcmd.Parameters.AddWithValue("@groupIdParam", groupId);
+                MySqlDataReader reader3 = getFilePermcmd.ExecuteReader();
+                if (reader3.Read())
+                {
+                    isWrite = reader3["editPermission"].ToString();
+                }
+                reader3.Close();
+                con.Close();
+            }
+            return isWrite;
         }
 
         //public string nameOfFile { get; set; }
@@ -558,9 +589,21 @@ namespace DataAsGuard.FileManagement
                     else if (fileExtension == ".xlsx")
                     {
                         object readOnly = false;
+                        string isWriteGroup = "";
                         string isWriteUser = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
                         //string isWriteGroup = CheckWriteOnlyGroup(, nameOfFile);
-                        if (isWriteUser == "True")
+                        string fileId = GetFileId(nameOfFile);
+                        List<string> groupId = GetGroupId(CSClass.Logininfo.userid);
+                        //CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+                        for (int i = 0; i < groupId.Count; i++)
+                        {
+                            if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+                            {
+                                isWriteGroup = "True";
+                                //MessageBox.Show("TRUE");
+                            }
+                        }
+                        if (isWriteUser == "True" || isWriteGroup == "True")
                         {
                             readOnly = false;
                         }
@@ -598,27 +641,27 @@ namespace DataAsGuard.FileManagement
                         //var process = Process.Start(tempFileName);
                         //process.Exited += new EventHandler(process_Exited);
                     }
-                    MessageBox.Show(tempFileName);
+                    //MessageBox.Show(tempFileName);
                     dblog.fileLog("Opened file '" + fileList.SelectedItem.ToString() + "'.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
-                    if (fileExtension == ".docx" || fileExtension == ".xlsx" || fileExtension == ".pptx" || fileExtension == ".txt")
+                    if (fileExtension == ".docx" || fileExtension == ".xlsx" || fileExtension == ".pptx")
                     {
                         await PutTaskDelay();
                         while (IsFileLock(tempFileName) == true)
                         {
 
                         }
-                        if (IsFileLock(tempFileName) == true)
-                        {
-                            MessageBox.Show("open");
-                        }
+                        UpdateFileToDb(tempFileName, nameOfFile);
+                        releaseLock(nameOfFile);
+                        //if (IsFileLock(tempFileName) == true)
+                        //{
+                        //    MessageBox.Show("open");
+                        //}
                     }
-                    if (IsFileLock(tempFileName) == false)
-                    {
-                        MessageBox.Show("close");
-                    }
+                    //if (IsFileLock(tempFileName) == false)
+                    //{
+                    //    MessageBox.Show("close");
+                    //}
                     //MessageBox.Show(nameOfFile);
-                    UpdateFileToDb(tempFileName, nameOfFile);
-                    releaseLock(nameOfFile);
                 }
             }
             else
