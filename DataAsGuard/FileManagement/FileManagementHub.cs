@@ -80,6 +80,7 @@ namespace DataAsGuard.FileManagement
             List<int> allFileIDs = new List<int>();
             List<int> allFileOwnerIDs = new List<int>();
             ArrayList userPermRow = new ArrayList();
+            ArrayList userGroups = new ArrayList();
 
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
             {
@@ -117,6 +118,67 @@ namespace DataAsGuard.FileManagement
                                 fileList.Items.Add(allFiles[i]);
                             }
                         }
+                    }
+                }
+
+                allFileIDs.Clear();
+                allFiles.Clear();
+
+                String getAllGroupsUserIn = "SELECT * FROM groupUsers WHERE userID = @idParam";
+                MySqlCommand getAllGroups = new MySqlCommand(getAllGroupsUserIn, con);
+                getAllGroups.Parameters.AddWithValue("@idParam", Logininfo.userid);
+                MySqlDataReader groupReader = getAllGroups.ExecuteReader();
+                while (groupReader.Read())
+                {
+                    userGroups.Add(Convert.ToInt32(groupReader["groupID"]));
+                }
+                groupReader.Close();
+
+                for (int i = 0; i < userGroups.Count; i++)
+                {
+                    String groupFilePermsQuery = "SELECT * FROM groupFilePermissions WHERE groupID = @idParam";
+                    MySqlCommand getAllPermsCmd = new MySqlCommand(groupFilePermsQuery, con);
+                    getAllPermsCmd.Parameters.AddWithValue("@idParam", Convert.ToInt32(userGroups[i]));
+                    MySqlDataReader groupReader2 = getAllPermsCmd.ExecuteReader();
+                    while (groupReader2.Read())
+                    {
+                        if (Convert.ToInt32(groupReader2["readPermission"]) == 1)
+                        {
+                            allFileIDs.Add(Convert.ToInt32(groupReader2["fileID"]));
+                        }
+                    }
+                    groupReader2.Close();
+                }
+
+                for (int i = 0; i< allFileIDs.Count; i++)
+                {
+                    String getAllFileNames = "SELECT * FROM fileInfo WHERE fileID = @idParam";
+                    MySqlCommand getAllPermsCmd = new MySqlCommand(getAllFileNames, con);
+                    getAllPermsCmd.Parameters.AddWithValue("@idParam", Convert.ToInt32(allFileIDs[i]));
+                    MySqlDataReader fileReader = getAllPermsCmd.ExecuteReader();
+                    while (fileReader.Read())
+                    {
+                        allFiles.Add(fileReader["fileName"].ToString());
+                    }
+                    fileReader.Close();
+                }
+
+                for (int i = 0; i < allFiles.Count; i++)
+                {
+                    Boolean fileExists = false;
+                    for (int j = 0; j < fileList.Items.Count; j++)
+                    {
+                        fileExists = false;
+                        if (allFiles[i].ToString() == fileList.Items[j].ToString())
+                        {
+                            fileExists = true;
+                            break;
+                        }
+                    }
+                    if (!fileExists)
+                    {
+                        fileList.Items.Add(allFiles[i].ToString());
+                        break;
                     }
                 }
             }
