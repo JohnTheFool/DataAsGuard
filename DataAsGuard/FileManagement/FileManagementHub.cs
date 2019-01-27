@@ -688,6 +688,13 @@ namespace DataAsGuard.FileManagement
             }
         }
 
+        private void manageGroupsButton_Click(object sender, EventArgs e)
+        {
+            FileManagement.ManageGroups view = new FileManagement.ManageGroups();
+            view.Show();
+            Hide();
+        }
+
         private void editUserPermButton_Click(object sender, EventArgs e)
         {
             FileManagement.EditUserPermissions view = new FileManagement.EditUserPermissions(fileList.SelectedItem.ToString());
@@ -921,9 +928,16 @@ namespace DataAsGuard.FileManagement
 
         private void transferOwnershipButton_Click(object sender, EventArgs e)
         {
-            FileManagementHub oldView = (FileManagementHub)System.Windows.Forms.Application.OpenForms["FileManagementHub"];
-            TransferOwnerUserList view = new TransferOwnerUserList(fileList.SelectedItem.ToString(), oldView);
+            TransferOwnerUserList view = new TransferOwnerUserList(fileList.SelectedItem.ToString());
             view.Show();
+            view.FormClosed += view_FormClosed;
+        }
+
+        private void view_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FileManagementHub view = new FileManagementHub();
+            view.Show();
+            Hide();
         }
 
         private void homeButton_Click(object sender, EventArgs e)
