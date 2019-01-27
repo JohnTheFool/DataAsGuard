@@ -149,8 +149,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.11111F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.88889F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 63F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(386, 262);
             this.tableLayoutPanel1.TabIndex = 26;
@@ -159,7 +159,7 @@
             // 
             this.DOB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.DOB.AutoSize = true;
-            this.DOB.Location = new System.Drawing.Point(145, 228);
+            this.DOB.Location = new System.Drawing.Point(145, 224);
             this.DOB.Name = "DOB";
             this.DOB.Size = new System.Drawing.Size(126, 17);
             this.DOB.TabIndex = 9;
@@ -169,7 +169,7 @@
             // 
             this.Email.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.Email.AutoSize = true;
-            this.Email.Location = new System.Drawing.Point(145, 172);
+            this.Email.Location = new System.Drawing.Point(145, 168);
             this.Email.Name = "Email";
             this.Email.Size = new System.Drawing.Size(42, 17);
             this.Email.TabIndex = 7;
@@ -179,7 +179,7 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(93, 172);
+            this.label7.Location = new System.Drawing.Point(93, 168);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(46, 17);
             this.label7.TabIndex = 6;
@@ -249,7 +249,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 228);
+            this.label2.Location = new System.Drawing.Point(13, 224);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 17);
             this.label2.TabIndex = 8;
@@ -453,6 +453,7 @@
             // 
             // datalogGrid
             // 
+            this.datalogGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.datalogGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.datalogGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datalogGrid.Dock = System.Windows.Forms.DockStyle.Fill;

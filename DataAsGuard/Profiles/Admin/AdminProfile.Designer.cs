@@ -172,10 +172,13 @@
             "LogonSuccess",
             "Registration",
             "Accounts",
-            "Error"});
+            "FileChanges",
+            "FileActions",
+            "GroupChanges",
+            "Permissions"});
             this.logTypeList.Location = new System.Drawing.Point(69, 28);
             this.logTypeList.Name = "logTypeList";
-            this.logTypeList.Size = new System.Drawing.Size(121, 24);
+            this.logTypeList.Size = new System.Drawing.Size(177, 24);
             this.logTypeList.TabIndex = 7;
             this.logTypeList.SelectedIndexChanged += new System.EventHandler(this.logsFilter_SelectedIndexChanged);
             // 
@@ -321,7 +324,7 @@
             "Contact"});
             this.accountList.Location = new System.Drawing.Point(69, 28);
             this.accountList.Name = "accountList";
-            this.accountList.Size = new System.Drawing.Size(132, 24);
+            this.accountList.Size = new System.Drawing.Size(141, 24);
             this.accountList.TabIndex = 6;
             // 
             // panel5

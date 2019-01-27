@@ -20,6 +20,7 @@ using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using iTextSharp.text.pdf;
 using System.Collections;
 using Microsoft.Office.Core;
+using DataAsGuard.Profiles.Users;
 
 namespace DataAsGuard.FileManagement
 {
@@ -871,6 +872,20 @@ namespace DataAsGuard.FileManagement
         {
             Home view = new Home();
             view.Show();
+            Hide();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            Profilesettings settings = new Profilesettings();
+            settings.Show();
+            Hide();
+        }
+
+        private void profileButton_Click(object sender, EventArgs e)
+        {
+            Profile profile = new Profile();
+            profile.Show();
             Hide();
         }
     }

@@ -748,7 +748,6 @@ namespace DataAsGuard.Profiles.Admin
         }
 
         //buttons 
-
         private void AddUsers_Click(object sender, EventArgs e)
         {
             //Users.ConfirmationDetails confirmationDetails = new Users.ConfirmationDetails();

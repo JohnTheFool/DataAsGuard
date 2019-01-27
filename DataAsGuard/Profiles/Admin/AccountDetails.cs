@@ -54,10 +54,14 @@ namespace DataAsGuard.Profiles.Admin
                         userid.Text = reader.GetString(reader.GetOrdinal("userid"));
                         Username.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), AdminSession.userid.ToString());
                         FName.Text = reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname"));
-                        Contact.Text = "****" + aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), AdminSession.userid.ToString()).Substring(4, 4);
+                        Contact.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), AdminSession.userid.ToString());
                         Email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), AdminSession.userid.ToString());
                         DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
                         vflag.Text = reader.GetString(reader.GetOrdinal("verificationflag"));
+                        if(vflag.Text == "A")
+                        {
+                            Lockbtn.Enabled = false;
+                        }
                         if (reader.IsDBNull(reader.GetOrdinal("statusDate")))
                         {
                             statusDate.Text = "NULL";
@@ -481,6 +485,10 @@ namespace DataAsGuard.Profiles.Admin
                     cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd'/'MM'/'yyyy HH: mm:ss"));
                     dblog.Log("Account status changed(T -> L) by Admin", "Accounts", Logininfo.userid, Logininfo.email);
                 }
+                else if (vflag.Text == "A")
+                {
+                    MessageBox.Show("User had been archived.");
+                }
                 cmd.Parameters.AddWithValue("@userid", AdminSession.userid);
                 cmd.ExecuteReader();
                 con.Close();
@@ -495,7 +503,8 @@ namespace DataAsGuard.Profiles.Admin
         {
             bool containgroup = false;
             bool containfile = false;
-            DateTime prevLockDate = DateTime.ParseExact(statusDate.Text, "dd'/'MM'/'yyyy HH:mm:ss", null);
+            DateTime prevLockDate = new DateTime();
+
             if(vflag.Text == "A")
             {
                 MessageBox.Show("User had been Archived.");
@@ -506,6 +515,7 @@ namespace DataAsGuard.Profiles.Admin
             }
             else
             {
+                prevLockDate = DateTime.ParseExact(statusDate.Text, "dd'/'MM'/'yyyy HH:mm:ss", null);
                 //check if the previous lock date has already pass 7 days
                 if (prevLockDate >= DateTime.Now.AddDays(-7) && vflag.Text != "L")
                 {

@@ -1,4 +1,7 @@
-﻿using Steganography;
+﻿using DataAsGuard.CSClass;
+using DataAsGuard.Profiles;
+using DataAsGuard.Profiles.Admin;
+using Steganography;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -130,11 +133,29 @@ namespace DataAsGuard.Viewer
                 }
             }
 
-        private void backBtn_Click(object sender, EventArgs e)
+        private void Logout_Click(object sender, EventArgs e)
         {
-            Home home = new Home();
-            home.Show();
+            Logininfo.userid = null;
+            Logininfo.email = null;
+            Logininfo.username = null;
+            Login login = new Login();
+            login.Show();
             Hide();
         }
+
+        private void AdminHome_Click(object sender, EventArgs e)
+        {
+            AdminProfile adminHome = new AdminProfile();
+            adminHome.Show();
+            Hide();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            AdminProfileSettings settings = new AdminProfileSettings();
+            settings.Show();
+            Hide();
+        }
+
     }
 }

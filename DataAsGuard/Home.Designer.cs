@@ -35,16 +35,9 @@
             this.profileButton = new System.Windows.Forms.Button();
             this.manageFilesButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
-            this.viewImg = new System.Windows.Forms.Button();
-            this.viewPdf = new System.Windows.Forms.Button();
             this.uploadFileButton = new System.Windows.Forms.Button();
-            this.viewDoc = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.watchVideoBtn = new System.Windows.Forms.Button();
-            this.testBtn = new System.Windows.Forms.Button();
             this.logoutButton = new System.Windows.Forms.Button();
             this.toChat = new System.Windows.Forms.Button();
-            this.metaAdmin = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,6 +67,7 @@
             this.homeButton.Size = new System.Drawing.Size(37, 36);
             this.homeButton.TabIndex = 4;
             this.homeButton.UseVisualStyleBackColor = true;
+            this.homeButton.Click += new System.EventHandler(this.HomeButton_Click);
             // 
             // profileButton
             // 
@@ -107,29 +101,6 @@
             this.settingsButton.UseVisualStyleBackColor = true;
             this.settingsButton.Click += new System.EventHandler(this.button2_Click);
             // 
-            // viewImg
-            // 
-            this.viewImg.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.viewImg.Location = new System.Drawing.Point(12, 173);
-            this.viewImg.Name = "viewImg";
-            this.viewImg.Size = new System.Drawing.Size(99, 29);
-            this.viewImg.TabIndex = 2;
-            this.viewImg.Text = "View Image";
-            this.viewImg.UseVisualStyleBackColor = true;
-            this.viewImg.Click += new System.EventHandler(this.showImg);
-            // 
-            // viewPdf
-            // 
-            this.viewPdf.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.viewPdf.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.viewPdf.Location = new System.Drawing.Point(12, 221);
-            this.viewPdf.Name = "viewPdf";
-            this.viewPdf.Size = new System.Drawing.Size(99, 30);
-            this.viewPdf.TabIndex = 4;
-            this.viewPdf.Text = "View PDF";
-            this.viewPdf.UseVisualStyleBackColor = true;
-            this.viewPdf.Click += new System.EventHandler(this.viewPdf_Click);
-            // 
             // uploadFileButton
             // 
             this.uploadFileButton.Font = new System.Drawing.Font("Segoe UI", 13F);
@@ -141,46 +112,6 @@
             this.uploadFileButton.UseMnemonic = false;
             this.uploadFileButton.UseVisualStyleBackColor = true;
             this.uploadFileButton.Click += new System.EventHandler(this.uploadFileButton_Click);
-            // 
-            // viewDoc
-            // 
-            this.viewDoc.Location = new System.Drawing.Point(12, 267);
-            this.viewDoc.Name = "viewDoc";
-            this.viewDoc.Size = new System.Drawing.Size(75, 23);
-            this.viewDoc.TabIndex = 10;
-            this.viewDoc.Text = "View Doc";
-            this.viewDoc.UseVisualStyleBackColor = true;
-            this.viewDoc.Click += new System.EventHandler(this.viewDoc_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(13, 308);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Steganography";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // watchVideoBtn
-            // 
-            this.watchVideoBtn.Location = new System.Drawing.Point(12, 351);
-            this.watchVideoBtn.Name = "watchVideoBtn";
-            this.watchVideoBtn.Size = new System.Drawing.Size(75, 23);
-            this.watchVideoBtn.TabIndex = 12;
-            this.watchVideoBtn.Text = "Watch Video";
-            this.watchVideoBtn.UseVisualStyleBackColor = true;
-            this.watchVideoBtn.Click += new System.EventHandler(this.watchVideoBtn_Click);
-            // 
-            // testBtn
-            // 
-            this.testBtn.Location = new System.Drawing.Point(699, 415);
-            this.testBtn.Name = "testBtn";
-            this.testBtn.Size = new System.Drawing.Size(75, 23);
-            this.testBtn.TabIndex = 13;
-            this.testBtn.Text = "TEST";
-            this.testBtn.UseVisualStyleBackColor = true;
-            this.testBtn.Click += new System.EventHandler(this.testBtn_Click);
             // 
             // logoutButton
             // 
@@ -196,7 +127,7 @@
             // 
             // toChat
             // 
-            this.toChat.Location = new System.Drawing.Point(13, 426);
+            this.toChat.Location = new System.Drawing.Point(11, 156);
             this.toChat.Margin = new System.Windows.Forms.Padding(2);
             this.toChat.Name = "toChat";
             this.toChat.Size = new System.Drawing.Size(79, 21);
@@ -205,35 +136,17 @@
             this.toChat.UseVisualStyleBackColor = true;
             this.toChat.Click += new System.EventHandler(this.Chat_Click);
             // 
-            // metaAdmin
-            // 
-            this.metaAdmin.Location = new System.Drawing.Point(13, 389);
-            this.metaAdmin.Margin = new System.Windows.Forms.Padding(2);
-            this.metaAdmin.Name = "metaAdmin";
-            this.metaAdmin.Size = new System.Drawing.Size(79, 21);
-            this.metaAdmin.TabIndex = 16;
-            this.metaAdmin.Text = "MetaAdmin";
-            this.metaAdmin.UseVisualStyleBackColor = true;
-            this.metaAdmin.Click += new System.EventHandler(this.metaAdmin_Click);
-            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
-            this.Controls.Add(this.metaAdmin);
             this.Controls.Add(this.toChat);
             this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.uploadFileButton);
-            this.Controls.Add(this.testBtn);
-            this.Controls.Add(this.watchVideoBtn);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.viewDoc);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.manageFilesButton);
             this.Controls.Add(this.profileButton);
-            this.Controls.Add(this.viewPdf);
-            this.Controls.Add(this.viewImg);
             this.Controls.Add(this.homeButton);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.pictureBox1);
@@ -252,15 +165,8 @@
         private System.Windows.Forms.Button profileButton;
         private System.Windows.Forms.Button manageFilesButton;
         private System.Windows.Forms.Button settingsButton;
-        private System.Windows.Forms.Button viewImg;
-        private System.Windows.Forms.Button viewPdf;
         private System.Windows.Forms.Button uploadFileButton;
-        private System.Windows.Forms.Button viewDoc;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button watchVideoBtn;
-        private System.Windows.Forms.Button testBtn;
         private System.Windows.Forms.Button logoutButton;
         private System.Windows.Forms.Button toChat;
-        private System.Windows.Forms.Button metaAdmin;
     }
 }

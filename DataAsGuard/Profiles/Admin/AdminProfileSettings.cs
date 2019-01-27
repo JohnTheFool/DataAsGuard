@@ -21,6 +21,7 @@ namespace DataAsGuard.Profiles.Admin
         AesEncryption aes = new AesEncryption();
         Random rand = new Random();
         DBLogger dblog = new DBLogger();
+
         public AdminProfileSettings()
         {
             InitializeComponent();

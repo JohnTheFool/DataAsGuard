@@ -333,8 +333,8 @@ namespace DataAsGuard.Profiles
                                 //var hub = hd.ResolveHub("ChatHub") as ChatHub;
                                 //hub.Connect(Logininfo.userid);
 
-                                Users.Profile profile = new Users.Profile();
-                                profile.Show();
+                                Home home = new Home();
+                                home.Show();
                                 Hide();
                             }
                             //L for Lock Account
