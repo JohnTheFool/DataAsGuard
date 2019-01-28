@@ -21,6 +21,7 @@ using iTextSharp.text.pdf;
 using System.Collections;
 using Microsoft.Office.Core;
 using DataAsGuard.Profiles.Users;
+using DataAsGuard.Profiles;
 
 namespace DataAsGuard.FileManagement
 {
@@ -1022,6 +1023,16 @@ namespace DataAsGuard.FileManagement
         {
             Profile profile = new Profile();
             profile.Show();
+            Hide();
+        }
+
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            Logininfo.userid = null;
+            Logininfo.email = null;
+            Logininfo.username = null;
+            Login login = new Login();
+            login.Show();
             Hide();
         }
     }

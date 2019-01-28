@@ -330,6 +330,7 @@
             this.Logout.TabIndex = 24;
             this.Logout.Text = "Log Out";
             this.Logout.UseVisualStyleBackColor = true;
+            this.Logout.Click += new System.EventHandler(this.Logout_Click);
             // 
             // FileManagementHub
             // 
