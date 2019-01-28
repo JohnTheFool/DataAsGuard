@@ -648,9 +648,12 @@ namespace DataAsGuard.FileManagement
                         getFilecmd.Parameters.AddWithValue("@nameParam", fileList.SelectedItem.ToString());
                         MySqlDataReader reader = getFilecmd.ExecuteReader();
                         if (reader.Read())
-                        fileBytes = (byte[])reader["file"];
+                        {
+                            fileBytes = (byte[])reader["file"];
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
+                    
                     File.WriteAllBytes(tempFileName, fileBytes);
                     if (fileExtension == ".txt")
                     {
@@ -800,81 +803,7 @@ namespace DataAsGuard.FileManagement
                         await PutTaskDelay();
                         while (IsFileLock(tempFileName) == true)
                         {
-                            fileBytes = (byte[])reader["file"];
-                        }
-                        reader.Close();
-                        File.WriteAllBytes(tempFileName, fileBytes);
-                        if (fileExtension == ".txt")
-                        {
-                            string hu = File.ReadAllText(tempFileName); ;
-                            DocEd dd = new DocEd();
-                            dd.GetText = hu;
-                            dd.Show();
-                            this.Hide();
-                        }
-                        else if (fileExtension == ".jpeg" || fileExtension == ".jpg" || fileExtension == ".png")
-                        {
-                            ImgViewer.ImgViewerForm imgView = new ImgViewer.ImgViewerForm();
-                            imgView.path = tempFileName;
-                            imgView.Show();
-                            this.Hide();
-                        }
-                        else if (fileExtension == ".mp4")
-                        {
-                            VideoPlayer vd = new VideoPlayer();
-                            vd.videoPath = tempFileName;
-                            vd.Show();
-                            this.Hide();
-                        }
-                        else if (fileExtension == ".doc" || fileExtension == ".docx")
-                        {
-                            object readOnly = true;
-                            object fileName = tempFileName;
-                            //openFileFunctionTest(tempFileName);
-                            object missing = System.Reflection.Missing.Value;
-                            var applicationWord = new Microsoft.Office.Interop.Word.Application();
-                            applicationWord.Visible = true;
-                            //object gg = applicationWord.DocumentBeforeSave();
-                            applicationWord.Options.SavePropertiesPrompt = false;
-                            applicationWord.Options.SaveNormalPrompt = false;
-                            applicationWord.DisplayAlerts = WdAlertLevel.wdAlertsNone;
-                            applicationWord.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
-                            //applicationWord.DocumentBeforeClose += new EventHandler(process_Exited);
-                            //var process = Process.GetProcessesByName(tempFileName);
-                            //process[0].Exited += new EventHandler(process_Exited);
-                        }
-                        else if (fileExtension == ".xlsx")
-                        {
-                            object readOnly = true;
-                            string fileName = tempFileName;
-                            object missing = System.Reflection.Missing.Value;
-                            var applicationExcel = new Microsoft.Office.Interop.Excel.Application();
-                            applicationExcel.Visible = true;
-                            applicationExcel.Workbooks.Open(fileName, missing, readOnly, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing);
-                        }
-                        else if (fileExtension == ".pptx")
-                        {
-                            string fileName = tempFileName;
-                            MsoTriState readOnly = MsoTriState.msoTrue;
-                            object missing = System.Reflection.Missing.Value;
-                            Microsoft.Office.Interop.PowerPoint.Application applicationPPT = new Microsoft.Office.Interop.PowerPoint.Application();
-                            applicationPPT.Presentations.Open(fileName, readOnly, MsoTriState.msoTrue, MsoTriState.msoTrue);
-                            // JUST GREAT MSOTRISTATE NOT WORKING
-                        }
-                        else
-                        {
-                            //File.WriteAllBytes(tempFileName, fileBytes);
-                            //var process = Process.Start(tempFileName);
-                            //process.Exited += new EventHandler(process_Exited);
-                        }
-                        dblog.fileLog("Opened file '" + fileList.SelectedItem.ToString() + "'.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
-                        if (fileExtension == ".docx" || fileExtension == ".xlsx" || fileExtension == ".pptx" || fileExtension == ".txt")
-                        {
-                            await PutTaskDelay();
-                            while (IsFileLock(tempFileName) == true)
-                            {
 
-                            }
                         }
                         UpdateFileToDb(tempFileName, nameOfFile);
                         //if (IsFileLock(tempFileName) == true)
