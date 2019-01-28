@@ -816,6 +816,7 @@ namespace DataAsGuard.FileManagement
                     //    MessageBox.Show("close");
                     //}
                     releaseLock(nameOfFile);
+                    //File.Delete(tempFileName);
                     //MessageBox.Show(nameOfFile);
                 }
                 else

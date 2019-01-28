@@ -20,7 +20,7 @@ namespace DataAsGuard.PdfViewer
 
         private void PdfViewer_Load(object sender, EventArgs e)
         {
-
+            this.FormClosing += new FormClosingEventHandler(PdfViewer_FormClosing);
         }
 
         private void pdfOpen_Click(object sender, EventArgs e)
@@ -57,5 +57,11 @@ namespace DataAsGuard.PdfViewer
                 }
             }
         }
+
+
+        private void PdfViewer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+        }
+
     }
 }

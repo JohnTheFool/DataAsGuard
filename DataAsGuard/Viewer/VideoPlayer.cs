@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,13 @@ namespace DataAsGuard.Viewer
         public VideoPlayer()
         {
             InitializeComponent();
+            this.FormClosing += new FormClosingEventHandler(VideoPlayer_FormClosing);
         }
 
+        private void VideoPlayer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            File.Delete(videoPath);
+        }
         //private void chooseFileBtn_Click(object sender, EventArgs e)
         //{
         //    OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -38,6 +44,7 @@ namespace DataAsGuard.Viewer
 
         private void backBtn_Click(object sender, EventArgs e)
         {
+            File.Delete(videoPath);
             Home home = new Home();
             home.Show();
             Hide();

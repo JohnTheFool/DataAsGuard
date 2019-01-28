@@ -43,6 +43,13 @@ namespace DataAsGuard.Viewer
         bool isUnderline = true;
         bool isBold = true;
         bool isItalic = true;
+
+        private void DocEd_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            File.Delete(GetReadFile);
+            Hide();
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             //rtfBox.SelectionColor = colour;
@@ -83,6 +90,7 @@ namespace DataAsGuard.Viewer
 
         private void backBtn_Click(object sender, EventArgs e)
         {
+            File.Delete(GetReadFile);
             Home home = new Home();
             home.Show();
             Hide();
@@ -146,6 +154,7 @@ namespace DataAsGuard.Viewer
 
         private void DocEd_Load(object sender, EventArgs e)
         {
+            this.FormClosing += new FormClosingEventHandler(DocEd_FormClosing);
             rtfBox.Text = this.GetText;
             underlineBtn.Hide();
             italicBtn.Hide();

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,6 +76,7 @@ namespace DataAsGuard.ImgViewer
             {
                 showPic.Dispose();
             }
+            File.Delete(path);
         }
 
         private void fileNameBox_TextChanged(object sender, EventArgs e)
@@ -84,6 +86,7 @@ namespace DataAsGuard.ImgViewer
 
         private void ImgViewerForm_Load(object sender, EventArgs e)
         {
+            this.FormClosing += new FormClosingEventHandler(ImgViewerForm_FormClosing);
             zoom.Hide();
             showPic.Image = Image.FromFile(this.path);
             imgOriginal = showPic.Image;
@@ -100,6 +103,7 @@ namespace DataAsGuard.ImgViewer
 
         private void backBtn_Click(object sender, EventArgs e)
         {
+            File.Delete(path);
             Home home = new Home();
             home.Show();
             Hide();
