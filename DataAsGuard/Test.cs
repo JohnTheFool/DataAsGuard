@@ -18,6 +18,7 @@ using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using System.IO;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using Microsoft.Office.Core;
 
 namespace DataAsGuard
 {
@@ -98,9 +99,51 @@ namespace DataAsGuard
                 }
             }
 
+        private string CheckWriteOnly(string userId ,string fileName)
+        {
+            string isWrite = "";
+            string fileId = "";
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String fileIdQuery = "SELECT * FROM da_schema.fileInfo WHERE fileName = @nameParam";
+                MySqlCommand getFileIdcmd = new MySqlCommand(fileIdQuery, con);
+                getFileIdcmd.Parameters.AddWithValue("@nameParam", fileName);
+                MySqlDataReader reader = getFileIdcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileId = reader["fileId"].ToString();
+                }
+                reader.Close();
+
+                //MessageBox.Show(fileId);
+
+                String fileWritePermQuery = "SELECT * FROM da_schema.userFilePermissions WHERE fileID = @fileParam AND userID = @userIdParam";
+                MySqlCommand getFilePermcmd = new MySqlCommand(fileWritePermQuery, con);
+                getFilePermcmd.Parameters.AddWithValue("@fileParam", fileId);
+                getFilePermcmd.Parameters.AddWithValue("@userIdParam", userId);
+                MySqlDataReader reader2 = getFilePermcmd.ExecuteReader();
+                if (reader2.Read())
+                {
+                    isWrite = reader2["editPermission"].ToString();
+                }
+                //MessageBox.Show(isWrite);
+                reader2.Close();
+                con.Close();
+                return isWrite;
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show( stupid(@"C:\Users\Solomon\Documents\TEST\shitshit.docx"));
+            if(IsFileLock(@"C:\Users\Solomon\Documents\TEST\kkkk.txt") == true)
+            {
+                MessageBox.Show("Open");
+            }
+            else
+            {
+                MessageBox.Show("Close");
+            }
             //PdfReader reader = new PdfReader(@"C:\Users\Solomon\Documents\TEST\test.pdf");
             //iTextSharp.text.Rectangle size = reader.GetPageSizeWithRotation(1);
             //Document document = new Document(size);
@@ -244,6 +287,198 @@ namespace DataAsGuard
         private void button3_Click(object sender, EventArgs e)
         {
             //MessageBox.Show(GetIPAddress());
+        }
+
+        private string GetFileId(string fileName)
+        {
+            string fileId = "";
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+
+                // Get FIle ID
+                String fileIdQuery = "SELECT * FROM da_schema.fileInfo WHERE fileName = @nameParam";
+                MySqlCommand getFileIdcmd = new MySqlCommand(fileIdQuery, con);
+                getFileIdcmd.Parameters.AddWithValue("@nameParam", fileName);
+                MySqlDataReader reader = getFileIdcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileId = reader["fileId"].ToString();
+                }
+                reader.Close();
+                //MessageBox.Show("FileID : " + fileId);
+            }
+            return fileId;
+        }
+
+        private List<string> GetGroupId(string userId)
+        {
+            List<string> groupIdList = new List<string>();
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String grpIdQuery = "SELECT * FROM da_schema.groupUsers WHERE userID = @userParam";
+                MySqlCommand getGroupIdcmd = new MySqlCommand(grpIdQuery, con);
+                getGroupIdcmd.Parameters.AddWithValue("@userParam", userId);
+                MySqlDataReader reader2 = getGroupIdcmd.ExecuteReader();
+                //while (reader2.HasRows)
+                //{
+                while (reader2.Read())
+                {
+                    groupIdList.Add(reader2["groupID"].ToString());
+                }
+            }
+            return groupIdList;
+        }
+
+        private string CheckWriteOnlyGroup(string fileId, string groupId)
+        {
+            string isWrite = "";
+            List<string> groupIdList = new List<string>();
+            //string groupId = "";
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+
+                // Get FIle ID
+                //string fileId = "";
+                //String fileIdQuery = "SELECT * FROM da_schema.fileInfo WHERE fileName = @nameParam";
+                //MySqlCommand getFileIdcmd = new MySqlCommand(fileIdQuery, con);
+                //getFileIdcmd.Parameters.AddWithValue("@nameParam", fileName);
+                //MySqlDataReader reader = getFileIdcmd.ExecuteReader();
+                //if (reader.Read())
+                //{
+                //    fileId = reader["fileId"].ToString();
+                //}
+                //reader.Close();
+                //MessageBox.Show("FileID : " + fileId);
+
+                // Get Group ID
+                //String grpIdQuery = "SELECT * FROM da_schema.groupUsers WHERE userID = @userParam";
+                //MySqlCommand getGroupIdcmd = new MySqlCommand(grpIdQuery, con);
+                //getGroupIdcmd.Parameters.AddWithValue("@userParam", userId);
+                //MySqlDataReader reader2 = getGroupIdcmd.ExecuteReader();
+                ////while (reader2.HasRows)
+                ////{
+                //while (reader2.Read())
+                //{
+                //    groupIdList.Add(reader2["groupID"].ToString());
+                ////    foreach (string i in groupIdList)
+                ////{
+                ////MessageBox.Show(reader2["groupID"].ToString());
+                ////}
+                ////MessageBox.Show("GroupID " + reader2["groupId"].ToString());
+
+                //}
+                //reader2.Close();
+                //for (int i = 0; i < groupIdList.Count; i++)
+                //{
+                //    MessageBox.Show("Group ID: " + groupIdList[i]);
+                //}
+                //}
+                //    reader2.Close();
+                //    MessageBox.Show(groupIdList.ToString());
+                //    MessageBox.Show(groupId);
+                //    Get Perms
+
+                String fileWritePermQuery = "SELECT * FROM da_schema.groupFilePermissions WHERE groupID = @groupIdParam AND fileID = @fileIdParam";
+                MySqlCommand getFilePermcmd = new MySqlCommand(fileWritePermQuery, con);
+                getFilePermcmd.Parameters.AddWithValue("@fileIdParam", fileId);
+                //for (int i = 0; i < groupIdList.Count; i++)
+                //{
+                    getFilePermcmd.Parameters.AddWithValue("@groupIdParam", groupId);
+                    MySqlDataReader reader3 = getFilePermcmd.ExecuteReader();
+                    if (reader3.Read())
+                    {
+                        isWrite = reader3["editPermission"].ToString();
+                    }
+                    //MessageBox.Show("Is Write = " + isWrite);
+                    reader3.Close();
+                    con.Close();
+                    //MessageBox.Show("Group ID: " + isWrite);
+                //}
+            }
+            return isWrite;
+            }
+        //private Boolean CompareGroupPerms()
+        //{
+        //    Boolean compare = false;
+        //    string fileId = GetFileId("Excel Schedule.xlsx");
+        //    List<string> groupId = GetGroupId("4");
+        //    //CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+        //    for (int i = 0; i < groupId.Count; i++)
+        //    {
+        //        if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+        //        {
+        //            compare = true;
+        //        }
+        //        else
+        //        {
+        //            compare = false;
+        //        }
+        //    }
+        //}
+
+        private void CheckPpt()
+        {
+            string fileName = @"C:\Users\Solomon\Documents\TEST\trided.pptx";
+            MsoTriState readOnly = MsoTriState.msoFalse;
+            object missing = System.Reflection.Missing.Value;
+            Microsoft.Office.Interop.PowerPoint.Application applicationPPT = new Microsoft.Office.Interop.PowerPoint.Application();
+            applicationPPT.Presentations.Open(fileName, readOnly, MsoTriState.msoTrue, MsoTriState.msoTrue);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            //CheckPpt();
+            if (IsFileLock(@"C:\Users\Solomon\Documents\TEST\kkkk.txt") == true)
+            {
+                MessageBox.Show("Open");
+            }
+            else
+            {
+                MessageBox.Show("Close");
+            }
+
+            //if (CompareGroupPerms() == true)
+            //{
+            //    MessageBox.Show("TRUE");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("FALSE");
+            //}
+
+            //string fileId = GetFileId("Excel Schedule.xlsx");
+            //List<string> groupId = GetGroupId("4");
+            ////CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+            //for (int i = 0; i < groupId.Count; i++)
+            //{
+            //    if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+            //    {
+            //        MessageBox.Show("TRUE");
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("FALSE");
+            //    }
+            //}
+
+
+
+            //if (CheckWriteOnlyGroup("4", "Excel Schedule.xlsx") == "True" || CheckWriteOnlyGroup("4", "Excel Schedule.xlsx") == "1")
+            //{
+            //    MessageBox.Show("TRUE");
+            //}
+            //else if (CheckWriteOnlyGroup("4", "Excel Schedule.xlsx") == "False" || CheckWriteOnlyGroup("4", "Excel Schedule.xlsx") == "0")
+            //{
+            //    MessageBox.Show("FALSE");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("neither TRUE nor FALSE");
+            //}
+
         }
 
         //protected string GetIPAddress()

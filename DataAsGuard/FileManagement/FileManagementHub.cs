@@ -486,6 +486,139 @@ namespace DataAsGuard.FileManagement
             await System.Threading.Tasks.Task.Delay(5000);
         }
 
+        public Boolean UpdateFileToDb(string readFile,string fileName)
+        {
+            byte[] fileBytes = null;
+            Boolean success = false;
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                    try
+                    {
+                        fileBytes = File.ReadAllBytes(readFile);
+                        String executeQuery = "UPDATE da_schema.fileInfo SET file = @fileParam WHERE fileName = @fileName";
+                        MySqlCommand myCommand = new MySqlCommand(executeQuery, con);
+                        myCommand.Parameters.AddWithValue("@fileParam", fileBytes);
+                        myCommand.Parameters.AddWithValue("@fileName", fileName);
+                        myCommand.ExecuteNonQuery();
+                        success = true;
+                    }
+                    catch (IOException)
+                    {
+                        MessageBox.Show("Error file could not be read, please try again.");
+                        success = false;
+                    }
+                con.Close();
+            }
+
+            //if (success)
+            //{
+            //    dblog.fileLog("File '" + fileName + "' uploaded to database.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
+            //}
+
+            return success;
+        }
+
+        private string CheckWriteOnlyUser(string userId, string fileName)
+        {
+            string isWrite = "";
+            string fileId = "";
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String fileIdQuery = "SELECT fileID FROM da_schema.fileInfo WHERE fileName = @nameParam";
+                MySqlCommand getFileIdcmd = new MySqlCommand(fileIdQuery, con);
+                getFileIdcmd.Parameters.AddWithValue("@nameParam", fileName);
+                MySqlDataReader reader = getFileIdcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileId = reader["fileId"].ToString();
+                }
+                reader.Close();
+
+                String fileWritePermQuery = "SELECT editPermission FROM da_schema.userFilePermissions WHERE fileID = @fileParam AND userID = @userIdParam";
+                MySqlCommand getFilePermcmd = new MySqlCommand(fileWritePermQuery, con);
+                getFilePermcmd.Parameters.AddWithValue("@fileParam", fileId);
+                getFilePermcmd.Parameters.AddWithValue("@userIdParam", userId);
+                MySqlDataReader reader2 = getFilePermcmd.ExecuteReader();
+                if (reader2.Read())
+                {
+                    isWrite = reader2["editPermission"].ToString();
+                }
+                reader2.Close();
+                con.Close();
+                return isWrite;
+            }
+        }
+
+        private string GetFileId(string fileName)
+        {
+            string fileId = "";
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+
+                // Get FIle ID
+                String fileIdQuery = "SELECT * FROM da_schema.fileInfo WHERE fileName = @nameParam";
+                MySqlCommand getFileIdcmd = new MySqlCommand(fileIdQuery, con);
+                getFileIdcmd.Parameters.AddWithValue("@nameParam", fileName);
+                MySqlDataReader reader = getFileIdcmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    fileId = reader["fileId"].ToString();
+                }
+                reader.Close();
+                con.Close();
+            }
+            return fileId;
+        }
+
+        private List<string> GetGroupId(string userId)
+        {
+            List<string> groupIdList = new List<string>();
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String grpIdQuery = "SELECT * FROM da_schema.groupUsers WHERE userID = @userParam";
+                MySqlCommand getGroupIdcmd = new MySqlCommand(grpIdQuery, con);
+                getGroupIdcmd.Parameters.AddWithValue("@userParam", userId);
+                MySqlDataReader reader2 = getGroupIdcmd.ExecuteReader();
+                //while (reader2.HasRows)
+                //{
+                while (reader2.Read())
+                {
+                    groupIdList.Add(reader2["groupID"].ToString());
+                }
+                reader2.Close();
+                con.Close();
+            }
+            return groupIdList;
+        }
+
+        private string CheckWriteOnlyGroup(string fileId, string groupId)
+        {
+            string isWrite = "";
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+
+                String fileWritePermQuery = "SELECT * FROM da_schema.groupFilePermissions WHERE groupID = @groupIdParam AND fileID = @fileIdParam";
+                MySqlCommand getFilePermcmd = new MySqlCommand(fileWritePermQuery, con);
+                getFilePermcmd.Parameters.AddWithValue("@fileIdParam", fileId);
+                //for (int i = 0; i < groupIdList.Count; i++)
+                //{
+                getFilePermcmd.Parameters.AddWithValue("@groupIdParam", groupId);
+                MySqlDataReader reader3 = getFilePermcmd.ExecuteReader();
+                if (reader3.Read())
+                {
+                    isWrite = reader3["editPermission"].ToString();
+                }
+                reader3.Close();
+                con.Close();
+            }
+            return isWrite;
+        }
+
         //public string nameOfFile { get; set; }
         //public string fileExtension { get;  set; }
         //public string tempFileName { get; set; }
@@ -515,6 +648,157 @@ namespace DataAsGuard.FileManagement
                         getFilecmd.Parameters.AddWithValue("@nameParam", fileList.SelectedItem.ToString());
                         MySqlDataReader reader = getFilecmd.ExecuteReader();
                         if (reader.Read())
+                        fileBytes = (byte[])reader["file"];
+                    }
+                    reader.Close();
+                    File.WriteAllBytes(tempFileName, fileBytes);
+                    if (fileExtension == ".txt")
+                    {
+                        object readOnly = false;
+                        string isWriteGroup = "";
+                        string isWrite = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
+                        string fileId = GetFileId(nameOfFile);
+                        List<string> groupId = GetGroupId(CSClass.Logininfo.userid);
+                        //CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+                        for (int i = 0; i < groupId.Count; i++)
+                        {
+                            if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+                            {
+                                isWriteGroup = "True";
+                            }
+                        }
+                        string hu = File.ReadAllText(tempFileName); ;
+                        DocEd dd = new DocEd();
+                        dd.GetText = hu;
+                        dd.GetIsWriteUser = isWrite;
+                        dd.GetIsWriteGroup = isWriteGroup;
+                        dd.GetReadFile = tempFileName;
+                        dd.GetSaveFile = nameOfFile;
+                        dd.Show();
+                        this.Hide();
+                    }
+                    else if (fileExtension == ".jpeg" || fileExtension == ".jpg" || fileExtension == ".png")
+                    {
+                        ImgViewer.ImgViewerForm imgView = new ImgViewer.ImgViewerForm();
+                        imgView.path = tempFileName;
+                        imgView.Show();
+                        this.Hide();
+                    }
+                    else if (fileExtension == ".mp4")
+                    {
+                        VideoPlayer vd = new VideoPlayer();
+                        vd.videoPath = tempFileName;
+                        vd.Show();
+                        this.Hide();
+                    }
+                    else if (fileExtension == ".doc" || fileExtension == ".docx")
+                    {
+                        object readOnly = false;
+                        string isWriteGroup = "";
+                        string isWrite = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
+                        string fileId = GetFileId(nameOfFile);
+                        List<string> groupId = GetGroupId(CSClass.Logininfo.userid);
+                        //CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+                        for (int i = 0; i < groupId.Count; i++)
+                        {
+                            if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+                            {
+                                isWriteGroup = "True";
+                            }
+                        }
+                        if (isWrite == "True" || isWriteGroup == "True")
+                        {
+                            readOnly = false;
+                        }
+                        else
+                        {
+                            readOnly = true;
+                        }
+                        object fileName = tempFileName;
+                        object missing = System.Reflection.Missing.Value;
+                        var applicationWord = new Microsoft.Office.Interop.Word.Application();
+                        applicationWord.Visible = true;
+                        //object gg = applicationWord.DocumentBeforeSave();
+                        applicationWord.Options.SavePropertiesPrompt = false;
+                        applicationWord.Options.SaveNormalPrompt = false;
+                        applicationWord.DisplayAlerts = WdAlertLevel.wdAlertsNone;
+                        applicationWord.Documents.Open(ref fileName, ref missing, ref readOnly, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing, ref missing);
+                        //applicationWord.DocumentBeforeClose += new EventHandler(process_Exited);
+                        //var process = Process.GetProcessesByName(tempFileName);
+                        //process[0].Exited += new EventHandler(process_Exited);
+                    }
+                    else if (fileExtension == ".xlsx")
+                    {
+                        object readOnly = false;
+                        string isWriteGroup = "";
+                        string isWriteUser = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
+                        //string isWriteGroup = CheckWriteOnlyGroup(, nameOfFile);
+                        string fileId = GetFileId(nameOfFile);
+                        List<string> groupId = GetGroupId(CSClass.Logininfo.userid);
+                        //CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+                        for (int i = 0; i < groupId.Count; i++)
+                        {
+                            if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+                            {
+                                isWriteGroup = "True";
+                                //MessageBox.Show("TRUE");
+                            }
+                        }
+                        if (isWriteUser == "True" || isWriteGroup == "True")
+                        {
+                            readOnly = false;
+                        }
+                        else
+                        {
+                            readOnly = true;
+                        }
+                        string fileName = tempFileName;
+                        object missing = System.Reflection.Missing.Value;
+                        var applicationExcel = new Microsoft.Office.Interop.Excel.Application();
+                        applicationExcel.Visible = true;
+                        applicationExcel.Workbooks.Open(fileName, missing, readOnly, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing, missing);
+                    }
+                    else if (fileExtension == ".pptx")
+                    {
+                        string fileName = tempFileName;
+                        string isWriteGroup = "";
+                        MsoTriState readOnly = MsoTriState.msoFalse;
+                        string isWrite = CheckWriteOnlyUser(CSClass.Logininfo.userid, nameOfFile);
+                        string fileId = GetFileId(nameOfFile);
+                        List<string> groupId = GetGroupId(CSClass.Logininfo.userid);
+                        //CheckWriteOnlyGroup("4", "Excel Schedule.xlsx");
+                        for (int i = 0; i < groupId.Count; i++)
+                        {
+                            if (CheckWriteOnlyGroup(fileId, groupId[i]) == "True")
+                            {
+                                isWriteGroup = "True";
+                            }
+                        }
+                        if (isWrite == "True" || isWriteGroup == "True")
+                        {
+                            readOnly = MsoTriState.msoFalse;
+                        }
+                        else
+                        {
+                            readOnly = MsoTriState.msoTrue;
+                        }
+                        object missing = System.Reflection.Missing.Value;
+                        Microsoft.Office.Interop.PowerPoint.Application applicationPPT = new Microsoft.Office.Interop.PowerPoint.Application();
+                        applicationPPT.Presentations.Open(fileName, readOnly, MsoTriState.msoTrue, MsoTriState.msoTrue);
+                        // JUST GREAT MSOTRISTATE NOT WORKING
+                    }
+                    else
+                    {
+                        //File.WriteAllBytes(tempFileName, fileBytes);
+                        //var process = Process.Start(tempFileName);
+                        //process.Exited += new EventHandler(process_Exited);
+                    }
+                    //MessageBox.Show(tempFileName);
+                    dblog.fileLog("Opened file '" + fileList.SelectedItem.ToString() + "'.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
+                    if (fileExtension == ".docx" || fileExtension == ".xlsx" || fileExtension == ".pptx")
+                    {
+                        await PutTaskDelay();
+                        while (IsFileLock(tempFileName) == true)
                         {
                             fileBytes = (byte[])reader["file"];
                         }
@@ -592,8 +876,18 @@ namespace DataAsGuard.FileManagement
 
                             }
                         }
-                        releaseLock(nameOfFile);
+                        UpdateFileToDb(tempFileName, nameOfFile);
+                        //if (IsFileLock(tempFileName) == true)
+                        //{
+                        //    MessageBox.Show("open");
+                        //}
                     }
+                    //if (IsFileLock(tempFileName) == false)
+                    //{
+                    //    MessageBox.Show("close");
+                    //}
+                    releaseLock(nameOfFile);
+                    //MessageBox.Show(nameOfFile);
                 }
                 else
                 {
@@ -919,8 +1213,32 @@ namespace DataAsGuard.FileManagement
                 }
                 reader.Close();
                 File.WriteAllBytes(tempFileName, fileBytes);
-                using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Text Documents;Word Docx;PPTX;XLSX;Png;MP4;All |*.txt;*.docx;*pptx;*xlsx;*.png;*mp4;*.*", ValidateNames = true })
+                using (SaveFileDialog sfd = new SaveFileDialog())
                 {
+                    if (fileExtension == ".txt")
+                    {
+                        sfd.Filter = "Text|*.txt|All Files|*.*";
+                    }
+                    else if (fileExtension == ".docx")
+                    {
+                        sfd.Filter = "Word Documents|*.docx|All Files|*.*";
+                    }
+                    else if (fileExtension == ".xlsx")
+                    {
+                        sfd.Filter = "Excel Worksheets|*.xlsx|All Files|*.*";
+                    }
+                    else if (fileExtension == ".png" || fileExtension == ".jpg")
+                    {
+                        sfd.Filter = "Portable Network Graphics|*.png|All Files|*.*";
+                    }
+                    else if (fileExtension == ".mp4")
+                    {
+                        sfd.Filter = "MPEG Layer-4 Audio|*.mp4|All Files|*.*";
+                    }
+                    else
+                    {
+                        sfd.Filter = "All Files|*.*";
+                    }
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
                         switch (fileExtension)

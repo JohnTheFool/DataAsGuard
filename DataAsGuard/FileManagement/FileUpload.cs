@@ -162,7 +162,7 @@ namespace DataAsGuard.FileManagement
             uploadButton.Enabled = false;
             OpenFileDialog dialog = new OpenFileDialog
             {
-                Filter = "Word Documents|*.docx|Excel Worksheets|*.xlsx|PowerPoint Presentations|*.pptx|Office Files|*.docx;*.xlsx;*.pptx|All Files|*.*", // allowed file types
+                Filter = "Text|*.txt|JPG|*.jpg|Portable Network Graphics|*.png|MPEG Layer-4 Audio|*.mp4|Word Documents|*.docx|Excel Worksheets|*.xlsx|All Files|*.*", // allowed file types
                 Multiselect = false // allow/deny user to upload more than one file at a time
             };
             if (dialog.ShowDialog() == DialogResult.OK) // if OK clicked
