@@ -491,7 +491,7 @@ namespace DataAsGuard.Profiles.Admin
                 {
                     //unlock to lock
                     cmd.Parameters.AddWithValue("@vflag", "L");
-                    cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd'/'MM'/'yyyy HH: mm:ss"));
+                    cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss"));
                     dblog.Log("Account status changed(T -> L) by Admin", "Accounts", Logininfo.userid, Logininfo.email);
                 }
                 else if (vflag.Text == "A")
@@ -526,7 +526,7 @@ namespace DataAsGuard.Profiles.Admin
             {
                 prevLockDate = DateTime.ParseExact(statusDate.Text, "dd'/'MM'/'yyyy HH:mm:ss", null);
                 //check if the previous lock date has already pass 7 days
-                if (prevLockDate >= DateTime.Now.AddDays(-7) && vflag.Text != "L")
+                if (prevLockDate >= DateTime.Now.AddDays(-7) || vflag.Text != "L")
                 {
                     MessageBox.Show("Account need to be lock for more than 7 days before able to be deleted");
                 }

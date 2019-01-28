@@ -282,7 +282,7 @@ namespace DataAsGuard.FileManagement
                 case ClamScanResults.VirusDetected:
                     Console.WriteLine("Virus Found!");
                     Console.WriteLine("Virus name: {0}", scanResult.InfectedFiles.First().VirusName);
-                    MessageBox.Show("Virus Found! Virus name: {0}", scanResult.InfectedFiles.First().VirusName);
+                    MessageBox.Show("Virus Found! Virus name: " + scanResult.InfectedFiles.First().VirusName);
                     flag = "V";
                     break;
                 case ClamScanResults.Error:
