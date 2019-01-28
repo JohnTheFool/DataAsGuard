@@ -1,4 +1,5 @@
 ﻿using DataAsGuard.CSClass;
+using DataAsGuard.Profiles.Users;
 using MySql.Data.MySqlClient;
 using nClam;
 using System;
@@ -302,6 +303,20 @@ namespace DataAsGuard.FileManagement
         private void homeButton_Click(object sender, EventArgs e)
         {
             Home view = new Home();
+            view.Show();
+            Hide();
+        }
+
+        private void ProfileButton_Click(object sender, EventArgs e)
+        {
+            Profile view = new Profile();
+            view.Show();
+            Hide();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            Profilesettings view = new Profilesettings();
             view.Show();
             Hide();
         }

@@ -117,6 +117,7 @@
             this.settingsButton.Size = new System.Drawing.Size(37, 36);
             this.settingsButton.TabIndex = 11;
             this.settingsButton.UseVisualStyleBackColor = true;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
             // ProfileButton
             // 
@@ -126,6 +127,7 @@
             this.ProfileButton.Size = new System.Drawing.Size(37, 36);
             this.ProfileButton.TabIndex = 10;
             this.ProfileButton.UseVisualStyleBackColor = true;
+            this.ProfileButton.Click += new System.EventHandler(this.ProfileButton_Click);
             // 
             // homeButton
             // 

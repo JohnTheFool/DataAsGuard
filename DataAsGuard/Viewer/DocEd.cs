@@ -396,6 +396,18 @@ namespace DataAsGuard.Viewer
             //        e.SuppressKeyPress = true;
             //    }
             //}
+            if (this.GetIsWriteUser == "True" || this.GetIsWriteGroup == "True")
+            {
+
+            }
+            else
+            {
+                if (e.Control && e.KeyCode == Keys.C)
+                {
+                    e.SuppressKeyPress = true;
+                    MessageBox.Show("Copying is not allowed! You do not have the permissions!", "Warning!");
+                }
+            }
         }
 
         public bool IsFileLock(string filePath)

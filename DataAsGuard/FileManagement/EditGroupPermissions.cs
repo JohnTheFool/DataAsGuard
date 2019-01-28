@@ -1,4 +1,5 @@
 ﻿using DataAsGuard.CSClass;
+using DataAsGuard.Profiles.Users;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -222,6 +223,20 @@ namespace DataAsGuard.FileManagement
             {
                 MessageBox.Show("Permissions applied.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void profileButton_Click(object sender, EventArgs e)
+        {
+            Profile view = new Profile();
+            view.Show();
+            Hide();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            Profilesettings view = new Profilesettings();
+            view.Show();
+            Hide();
         }
     }
 }
