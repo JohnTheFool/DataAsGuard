@@ -36,6 +36,15 @@ namespace DataAsGuard.Profiles.Admin
             chartInitialized();
             chartInitialized2();
             retrieveFileAccess();
+
+            ToolTip yourToolTip = new ToolTip();
+            //The below are optional, of course,
+
+            yourToolTip.ToolTipIcon = ToolTipIcon.Info;
+            yourToolTip.IsBalloon = true;
+            yourToolTip.ShowAlways = true;
+
+            yourToolTip.SetToolTip(vflag, "T -> Verified User"+Environment.NewLine +"F -> Unverified User"+Environment.NewLine+ "L -> Locked User" + Environment.NewLine + "A -> Archived User" + Environment.NewLine + "FU -> Forget Username User" + Environment.NewLine + "FP -> ForgetPassword User");
         }
 
         private void userdataRetrieval()

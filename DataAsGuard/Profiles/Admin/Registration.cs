@@ -169,7 +169,7 @@ namespace DataAsGuard.Profiles.Admin
                 if (checkEmail())
                 {
                     validation.Show();
-                    validation.ForeColor = Color.ForestGreen;
+                    validation.ForeColor = Color.Red;
                     validation.Text = "Email has been used";
                 }
             }
