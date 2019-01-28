@@ -34,7 +34,17 @@ namespace DataAsGuard.Profiles.Admin
             retrieveLogs();
             groupInfo();
             chartInitialized();
+            chartInitialized2();
             retrieveFileAccess();
+
+            ToolTip yourToolTip = new ToolTip();
+            //The below are optional, of course,
+
+            yourToolTip.ToolTipIcon = ToolTipIcon.Info;
+            yourToolTip.IsBalloon = true;
+            yourToolTip.ShowAlways = true;
+
+            yourToolTip.SetToolTip(vflag, "T -> Verified User"+Environment.NewLine +"F -> Unverified User"+Environment.NewLine+ "L -> Locked User" + Environment.NewLine + "A -> Archived User" + Environment.NewLine + "FU -> Forget Username User" + Environment.NewLine + "FP -> ForgetPassword User");
         }
 
         private void userdataRetrieval()
@@ -53,10 +63,14 @@ namespace DataAsGuard.Profiles.Admin
                         userid.Text = reader.GetString(reader.GetOrdinal("userid"));
                         Username.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), AdminSession.userid.ToString());
                         FName.Text = reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname"));
-                        Contact.Text = "****" + aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), AdminSession.userid.ToString()).Substring(4, 4);
+                        Contact.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), AdminSession.userid.ToString());
                         Email.Text = aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), AdminSession.userid.ToString());
                         DOB.Text = reader.GetString(reader.GetOrdinal("dob"));
                         vflag.Text = reader.GetString(reader.GetOrdinal("verificationflag"));
+                        if(vflag.Text == "A")
+                        {
+                            Lockbtn.Enabled = false;
+                        }
                         if (reader.IsDBNull(reader.GetOrdinal("statusDate")))
                         {
                             statusDate.Text = "NULL";
@@ -77,7 +91,7 @@ namespace DataAsGuard.Profiles.Admin
         {
             datalogGrid.AllowUserToAddRows = false;
             datalogGrid.AllowUserToDeleteRows = false;
-            datalogGrid.ColumnCount = 7;
+            datalogGrid.ColumnCount = 6;
             datalogGrid.Columns[0].Name = "logid";
             datalogGrid.Columns[1].Name = "loginfo";
             datalogGrid.Columns[2].Name = "logtype";
@@ -118,6 +132,7 @@ namespace DataAsGuard.Profiles.Admin
             }
         }
 
+        //for login frequency
         private void chartInitialized()
         {
             ArrayList data = new ArrayList();
@@ -191,6 +206,82 @@ namespace DataAsGuard.Profiles.Admin
             }
             chart1.ChartAreas[0].AxisX.LabelStyle.Angle = 90;
             chart1.ChartAreas[0].AxisX.Interval = 1;
+        }
+
+        //for fail login 
+        private void chartInitialized2()
+        {
+            ArrayList data = new ArrayList();
+
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM logInfo where logtype = @logtype AND userid=@userid";
+                MySqlCommand command = new MySqlCommand(query, con);
+                command.Parameters.AddWithValue("@logtype", "LogonFailure");
+                command.Parameters.AddWithValue("@userid", AdminSession.userid);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        data.Add(DateTime.ParseExact(reader.GetString(reader.GetOrdinal("logDateTime")), "dd/MM/yyyy HH:mm:ss", null));
+                    }
+
+                    if (reader != null)
+                        reader.Close();
+                }
+            }
+            int count = 0;
+            ArrayList xvalue = new ArrayList();
+            ArrayList yvalue = new ArrayList();
+            DateTime olddate = new DateTime();
+            string checkoldDate = null;
+            for (int i = 0; i < data.Count; i++)
+            {
+                //compare dates if the same date collate under count and place into chart
+                DateTime date = DateTime.Parse(data[i].ToString());
+                string checkdate = date.ToString("dd/MM/yyyy");
+
+                if (checkoldDate == null)
+                {
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                }
+
+                if (checkdate == checkoldDate)
+                {
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                    count++;
+                    if (i == data.Count - 1)
+                    {
+                        xvalue.Add(checkoldDate);
+                        yvalue.Add(count);
+                    }
+                }
+                else
+                {
+                    xvalue.Add(checkoldDate);
+                    yvalue.Add(count);
+                    olddate = DateTime.Parse(data[i].ToString());
+                    checkoldDate = olddate.ToString("dd/MM/yyyy");
+                    count = 1;
+                    if (i == data.Count - 1)
+                    {
+                        xvalue.Add(checkoldDate);
+                        yvalue.Add(count);
+                    }
+                }
+            }
+
+
+            //chart1.ChartAreas.AxisX.Interval = 1;
+            for (int u = 0; u < xvalue.Count; u++)
+            {
+                chart2.Series["Series1"].Points.AddXY(xvalue[u], yvalue[u]);
+            }
+            chart2.ChartAreas[0].AxisX.LabelStyle.Angle = 90;
+            chart2.ChartAreas[0].AxisX.Interval = 1;
         }
 
         private void groupInfo()
@@ -287,9 +378,9 @@ namespace DataAsGuard.Profiles.Admin
                 {
                     while (reader.Read())
                     {
+                        bool contains = false;
                         for (int i = 0; i < filelist.Count; i++)
                         {
-                            bool contains = false;
                             if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileid")))
                             {
                                 contains = true;
@@ -309,34 +400,45 @@ namespace DataAsGuard.Profiles.Admin
                         reader.Close();
                 }
 
-                String query2 = "SELECT * FROM fileInfo where fileOwnerID = @userid";
-                MySqlCommand command2 = new MySqlCommand(query2, con);
-                command2.Parameters.AddWithValue("@userid", AdminSession.userid);
-                using (MySqlDataReader reader = command2.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        for (int i = 0; i < filelist.Count; i++)
-                        {
-                            bool contains = false;
-                            if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileid")))
-                            {
-                                contains = true;
-                            }
+                //String query2 = "SELECT * FROM fileInfo where fileOwnerID = @userid";
+                //MySqlCommand command2 = new MySqlCommand(query2, con);
+                //command2.Parameters.AddWithValue("@userid", AdminSession.userid);
+                //using (MySqlDataReader reader = command2.ExecuteReader())
+                //{
+                //    while (reader.Read())
+                //    {
+                //        if (filelist.Count == 0)
+                //        {
+                //            filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                //            permissionlist.Add("True");
+                //            permissionlist.Add("True");
+                //            permissionlist.Add("True");
+                //        }
+                //        else
+                //        {
+                //            for (int i = 0; i < filelist.Count; i++)
+                //            {
 
-                            if (contains == false && i == filelist.Count - 1)
-                            {
-                                filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
-                                permissionlist.Add("True");
-                                permissionlist.Add("True");
-                                permissionlist.Add("True");
-                            }
-                        }
-                    }
+                //                bool contains = false;
+                //                if (filelist[i].ToString() == reader.GetString(reader.GetOrdinal("fileid")))
+                //                {
+                //                    contains = true;
+                //                }
 
-                    if (reader != null)
-                        reader.Close();
-                }
+                //                if (contains == false && i == filelist.Count - 1)
+                //                {
+                //                    filelist.Add(reader.GetString(reader.GetOrdinal("fileID")));
+                //                    permissionlist.Add("True");
+                //                    permissionlist.Add("True");
+                //                    permissionlist.Add("True");
+                //                }
+                //            }
+                //        }
+                //    }
+
+                //    if (reader != null)
+                //        reader.Close();
+                //}
 
                 String query3 = "SELECT * FROM fileInfo";
                 MySqlCommand command3 = new MySqlCommand(query3, con);
@@ -389,8 +491,12 @@ namespace DataAsGuard.Profiles.Admin
                 {
                     //unlock to lock
                     cmd.Parameters.AddWithValue("@vflag", "L");
-                    cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                    cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd'/'MM'/'yyyy HH: mm:ss"));
                     dblog.Log("Account status changed(T -> L) by Admin", "Accounts", Logininfo.userid, Logininfo.email);
+                }
+                else if (vflag.Text == "A")
+                {
+                    MessageBox.Show("User had been archived.");
                 }
                 cmd.Parameters.AddWithValue("@userid", AdminSession.userid);
                 cmd.ExecuteReader();
@@ -401,48 +507,134 @@ namespace DataAsGuard.Profiles.Admin
             
         }
 
-        private void delete_Click(object sender, EventArgs e)
+        //might change to archive
+        private void archive_Click(object sender, EventArgs e)
         {
-            DateTime prevLockDate = DateTime.ParseExact(statusDate.Text, "dd/MM/yyyy HH:mm:ss", null);
-            if (statusDate.Text == null || statusDate.Text == "" || statusDate.Text == "NULL")
+            bool containgroup = false;
+            bool containfile = false;
+            DateTime prevLockDate = new DateTime();
+
+            if(vflag.Text == "A")
+            {
+                MessageBox.Show("User had been Archived.");
+            }
+            else if (statusDate.Text == null || statusDate.Text == "" || statusDate.Text == "NULL")
             {
                 MessageBox.Show("Account need to be lock for more than 7 days before able to be deleted");
             }
             else
             {
+                prevLockDate = DateTime.ParseExact(statusDate.Text, "dd'/'MM'/'yyyy HH:mm:ss", null);
                 //check if the previous lock date has already pass 7 days
-                if (prevLockDate >= DateTime.Now.AddDays(-7))
+                if (prevLockDate >= DateTime.Now.AddDays(-7) && vflag.Text != "L")
                 {
                     MessageBox.Show("Account need to be lock for more than 7 days before able to be deleted");
                 }
                 else
                 {
-                    DialogResult dialogResult = MessageBox.Show("Delete the account?", "Are you sure?", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
+                    //check existing group Ownership
+                    using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
                     {
-                        using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                        con.Open();
+                        String query = "SELECT * FROM groupInfo where groupCreatorID = @groupcreatorID";
+                        MySqlCommand command = new MySqlCommand(query, con);
+                        command.Parameters.AddWithValue("@groupcreatorID", AdminSession.userid);
+                        using (MySqlDataReader reader = command.ExecuteReader())
                         {
-                            con.Open();
-                            //delete userInfo
-                            string deleteaccountQuery = "DELETE FROM Userinfo WHERE userid = @userid";
-                            MySqlCommand deleteaccount = new MySqlCommand(deleteaccountQuery, con);
-                            deleteaccount.Parameters.AddWithValue("@userid", AdminSession.userid);
-                            deleteaccount.ExecuteNonQuery();
-                            //may add deletion for other info relating to the user
-                            dblog.Log("Account Deleted" + Username.Text, "Accounts", Logininfo.userid, Logininfo.email);
+                            while (reader.Read())
+                            {
+                                if (reader.GetString(reader.GetOrdinal("groupCreatorID")) != null)
+                                {
+                                    //
+                                    containgroup = true;
+                                }
+                            }
+
+                            if (reader != null)
+                                reader.Close();
+                        }
+                    }
+                    //check existing file Ownership
+                    using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                    {
+                        con.Open();
+                        String query = "SELECT * FROM fileInfo where fileOwnerID = @fileOwnerID";
+                        MySqlCommand command = new MySqlCommand(query, con);
+                        command.Parameters.AddWithValue("@fileOwnerID", AdminSession.userid);
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                if (reader.GetString(reader.GetOrdinal("fileOwnerID")) != null)
+                                {
+                                    //contain currently Own a file
+                                    containfile = true;
+                                }
+                            }
+
+                            if (reader != null)
+                                reader.Close();
+                        }
+                    }
+                    //if they are both false run archive
+                    if (containgroup == false && containfile == false)
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Archive the account? You will not be able to unlock it.", "Are you sure?", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+                            {
+                                con.Open();
+                                //archive userInfo
+                                string archiveaccountQuery = "UPDATE Userinfo set verificationflag=@vflag, statusDate=@statusDate where userid = @userid";
+                                MySqlCommand archiveaccount = new MySqlCommand(archiveaccountQuery, con);
+                                archiveaccount.Parameters.AddWithValue("@vflag", "A");
+                                archiveaccount.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss"));
+                                archiveaccount.Parameters.AddWithValue("@userid", AdminSession.userid);
+                                archiveaccount.ExecuteNonQuery();
+                                //may add deletion for other info relating to the user
+                                dblog.Log("Account status changed(L -> A) by Admin", "Accounts", Logininfo.userid, Logininfo.email);
+                                dblog.Log("User is Archived:" + AdminSession.userid, "Accounts", Logininfo.userid, Logininfo.email);
+
+                                string deleteGroupUserQuery = "Delete FROM groupUsers where userID = @userid";
+                                MySqlCommand deleteGroupUser = new MySqlCommand(deleteGroupUserQuery, con);
+                                deleteGroupUser.Parameters.AddWithValue("@userid", AdminSession.userid);
+                                deleteGroupUser.ExecuteNonQuery();
+
+                                string deletefileUserQuery = "Delete FROM userFilePermissions where userID = @userid";
+                                MySqlCommand deletefileUserPermission = new MySqlCommand(deletefileUserQuery, con);
+                                deletefileUserPermission.Parameters.AddWithValue("@userid", AdminSession.userid);
+                                deletefileUserPermission.ExecuteNonQuery();
+
+                                MessageBox.Show("User have been archived.");
+                                AccountDetails accountdetails = new AccountDetails();
+                                accountdetails.Show();
+                                Hide();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(containgroup && containfile)
+                        {
+                            MessageBox.Show("User contains ownership of both files and group. Please request to change ownership before archiving");
+                        }
+                        else if (containgroup)
+                        {
+                            MessageBox.Show("User contains ownership of group. Please request to change ownership of group before archiving");
+                        }
+                        else if (containfile)
+                        {
+                            MessageBox.Show("User contains ownership of files. Please request to change ownership of file before archiving");
                         }
                     }
                 }
             }
         }
 
-        
-
 
         private void AddUsers_Click(object sender, EventArgs e)
         {
-            //Users.ConfirmationDetails confirmationDetails = new Users.ConfirmationDetails();
-            //confirmationDetails.Show();
 
             Registration Registration = new Registration();
             Registration.Show();

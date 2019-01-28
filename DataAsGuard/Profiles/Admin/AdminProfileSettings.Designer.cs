@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminProfileSettings));
-            this.RefreshCaptcha = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Validation = new System.Windows.Forms.Label();
             this.UpdateButton = new System.Windows.Forms.Button();
@@ -52,22 +51,12 @@
             this.Logout = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
-            this.ProfileButton = new System.Windows.Forms.Button();
             this.Home = new System.Windows.Forms.Button();
+            this.RefreshCaptcha = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // RefreshCaptcha
-            // 
-            this.RefreshCaptcha.Location = new System.Drawing.Point(461, 492);
-            this.RefreshCaptcha.Name = "RefreshCaptcha";
-            this.RefreshCaptcha.Size = new System.Drawing.Size(99, 42);
-            this.RefreshCaptcha.TabIndex = 50;
-            this.RefreshCaptcha.Text = "Refresh Captcha";
-            this.RefreshCaptcha.UseVisualStyleBackColor = true;
-            this.RefreshCaptcha.Click += new System.EventHandler(this.RefreshCaptcha_Click);
             // 
             // panel1
             // 
@@ -317,24 +306,13 @@
             // settingsButton
             // 
             this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
-            this.settingsButton.Location = new System.Drawing.Point(17, 123);
+            this.settingsButton.Location = new System.Drawing.Point(17, 70);
             this.settingsButton.Margin = new System.Windows.Forms.Padding(5);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(49, 44);
             this.settingsButton.TabIndex = 44;
             this.settingsButton.UseVisualStyleBackColor = true;
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
-            // 
-            // ProfileButton
-            // 
-            this.ProfileButton.Image = ((System.Drawing.Image)(resources.GetObject("ProfileButton.Image")));
-            this.ProfileButton.Location = new System.Drawing.Point(17, 70);
-            this.ProfileButton.Margin = new System.Windows.Forms.Padding(5);
-            this.ProfileButton.Name = "ProfileButton";
-            this.ProfileButton.Size = new System.Drawing.Size(49, 44);
-            this.ProfileButton.TabIndex = 43;
-            this.ProfileButton.UseVisualStyleBackColor = true;
-            this.ProfileButton.Click += new System.EventHandler(this.ProfileButton_Click);
             // 
             // Home
             // 
@@ -346,6 +324,16 @@
             this.Home.TabIndex = 42;
             this.Home.UseVisualStyleBackColor = true;
             this.Home.Click += new System.EventHandler(this.Home_Click);
+            // 
+            // RefreshCaptcha
+            // 
+            this.RefreshCaptcha.Location = new System.Drawing.Point(461, 492);
+            this.RefreshCaptcha.Name = "RefreshCaptcha";
+            this.RefreshCaptcha.Size = new System.Drawing.Size(99, 42);
+            this.RefreshCaptcha.TabIndex = 50;
+            this.RefreshCaptcha.Text = "Refresh Captcha";
+            this.RefreshCaptcha.UseVisualStyleBackColor = true;
+            this.RefreshCaptcha.Click += new System.EventHandler(this.RefreshCaptcha_Click);
             // 
             // AdminProfileSettings
             // 
@@ -359,7 +347,6 @@
             this.Controls.Add(this.Logout);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.settingsButton);
-            this.Controls.Add(this.ProfileButton);
             this.Controls.Add(this.Home);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -377,8 +364,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button RefreshCaptcha;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label Validation;
         private System.Windows.Forms.Button UpdateButton;
@@ -400,8 +385,8 @@
         private System.Windows.Forms.Button Logout;
         private System.Windows.Forms.Button BackButton;
         private System.Windows.Forms.Button settingsButton;
-        private System.Windows.Forms.Button ProfileButton;
-        private System.Windows.Forms.Button Home;
         private System.Windows.Forms.Label validateUsername;
+        private System.Windows.Forms.Button Home;
+        private System.Windows.Forms.Button RefreshCaptcha;
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminProfile));
             this.AddUser = new System.Windows.Forms.Button();
             this.AdminHome = new System.Windows.Forms.Button();
@@ -71,6 +72,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.suspiciousLabel = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.metaAdmin = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabPage2.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataLogGrid)).BeginInit();
@@ -106,10 +109,10 @@
             // AdminHome
             // 
             this.AdminHome.Image = ((System.Drawing.Image)(resources.GetObject("AdminHome.Image")));
-            this.AdminHome.Location = new System.Drawing.Point(16, 15);
+            this.AdminHome.Location = new System.Drawing.Point(13, 15);
             this.AdminHome.Margin = new System.Windows.Forms.Padding(4);
             this.AdminHome.Name = "AdminHome";
-            this.AdminHome.Size = new System.Drawing.Size(35, 42);
+            this.AdminHome.Size = new System.Drawing.Size(38, 42);
             this.AdminHome.TabIndex = 13;
             this.AdminHome.UseVisualStyleBackColor = true;
             this.AdminHome.Click += new System.EventHandler(this.AdminHome_Click);
@@ -127,19 +130,19 @@
             // settingsButton
             // 
             this.settingsButton.Image = ((System.Drawing.Image)(resources.GetObject("settingsButton.Image")));
-            this.settingsButton.Location = new System.Drawing.Point(14, 66);
+            this.settingsButton.Location = new System.Drawing.Point(13, 66);
             this.settingsButton.Margin = new System.Windows.Forms.Padding(5);
             this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(37, 38);
+            this.settingsButton.Size = new System.Drawing.Size(38, 38);
             this.settingsButton.TabIndex = 18;
             this.settingsButton.UseVisualStyleBackColor = true;
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
             // changePassword
             // 
-            this.changePassword.Location = new System.Drawing.Point(74, 15);
+            this.changePassword.Location = new System.Drawing.Point(156, 15);
             this.changePassword.Name = "changePassword";
-            this.changePassword.Size = new System.Drawing.Size(82, 42);
+            this.changePassword.Size = new System.Drawing.Size(85, 42);
             this.changePassword.TabIndex = 19;
             this.changePassword.Text = "Change Password";
             this.changePassword.UseVisualStyleBackColor = true;
@@ -169,10 +172,13 @@
             "LogonSuccess",
             "Registration",
             "Accounts",
-            "Error"});
+            "FileChanges",
+            "FileActions",
+            "GroupChanges",
+            "Permissions"});
             this.logTypeList.Location = new System.Drawing.Point(69, 28);
             this.logTypeList.Name = "logTypeList";
-            this.logTypeList.Size = new System.Drawing.Size(121, 24);
+            this.logTypeList.Size = new System.Drawing.Size(177, 24);
             this.logTypeList.TabIndex = 7;
             this.logTypeList.SelectedIndexChanged += new System.EventHandler(this.logsFilter_SelectedIndexChanged);
             // 
@@ -253,7 +259,6 @@
             // 
             // dataFilesGrid
             // 
-            this.dataFilesGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataFilesGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataFilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataFilesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -319,7 +324,7 @@
             "Contact"});
             this.accountList.Location = new System.Drawing.Point(69, 28);
             this.accountList.Name = "accountList";
-            this.accountList.Size = new System.Drawing.Size(132, 24);
+            this.accountList.Size = new System.Drawing.Size(141, 24);
             this.accountList.TabIndex = 6;
             // 
             // panel5
@@ -332,7 +337,6 @@
             // 
             // dataAccountGrid
             // 
-            this.dataAccountGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataAccountGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataAccountGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataAccountGrid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -575,11 +579,28 @@
             this.tabControl1.Size = new System.Drawing.Size(840, 476);
             this.tabControl1.TabIndex = 1;
             // 
+            // metaAdmin
+            // 
+            this.metaAdmin.Location = new System.Drawing.Point(60, 15);
+            this.metaAdmin.Margin = new System.Windows.Forms.Padding(2);
+            this.metaAdmin.Name = "metaAdmin";
+            this.metaAdmin.Size = new System.Drawing.Size(91, 42);
+            this.metaAdmin.TabIndex = 20;
+            this.metaAdmin.Text = "MetaAdmin";
+            this.metaAdmin.UseVisualStyleBackColor = true;
+            this.metaAdmin.Click += new System.EventHandler(this.metaAdmin_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // AdminProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.metaAdmin);
             this.Controls.Add(this.changePassword);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.Logout);
@@ -665,5 +686,7 @@
         private System.Windows.Forms.DataGridView dataFilesGrid;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label suspiciousLabel;
+        private System.Windows.Forms.Button metaAdmin;
+        private System.Windows.Forms.Timer timer1;
     }
 }

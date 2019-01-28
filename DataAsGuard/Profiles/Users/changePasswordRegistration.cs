@@ -59,7 +59,7 @@ namespace DataAsGuard.Profiles.Users
                         {
                             //update database
                             updatePassword(hashpassword);
-                            MessageBox.Show("Change Password completed, Please login with your new username and password");
+                            MessageBox.Show("Change Password and Registration completed, Please login with your new username and password");
                             //go to login page
                             Logininfo.userid = null;
                             Logininfo.email = null;

@@ -55,6 +55,7 @@
             this.groupEditColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupDownloadColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.checkBoxOwned = new System.Windows.Forms.CheckBox();
+            this.Logout = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.userPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.userPermGrid)).BeginInit();
@@ -95,6 +96,7 @@
             this.settingsButton.Size = new System.Drawing.Size(37, 36);
             this.settingsButton.TabIndex = 15;
             this.settingsButton.UseVisualStyleBackColor = true;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
             // profileButton
             // 
@@ -104,6 +106,7 @@
             this.profileButton.Size = new System.Drawing.Size(37, 36);
             this.profileButton.TabIndex = 14;
             this.profileButton.UseVisualStyleBackColor = true;
+            this.profileButton.Click += new System.EventHandler(this.profileButton_Click);
             // 
             // homeButton
             // 
@@ -319,12 +322,22 @@
             this.checkBoxOwned.UseVisualStyleBackColor = true;
             this.checkBoxOwned.CheckedChanged += new System.EventHandler(this.checkBoxOwned_CheckedChanged);
             // 
+            // Logout
+            // 
+            this.Logout.Location = new System.Drawing.Point(835, 54);
+            this.Logout.Name = "Logout";
+            this.Logout.Size = new System.Drawing.Size(37, 34);
+            this.Logout.TabIndex = 24;
+            this.Logout.Text = "Log Out";
+            this.Logout.UseVisualStyleBackColor = true;
+            // 
             // FileManagementHub
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.checkBoxOwned);
+            this.Controls.Add(this.Logout);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.transferOwnershipButton);
             this.Controls.Add(this.downloadFileButton);
@@ -380,5 +393,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn groupEditColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn groupDownloadColumn;
         private System.Windows.Forms.CheckBox checkBoxOwned;
+        private System.Windows.Forms.Button Logout;
     }
 }

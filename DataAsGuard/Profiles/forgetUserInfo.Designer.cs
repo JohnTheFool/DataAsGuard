@@ -76,7 +76,7 @@
             this.email.Location = new System.Drawing.Point(216, 10);
             this.email.Margin = new System.Windows.Forms.Padding(4);
             this.email.Name = "email";
-            this.email.Size = new System.Drawing.Size(179, 23);
+            this.email.Size = new System.Drawing.Size(240, 23);
             this.email.TabIndex = 2;
             // 
             // label1

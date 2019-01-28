@@ -1,4 +1,5 @@
 ﻿using DataAsGuard.CSClass;
+using DataAsGuard.Viewer;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
@@ -28,6 +29,33 @@ namespace DataAsGuard.Profiles.Admin
             retrieveAccounts();
             retrieveLogs();
             retrieveFiles();
+            //meant for suspiciouslabel
+            suspiciousdetails();
+            timer1.Start();
+        }
+
+        //timeout
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Logininfo.GetIdleTime() >= 10000 && Logininfo.GetIdleTime() < 10100)
+            {   //30 secs, Time to wait before locking
+
+                Logininfo.userid = null;
+                Logininfo.email = null;
+                Logininfo.username = null;
+                FormCollection fc = Application.OpenForms;
+
+                foreach (Form frm in fc)
+                {
+                    frm.Hide();
+                }
+                Login login = new Login();
+                login.Show();
+                Hide();
+
+                MessageBox.Show("Due to idling, you have been log out.");
+                timer1.Stop();
+            }
         }
 
         //accounts tab
@@ -35,14 +63,13 @@ namespace DataAsGuard.Profiles.Admin
         {
             dataAccountGrid.AllowUserToAddRows = false;
             dataAccountGrid.AllowUserToDeleteRows = false;
-            dataAccountGrid.ColumnCount = 7;
+            dataAccountGrid.ColumnCount = 6;
             dataAccountGrid.Columns[0].Name = "Userid";
             dataAccountGrid.Columns[1].Name = "Username";
             dataAccountGrid.Columns[2].Name = "Email";
             dataAccountGrid.Columns[3].Name = "FullName";
-            dataAccountGrid.Columns[4].Name = "Dob";
-            dataAccountGrid.Columns[5].Name = "Contact";
-            dataAccountGrid.Columns[6].Name = "Vflag";
+            dataAccountGrid.Columns[4].Name = "Contact";
+            dataAccountGrid.Columns[5].Name = "Vflag";
 
             //add rows from db
             userdataRetrieval();
@@ -52,6 +79,7 @@ namespace DataAsGuard.Profiles.Admin
             FullDetailsbtn.HeaderText = "Full Details";
             FullDetailsbtn.Name = "fDetails";
             FullDetailsbtn.Text = "Full Details";
+            FullDetailsbtn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             FullDetailsbtn.UseColumnTextForButtonValue = true;
             dataAccountGrid.Columns.Add(FullDetailsbtn);
 
@@ -60,6 +88,7 @@ namespace DataAsGuard.Profiles.Admin
             btn.HeaderText = "Unlock/Lock Btn";
             btn.Name = "UnlockLockbtn";
             btn.Text = "Unlock/Lock btn";
+            btn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             btn.UseColumnTextForButtonValue = true;
             dataAccountGrid.Columns.Add(btn);
 
@@ -75,9 +104,8 @@ namespace DataAsGuard.Profiles.Admin
             dataAccountGrid.Columns[1].Name = "Username";
             dataAccountGrid.Columns[2].Name = "Email";
             dataAccountGrid.Columns[3].Name = "FullName";
-            dataAccountGrid.Columns[4].Name = "Dob";
-            dataAccountGrid.Columns[5].Name = "Contact";
-            dataAccountGrid.Columns[6].Name = "Vflag";
+            dataAccountGrid.Columns[4].Name = "Contact";
+            dataAccountGrid.Columns[5].Name = "Vflag";
 
             //add rows from db
             userdataRetrieval2(listvalue, searchvalue);
@@ -87,6 +115,7 @@ namespace DataAsGuard.Profiles.Admin
             FullDetailsbtn.HeaderText = "Full Details";
             FullDetailsbtn.Name = "fDetails";
             FullDetailsbtn.Text = "Full Details";
+            FullDetailsbtn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             FullDetailsbtn.UseColumnTextForButtonValue = true;
             dataAccountGrid.Columns.Add(FullDetailsbtn);
 
@@ -95,6 +124,7 @@ namespace DataAsGuard.Profiles.Admin
             btn.HeaderText = "Unlock/Lock Btn";
             btn.Name = "UnlockLockbtn";
             btn.Text = "Unlock/Lock btn";
+            btn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             btn.UseColumnTextForButtonValue = true;
             dataAccountGrid.Columns.Add(btn);
 
@@ -107,7 +137,7 @@ namespace DataAsGuard.Profiles.Admin
             //check if the column is a button column and check if the column is where the button is when click 
             //column 7 is Details button link to a more comprehensive information about the user
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.RowIndex >= 0 && e.ColumnIndex == 7)
+                e.RowIndex >= 0 && e.ColumnIndex == 6)
             {
                 DataGridViewRow row = new DataGridViewRow();
                 row = dataAccountGrid.Rows[e.RowIndex];
@@ -126,7 +156,7 @@ namespace DataAsGuard.Profiles.Admin
             //check if the column is a button column and check if the column is where the button is when click 
             //column 8 is unlock and lock button
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.RowIndex >= 0 && e.ColumnIndex == 8)
+                e.RowIndex >= 0 && e.ColumnIndex == 7)
             {
                 DataGridViewRow row = new DataGridViewRow();
                 row = dataAccountGrid.Rows[e.RowIndex];
@@ -161,7 +191,7 @@ namespace DataAsGuard.Profiles.Admin
                 }
                 else
                 {
-                    string vflag = row.Cells[6].Value.ToString();
+                    string vflag = row.Cells[5].Value.ToString();
                     if (vflag == "L")
                     {
                         updateAccountstatus(userid, vflag);
@@ -210,7 +240,7 @@ namespace DataAsGuard.Profiles.Admin
                 {
                     //unlock to lock
                     cmd.Parameters.AddWithValue("@vflag", "L");
-                    cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                    cmd.Parameters.AddWithValue("@statusDate", DateTime.Now.ToString("dd'/'MM'/'yyyy HH:mm:ss"));
                 }
                 cmd.Parameters.AddWithValue("@userid", userid);
                 cmd.ExecuteReader();
@@ -238,7 +268,6 @@ namespace DataAsGuard.Profiles.Admin
                         row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid"))));
                         row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid"))));
                         row.Add(reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname")));
-                        row.Add(reader.GetString(reader.GetOrdinal("dob")));
                         row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), reader.GetString(reader.GetOrdinal("userid"))));
                         row.Add(reader.GetString(reader.GetOrdinal("verificationflag")));
                         dataAccountGrid.Rows.Add(row.ToArray());
@@ -273,7 +302,6 @@ namespace DataAsGuard.Profiles.Admin
                             row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("username")), reader.GetString(reader.GetOrdinal("userid"))));
                             row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("email")), reader.GetString(reader.GetOrdinal("userid"))));
                             row.Add(reader.GetString(reader.GetOrdinal("firstname")) + " " + reader.GetString(reader.GetOrdinal("lastname")));
-                            row.Add(reader.GetString(reader.GetOrdinal("dob")));
                             row.Add(aes.Decryptstring(reader.GetString(reader.GetOrdinal("contact")), reader.GetString(reader.GetOrdinal("userid"))));
                             row.Add(reader.GetString(reader.GetOrdinal("verificationflag")));
                             dataAccountGrid.Rows.Add(row.ToArray());
@@ -358,6 +386,7 @@ namespace DataAsGuard.Profiles.Admin
             FullDetailsbtn.HeaderText = "Full Details";
             FullDetailsbtn.Name = "fDetails";
             FullDetailsbtn.Text = "Full Details";
+            FullDetailsbtn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             FullDetailsbtn.UseColumnTextForButtonValue = true;
             dataFilesGrid.Columns.Add(FullDetailsbtn);
         }
@@ -384,6 +413,7 @@ namespace DataAsGuard.Profiles.Admin
             FullDetailsbtn.HeaderText = "Full Details";
             FullDetailsbtn.Name = "fDetails";
             FullDetailsbtn.Text = "Full Details";
+            FullDetailsbtn.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             FullDetailsbtn.UseColumnTextForButtonValue = true;
             dataFilesGrid.Columns.Add(FullDetailsbtn);
         }
@@ -694,8 +724,30 @@ namespace DataAsGuard.Profiles.Admin
             retrieveLogs2(logListvalue);
         }
 
-        //buttons 
+        //can be expanded but mainly for suspicious activity
+        private void suspiciousdetails()
+        {
+            int count = 0;
+            using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))
+            {
+                con.Open();
+                String query = "SELECT * FROM logInfo";
+                MySqlCommand command = new MySqlCommand(query, con);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.GetString(reader.GetOrdinal("logInfo")).Contains("Suspicious"))
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+            suspiciousLabel.Text = count.ToString();
+        }
 
+        //buttons 
         private void AddUsers_Click(object sender, EventArgs e)
         {
             //Users.ConfirmationDetails confirmationDetails = new Users.ConfirmationDetails();
@@ -737,5 +789,11 @@ namespace DataAsGuard.Profiles.Admin
             Hide();
         }
 
+        private void metaAdmin_Click(object sender, EventArgs e)
+        {
+            MetaAdmin view = new MetaAdmin();
+            view.Show();
+            Hide();
+        }
     }
 }
