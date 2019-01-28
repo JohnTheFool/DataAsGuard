@@ -344,6 +344,12 @@ namespace DataAsGuard.Profiles
                                 validation.ForeColor = Color.Red;
                                 validation.Text = "Your Account has been Lock due to Suspicious Activity.";
                             }
+                            else if (checkvflag == "A")
+                            {
+                                validation.Show();
+                                validation.ForeColor = Color.Red;
+                                validation.Text = "Your Account not available";
+                            }
                         }
                     }
                 }
