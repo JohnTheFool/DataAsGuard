@@ -514,13 +514,21 @@ namespace DataAsGuard.Viewer
 
         private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
             {
-                using (StreamWriter sw = new StreamWriter(this.GetReadFile))
+                DialogResult dialogResult = MessageBox.Show("Do you want to overwrite the existing file?", "Save File", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    await sw.WriteLineAsync(rtfBox.Text);
-                    MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    using (StreamWriter sw = new StreamWriter(this.GetReadFile))
+                    {
+                        await sw.WriteLineAsync(rtfBox.Text);
+                        MessageBox.Show("File Saved!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    FileManagementHub fm = new FileManagementHub();
+                    fm.UpdateFileToDb(this.GetReadFile, this.GetSaveFile);
                 }
-                FileManagementHub fm = new FileManagementHub();
-                fm.UpdateFileToDb(this.GetReadFile, this.GetSaveFile);
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
 
             }
 

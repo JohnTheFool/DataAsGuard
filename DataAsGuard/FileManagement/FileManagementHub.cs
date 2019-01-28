@@ -1034,7 +1034,7 @@ namespace DataAsGuard.FileManagement
                     }
                     else if (fileExtension == ".mp4")
                     {
-                        sfd.Filter = "MPEG Layer-4 Audio|.mp4|All Files|*.*";
+                        sfd.Filter = "MPEG Layer-4 Audio|*.mp4|All Files|*.*";
                     }
                     else
                     {

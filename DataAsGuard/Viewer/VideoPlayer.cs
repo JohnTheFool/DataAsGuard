@@ -18,22 +18,22 @@ namespace DataAsGuard.Viewer
             InitializeComponent();
         }
 
-        private void chooseFileBtn_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                this.filePathBox.Text = openFileDialog1.FileName;
-                axWindowsMediaPlayer1.URL = filePathBox.Text;
-            }
-        }
+        //private void chooseFileBtn_Click(object sender, EventArgs e)
+        //{
+        //    OpenFileDialog openFileDialog1 = new OpenFileDialog();
+        //    if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        this.filePathBox.Text = openFileDialog1.FileName;
+        //        axWindowsMediaPlayer1.URL = filePathBox.Text;
+        //    }
+        //}
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
-            {
+            //if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            //{
                 axWindowsMediaPlayer1.fullScreen = true;
-            }
+            //}
         }
 
         private void backBtn_Click(object sender, EventArgs e)
@@ -45,8 +45,8 @@ namespace DataAsGuard.Viewer
 
         private void videoLoad(object sender, EventArgs e)
         {
-            this.filePathBox.Text = this.videoPath;
-            axWindowsMediaPlayer1.URL = this.filePathBox.Text;
+            //this.filePathBox.Text = this.videoPath;
+            axWindowsMediaPlayer1.URL = this.videoPath;
         }
     }
 }

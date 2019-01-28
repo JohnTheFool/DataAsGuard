@@ -23,17 +23,19 @@ namespace DataAsGuard.PdfViewer
 
         }
 
-        //private void pdfOpen_Click(object sender, EventArgs e)
-        //{
-        //    using (OpenFileDialog ofd = new OpenFileDialog() { ValidateNames = true, Multiselect = false, Filter = "PDF|*.pdf" })
-        //    {
-        //        if (ofd.ShowDialog() == DialogResult.OK)
-        //        {
-        //            //axAcroPDF.src = ofd.FileName;
-        //            System.Diagnostics.Process.Start(ofd.FileName);
-        //        }
-        //    }
-        //}
+        private void pdfOpen_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog() { ValidateNames = true, Multiselect = false, Filter = "PDF|*.pdf" })
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    axAcroPDF.src = ofd.FileName;
+                    axAcroPDF.setShowToolbar(false);
+                    axAcroPDF.Show();
+                    //System.Diagnostics.Process.Start(ofd.FileName);
+                }
+            }
+        }
 
         private void backBtn_Click(object sender, EventArgs e)
         {
@@ -48,9 +50,10 @@ namespace DataAsGuard.PdfViewer
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    //axAcroPDF.src = ofd.FileName;
-                    //axAcroPDF.ControlRemoved();
-                    System.Diagnostics.Process.Start(ofd.FileName);
+                    axAcroPDF.src = ofd.FileName;
+                    axAcroPDF.setShowToolbar(false);
+                    axAcroPDF.Show();
+                    //System.Diagnostics.Process.Start(ofd.FileName);
                 }
             }
         }

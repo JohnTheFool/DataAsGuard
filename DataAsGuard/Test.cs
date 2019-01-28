@@ -136,7 +136,7 @@ namespace DataAsGuard
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(IsFileLock(@"C:\Users\Solomon\Documents\TEST\somerubbish.xlsx") == true)
+            if(IsFileLock(@"C:\Users\Solomon\Documents\TEST\kkkk.txt") == true)
             {
                 MessageBox.Show("Open");
             }
@@ -430,7 +430,15 @@ namespace DataAsGuard
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            CheckPpt();
+            //CheckPpt();
+            if (IsFileLock(@"C:\Users\Solomon\Documents\TEST\kkkk.txt") == true)
+            {
+                MessageBox.Show("Open");
+            }
+            else
+            {
+                MessageBox.Show("Close");
+            }
 
             //if (CompareGroupPerms() == true)
             //{
