@@ -176,56 +176,63 @@ namespace DataAsGuard.FileManagement
                 double KbDivisor = 1024;
                 double MbDivisor = 1048576;
                 double GbDivisor = 1073741824;
-                using (StreamReader reader = new StreamReader(new FileStream(path, FileMode.Open), new UTF8Encoding())) // do something to file
+                if (size > 1073741824)
                 {
-                    fileUploaded.Text = path;
-                    if (size < 1024)
-                    {
-                        fileSize.Text = size.ToString() + "B";
-                    }
-                    else if (size > 1024 && size < 1048576)
-                    {
-                        size = size / KbDivisor;
-                        size = Math.Round(size, 1);
-                        fileSize.Text = size.ToString() + "KB";
-                    }
-                    else if (size > 1048576 && size < 1073741824)
-                    {
-                        size = size / MbDivisor;
-                        size = Math.Round(size, 1);
-                        fileSize.Text = size.ToString() + "MB";
-                    }
-                    else if (size > 1073741824)
-                    {
-                        size = size / GbDivisor;
-                        size = Math.Round(size, 1);
-                        fileSize.Text = size.ToString() + "GB";
-                    }
+                    MessageBox.Show("File size exceeds 1GB, please upload a smaller file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                fileSourcePath = path;
-                scantest(path);
+                else
+                {
+                    using (StreamReader reader = new StreamReader(new FileStream(path, FileMode.Open), new UTF8Encoding())) // do something to file
+                    {
+                        fileUploaded.Text = path;
+                        if (size < 1024)
+                        {
+                            fileSize.Text = size.ToString() + "B";
+                        }
+                        else if (size > 1024 && size < 1048576)
+                        {
+                            size = size / KbDivisor;
+                            size = Math.Round(size, 1);
+                            fileSize.Text = size.ToString() + "KB";
+                        }
+                        else if (size > 1048576 && size < 1073741824)
+                        {
+                            size = size / MbDivisor;
+                            size = Math.Round(size, 1);
+                            fileSize.Text = size.ToString() + "MB";
+                        }
+                        else if (size > 1073741824)
+                        {
+                            size = size / GbDivisor;
+                            size = Math.Round(size, 1);
+                            fileSize.Text = size.ToString() + "GB";
+                        }
+                    }
+                    fileSourcePath = path;
+                    scantest(path);
 
-                if (flag == "C")
-                {
-                    try
+                    if (flag == "C")
                     {
-                        fileBytes = File.ReadAllBytes(path);
+                        try
+                        {
+                            fileBytes = File.ReadAllBytes(path);
+                        }
+                        catch (IOException)
+                        {
+                            //might change this : Desmond
+                            //dblog.Log("File cannot be read (" + fileOriginalName + ")", "UploadsFailed", Logininfo.userid, Logininfo.email);
+                            MessageBox.Show("Error file could not be read, please try again.");
+                        }
                     }
-                    catch (IOException)
+                    else if (flag == "V")
                     {
-                        //might change this : Desmond
-                        //dblog.Log("File cannot be read (" + fileOriginalName + ")", "UploadsFailed", Logininfo.userid, Logininfo.email);
-                        MessageBox.Show("Error file could not be read, please try again.");
+                        //would like to hide or disable upload but now just show 
+                        MessageBox.Show("Virus File Detected!");
                     }
-                }
-                else if (flag == "V")
-                {
-                    //would like to hide or disable upload but now just show 
-                    MessageBox.Show("Virus File Detected!");
-                }
-                else if(flag == "E")
-                {
-                    MessageBox.Show("Error has Occurred");
+                    else if (flag == "E")
+                    {
+                        MessageBox.Show("Error has Occurred");
+                    }
                 }
             }
         }
@@ -267,7 +274,6 @@ namespace DataAsGuard.FileManagement
             var clam = new ClamClient("13.76.89.213", 3310) {
                 MaxStreamSize = 1073741824
             };
-
             //var scanResult = await clam.ScanFileOnServerAsync("C:\\Users\\Desmond\\Downloads\\TeamViewer_Setup.exe");  //any file you would like!
             var scanResult = await clam.SendAndScanFileAsync(filepath);
 

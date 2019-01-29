@@ -471,8 +471,8 @@ namespace DataAsGuard.Chat
                 RSA.ImportParameters(recieverkey);
                 EncryptedSymmetricKey = RSA.Encrypt(RM.Key, false);
                 EncryptedSymmetricIV = RSA.Encrypt(RM.IV, false);
-                myCommand.Parameters.AddWithValue("@sendersym", Convert.ToBase64String(RSAin.Encrypt(RM.Key, false)));
-                myCommand.Parameters.AddWithValue("@senderiv", Convert.ToBase64String(RSAin.Encrypt(RM.IV, false)));
+                myCommand.Parameters.AddWithValue("@sendersym", Encoding.ASCII.GetString(RSAin.Encrypt(RM.Key, false)));
+                myCommand.Parameters.AddWithValue("@senderiv", Encoding.ASCII.GetString(RSAin.Encrypt(RM.IV, false)));
                 myCommand.Parameters.AddWithValue("@symkey", Convert.ToBase64String(EncryptedSymmetricKey));
                 myCommand.Parameters.AddWithValue("@symiv", Convert.ToBase64String(EncryptedSymmetricIV));
                 myCommand.Parameters.AddWithValue("@intended", Convert.ToBase64String(recieverkey.Modulus));
@@ -539,8 +539,8 @@ namespace DataAsGuard.Chat
                     {
                         using (RijndaelManaged RM = new RijndaelManaged())
                         {
-                            RM.Key = RSA.Decrypt(Convert.FromBase64String(SendtoSelfList[i].symkey), false);
-                            RM.IV = RSA.Decrypt(Convert.FromBase64String(SendtoSelfList[i].symiv), false);
+                            RM.Key = RSA.Decrypt(Encoding.ASCII.GetBytes(SendtoSelfList[i].symkey), false);
+                            RM.IV = RSA.Decrypt(Encoding.ASCII.GetBytes(SendtoSelfList[i].symiv), false);
                             myCommand.Parameters["@hash"].Value = hashing(Convert.ToBase64String(RM.Key), text);
                             myCommand.Parameters["@Message"].Value = (Convert.ToBase64String(EncryptStringToBytes(text, RM.Key, RM.IV)));
                             myCommand.Parameters["@key"].Value = SendtoSelfList[i].relatedkey;
