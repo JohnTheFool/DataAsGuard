@@ -103,6 +103,7 @@ namespace DataAsGuard.ImgViewer
 
         private void backBtn_Click(object sender, EventArgs e)
         {
+            showPic.Dispose();
             File.Delete(path);
             Home home = new Home();
             home.Show();

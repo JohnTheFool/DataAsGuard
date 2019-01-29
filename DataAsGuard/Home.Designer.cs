@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.backButton = new System.Windows.Forms.Button();
             this.homeButton = new System.Windows.Forms.Button();
             this.profileButton = new System.Windows.Forms.Button();
             this.manageFilesButton = new System.Windows.Forms.Button();
@@ -50,15 +49,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(526, 114);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
-            // 
-            // backButton
-            // 
-            this.backButton.Image = ((System.Drawing.Image)(resources.GetObject("backButton.Image")));
-            this.backButton.Location = new System.Drawing.Point(835, 48);
-            this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(37, 36);
-            this.backButton.TabIndex = 3;
-            this.backButton.UseVisualStyleBackColor = true;
             // 
             // homeButton
             // 
@@ -128,22 +118,21 @@
             // 
             // toChat
             // 
-            this.toChat.Location = new System.Drawing.Point(11, 156);
+            this.toChat.Image = ((System.Drawing.Image)(resources.GetObject("toChat.Image")));
+            this.toChat.Location = new System.Drawing.Point(12, 166);
             this.toChat.Margin = new System.Windows.Forms.Padding(2);
             this.toChat.Name = "toChat";
-            this.toChat.Size = new System.Drawing.Size(79, 21);
+            this.toChat.Size = new System.Drawing.Size(37, 36);
             this.toChat.TabIndex = 15;
-            this.toChat.Text = "Chat";
             this.toChat.UseVisualStyleBackColor = true;
             this.toChat.Click += new System.EventHandler(this.Chat_Click);
             // 
-            // 
             // groupManagerButton
-            this.groupManagerButton.Font = new System.Drawing.Font("Segoe UI", 13F);
             // 
+            this.groupManagerButton.Font = new System.Drawing.Font("Segoe UI", 13F);
             this.groupManagerButton.Location = new System.Drawing.Point(185, 360);
-            this.groupManagerButton.Size = new System.Drawing.Size(526, 57);
             this.groupManagerButton.Name = "groupManagerButton";
+            this.groupManagerButton.Size = new System.Drawing.Size(526, 57);
             this.groupManagerButton.TabIndex = 17;
             this.groupManagerButton.Text = "Group Manager";
             this.groupManagerButton.UseMnemonic = false;
@@ -163,7 +152,6 @@
             this.Controls.Add(this.manageFilesButton);
             this.Controls.Add(this.profileButton);
             this.Controls.Add(this.homeButton);
-            this.Controls.Add(this.backButton);
             this.Controls.Add(this.pictureBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Home";
@@ -176,7 +164,6 @@
 
         #endregion
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Button homeButton;
         private System.Windows.Forms.Button profileButton;
         private System.Windows.Forms.Button manageFilesButton;

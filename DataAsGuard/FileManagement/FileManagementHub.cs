@@ -180,7 +180,7 @@ namespace DataAsGuard.FileManagement
                     if (!fileExists)
                     {
                         fileList.Items.Add(allFiles[i].ToString());
-                        break;
+                        continue;
                     }
                 }
             }
@@ -1128,6 +1128,7 @@ namespace DataAsGuard.FileManagement
             string nameOfFile = fileList.SelectedItem.ToString();
             string fileExtension = Path.GetExtension(nameOfFile);
             string tempFileName = System.IO.Path.GetTempFileName() + "." + fileExtension;
+            dblog.fileLog("Downloaded file '" + fileList.SelectedItem.ToString() + "'.", "FileActions", Logininfo.userid.ToString(), Logininfo.email.ToString(), fileID.ToString());
 
             byte[] fileBytes = new byte[] { 0x0 };
             using (MySqlConnection con = new MySqlConnection("server = 35.240.129.112; user id = asguarduser; database = da_schema"))

@@ -29,7 +29,7 @@ namespace DataAsGuard.Profiles.Users
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (Logininfo.GetIdleTime() >= 10000 && Logininfo.GetIdleTime() < 10100)
+            if (Logininfo.GetIdleTime() >= 30000 && Logininfo.GetIdleTime() < 30100)
             {   //30 secs, Time to wait before locking
                 
                 Logininfo.userid = null;

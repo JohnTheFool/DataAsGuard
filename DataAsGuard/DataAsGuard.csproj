@@ -596,7 +596,9 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Media\AddUserIcon.png" />
     <Content Include="Media\BackIcon.png" />
+    <Content Include="Media\chatIcon.png" />
     <Content Include="Media\DataAsguardLogo.png" />
+    <Content Include="Media\double-chat.png" />
     <Content Include="Media\FolderIcon.png" />
     <Content Include="Media\HomeIcon.png" />
     <Content Include="Media\Download 20x20.png" />
